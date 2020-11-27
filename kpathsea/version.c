@@ -20,11 +20,11 @@
 
 #include <kpathsea/version.h>
 
-const char *kpathsea_version_string = KPSEVERSION;
+const char *kpathsea_version_string = "kpathsea custom";
 
 /* If you are redistributing a modified version of the original
    distribution, please change this address here, among many other
    places.  Thanks.  */
 
 const char *kpathsea_bug_address =
-  "Email bug reports to tex-k@tug.org.\n";
+  "Email bug reports to hzhou@hzsolutions.net.\n";

@@ -21,13 +21,6 @@
 
 #include <ctype.h>
 
-/* Be sure we have `isascii'.  */
-#ifndef WIN32
-#if !(defined(HAVE_DECL_ISASCII) && HAVE_DECL_ISASCII)
-#define isascii(c) (((c) & ~0x7f) == 0)
-#endif
-#endif
-
 #define ISALNUM(c) (isascii (c) && isalnum((unsigned char)c))
 #define ISALPHA(c) (isascii (c) && isalpha((unsigned char)c))
 #define ISASCII isascii
