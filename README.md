@@ -45,4 +45,10 @@ So here is my non-complete motivations:
   ** The output of code from WEB (by tangle) is unreadable.
      The meta-form of literate programming and the code output for the compiler holds different aspects of the same code. While the former is better for comprehension, it is clearer to double check and debug in the latter. There is no reason the output from literate programming should be any different from a code that one would write directly. The way WEB does is to focus on the front side and leave a total mess to the back side -- that is wrong.
 
-     
+* The best way of learning a piece of code is the way how we learn with toys -- tinkering it. We run it to see how it works. Then we modify something to see how it works. Then we stripping and replace something to see how it works. So for a readable code by far the most important aspect is runnable.
+
+* The best way of learning how wheel works is by playing with a *basic* wheel. So a readable code need be kept simple.
+
+  ** Don't include extra features unless it is necessary. Don't worry about portability unless there is demand.
+
+  ** But features are nice and portability somethime is necessary. Use the meta-layer to manage that so that the most basic core can be readily re-obtained. Like a tree -- it is ok to furnish it with leaves as long as they can be shed in the fall.
