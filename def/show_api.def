@@ -1,0 +1,34 @@
+page: t
+    module: perl
+    arg: cwebboot.c
+
+    my $file = $ARGV[0]
+
+    my $last
+    &call open_r, $file
+        $if /^\S/
+            $call skip_comments
+            $elif /^[#\{\}]/
+                goto eol
+            $elif /^(\w+\s*\(.*)/ -> $func_line
+                my $type = $last
+                chomp $type
+                $call show_func
+            $elif /^(\S.*?)\s*(\w+\s*\(.*)/ -> $type, $func_line
+                $call show_func
+        eol:
+            $last = $_
+
+    # ---------------
+    subcode: show_func
+        $if $type !~/^static/
+            $print "$type\n  $func_line\n"
+
+    subcode: skip_comments
+        $case /^\/\*/
+            $if /\*\/\s*$/
+                $while <In>
+                    $if /\*\/\s*$/
+                        last
+            goto eol
+

@@ -1,0 +1,42 @@
+page: mykpse, -
+    module: c
+
+    $global char mykpse_buf[1024] 
+    $global char Paths[10][256], n_Paths
+    $list mykpse_find_file
+
+fncode: mykpse_find_file(const char *fname): const char *
+    $include <unistd.h>
+    s = strrchr(fname, '/')
+    $if access(fname, F_OK) != -1
+        $if s
+            # fname with a path
+            $call add_path, s-fname
+        return fname
+    $elif s == NULL
+        # fname is not a path
+        $for i=0:n_Paths
+            s = my_find_file(fname, Paths[i])
+            $if s
+                return s
+    return NULL
+
+    subcode: add_path(len)
+        # $print "mykpse: add_path %d - %s\n", n_Paths, fname
+        $if n_Paths < 10
+            n = $(len)
+            $if n <256
+                $(set:s=Paths[n_Paths])
+                strncpy($(s), fname, n);
+                $(s)[n] = '\0'
+                n_Paths++
+
+fncode: my_find_file(const char *fname, const char *path)
+    # $print "my_find_file: [%s] [%s]\n", fname, path
+    $if strlen(fname) + strlen(path) + 2 < 1024
+        strcpy(mykpse_buf, path)
+        strcat(mykpse_buf, "/")
+        strcat(mykpse_buf, fname)
+        $if access(mykpse_buf, F_OK) != -1
+            return mykpse_buf
+    return NULL

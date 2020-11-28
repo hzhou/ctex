@@ -1,0 +1,17 @@
+page: t
+    module: perl
+    arg: cwebboot.c
+
+    my $file = $ARGV[0]
+    my @lines
+    &call open_r, $file
+        $if /^\s*\/\*.*\*\/\s*$/
+            next
+        $elif /^#line \d+/
+            next
+        $else
+            push @lines, $_
+
+    &call open_w, $file
+        print Out @lines
+
