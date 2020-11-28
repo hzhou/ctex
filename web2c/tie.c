@@ -69,7 +69,7 @@
 
 
 #define buf_size 512
-#define max_file_index 9
+#define max_file_index 100
 
 
 
@@ -349,15 +349,65 @@ boolean e_of_ch_preamble(file_index i)
 
 
 
-void usage()
+void usage(const char *error_msg)
 {
+    printf("Error: %s\n", error_msg);
     print("Usage: tie -[mc] outfile master changefile(s)");
     term_new_line;
     jump_out();
 }
 
+static void parse_args(int argc, char **argv)
+{
+    int act_arg;
+    if (argc < 5) {
+	usage("too few arguments");
+    } else if (argc > max_file_index + 4 - 1) {
+	usage("too many arguments");
+    }
+    no_ch = -1;
+    for (act_arg = 1; act_arg < argc; act_arg++) {
+	if (argv[act_arg][0] == '-') {
+	    if (prod_chf != unknown)
+		usage("multiple options");
+	    else {
+		switch (argv[act_arg][1]) {
+		    case 'c':
+		    case 'C':
+			prod_chf = chf;
+			break;
+		    case 'm':
+		    case 'M':
+			prod_chf = master;
+			break;
+		    default:
+			usage("wrong options given");
+		}
+	    }
+	} else {
+	    if (no_ch == (-1)) {
+		out_name = argv[act_arg];
+	    } else {
+		register input_description *inp_desc;
+		inp_desc = (input_description *)
+		    malloc(sizeof(input_description));
+		if (inp_desc == NULL)
+		    fatal_error("! No memory for descriptor");
 
-
+		inp_desc->mode = search;
+		inp_desc->line = 0;
+		inp_desc->type_of_file = chf;
+		inp_desc->limit = 0;
+		inp_desc->name_of_file = argv[act_arg];
+		input_organization[no_ch] = inp_desc;
+	    }
+	    incr(no_ch);
+	}
+    } /* for */
+    if (no_ch <= 0 || prod_chf == unknown) {
+	usage("no arguments found");
+    }
+}
 
 int main(int argc, char **argv)
 {
@@ -482,58 +532,7 @@ int main(int argc, char **argv)
     actual_input = 0;
     out_mode = normal;
 
-    {
-        int act_arg;
-        if (argc < 5 || argc > max_file_index + 4 - 1)
-            usage();
-        no_ch = -1;
-        for (act_arg = 1; act_arg < argc; act_arg++) {
-            if (argv[act_arg][0] == '-')
-                /*57: */
-                if (prod_chf != unknown)
-                    usage();
-                else
-                    switch (argv[act_arg][1]) {
-                        case 'c':
-                        case 'C':
-                            prod_chf = chf;
-                            break;
-                        case 'm':
-                        case 'M':
-                            prod_chf = master;
-                            break;
-                        default:
-                            usage();
-                    }
-
-
-
-            else {      /*58: */
-                if (no_ch == (-1)) {
-                    out_name = argv[act_arg];
-                } else {
-                    register input_description *inp_desc;
-                    inp_desc = (input_description *)
-                        malloc(sizeof(input_description));
-                    if (inp_desc == NULL)
-                        fatal_error("! No memory for descriptor");
-
-                    inp_desc->mode = search;
-                    inp_desc->line = 0;
-                    inp_desc->type_of_file = chf;
-                    inp_desc->limit = 0;
-                    inp_desc->name_of_file = argv[act_arg];
-                    input_organization[no_ch] = inp_desc;
-                }
-                incr(no_ch);
-            }
-
-
-
-        }
-        if (no_ch <= 0 || prod_chf == unknown)
-            usage();
-    }
+    parse_args(argc, argv);
 
     {
         out_file = fopen(out_name, "w");
