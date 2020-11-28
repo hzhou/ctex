@@ -17,10 +17,22 @@ typedef char * string;
 typedef const char * const_string;
 typedef bool boolean;
 
+/* temporary -- we should modify the source */
+#define integer int
+#define schar char
+#define uexit exit
+#define Fputs(F, str) fputs(str, F)
+#define vgetc(f)      (void)getc(f)
+
 #define SCHAR_TYPE char
 #define STREQ(a, b) (strcmp(a, b) == 0)
 
 char * mykpse_find_file(const char *fname);
+FILE * mykpse_open_file(const char *fname);
+
+bool f_eof(FILE *f);
+bool f_eoln(FILE *f);
+void f_readln(FILE *f);
 
 char *uppercasify(const char *s);
 FILE *xfopen(const char *fname, const char *mode);

@@ -1,6 +1,13 @@
 CC = gcc -I.. -I.
 
-all: ctangle tie web2c pdftex-final.ch
+all: tangle
+
+pdftex: ctangle tie web2c pdftex-final.ch
+	./ctangle pdftexdir/pdftex.web pdftex-final.ch
+
+# --------------------------
+tangle: tangle.o mykpse.o tangle_glue.o
+	$(CC) -o tangle tangle.o mykpse.o tangle_glue.o
 
 # --------------------------
 ctangle: ctangleboot

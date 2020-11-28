@@ -1,0 +1,43 @@
+page: tangle_glue, -
+    module: c
+
+    $include stdio, assert
+    $list usage_tangle
+    $list extendfilename, basenamechangesuffix
+
+#---------------------------
+fncode: usage_tangle
+    printf("Usage tangle WEBFILE[.web] [CHANGEFILE[.ch]]\n");
+    printf("  Tangle WEBFILE with CHANGEFILE into a pascal program.\n");
+    printf("\n");
+    printf("--help\tdisplay this help and exit\n");
+    printf("--version\toutput version information and exit\n");
+    printf("\n");
+
+#---------------------------
+fncode: extendfilename(s_name, s_ext): char *
+    $if strrchr(s_name, '.')
+        # just return name
+        return strdup(s_name)
+    $else
+        $call concat_filename, s_name, s_ext
+
+fncode: basenamechangesuffix(s_name, s_ext, s_ext2): char *
+    s = strrchr(s_name, '.')
+    assert(strcmp(s+1, s_ext) == 0)
+    $(set:n=s-s_name)
+    $call concat_filename, s_name, s_ext2
+
+subcode: concat_filename(name, ext)
+    $(if:!n)
+        n = strlen($(name))
+    $(else)
+        n = $(n)
+    n_ext = strlen($(ext))
+
+    $allocate(n+n_ext+2) s
+    strncpy(s, $(name), n)
+    s[n] = '.'
+    strcpy(s+n+1, $(ext))
+    return s
+

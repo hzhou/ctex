@@ -1,49 +1,28 @@
-#include <unistd.h>
+#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
-#include <stdio.h>
 #include <assert.h>
+#include <unistd.h>
 
-const char * mykpse_find_file(const char *fname);
+typedef int bool;
+#define true 1
+#define false 0
+
 char * uppercasify(const char *s);
 FILE * xfopen(const char *filename, const char *mode);
 void xfclose(FILE *f, const char *filename);
+char * mykpse_find_file(const char *fname);
+FILE * mykpse_open_file(const char *fname);
+bool f_eof(FILE *file);
+bool f_eoln(FILE *file);
+void f_readln(FILE *file);
 
-static char * internal_find_file(const char *fname, const char *path);
+static char * internal_find_file(const char *fname, const char *ext, const char *path);
 
 char mykpse_buf[1024];
 char Paths[10][256];
 int n_Paths;
-
-const char * mykpse_find_file(const char *fname)
-{
-    char *s;
-    int n;
-
-    s = strrchr(fname, '/');
-    if (access(fname, F_OK) != -1) {
-        if (s) {
-            if (n_Paths < 10) {
-                n = s - fname;
-                if (n < 256) {
-                    strncpy(Paths[n_Paths], fname, n);
-                    Paths[n_Paths][n] = '\0';
-                    n_Paths++;
-                }
-            }
-        }
-        return fname;
-    } else if (s == NULL) {
-        for (int  i = 0; i<n_Paths; i++) {
-            s = internal_find_file(fname, Paths[i]);
-            if (s) {
-                return s;
-            }
-        }
-    }
-    return NULL;
-}
 
 char * uppercasify(const char *s)
 {
@@ -79,12 +58,114 @@ void xfclose(FILE *f, const char *filename)
     }
 }
 
-char * internal_find_file(const char *fname, const char *path)
+char * mykpse_find_file(const char *fname)
 {
+    char *s;
+    int n;
+
+    s = strrchr(fname, '/');
+    if (access(fname, F_OK) != -1) {
+        if (s) {
+            if (n_Paths < 10) {
+                n = s - fname;
+                if (n < 256) {
+                    strncpy(Paths[n_Paths], fname, n);
+                    Paths[n_Paths][n] = '\0';
+                    n_Paths++;
+                }
+            }
+        }
+        return fname;
+    } else if (s == NULL) {
+        for (int  i = 0; i<n_Paths; i++) {
+            s = internal_find_file(fname, NULL, Paths[i]);
+            if (s) {
+                return s;
+            }
+        }
+    }
+    return NULL;
+}
+
+FILE * mykpse_open_file(const char *fname)
+{
+    char *s;
+
+    s = mykpse_find_file(fname);
+    if (s) {
+        return fopen(fname, "r");
+    }
+
+    return NULL;
+}
+
+bool f_eof(FILE *file)
+{
+    int c;
+
+    if (!file) {
+        return true;
+    }
+    if (feof(file)) {
+        return true;
+    }
+
+    c = getc(file);
+    if (c == EOF) {
+        return true;
+    }
+
+    ungetc(c, file);
+    return false;
+}
+
+bool f_eoln(FILE *file)
+{
+    int c;
+
+    if (feof(file)) {
+        return true;
+    }
+
+    c = getc(file);
+    if (c == EOF) {
+        return true;
+    }
+
+    ungetc(c, file);
+    return c == '\n' || c == '\r';
+}
+
+void f_readln(FILE *file)
+{
+    int c;
+
+    while (1) {
+        c = getc(file);
+        if (c == '\n' || c == '\r' || c == EOF) {
+            break;
+        }
+    }
+}
+
+char * internal_find_file(const char *fname, const char *ext, const char *path)
+{
+    int n;
+
+    n = strlen(fname) + strlen(path) + 2;
+    if (ext) {
+        n += strlen(ext) + 1;
+    }
+
     if (strlen(fname) + strlen(path) + 2 < 1024) {
         strcpy(mykpse_buf, path);
         strcat(mykpse_buf, "/");
         strcat(mykpse_buf, fname);
+        if (ext) {
+            strcat(mykpse_buf, ".");
+            strcat(mykpse_buf, ext);
+        }
+
         if (access(mykpse_buf, F_OK) != -1) {
             return mykpse_buf;
         }
