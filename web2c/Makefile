@@ -1,8 +1,11 @@
 CC = gcc -I.. -I.
 
-all: ctangleboot
+all: ctangle
 
 # --------------------------
+ctangle: ctangleboot
+	ln -s ctangleboot ctangle
+
 ctangleboot: ctangleboot.o cwebboot.o mykpse.o
 	$(CC) -o $@ ctangleboot.o cwebboot.o mykpse.o
 
