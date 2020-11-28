@@ -64,6 +64,7 @@
 /* Copy the first part of user declarations.  */
 #line 24 "web2c-parser.y" /* yacc.c:339  */
 
+#include "myw2c.h"
 #include "web2c.h"
 
 #define YYDEBUG 1
@@ -98,7 +99,7 @@ static void do_proc_args (void);
 static void gen_function_head (void);
 static boolean doreturn (string);
 
-#line 102 "web2c-parser.c" /* yacc.c:339  */
+#line 102 "y.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -116,10 +117,7 @@ static boolean doreturn (string);
 # define YYERROR_VERBOSE 0
 #endif
 
-/* In a future release of Bison, this section will be replaced
-   by #include "y.tab.h".  */
-#ifndef YY_YY__TEX_LIVE_TEXK_WEB_C_WEB_C_WEB_C_PARSER_H_INCLUDED
-# define YY_YY__TEX_LIVE_TEXK_WEB_C_WEB_C_WEB_C_PARSER_H_INCLUDED
+
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -263,11 +261,11 @@ extern YYSTYPE yylval;
 
 int yyparse (void);
 
-#endif /* !YY_YY__TEX_LIVE_TEXK_WEB_C_WEB_C_WEB_C_PARSER_H_INCLUDED  */
+
 
 /* Copy the second part of user declarations.  */
 
-#line 271 "web2c-parser.c" /* yacc.c:358  */
+#line 268 "y.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -1783,19 +1781,19 @@ yyreduce:
             block_level++;
 	    printf ("#include \"%s\"\n", std_header);
 	  }
-#line 1787 "web2c-parser.c" /* yacc.c:1646  */
+#line 1784 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 3:
 #line 73 "web2c-parser.y" /* yacc.c:1646  */
     { printf ("\n#include \"%s\"\n", coerce_name); }
-#line 1793 "web2c-parser.c" /* yacc.c:1646  */
+#line 1790 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
 #line 76 "web2c-parser.y" /* yacc.c:1646  */
     { YYACCEPT; }
-#line 1799 "web2c-parser.c" /* yacc.c:1646  */
+#line 1796 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
@@ -1804,7 +1802,7 @@ yyreduce:
 	      ii = add_to_table (last_id);
 	      sym_table[ii].typ = field_id_tok;
 	    }
-#line 1808 "web2c-parser.c" /* yacc.c:1646  */
+#line 1805 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
@@ -1813,7 +1811,7 @@ yyreduce:
 	      ii = add_to_table (last_id);
 	      sym_table[ii].typ = fun_id_tok;
 	    }
-#line 1817 "web2c-parser.c" /* yacc.c:1646  */
+#line 1814 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
@@ -1822,7 +1820,7 @@ yyreduce:
 	      ii = add_to_table (last_id);
 	      sym_table[ii].typ = const_id_tok;
 	    }
-#line 1826 "web2c-parser.c" /* yacc.c:1646  */
+#line 1823 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
@@ -1831,7 +1829,7 @@ yyreduce:
 	      ii = add_to_table (last_id);
 	      sym_table[ii].typ = fun_param_tok;
 	    }
-#line 1835 "web2c-parser.c" /* yacc.c:1646  */
+#line 1832 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
@@ -1840,7 +1838,7 @@ yyreduce:
 	      ii = add_to_table (last_id);
 	      sym_table[ii].typ = proc_id_tok;
 	    }
-#line 1844 "web2c-parser.c" /* yacc.c:1646  */
+#line 1841 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
@@ -1849,7 +1847,7 @@ yyreduce:
 	      ii = add_to_table (last_id);
 	      sym_table[ii].typ = proc_param_tok;
 	    }
-#line 1853 "web2c-parser.c" /* yacc.c:1646  */
+#line 1850 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
@@ -1858,7 +1856,7 @@ yyreduce:
 	      ii = add_to_table (last_id);
 	      sym_table[ii].typ = type_id_tok;
 	    }
-#line 1862 "web2c-parser.c" /* yacc.c:1646  */
+#line 1859 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
@@ -1871,7 +1869,7 @@ yyreduce:
 	      sym_table[ii].upper = upper_bound;
 	      sym_table[ii].upper_sym = upper_sym;
 	    }
-#line 1875 "web2c-parser.c" /* yacc.c:1646  */
+#line 1872 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
@@ -1880,7 +1878,7 @@ yyreduce:
 	      ii = add_to_table (last_id);
 	      sym_table[ii].typ = var_id_tok;
 	    }
-#line 1884 "web2c-parser.c" /* yacc.c:1646  */
+#line 1881 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 23:
@@ -1888,7 +1886,7 @@ yyreduce:
     {	if (block_level > 0) my_output("{\n ");
                 indent++; block_level++;
               }
-#line 1892 "web2c-parser.c" /* yacc.c:1646  */
+#line 1889 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 24:
@@ -1906,13 +1904,13 @@ yyreduce:
                   }
                }
              }
-#line 1910 "web2c-parser.c" /* yacc.c:1646  */
+#line 1907 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 25:
 #line 176 "web2c-parser.y" /* yacc.c:1646  */
     { doing_statements = true; }
-#line 1916 "web2c-parser.c" /* yacc.c:1646  */
+#line 1913 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 26:
@@ -1943,31 +1941,31 @@ yyreduce:
              my_output("}"); new_line();
              doing_statements = false;
             }
-#line 1947 "web2c-parser.c" /* yacc.c:1646  */
+#line 1944 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 28:
 #line 208 "web2c-parser.y" /* yacc.c:1646  */
     { my_output("/*"); }
-#line 1953 "web2c-parser.c" /* yacc.c:1646  */
+#line 1950 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 29:
 #line 210 "web2c-parser.y" /* yacc.c:1646  */
     { my_output("*/"); }
-#line 1959 "web2c-parser.c" /* yacc.c:1646  */
+#line 1956 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 32:
 #line 218 "web2c-parser.y" /* yacc.c:1646  */
     { my_output(temp); }
-#line 1965 "web2c-parser.c" /* yacc.c:1646  */
+#line 1962 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 34:
 #line 224 "web2c-parser.y" /* yacc.c:1646  */
     { new_line(); }
-#line 1971 "web2c-parser.c" /* yacc.c:1646  */
+#line 1968 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 37:
@@ -1979,7 +1977,7 @@ yyreduce:
 	    my_output ("#define");
 	    indent = save;
 	  }
-#line 1983 "web2c-parser.c" /* yacc.c:1646  */
+#line 1980 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 38:
@@ -1988,25 +1986,25 @@ yyreduce:
 	    sym_table[ii].typ = const_id_tok;
             my_output (last_id);
           }
-#line 1992 "web2c-parser.c" /* yacc.c:1646  */
+#line 1989 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 39:
 #line 245 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("("); }
-#line 1998 "web2c-parser.c" /* yacc.c:1646  */
+#line 1995 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 40:
 #line 246 "web2c-parser.y" /* yacc.c:1646  */
     { my_output (")"); }
-#line 2004 "web2c-parser.c" /* yacc.c:1646  */
+#line 2001 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 41:
 #line 247 "web2c-parser.y" /* yacc.c:1646  */
     { sym_table[ii].val = last_i_num; new_line(); }
-#line 2010 "web2c-parser.c" /* yacc.c:1646  */
+#line 2007 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 42:
@@ -2018,217 +2016,217 @@ yyreduce:
              my_output (temp);
              (yyval) = ex_32;
            }
-#line 2022 "web2c-parser.c" /* yacc.c:1646  */
+#line 2019 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 43:
 #line 259 "web2c-parser.y" /* yacc.c:1646  */
     { my_output(temp); (yyval) = ex_real; }
-#line 2028 "web2c-parser.c" /* yacc.c:1646  */
+#line 2025 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 44:
 #line 260 "web2c-parser.y" /* yacc.c:1646  */
     { (yyval) = 0; }
-#line 2034 "web2c-parser.c" /* yacc.c:1646  */
+#line 2031 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 45:
 #line 261 "web2c-parser.y" /* yacc.c:1646  */
     { (yyval) = ex_32; }
-#line 2040 "web2c-parser.c" /* yacc.c:1646  */
+#line 2037 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 46:
 #line 266 "web2c-parser.y" /* yacc.c:1646  */
     { (yyval) = (yyvsp[0]); }
-#line 2046 "web2c-parser.c" /* yacc.c:1646  */
+#line 2043 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 47:
 #line 267 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("+"); }
-#line 2052 "web2c-parser.c" /* yacc.c:1646  */
+#line 2049 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 48:
 #line 268 "web2c-parser.y" /* yacc.c:1646  */
     { (yyval) = max ((yyvsp[-3]), (yyvsp[0])); }
-#line 2058 "web2c-parser.c" /* yacc.c:1646  */
+#line 2055 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 49:
 #line 269 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("-"); }
-#line 2064 "web2c-parser.c" /* yacc.c:1646  */
+#line 2061 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 50:
 #line 270 "web2c-parser.y" /* yacc.c:1646  */
     { (yyval) = max ((yyvsp[-3]), (yyvsp[0])); }
-#line 2070 "web2c-parser.c" /* yacc.c:1646  */
+#line 2067 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 51:
 #line 271 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("*"); }
-#line 2076 "web2c-parser.c" /* yacc.c:1646  */
+#line 2073 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 52:
 #line 272 "web2c-parser.y" /* yacc.c:1646  */
     { (yyval) = max ((yyvsp[-3]), (yyvsp[0])); }
-#line 2082 "web2c-parser.c" /* yacc.c:1646  */
+#line 2079 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 53:
 #line 273 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("/"); }
-#line 2088 "web2c-parser.c" /* yacc.c:1646  */
+#line 2085 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 54:
 #line 274 "web2c-parser.y" /* yacc.c:1646  */
     { (yyval) = max ((yyvsp[-3]), (yyvsp[0])); }
-#line 2094 "web2c-parser.c" /* yacc.c:1646  */
+#line 2091 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 55:
 #line 275 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("=="); }
-#line 2100 "web2c-parser.c" /* yacc.c:1646  */
+#line 2097 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 56:
 #line 276 "web2c-parser.y" /* yacc.c:1646  */
     { (yyval) = max ((yyvsp[-3]), (yyvsp[0])); }
-#line 2106 "web2c-parser.c" /* yacc.c:1646  */
+#line 2103 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 57:
 #line 277 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("!="); }
-#line 2112 "web2c-parser.c" /* yacc.c:1646  */
+#line 2109 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 58:
 #line 278 "web2c-parser.y" /* yacc.c:1646  */
     { (yyval) = max ((yyvsp[-3]), (yyvsp[0])); }
-#line 2118 "web2c-parser.c" /* yacc.c:1646  */
+#line 2115 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 59:
 #line 279 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("%"); }
-#line 2124 "web2c-parser.c" /* yacc.c:1646  */
+#line 2121 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 60:
 #line 280 "web2c-parser.y" /* yacc.c:1646  */
     { (yyval) = max ((yyvsp[-3]), (yyvsp[0])); }
-#line 2130 "web2c-parser.c" /* yacc.c:1646  */
+#line 2127 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 61:
 #line 281 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("<"); }
-#line 2136 "web2c-parser.c" /* yacc.c:1646  */
+#line 2133 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 62:
 #line 282 "web2c-parser.y" /* yacc.c:1646  */
     { (yyval) = max ((yyvsp[-3]), (yyvsp[0])); }
-#line 2142 "web2c-parser.c" /* yacc.c:1646  */
+#line 2139 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 63:
 #line 283 "web2c-parser.y" /* yacc.c:1646  */
     { my_output (">"); }
-#line 2148 "web2c-parser.c" /* yacc.c:1646  */
+#line 2145 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 64:
 #line 284 "web2c-parser.y" /* yacc.c:1646  */
     { (yyval) = max ((yyvsp[-3]), (yyvsp[0])); }
-#line 2154 "web2c-parser.c" /* yacc.c:1646  */
+#line 2151 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 65:
 #line 285 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("<="); }
-#line 2160 "web2c-parser.c" /* yacc.c:1646  */
+#line 2157 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 66:
 #line 286 "web2c-parser.y" /* yacc.c:1646  */
     { (yyval) = max ((yyvsp[-3]), (yyvsp[0])); }
-#line 2166 "web2c-parser.c" /* yacc.c:1646  */
+#line 2163 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 67:
 #line 287 "web2c-parser.y" /* yacc.c:1646  */
     { my_output (">="); }
-#line 2172 "web2c-parser.c" /* yacc.c:1646  */
+#line 2169 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 68:
 #line 288 "web2c-parser.y" /* yacc.c:1646  */
     { (yyval) = max ((yyvsp[-3]), (yyvsp[0])); }
-#line 2178 "web2c-parser.c" /* yacc.c:1646  */
+#line 2175 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 69:
 #line 289 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("&&"); }
-#line 2184 "web2c-parser.c" /* yacc.c:1646  */
+#line 2181 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 70:
 #line 290 "web2c-parser.y" /* yacc.c:1646  */
     { (yyval) = max ((yyvsp[-3]), (yyvsp[0])); }
-#line 2190 "web2c-parser.c" /* yacc.c:1646  */
+#line 2187 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 71:
 #line 291 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("||"); }
-#line 2196 "web2c-parser.c" /* yacc.c:1646  */
+#line 2193 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 72:
 #line 292 "web2c-parser.y" /* yacc.c:1646  */
     { (yyval) = max ((yyvsp[-3]), (yyvsp[0])); }
-#line 2202 "web2c-parser.c" /* yacc.c:1646  */
+#line 2199 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 73:
 #line 293 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("/ ((double)"); }
-#line 2208 "web2c-parser.c" /* yacc.c:1646  */
+#line 2205 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 74:
 #line 294 "web2c-parser.y" /* yacc.c:1646  */
     { (yyval) = max ((yyvsp[-3]), (yyvsp[0])); my_output (")"); }
-#line 2214 "web2c-parser.c" /* yacc.c:1646  */
+#line 2211 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 75:
 #line 295 "web2c-parser.y" /* yacc.c:1646  */
     { (yyval) = (yyvsp[0]); }
-#line 2220 "web2c-parser.c" /* yacc.c:1646  */
+#line 2217 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 76:
 #line 300 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("("); }
-#line 2226 "web2c-parser.c" /* yacc.c:1646  */
+#line 2223 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 77:
 #line 302 "web2c-parser.y" /* yacc.c:1646  */
     { my_output (")"); (yyval) = (yyvsp[-3]); }
-#line 2232 "web2c-parser.c" /* yacc.c:1646  */
+#line 2229 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 79:
@@ -2238,7 +2236,7 @@ yyreduce:
               get_string_literal(s);
               my_output (s);
             }
-#line 2242 "web2c-parser.c" /* yacc.c:1646  */
+#line 2239 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 80:
@@ -2248,19 +2246,19 @@ yyreduce:
               get_single_char(s);
               my_output (s);
             }
-#line 2252 "web2c-parser.c" /* yacc.c:1646  */
+#line 2249 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 81:
 #line 322 "web2c-parser.y" /* yacc.c:1646  */
     { my_output (last_id); }
-#line 2258 "web2c-parser.c" /* yacc.c:1646  */
+#line 2255 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 86:
 #line 334 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("typedef"); }
-#line 2264 "web2c-parser.c" /* yacc.c:1646  */
+#line 2261 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 87:
@@ -2271,7 +2269,7 @@ yyreduce:
             strcpy(safe_string, last_id);
             last_type = ii;
           }
-#line 2275 "web2c-parser.c" /* yacc.c:1646  */
+#line 2272 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 88:
@@ -2280,7 +2278,7 @@ yyreduce:
             array_bounds[0] = 0;
             array_offset[0] = 0;
           }
-#line 2284 "web2c-parser.c" /* yacc.c:1646  */
+#line 2281 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 89:
@@ -2294,7 +2292,7 @@ yyreduce:
             semicolon ();
             last_type = -1;
           }
-#line 2298 "web2c-parser.c" /* yacc.c:1646  */
+#line 2295 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 92:
@@ -2331,7 +2329,7 @@ yyreduce:
                   my_output ("integer");
               }
             }
-#line 2335 "web2c-parser.c" /* yacc.c:1646  */
+#line 2332 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 97:
@@ -2342,7 +2340,7 @@ yyreduce:
               sscanf (temp, "%ld", &upper_bound);
               upper_sym = -1; /* no sym table entry */
             }
-#line 2346 "web2c-parser.c" /* yacc.c:1646  */
+#line 2343 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 98:
@@ -2353,7 +2351,7 @@ yyreduce:
               upper_bound = sym_table[l_s].val;
               upper_sym = l_s;
             }
-#line 2357 "web2c-parser.c" /* yacc.c:1646  */
+#line 2354 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 99:
@@ -2366,7 +2364,7 @@ yyreduce:
 	      upper_bound = 0;
 	      upper_sym = 0; /* Translate to integer.  */
 	    }
-#line 2370 "web2c-parser.c" /* yacc.c:1646  */
+#line 2367 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 100:
@@ -2379,7 +2377,7 @@ yyreduce:
 	      upper_bound = 0;
 	      upper_sym = 0;
 	    }
-#line 2383 "web2c-parser.c" /* yacc.c:1646  */
+#line 2380 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 101:
@@ -2394,7 +2392,7 @@ yyreduce:
 	    }
 	    my_output (last_id);
 	  }
-#line 2398 "web2c-parser.c" /* yacc.c:1646  */
+#line 2395 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 102:
@@ -2402,7 +2400,7 @@ yyreduce:
     { if (last_type >= 0)
 	        sym_table[last_type].var_not_needed = true;
             }
-#line 2406 "web2c-parser.c" /* yacc.c:1646  */
+#line 2403 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 104:
@@ -2410,7 +2408,7 @@ yyreduce:
     { if (last_type >= 0)
 	        sym_table[last_type].var_not_needed = true;
             }
-#line 2414 "web2c-parser.c" /* yacc.c:1646  */
+#line 2411 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 105:
@@ -2418,7 +2416,7 @@ yyreduce:
     { if (last_type >= 0)
 	        sym_table[last_type].var_not_needed = true;
             }
-#line 2422 "web2c-parser.c" /* yacc.c:1646  */
+#line 2419 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 106:
@@ -2434,13 +2432,13 @@ yyreduce:
 	    my_output (last_id);
 	    my_output ("*");
           }
-#line 2438 "web2c-parser.c" /* yacc.c:1646  */
+#line 2435 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 109:
 #line 497 "web2c-parser.y" /* yacc.c:1646  */
     { compute_array_bounds(); }
-#line 2444 "web2c-parser.c" /* yacc.c:1646  */
+#line 2441 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 110:
@@ -2452,25 +2450,25 @@ yyreduce:
               upper_sym = sym_table[l_s].upper_sym;
               compute_array_bounds();
             }
-#line 2456 "web2c-parser.c" /* yacc.c:1646  */
+#line 2453 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 112:
 #line 512 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("struct"); my_output ("{"); indent++; }
-#line 2462 "web2c-parser.c" /* yacc.c:1646  */
+#line 2459 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 113:
 #line 514 "web2c-parser.y" /* yacc.c:1646  */
     { indent--; my_output ("}"); semicolon(); }
-#line 2468 "web2c-parser.c" /* yacc.c:1646  */
+#line 2465 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 116:
 #line 522 "web2c-parser.y" /* yacc.c:1646  */
     { field_list[0] = 0; }
-#line 2474 "web2c-parser.c" /* yacc.c:1646  */
+#line 2471 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 117:
@@ -2479,7 +2477,7 @@ yyreduce:
 				  /*array_bounds[0] = 0;
 				  array_offset[0] = 0;*/
 				}
-#line 2483 "web2c-parser.c" /* yacc.c:1646  */
+#line 2480 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 118:
@@ -2497,7 +2495,7 @@ yyreduce:
 				  }
 				  semicolon();
 				}
-#line 2501 "web2c-parser.c" /* yacc.c:1646  */
+#line 2498 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 122:
@@ -2513,7 +2511,7 @@ yyreduce:
 				  field_list[i++] = 0;
 				  field_list[i++] = 0;
 				}
-#line 2517 "web2c-parser.c" /* yacc.c:1646  */
+#line 2514 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 123:
@@ -2527,19 +2525,19 @@ yyreduce:
 				  field_list[i++] = 0;
 				  field_list[i++] = 0;
 				}
-#line 2531 "web2c-parser.c" /* yacc.c:1646  */
+#line 2528 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 124:
 #line 575 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("text /* of "); }
-#line 2537 "web2c-parser.c" /* yacc.c:1646  */
+#line 2534 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 125:
 #line 577 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("*/"); }
-#line 2543 "web2c-parser.c" /* yacc.c:1646  */
+#line 2540 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 130:
@@ -2551,7 +2549,7 @@ yyreduce:
             var_formals = false;
             ids_paramed = 0;
           }
-#line 2555 "web2c-parser.c" /* yacc.c:1646  */
+#line 2552 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 131:
@@ -2560,13 +2558,13 @@ yyreduce:
             array_bounds[0] = 0;
             array_offset[0] = 0;
           }
-#line 2564 "web2c-parser.c" /* yacc.c:1646  */
+#line 2561 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 132:
 #line 604 "web2c-parser.y" /* yacc.c:1646  */
     { fixup_var_list(); }
-#line 2570 "web2c-parser.c" /* yacc.c:1646  */
+#line 2567 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 135:
@@ -2584,7 +2582,7 @@ yyreduce:
 				  var_list[i++] = 0;
 				  var_list[i++] = 0;
 				}
-#line 2588 "web2c-parser.c" /* yacc.c:1646  */
+#line 2585 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 136:
@@ -2602,7 +2600,7 @@ yyreduce:
 				  var_list[i++] = 0;
 				  var_list[i++] = 0;
 				}
-#line 2606 "web2c-parser.c" /* yacc.c:1646  */
+#line 2603 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 137:
@@ -2620,7 +2618,7 @@ yyreduce:
 				  var_list[i++] = 0;
 				  var_list[i++] = 0;
 				}
-#line 2624 "web2c-parser.c" /* yacc.c:1646  */
+#line 2621 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 139:
@@ -2629,7 +2627,7 @@ yyreduce:
 		  indent++;
 		  new_line ();
 		}
-#line 2633 "web2c-parser.c" /* yacc.c:1646  */
+#line 2630 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 140:
@@ -2638,25 +2636,25 @@ yyreduce:
                   my_output ("}");
                   new_line ();
                 }
-#line 2642 "web2c-parser.c" /* yacc.c:1646  */
+#line 2639 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 143:
 #line 675 "web2c-parser.y" /* yacc.c:1646  */
     { new_line(); remove_locals(); }
-#line 2648 "web2c-parser.c" /* yacc.c:1646  */
+#line 2645 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 144:
 #line 677 "web2c-parser.y" /* yacc.c:1646  */
     { new_line(); remove_locals(); }
-#line 2654 "web2c-parser.c" /* yacc.c:1646  */
+#line 2651 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 147:
 #line 686 "web2c-parser.y" /* yacc.c:1646  */
     { proc_is_noreturn = 1; }
-#line 2660 "web2c-parser.c" /* yacc.c:1646  */
+#line 2657 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 149:
@@ -2672,7 +2670,7 @@ yyreduce:
 	      orig_out = out;
 	      out = 0;
 	    }
-#line 2676 "web2c-parser.c" /* yacc.c:1646  */
+#line 2673 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 150:
@@ -2680,7 +2678,7 @@ yyreduce:
     { strcpy(fn_return_type, "void");
 	      do_proc_args();
 	      gen_function_head(); }
-#line 2684 "web2c-parser.c" /* yacc.c:1646  */
+#line 2681 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 151:
@@ -2692,7 +2690,7 @@ yyreduce:
 	      my_output ("void");
 	      new_line ();
 	    }
-#line 2696 "web2c-parser.c" /* yacc.c:1646  */
+#line 2693 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 152:
@@ -2701,7 +2699,7 @@ yyreduce:
 	      do_proc_args();
 	      gen_function_head();
             }
-#line 2705 "web2c-parser.c" /* yacc.c:1646  */
+#line 2702 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 153:
@@ -2711,7 +2709,7 @@ yyreduce:
 	      mark ();
 	      ids_paramed = 0;
 	    }
-#line 2715 "web2c-parser.c" /* yacc.c:1646  */
+#line 2712 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 154:
@@ -2724,13 +2722,13 @@ yyreduce:
 	        sym_table[ii].typ = fun_param_tok;
 	      mark();
 	    }
-#line 2728 "web2c-parser.c" /* yacc.c:1646  */
+#line 2725 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 158:
 #line 746 "web2c-parser.y" /* yacc.c:1646  */
     { ids_typed = ids_paramed; }
-#line 2734 "web2c-parser.c" /* yacc.c:1646  */
+#line 2731 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 159:
@@ -2747,19 +2745,19 @@ yyreduce:
                     sym_table[param_id_list[i]].var_formal = false;
 	        }
 	    }
-#line 2751 "web2c-parser.c" /* yacc.c:1646  */
+#line 2748 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 160:
 #line 762 "web2c-parser.y" /* yacc.c:1646  */
     {var_formals = 0; }
-#line 2757 "web2c-parser.c" /* yacc.c:1646  */
+#line 2754 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 162:
 #line 763 "web2c-parser.y" /* yacc.c:1646  */
     {var_formals = 1; }
-#line 2763 "web2c-parser.c" /* yacc.c:1646  */
+#line 2760 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 167:
@@ -2774,7 +2772,7 @@ yyreduce:
               strcpy (my_routine, last_id);
               uses_eqtb = uses_mem = false;
             }
-#line 2778 "web2c-parser.c" /* yacc.c:1646  */
+#line 2775 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 168:
@@ -2784,7 +2782,7 @@ yyreduce:
               array_bounds[0] = 0;
               array_offset[0] = 0;
             }
-#line 2788 "web2c-parser.c" /* yacc.c:1646  */
+#line 2785 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 169:
@@ -2794,7 +2792,7 @@ yyreduce:
               do_proc_args();
               gen_function_head();
             }
-#line 2798 "web2c-parser.c" /* yacc.c:1646  */
+#line 2795 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 171:
@@ -2808,7 +2806,7 @@ yyreduce:
               strcpy(my_routine, last_id);
               uses_eqtb = uses_mem = false;
             }
-#line 2812 "web2c-parser.c" /* yacc.c:1646  */
+#line 2809 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 172:
@@ -2817,7 +2815,7 @@ yyreduce:
               array_bounds[0] = 0;
               array_offset[0] = 0;
             }
-#line 2821 "web2c-parser.c" /* yacc.c:1646  */
+#line 2818 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 173:
@@ -2826,19 +2824,19 @@ yyreduce:
               do_proc_args();
               gen_function_head();
             }
-#line 2830 "web2c-parser.c" /* yacc.c:1646  */
+#line 2827 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 179:
 #line 832 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("{"); indent++; new_line(); }
-#line 2836 "web2c-parser.c" /* yacc.c:1646  */
+#line 2833 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 180:
 #line 834 "web2c-parser.y" /* yacc.c:1646  */
     { indent--; my_output ("}"); new_line(); }
-#line 2842 "web2c-parser.c" /* yacc.c:1646  */
+#line 2839 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 185:
@@ -2848,37 +2846,37 @@ yyreduce:
 				    my_output (safe_string);
 				 }
 				}
-#line 2852 "web2c-parser.c" /* yacc.c:1646  */
+#line 2849 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 186:
 #line 855 "web2c-parser.y" /* yacc.c:1646  */
     { semicolon(); }
-#line 2858 "web2c-parser.c" /* yacc.c:1646  */
+#line 2855 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 187:
 #line 857 "web2c-parser.y" /* yacc.c:1646  */
     { semicolon(); }
-#line 2864 "web2c-parser.c" /* yacc.c:1646  */
+#line 2861 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 192:
 #line 865 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("break"); }
-#line 2870 "web2c-parser.c" /* yacc.c:1646  */
+#line 2867 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 193:
 #line 869 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("="); }
-#line 2876 "web2c-parser.c" /* yacc.c:1646  */
+#line 2873 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 195:
 #line 872 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("Result ="); }
-#line 2882 "web2c-parser.c" /* yacc.c:1646  */
+#line 2879 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 197:
@@ -2892,7 +2890,7 @@ yyreduce:
 				  my_output (last_id);
 				  (yyval) = ex_32;
 				}
-#line 2896 "web2c-parser.c" /* yacc.c:1646  */
+#line 2893 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 199:
@@ -2900,31 +2898,31 @@ yyreduce:
     { if (sym_table[l_s].var_formal)
 					putchar('*');
 				  my_output (last_id); (yyval) = ex_32; }
-#line 2904 "web2c-parser.c" /* yacc.c:1646  */
+#line 2901 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 200:
 #line 894 "web2c-parser.y" /* yacc.c:1646  */
     { (yyval) = ex_32; }
-#line 2910 "web2c-parser.c" /* yacc.c:1646  */
+#line 2907 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 201:
 #line 896 "web2c-parser.y" /* yacc.c:1646  */
     { (yyval) = ex_32; }
-#line 2916 "web2c-parser.c" /* yacc.c:1646  */
+#line 2913 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 204:
 #line 904 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("["); }
-#line 2922 "web2c-parser.c" /* yacc.c:1646  */
+#line 2919 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 205:
 #line 906 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("]"); }
-#line 2928 "web2c-parser.c" /* yacc.c:1646  */
+#line 2925 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 206:
@@ -2946,271 +2944,271 @@ yyreduce:
 				    my_output (safe_string);
 				 }
 				}
-#line 2950 "web2c-parser.c" /* yacc.c:1646  */
+#line 2947 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 207:
 #line 926 "web2c-parser.y" /* yacc.c:1646  */
     { my_output (".hh.b0"); }
-#line 2956 "web2c-parser.c" /* yacc.c:1646  */
+#line 2953 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 208:
 #line 928 "web2c-parser.y" /* yacc.c:1646  */
     { my_output (".hh.b1"); }
-#line 2962 "web2c-parser.c" /* yacc.c:1646  */
+#line 2959 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 210:
 #line 933 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("]["); }
-#line 2968 "web2c-parser.c" /* yacc.c:1646  */
+#line 2965 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 212:
 #line 938 "web2c-parser.y" /* yacc.c:1646  */
     { (yyval) = (yyvsp[0]); }
-#line 2974 "web2c-parser.c" /* yacc.c:1646  */
+#line 2971 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 213:
 #line 939 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("+"); }
-#line 2980 "web2c-parser.c" /* yacc.c:1646  */
+#line 2977 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 214:
 #line 940 "web2c-parser.y" /* yacc.c:1646  */
     { (yyval) = max ((yyvsp[-3]), (yyvsp[0])); }
-#line 2986 "web2c-parser.c" /* yacc.c:1646  */
+#line 2983 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 215:
 #line 941 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("-"); }
-#line 2992 "web2c-parser.c" /* yacc.c:1646  */
+#line 2989 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 216:
 #line 942 "web2c-parser.y" /* yacc.c:1646  */
     { (yyval) = max ((yyvsp[-3]), (yyvsp[0])); }
-#line 2998 "web2c-parser.c" /* yacc.c:1646  */
+#line 2995 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 217:
 #line 943 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("*"); }
-#line 3004 "web2c-parser.c" /* yacc.c:1646  */
+#line 3001 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 218:
 #line 944 "web2c-parser.y" /* yacc.c:1646  */
     { (yyval) = max ((yyvsp[-3]), (yyvsp[0])); }
-#line 3010 "web2c-parser.c" /* yacc.c:1646  */
+#line 3007 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 219:
 #line 945 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("/"); }
-#line 3016 "web2c-parser.c" /* yacc.c:1646  */
+#line 3013 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 220:
 #line 946 "web2c-parser.y" /* yacc.c:1646  */
     { (yyval) = max ((yyvsp[-3]), (yyvsp[0])); }
-#line 3022 "web2c-parser.c" /* yacc.c:1646  */
+#line 3019 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 221:
 #line 947 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("=="); }
-#line 3028 "web2c-parser.c" /* yacc.c:1646  */
+#line 3025 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 222:
 #line 948 "web2c-parser.y" /* yacc.c:1646  */
     { (yyval) = max ((yyvsp[-3]), (yyvsp[0])); }
-#line 3034 "web2c-parser.c" /* yacc.c:1646  */
+#line 3031 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 223:
 #line 949 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("!="); }
-#line 3040 "web2c-parser.c" /* yacc.c:1646  */
+#line 3037 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 224:
 #line 950 "web2c-parser.y" /* yacc.c:1646  */
     { (yyval) = max ((yyvsp[-3]), (yyvsp[0])); }
-#line 3046 "web2c-parser.c" /* yacc.c:1646  */
+#line 3043 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 225:
 #line 951 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("%"); }
-#line 3052 "web2c-parser.c" /* yacc.c:1646  */
+#line 3049 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 226:
 #line 952 "web2c-parser.y" /* yacc.c:1646  */
     { (yyval) = max ((yyvsp[-3]), (yyvsp[0])); }
-#line 3058 "web2c-parser.c" /* yacc.c:1646  */
+#line 3055 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 227:
 #line 953 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("<"); }
-#line 3064 "web2c-parser.c" /* yacc.c:1646  */
+#line 3061 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 228:
 #line 954 "web2c-parser.y" /* yacc.c:1646  */
     { (yyval) = max ((yyvsp[-3]), (yyvsp[0])); }
-#line 3070 "web2c-parser.c" /* yacc.c:1646  */
+#line 3067 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 229:
 #line 955 "web2c-parser.y" /* yacc.c:1646  */
     { my_output (">"); }
-#line 3076 "web2c-parser.c" /* yacc.c:1646  */
+#line 3073 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 230:
 #line 956 "web2c-parser.y" /* yacc.c:1646  */
     { (yyval) = max ((yyvsp[-3]), (yyvsp[0])); }
-#line 3082 "web2c-parser.c" /* yacc.c:1646  */
+#line 3079 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 231:
 #line 957 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("<="); }
-#line 3088 "web2c-parser.c" /* yacc.c:1646  */
+#line 3085 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 232:
 #line 958 "web2c-parser.y" /* yacc.c:1646  */
     { (yyval) = max ((yyvsp[-3]), (yyvsp[0])); }
-#line 3094 "web2c-parser.c" /* yacc.c:1646  */
+#line 3091 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 233:
 #line 959 "web2c-parser.y" /* yacc.c:1646  */
     { my_output (">="); }
-#line 3100 "web2c-parser.c" /* yacc.c:1646  */
+#line 3097 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 234:
 #line 960 "web2c-parser.y" /* yacc.c:1646  */
     { (yyval) = max ((yyvsp[-3]), (yyvsp[0])); }
-#line 3106 "web2c-parser.c" /* yacc.c:1646  */
+#line 3103 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 235:
 #line 961 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("&&"); }
-#line 3112 "web2c-parser.c" /* yacc.c:1646  */
+#line 3109 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 236:
 #line 962 "web2c-parser.y" /* yacc.c:1646  */
     { (yyval) = max ((yyvsp[-3]), (yyvsp[0])); }
-#line 3118 "web2c-parser.c" /* yacc.c:1646  */
+#line 3115 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 237:
 #line 963 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("||"); }
-#line 3124 "web2c-parser.c" /* yacc.c:1646  */
+#line 3121 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 238:
 #line 964 "web2c-parser.y" /* yacc.c:1646  */
     { (yyval) = max ((yyvsp[-3]), (yyvsp[0])); }
-#line 3130 "web2c-parser.c" /* yacc.c:1646  */
+#line 3127 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 239:
 #line 966 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("/ ((double)"); }
-#line 3136 "web2c-parser.c" /* yacc.c:1646  */
+#line 3133 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 240:
 #line 968 "web2c-parser.y" /* yacc.c:1646  */
     { (yyval) = max ((yyvsp[-3]), (yyvsp[0])); my_output (")"); }
-#line 3142 "web2c-parser.c" /* yacc.c:1646  */
+#line 3139 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 241:
 #line 970 "web2c-parser.y" /* yacc.c:1646  */
     { (yyval) = (yyvsp[0]); }
-#line 3148 "web2c-parser.c" /* yacc.c:1646  */
+#line 3145 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 243:
 #line 976 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("- (integer)"); }
-#line 3154 "web2c-parser.c" /* yacc.c:1646  */
+#line 3151 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 244:
 #line 978 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("!"); }
-#line 3160 "web2c-parser.c" /* yacc.c:1646  */
+#line 3157 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 245:
 #line 983 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("("); }
-#line 3166 "web2c-parser.c" /* yacc.c:1646  */
+#line 3163 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 246:
 #line 985 "web2c-parser.y" /* yacc.c:1646  */
     { my_output (")"); (yyval) = (yyvsp[-3]); }
-#line 3172 "web2c-parser.c" /* yacc.c:1646  */
+#line 3169 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 249:
 #line 989 "web2c-parser.y" /* yacc.c:1646  */
     { my_output (last_id); my_output ("()"); }
-#line 3178 "web2c-parser.c" /* yacc.c:1646  */
+#line 3175 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 250:
 #line 991 "web2c-parser.y" /* yacc.c:1646  */
     { my_output (last_id); }
-#line 3184 "web2c-parser.c" /* yacc.c:1646  */
+#line 3181 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 252:
 #line 996 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("("); }
-#line 3190 "web2c-parser.c" /* yacc.c:1646  */
+#line 3187 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 253:
 #line 997 "web2c-parser.y" /* yacc.c:1646  */
     { my_output (")"); }
-#line 3196 "web2c-parser.c" /* yacc.c:1646  */
+#line 3193 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 255:
 #line 1002 "web2c-parser.y" /* yacc.c:1646  */
     { my_output (","); }
-#line 3202 "web2c-parser.c" /* yacc.c:1646  */
+#line 3199 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 258:
 #line 1009 "web2c-parser.y" /* yacc.c:1646  */
     { my_output (last_id); }
-#line 3208 "web2c-parser.c" /* yacc.c:1646  */
+#line 3205 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 261:
 #line 1018 "web2c-parser.y" /* yacc.c:1646  */
     { my_output (last_id); my_output ("()"); }
-#line 3214 "web2c-parser.c" /* yacc.c:1646  */
+#line 3211 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 262:
@@ -3220,13 +3218,13 @@ yyreduce:
 				  sym_table[ii].typ = proc_id_tok;
 				  my_output ("()");
 				}
-#line 3224 "web2c-parser.c" /* yacc.c:1646  */
+#line 3221 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 263:
 #line 1026 "web2c-parser.y" /* yacc.c:1646  */
     { my_output (last_id); }
-#line 3230 "web2c-parser.c" /* yacc.c:1646  */
+#line 3227 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 265:
@@ -3242,50 +3240,50 @@ yyreduce:
 				     my_output (safe_string);
 				 }
 				}
-#line 3246 "web2c-parser.c" /* yacc.c:1646  */
+#line 3243 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 272:
 #line 1057 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("if"); my_output ("("); }
-#line 3252 "web2c-parser.c" /* yacc.c:1646  */
+#line 3249 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 274:
 #line 1062 "web2c-parser.y" /* yacc.c:1646  */
     { my_output (")"); }
-#line 3258 "web2c-parser.c" /* yacc.c:1646  */
+#line 3255 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 276:
 #line 1067 "web2c-parser.y" /* yacc.c:1646  */
     { new_line (); }
-#line 3264 "web2c-parser.c" /* yacc.c:1646  */
+#line 3261 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 278:
 #line 1070 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("{"); indent++; new_line();
 				  my_output ("if"); my_output ("("); }
-#line 3271 "web2c-parser.c" /* yacc.c:1646  */
+#line 3268 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 279:
 #line 1073 "web2c-parser.y" /* yacc.c:1646  */
     { indent--; my_output ("}"); new_line(); }
-#line 3277 "web2c-parser.c" /* yacc.c:1646  */
+#line 3274 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 282:
 #line 1079 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("else"); }
-#line 3283 "web2c-parser.c" /* yacc.c:1646  */
+#line 3280 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 284:
 #line 1084 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("switch"); my_output ("("); }
-#line 3289 "web2c-parser.c" /* yacc.c:1646  */
+#line 3286 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 285:
@@ -3293,19 +3291,19 @@ yyreduce:
     { my_output (")"); new_line();
 				  my_output ("{"); indent++;
 				}
-#line 3297 "web2c-parser.c" /* yacc.c:1646  */
+#line 3294 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 286:
 #line 1090 "web2c-parser.y" /* yacc.c:1646  */
     { indent--; my_output ("}"); new_line(); }
-#line 3303 "web2c-parser.c" /* yacc.c:1646  */
+#line 3300 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 289:
 #line 1098 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("break"); semicolon(); }
-#line 3309 "web2c-parser.c" /* yacc.c:1646  */
+#line 3306 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 292:
@@ -3314,13 +3312,13 @@ yyreduce:
 				  my_output (temp);
 				  my_output (":"); new_line();
 				}
-#line 3318 "web2c-parser.c" /* yacc.c:1646  */
+#line 3315 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 293:
 #line 1111 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("default:"); new_line(); }
-#line 3324 "web2c-parser.c" /* yacc.c:1646  */
+#line 3321 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 299:
@@ -3328,19 +3326,19 @@ yyreduce:
     { my_output ("while");
 				  my_output ("(");
 				}
-#line 3332 "web2c-parser.c" /* yacc.c:1646  */
+#line 3329 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 300:
 #line 1128 "web2c-parser.y" /* yacc.c:1646  */
     { my_output (")"); }
-#line 3338 "web2c-parser.c" /* yacc.c:1646  */
+#line 3335 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 302:
 #line 1133 "web2c-parser.y" /* yacc.c:1646  */
     { my_output ("do"); my_output ("{"); indent++; }
-#line 3344 "web2c-parser.c" /* yacc.c:1646  */
+#line 3341 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 303:
@@ -3348,13 +3346,13 @@ yyreduce:
     { indent--; my_output ("}");
 				  my_output ("while"); my_output ("( ! (");
 				}
-#line 3352 "web2c-parser.c" /* yacc.c:1646  */
+#line 3349 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 304:
 #line 1139 "web2c-parser.y" /* yacc.c:1646  */
     { my_output (") )"); }
-#line 3358 "web2c-parser.c" /* yacc.c:1646  */
+#line 3355 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 305:
@@ -3367,7 +3365,7 @@ yyreduce:
 					my_output ("for_begin,");
 				  my_output ("for_end;");
 				 }
-#line 3371 "web2c-parser.c" /* yacc.c:1646  */
+#line 3368 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 306:
@@ -3377,7 +3375,7 @@ yyreduce:
 				  else
 					my_output (control_var);
 				  my_output ("="); }
-#line 3381 "web2c-parser.c" /* yacc.c:1646  */
+#line 3378 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 307:
@@ -3398,7 +3396,7 @@ yyreduce:
 				  indent++;
 				  new_line();
 				  }
-#line 3402 "web2c-parser.c" /* yacc.c:1646  */
+#line 3399 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 308:
@@ -3418,19 +3416,19 @@ yyreduce:
 				  *top=0;
 				  new_line();
 				}
-#line 3422 "web2c-parser.c" /* yacc.c:1646  */
+#line 3419 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 309:
 #line 1193 "web2c-parser.y" /* yacc.c:1646  */
     { strcpy(control_var, last_id); }
-#line 3428 "web2c-parser.c" /* yacc.c:1646  */
+#line 3425 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 310:
 #line 1197 "web2c-parser.y" /* yacc.c:1646  */
     { my_output (";"); }
-#line 3434 "web2c-parser.c" /* yacc.c:1646  */
+#line 3431 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 311:
@@ -3439,7 +3437,7 @@ yyreduce:
 				  strcpy(relation, "<=");
 				  my_output ("for_end");
 				  my_output ("="); }
-#line 3443 "web2c-parser.c" /* yacc.c:1646  */
+#line 3440 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 312:
@@ -3448,13 +3446,13 @@ yyreduce:
 				  sprintf(for_stack + strlen(for_stack),
 				    "#%s++ < for_end", control_var);
 				}
-#line 3452 "web2c-parser.c" /* yacc.c:1646  */
+#line 3449 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 313:
 #line 1209 "web2c-parser.y" /* yacc.c:1646  */
     { my_output (";"); }
-#line 3458 "web2c-parser.c" /* yacc.c:1646  */
+#line 3455 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 314:
@@ -3463,7 +3461,7 @@ yyreduce:
 				  strcpy(relation, ">=");
 				  my_output ("for_end");
 				  my_output ("="); }
-#line 3467 "web2c-parser.c" /* yacc.c:1646  */
+#line 3464 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 315:
@@ -3472,11 +3470,11 @@ yyreduce:
 				  sprintf(for_stack + strlen(for_stack),
 				    "#%s-- > for_end", control_var);
 				}
-#line 3476 "web2c-parser.c" /* yacc.c:1646  */
+#line 3473 "y.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 3480 "web2c-parser.c" /* yacc.c:1646  */
+#line 3477 "y.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires

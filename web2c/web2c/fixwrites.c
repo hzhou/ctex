@@ -1,18 +1,17 @@
 /* fixwrites -- convert Pascal write/writeln's into fprintf's or putc's.
    Originally by Tim Morgan, October 10, 1987.  */
 
-#include <w2c/config.h>
-#include <kpathsea/c-pathmx.h>
+#include "myw2c.h"
 
 char buf[BUFSIZ], filename[PATH_MAX], args[100];
 char *file, *argp, *as, *cmd;
 
-int tex = false;
+bool tex = false;
 
 /* Replace the last (should be only) newline in S with a null.  */
 
 static void
-remove_newline (string s)
+remove_newline (char * s)
 {
   char *temp = strrchr (s, '\n');
   if (temp == NULL)
@@ -28,7 +27,7 @@ remove_newline (string s)
 
 
 static char *
-insert_long (string cp)
+insert_long (char * cp)
 {
   char tbuf[BUFSIZ];
   register int i;
@@ -43,7 +42,7 @@ insert_long (string cp)
 
 
 static void
-join (string cp)
+join (char * cp)
 {
   char temp[BUFSIZ], *tp;
 
@@ -75,7 +74,7 @@ do_blanks (int indent)
 /* Return true if we have a whole write/writeln statement.  We determine
    this by matching parens, ignoring those within strings.  */
 static int
-whole (string cp)
+whole (char * cp)
 {
   register int depth = 0;
 
@@ -109,7 +108,7 @@ whole (string cp)
 /* Skips to the next , or ), skipping over balanced paren pairs.  */
 
 static char *
-skip_balanced (string cp)
+skip_balanced (char * cp)
 {
   register int depth = 0;
 
@@ -130,10 +129,10 @@ skip_balanced (string cp)
 }
 
 
-/* Return true if c appears, except inside a quoted string */
+/* Return true if c appears, except inside a quoted char * */
 
 static int
-bare (string cp,  char c)
+bare (char * cp,  char c)
 {
   for (; *cp && *cp != c; ++cp)
     {
@@ -187,7 +186,7 @@ advance_cp (char *cp, int lefts)
 #endif
 
 int
-main (int argc,  string *argv)
+main (int argc,  char * *argv)
 {
   register char *cp;
   int blanks_done, indent, i;
@@ -395,9 +394,9 @@ main (int argc,  string *argv)
 	    {
 	      *as++ = '%';
 	      *as++ = 's';
-	      while (*++cp != '"')	/* skip to end of string */
+	      while (*++cp != '"')	/* skip to end of char * */
 		if (*cp == '\\')
-		  ++cp;		/* allow \" in string */
+		  ++cp;		/* allow \" in char * */
 	    }
 
           /* More kludges -- recognize some things as strings and use %s:

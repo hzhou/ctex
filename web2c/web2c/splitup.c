@@ -6,8 +6,7 @@
 
    Tim Morgan  September 19, 1987.  */
 
-#include <w2c/config.h>
-#include <kpathsea/getopt.h>
+#include "myw2c.h"
 
 #if defined (FATAL)
 #undef FATAL
@@ -81,9 +80,9 @@ read_line (void)
 #endif
 
 int
-main (int argc, string *argv)
+main (int argc, char * *argv)
 {
-  const_string coerce;
+  const char *coerce;
   unsigned coerce_len;
   int option;
 
@@ -112,7 +111,7 @@ main (int argc, string *argv)
 
   sprintf (filename, "%sd.h", output_name);
   sprintf (tempfile, "%s.tmp", output_name);
-  out = xfopen (filename, FOPEN_W_MODE);
+  out = xfopen (filename, "w");
   fputs ("#undef TRIP\n#undef TRAP\n", out);
   /* We have only one binary that can do both ini stuff and vir stuff.  */
   fputs ("#define STAT\n#define INI\n", out);
@@ -182,13 +181,13 @@ main (int argc, string *argv)
 
   if (do_ini) {
     sprintf (ini_name, "%sini.c", output_name);
-    ini = xfopen (ini_name, FOPEN_W_MODE);
+    ini = xfopen (ini_name, "w");
     fputs ("#define EXTERN extern\n", ini);
     fprintf (ini, "#include \"%sd.h\"\n\n", output_name);
   }
 
   sprintf (filename, "%s0.c", output_name);
-  out = xfopen (filename, FOPEN_W_MODE);
+  out = xfopen (filename, "w");
   fputs ("#define EXTERN extern\n", out);
   fprintf (out, "#include \"%sd.h\"\n\n", output_name);
 
@@ -228,7 +227,7 @@ main (int argc, string *argv)
 	{
 	  xfclose (out, filename);
 	  sprintf (filename, "%s%d.c", output_name, ++filenumber);
-	  out = xfopen (filename, FOPEN_W_MODE);
+	  out = xfopen (filename, "w");
 	  fputs ("#define EXTERN extern\n", out);
 	  fprintf (out, "#include \"%sd.h\"\n\n", output_name);
 	  lines_in_file = 0;

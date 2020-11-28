@@ -1,6 +1,6 @@
 CC = gcc -I.. -I.
 
-all: ctangle
+all: ctangle web2c
 
 # --------------------------
 ctangle: ctangleboot
@@ -8,6 +8,10 @@ ctangle: ctangleboot
 
 ctangleboot: ctangleboot.o cwebboot.o mykpse.o
 	$(CC) -o $@ ctangleboot.o cwebboot.o mykpse.o
+
+.PHONY: web2c
+web2c:
+	$(MAKE) -C web2c
 
 # --------------------------
 %.o: %.c

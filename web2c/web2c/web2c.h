@@ -1,6 +1,6 @@
 /* web2c.h: general includes for the Web2c program itself.  Public domain.  */
 
-#include <w2c/config.h>
+#include "myw2c.h"
 
 #define ex_32 2
 #define ex_real 3
@@ -40,8 +40,8 @@ struct sym_entry {
   int val_sym, upper_sym;	/* Sym table entries of symbols for lower
 				   and upper bounds
 				 */
-  boolean var_formal;	/* Is this a formal parameter by reference? */
-  boolean var_not_needed;
+  bool var_formal;	/* Is this a formal parameter by reference? */
+  bool var_not_needed;
   		      /* True if VAR token should be ignored for this type */
 };
 

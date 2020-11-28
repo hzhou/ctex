@@ -215,7 +215,7 @@ initialize (void)
 
   normal ();
 
-  coerce = xfopen (coerce_name, FOPEN_W_MODE);
+  coerce = xfopen (coerce_name, "w");
 }
 
 #ifdef WIN32
