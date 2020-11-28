@@ -1,6 +1,6 @@
 page: t
     module: perl
-    arg: cwebboot.c
+    arg: tie.c
 
     my $file = $ARGV[0]
     my @lines
