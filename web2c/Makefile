@@ -2,8 +2,8 @@ CC = gcc -I.. -I.
 
 all: tangle
 
-pdftex: ctangle tie web2c pdftex-final.ch
-	./ctangle pdftexdir/pdftex.web pdftex-final.ch
+pdftex: tangle pdftex-final.ch web2c
+	./tangle pdftexdir/pdftex.web pdftex-final.ch
 
 # --------------------------
 tangle: tangle.o mykpse.o tangle_glue.o
@@ -42,7 +42,7 @@ pdftex_ch_files = \
     pdftexdir/char-warning-pdftex.ch \
     tex-binpool.ch
 
-pdftex-final.ch: $(pdftex_ch_files)
+pdftex-final.ch: tie $(pdftex_ch_files)
 	./tie -c $@ $(pdftex_ch_files)
 
 # --------------------------
