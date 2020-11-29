@@ -1,7 +1,7 @@
 /* main.c -- the main program for everything but TeX & MF.  */
 /* Public domain. */
 
-#include <w2c/config.h>
+#include "../myw2c.h"
 #include "lib.h"
 
 /* These variables are referenced from the change files.  */

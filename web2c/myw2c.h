@@ -19,15 +19,28 @@ typedef bool boolean;
 
 /* temporary -- we should modify the source */
 #define integer int
+#define longinteger long
 #define schar char
+
+#ifndef CPASCAL_H
 #define uexit exit
 #define Fputs(F, str) fputs(str, F)
 #define vgetc(f)      (void)getc(f)
 
+#else
+#define WEB2C_NORETURN
+#endif
+
 #define SCHAR_TYPE char
 #define STREQ(a, b) (strcmp(a, b) == 0)
 
-char * mykpse_find_file(const char *fname);
+#define xmalloc malloc
+#define xfseek(f,off,whence,filename) fseek(f,off,whence)
+#define xftell(f,filename) ftell(f)
+#define xstrdup strdup
+
+void mykpse_add_path(const char *dir);
+char * mykpse_find_file(const char *fname, const char *ext);
 FILE * mykpse_open_file(const char *fname);
 
 bool f_eof(FILE *f);

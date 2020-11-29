@@ -12,12 +12,13 @@ typedef int bool;
 char * uppercasify(const char *s);
 FILE * xfopen(const char *filename, const char *mode);
 void xfclose(FILE *f, const char *filename);
-char * mykpse_find_file(const char *fname);
+char * mykpse_find_file(const char *fname, const char *ext);
 FILE * mykpse_open_file(const char *fname);
 bool f_eof(FILE *file);
 bool f_eoln(FILE *file);
 void f_readln(FILE *file);
 
+static void mykpse_add_path(const char *dir);
 static char * internal_find_file(const char *fname, const char *ext, const char *path);
 
 char mykpse_buf[1024];
@@ -58,30 +59,23 @@ void xfclose(FILE *f, const char *filename)
     }
 }
 
-char * mykpse_find_file(const char *fname)
+char * mykpse_find_file(const char *fname, const char *ext)
 {
     char *s;
-    int n;
 
-    s = strrchr(fname, '/');
-    if (access(fname, F_OK) != -1) {
+    if (n_Paths == 0) {
+        mykpse_add_path(".");
+    }
+
+    s = strrchr(fname, '.');
+    if (s && ext && strcmp((s + 1), ext) == 0) {
+        ext = NULL;
+    }
+
+    for (int  i = 0; i<n_Paths; i++) {
+        s = internal_find_file(fname, ext, Paths[i]);
         if (s) {
-            if (n_Paths < 10) {
-                n = s - fname;
-                if (n < 256) {
-                    strncpy(Paths[n_Paths], fname, n);
-                    Paths[n_Paths][n] = '\0';
-                    n_Paths++;
-                }
-            }
-        }
-        return fname;
-    } else if (s == NULL) {
-        for (int  i = 0; i<n_Paths; i++) {
-            s = internal_find_file(fname, NULL, Paths[i]);
-            if (s) {
-                return s;
-            }
+            return s;
         }
     }
     return NULL;
@@ -91,7 +85,7 @@ FILE * mykpse_open_file(const char *fname)
 {
     char *s;
 
-    s = mykpse_find_file(fname);
+    s = mykpse_find_file(fname, NULL);
     if (s) {
         return fopen(fname, "r");
     }
@@ -144,6 +138,19 @@ void f_readln(FILE *file)
         c = getc(file);
         if (c == '\n' || c == '\r' || c == EOF) {
             break;
+        }
+    }
+}
+
+void mykpse_add_path(const char *dir)
+{
+    int n;
+
+    if (n_Paths < 10) {
+        n = strlen(dir);
+        if (n < 256) {
+            strcpy(Paths[n_Paths], dir);
+            n_Paths++;
         }
     }
 }

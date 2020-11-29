@@ -2,15 +2,10 @@
 
    Written 1995 Karl Berry.  Public domain.  */
 
-#include <w2c/config.h>
+#include "../myw2c.h"
 #include "lib.h"
-#include <kpathsea/c-pathch.h>
-#include <kpathsea/tex-file.h>
-#include <kpathsea/variable.h>
-#include <kpathsea/absolute.h>
-#ifdef PTEX
-#include <ptexenc/ptexenc.h>
-#endif
+
+#include <libgen.h>
 
 #ifdef _WIN32
 static int fsyscp_remove(char *s)
@@ -97,7 +92,7 @@ recorder_start(void)
        default name.  Throw in the pid so at least parallel builds might
        work (Debian bug 575731).  */
     string cwd;
-    char pid_str[MAX_INT_LENGTH];
+    char pid_str[20];
 
     /* Windows (MSVC) seems to have no pid_t, so instead of storing the
        value returned by getpid() we immediately consume it.  */
@@ -113,9 +108,9 @@ recorder_start(void)
     
     recorder_file = xfopen(recorder_name, FOPEN_W_MODE);
     
-    cwd = xgetcwd();
+    char cwdbuf[256];
+    cwd = getcwd(cwdbuf, 256);
     fprintf(recorder_file, "PWD %s\n", cwd);
-    free(cwd);
 }
 
 /* Change the name of the recorder file after we know the log file to
@@ -197,9 +192,6 @@ boolean
 open_input (FILE **f_ptr, int filefmt, const_string fopen_mode)
 {
     string fname = NULL;
-#if defined(PTEX) && !defined(WIN32)
-    string fname0;
-#endif
 #ifdef FUNNY_CORE_DUMP
     /* This only applies if a preloaded TeX/Metafont is being made;
        it allows automatic creation of the core dump (typing ^\ loses
@@ -221,36 +213,10 @@ open_input (FILE **f_ptr, int filefmt, const_string fopen_mode)
        written to the output directory, and we have to be able to read
        them from there.  We only look for the name as-is.  */
 
-#if defined(PTEX) && !defined(WIN32)
-    fname0 = ptenc_from_internal_enc_string_to_utf8(nameoffile + 1);
-    if (fname0) {
-        free (nameoffile);
-        namelength = strlen (fname0);
-        nameoffile = xmalloc (namelength + 2);
-        strcpy (nameoffile + 1, fname0);
-        free (fname0);
-    }
-#endif
-    if (output_directory && !kpse_absolute_p (nameoffile+1, false)) {
+    if (output_directory && nameoffile[1] != '/') {
         fname = concat3 (output_directory, DIR_SEP_STRING, nameoffile + 1);
         *f_ptr = fopen (fname, fopen_mode);
-#if !defined(_WIN32)
-/*
-    if fname is a directory, discard it.
-*/
-        if (*f_ptr && dir_p (fname)) {
-            fclose (*f_ptr);
-            *f_ptr = NULL;
-        }
-#endif
         if (*f_ptr) {
-#if defined(PTEX) && !defined(WIN32)
-            fname0 = ptenc_from_utf8_string_to_internal_enc(fname);
-            if (fname0) {
-                free (fname);
-                fname = fname0;
-            }
-#endif
             free (nameoffile);
             namelength = strlen (fname);
             nameoffile = xmalloc (namelength + 2);
@@ -287,8 +253,8 @@ open_input (FILE **f_ptr, int filefmt, const_string fopen_mode)
                    hand, if the user said `tex ./foo', and that's what we
                    opened, then keep it -- the user specified it, so we
                    shouldn't remove it.  */
-                if (fname[0] == '.' && IS_DIR_SEP (fname[1])
-                    && (nameoffile[1] != '.' || !IS_DIR_SEP (nameoffile[2])))
+                if (fname[0] == '.' && fname[1]=='/'
+                    && (nameoffile[1] != '.' || nameoffile[2] != '/'))
                 {
                     unsigned i = 0;
                     while (fname[i + 2] != 0) {
@@ -299,22 +265,9 @@ open_input (FILE **f_ptr, int filefmt, const_string fopen_mode)
                 }
 
                 /* This fopen is not allowed to fail. */
-#if defined(PTEX) && !defined(WIN32)
-                if (filefmt == kpse_tex_format ||
-                    filefmt == kpse_bib_format) {
-                    *f_ptr = nkf_open (fname, fopen_mode);
-                } else
-#endif
                 *f_ptr = xfopen (fname, fopen_mode);
 
                 /* kpse_find_file always returns a new string. */
-#if defined(PTEX) && !defined(WIN32)
-                fname0 = ptenc_from_utf8_string_to_internal_enc(fname);
-                if (fname0) {
-                    free (fname);
-                    fname = fname0;
-                }
-#endif
                 free (nameoffile);
                 namelength = strlen (fname);
                 nameoffile = xmalloc (namelength + 2);
@@ -358,10 +311,10 @@ boolean
 open_input_with_dirname (FILE **f_ptr, int filefmt, const char *fname)
 {
   boolean ret = false;
-  char *top_dir = xdirname (fname);
+  char *top_dir = dirname ((char *) fname);
 
   if (top_dir && *top_dir && !STREQ (top_dir, ".")
-      && !kpse_absolute_p (nameoffile+1, true)) {
+      && nameoffile[1]!='/') {
     char *newname = concat3 (top_dir, DIR_SEP_STRING, nameoffile+1);
     free (nameoffile);
     nameoffile = xmalloc (strlen (newname) + 2);
@@ -387,10 +340,7 @@ boolean
 open_output (FILE **f_ptr, const_string fopen_mode)
 {
     string fname;
-#if defined(PTEX) && !defined(WIN32)
-    string fname0;
-#endif
-    boolean absolute = kpse_absolute_p(nameoffile+1, false);
+    boolean absolute = (nameoffile[1] == '/');
 
     /* If we have an explicit output directory, use it. */
     if (output_directory && !absolute) {
@@ -398,38 +348,13 @@ open_output (FILE **f_ptr, const_string fopen_mode)
     } else {
         fname = nameoffile + 1;
     }
-#if defined(PTEX) && !defined(WIN32)
-    fname0 = ptenc_from_internal_enc_string_to_utf8(fname);
-    if (fname0) {
-        if (fname != nameoffile + 1) free(fname);
-        fname = fname0;
-    }
-#endif
 
     /* Is the filename openable as given?  */
     *f_ptr = fopen (fname, fopen_mode);
 
-    if (!*f_ptr) {
-        /* Can't open as given.  Try the envvar.  */
-        string texmfoutput = kpse_var_value("TEXMFOUTPUT");
-
-        if (texmfoutput && *texmfoutput && !absolute) {
-            if (fname != nameoffile + 1)
-                free(fname);
-            fname = concat3(texmfoutput, DIR_SEP_STRING, nameoffile+1);
-            *f_ptr = fopen(fname, fopen_mode);
-        }
-    }
     /* If this succeeded, change nameoffile accordingly.  */
     if (*f_ptr) {
         if (fname != nameoffile + 1) {
-#if defined(PTEX) && !defined(WIN32)
-            fname0 = ptenc_from_utf8_string_to_internal_enc(fname);
-            if (fname0) {
-                free(fname);
-                fname = fname0;
-            }
-#endif
             free (nameoffile);
             namelength = strlen (fname);
             nameoffile = xmalloc (namelength + 2);
@@ -452,16 +377,7 @@ close_file (FILE *f)
   if (!f)
     return;
     
-#ifdef PTEX
-#ifdef WIN32
-  clear_infile_enc (f);
   if (fclose (f) == EOF) {
-#else
-  if (nkf_close (f) == EOF) {
-#endif
-#else
-  if (fclose (f) == EOF) {
-#endif
     /* It's not always nameoffile, we might have opened something else
        in the meantime.  And it's not easy to extract the filenames out
        of the pool array.  So just punt on the filename.  Sigh.  This

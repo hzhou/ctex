@@ -14,37 +14,36 @@ page: mykpse, -
 
 #------------------------------------------------------
 fncode: mykpse_open_file(const char *fname): FILE *
-    s = mykpse_find_file(fname)
+    s = mykpse_find_file(fname, NULL)
     $if s
         return fopen(fname, "r")
 
     return NULL
 
-fncode: mykpse_find_file(const char *fname): char *
-    $include <unistd.h>
-    s = strrchr(fname, '/')
-    $if access(fname, F_OK) != -1
-        $if s
-            # fname with a path
-            $call add_path, s-fname
-        return fname
-    $elif s == NULL
-        # fname is not a path
-        $for i=0:n_Paths
-            s = internal_find_file(fname, NULL, Paths[i])
-            $if s
-                return s
-    return NULL
+fncode: mykpse_add_path(const char *dir)
+    $if n_Paths < 10
+        n = strlen(dir)
+        $if n <256
+            $(set:s=Paths[n_Paths])
+            strcpy($(s), dir);
+            n_Paths++
 
-    subcode: add_path(len)
-        # $print "mykpse: add_path %d - %s\n", n_Paths, fname
-        $if n_Paths < 10
-            n = $(len)
-            $if n <256
-                $(set:s=Paths[n_Paths])
-                strncpy($(s), fname, n);
-                $(s)[n] = '\0'
-                n_Paths++
+fncode: mykpse_find_file(const char *fname, const char *ext): char *
+    $include <unistd.h>
+    # always search current dir
+    $if n_Paths == 0
+        mykpse_add_path(".")
+
+    # skip ext if fname has the ext already
+    s = strrchr(fname, '.')
+    $if s && ext && (s+1) $eq ext
+        ext = NULL
+
+    $for i=0:n_Paths
+        s = internal_find_file(fname, ext, Paths[i])
+        $if s
+            return s
+    return NULL
 
 fncode: internal_find_file(const char *fname, const char *ext, const char *path)
     # $print "internal_find_file: [%s] [%s]\n", fname, path

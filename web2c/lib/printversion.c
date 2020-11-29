@@ -2,12 +2,8 @@
 
    Written in 1996 by Karl Berry.  Public domain.  */
 
-#include <w2c/config.h>
+#include "../myw2c.h"
 #include "lib.h"
-#include <kpathsea/version.h>
-#ifdef PTEX
-#include <ptexenc/ptexenc.h>
-#endif
 
 /* We're passed in the original WEB banner string, which has the form
 This is PROGRAM, Version VERSION-NUMBER
@@ -50,10 +46,7 @@ printversionandexit (const_string banner,
 #else
   printf ("%s %s%s\n", prog_name_start, prog_version, versionstring);
 #endif
-  puts (kpathsea_version_string);
-#ifdef PTEX
-  puts (ptexenc_version_string);
-#endif
+  puts (" - CUSTOMIZED for CTeX");
 
   if (copyright_holder) {
     printf ("Copyright 2020 %s.\n", copyright_holder);

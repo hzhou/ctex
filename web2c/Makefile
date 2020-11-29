@@ -90,7 +90,7 @@ pdftex_OBJECTS = \
 pdftex: libpdftex.a $(pdftex_OBJECTS)
 	$(CC) -o pdftex $(pdftex_OBJECTS) libpdftex.a
 
-pdftexdir/libpdftex.a: $(libpdftex_a_OBJECTS)
+libpdftex.a: $(libpdftex_a_OBJECTS)
 	ar -crs $@ $(libpdftex_a_OBJECTS)
 
 pdftex-pool.c: pdftexdir/pdftex.pool

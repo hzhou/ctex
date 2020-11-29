@@ -1,16 +1,11 @@
 /* input2int.c: read two or three integers from text files.  These
    routines are only used in patgen.  Public domain. */
 
-#include <w2c/config.h>
+#include "../myw2c.h"
 #include "lib.h"
 
-#ifdef INTEGER_IS_INT
 #define SCAN2INT "%d %d"
 #define SCAN3INT "%d %d %d"
-#else
-#define SCAN2INT "%ld %ld"
-#define SCAN3INT "%ld %ld %ld"
-#endif
 
 /* Read two integers from stdin.  */
 
