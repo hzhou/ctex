@@ -18,9 +18,30 @@ with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "ptexlib.h"
-#include <kpathsea/tex-glyph.h>
-#include <kpathsea/magstep.h>
+#include "pdftex.h"
 #include <string.h>
+#include <math.h>
+
+typedef struct {
+    int dummy;
+} kpse_glyph_file_type;
+
+static char *kpse_find_pk(const char *fname, unsigned dpi, kpse_glyph_file_type *font_ret) {
+    return NULL;
+}
+
+static int magstep (int n,  int bdpi) {
+   double t = bdpi * pow(1.2, n/2.0);
+   return (int) (t + 0.5);
+}
+
+static unsigned kpse_magstep_fix(unsigned dpi, unsigned bdpi, int *m_ret) {
+    int m = (int) round (log((double) dpi / bdpi) / log(1.2) * 2);
+    if (m_ret) {
+        *m_ret = m;
+    }
+    return magstep(m, bdpi);
+}
 
 #define T3_BUF_SIZE   1024
 
@@ -186,9 +207,7 @@ static boolean writepk(internalfontnumber f)
                          fixedpkresolution, NULL);
     cur_file_name = makecstring(fontname[f]);
     name = kpse_find_pk(cur_file_name, (unsigned) dpi, &font_ret);
-    if (name == NULL ||
-        !FILESTRCASEEQ(cur_file_name, font_ret.name) ||
-        !kpse_bitmap_tolerance((float) font_ret.dpi, (float) dpi)) {
+    if (name == NULL) {
         pdftex_fail("Font %s at %i not found", cur_file_name, (int) dpi);
     }
     t3_file = xfopen(name, FOPEN_RBIN_MODE);

@@ -17,6 +17,7 @@ along with this program.  If not, see  <http://www.gnu.org/licenses/>.  */
 #include "ptexlib.h"
 #include <stdarg.h>
 #include <string.h>
+#include <math.h>
 
 #define t1_log(str)      tex_printf("%s",str)
 #define get_length1()    t1_length1 = t1_offset() - t1_save_offset

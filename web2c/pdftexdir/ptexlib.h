@@ -46,6 +46,9 @@ with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* avl */
 #  include "avlstuff.h"
 
+/* ../lib/lib.a */
+#  include "../lib/lib.h"
+
 /* pdftexlib type declarations */
 typedef struct {
     const char *pdfname;

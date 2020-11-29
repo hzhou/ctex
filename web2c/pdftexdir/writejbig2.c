@@ -377,7 +377,7 @@ static void readfilehdr(FILEINFO * fip)
     /* Annex D.4 File header syntax */
     /* Annex D.4.1 ID string */
     unsigned char jbig2_id[] = { 0x97, 'J', 'B', '2', 0x0d, 0x0a, 0x1a, 0x0a };
-    xfseeko(fip->file, (off_t)0, SEEK_SET, fip->filename);
+    fseek(fip->file, 0, SEEK_SET);
     for (i = 0; i < 8; i++)
         if (ygetc(fip->file) != jbig2_id[i])
             pdftex_fail
@@ -386,9 +386,9 @@ static void readfilehdr(FILEINFO * fip)
     fip->filehdrflags = ygetc(fip->file);
     fip->sequentialaccess = (fip->filehdrflags & 0x01) ? true : false;
     if (fip->sequentialaccess) {        /* Annex D.1 vs. Annex D.2 */
-        xfseeko(fip->file, (off_t)0, SEEK_END, fip->filename);
-        fip->filesize = xftello(fip->file, fip->filename);
-        xfseeko(fip->file, (off_t)9, SEEK_SET, fip->filename);
+        fseek(fip->file, 0, SEEK_END);
+        fip->filesize = ftell(fip->file);
+        fseek(fip->file, 9, SEEK_SET);
     }
     /* Annex D.4.3 Number of pages */
     if (!(fip->filehdrflags >> 1) & 0x01)       /* known number of pages */
@@ -402,7 +402,7 @@ static void readfilehdr(FILEINFO * fip)
 static boolean readseghdr(FILEINFO * fip, SEGINFO * sip)
 {
     unsigned int i;
-    sip->hdrstart = xftello(fip->file, fip->filename);
+    sip->hdrstart = ftell(fip->file);
     if (fip->sequentialaccess && sip->hdrstart == fip->filesize)
         return false;           /* no endoffileflag is ok for sequentialaccess */
     /* 7.2.2 Segment number */
@@ -420,7 +420,7 @@ static boolean readseghdr(FILEINFO * fip, SEGINFO * sip)
         sip->fieldlen = 1;
     else {
         sip->fieldlen = 5 + sip->countofrefered / 8;
-        xfseeko(fip->file, (off_t) sip->fieldlen - 1, SEEK_CUR, fip->filename);
+        fseek(fip->file, sip->fieldlen - 1, SEEK_CUR);
     }
     /* 7.2.5 Referred-to segment numbers */
     if (sip->segnum <= 256)
@@ -449,7 +449,7 @@ static boolean readseghdr(FILEINFO * fip, SEGINFO * sip)
         sip->segpage = ygetc(fip->file);
     /* 7.2.7 Segment data length */
     sip->segdatalen = read4bytes(fip->file);
-    sip->hdrend = xftello(fip->file, fip->filename);
+    sip->hdrend = ftell(fip->file);
     /* ---- at end of segment header ---- */
     return true;
 }
@@ -515,7 +515,7 @@ static void checkseghdr(FILEINFO * fip, SEGINFO * sip)
     /* 7.2.2 Segment number */
     /* 7.2.3 Segment header flags */
     /* 7.2.4 Referred-to segment count and retention flags */
-    xfseeko(fip->file, (off_t) sip->fieldlen + 5, SEEK_CUR, fip->filename);
+    fseek(fip->file, sip->fieldlen + 5, SEEK_CUR);
     /* 7.2.5 Referred-to segment numbers */
     for (i = 0; i < sip->countofrefered; i++) {
         switch (sip->segnumwidth) {
@@ -537,9 +537,9 @@ static void checkseghdr(FILEINFO * fip, SEGINFO * sip)
     /* 7.2.6 Segment page association */
     /* 7.2.7 Segment data length */
     if (sip->pageassocsizeflag)
-        xfseeko(fip->file, 8, SEEK_CUR, fip->filename);
+        fseek(fip->file, 8, SEEK_CUR);
     else
-        xfseeko(fip->file, 5, SEEK_CUR, fip->filename);
+        fseek(fip->file, 5, SEEK_CUR);
     /* ---- at end of segment header ---- */
 }
 
@@ -669,7 +669,7 @@ static void rd_jbig2_info(FILEINFO * fip)
         sip->dataend = sip->datastart + sip->segdatalen;
         if (!fip->sequentialaccess
             && (sip->pageinfoflag || sip->endofstripeflag))
-            xfseeko(fip->file, sip->datastart, SEEK_SET, fip->filename);
+            fseek(fip->file, sip->datastart, SEEK_SET);
         seekdist = (off_t) sip->segdatalen;
         /* 7.4.8 Page information segment syntax */
         if (sip->pageinfoflag) {
@@ -689,11 +689,11 @@ static void rd_jbig2_info(FILEINFO * fip)
         }
         if (!fip->sequentialaccess
             && (sip->pageinfoflag || sip->endofstripeflag))
-            xfseeko(fip->file, sip->hdrend, SEEK_SET, fip->filename);
+            fseek(fip->file, sip->hdrend, SEEK_SET);
         if (!fip->sequentialaccess)
             streampos += sip->segdatalen;
         if (fip->sequentialaccess)
-            xfseeko(fip->file, seekdist, SEEK_CUR, fip->filename);
+            fseek(fip->file, seekdist, SEEK_CUR);
         if (sip->endofpageflag && currentpage && (pip->stripinginfo >> 15))
             pip->height = pip->stripedheight;
     }
@@ -720,8 +720,8 @@ static void wr_jbig2(FILEINFO * fip, unsigned long page)
         pdf_printf("/Height %i\n", pip->height);
         pdf_puts("/ColorSpace /DeviceGray\n");
         pdf_puts("/BitsPerComponent 1\n");
-        pdf_printf("/Length %" LONGINTEGER_PRI "d\n",
-                   (LONGINTEGER_TYPE) getstreamlen(pip->segments.first, true));
+        pdf_printf("/Length %d\n",
+                   (int) getstreamlen(pip->segments.first, true));
         pdf_puts("/Filter [/JBIG2Decode]\n");
         if (fip->page0.last != NULL) {
             if (fip->pdfpage0objnum == 0) {
@@ -735,8 +735,8 @@ static void wr_jbig2(FILEINFO * fip, unsigned long page)
         pip = find_pageinfo(&(fip->page0), page);
         assert(pip != NULL);
         pdfbegindict(fip->pdfpage0objnum, 0);
-        pdf_printf("/Length %" LONGINTEGER_PRI "d\n",
-                   (LONGINTEGER_TYPE) getstreamlen(pip->segments.first, false));
+        pdf_printf("/Length %d\n",
+                   (int) getstreamlen(pip->segments.first, false));
     }
     pdf_puts(">>\n");
     pdf_puts("stream\n");
@@ -744,10 +744,10 @@ static void wr_jbig2(FILEINFO * fip, unsigned long page)
     for (slip = pip->segments.first; slip != NULL; slip = slip->next) { /* loop over page segments */
         sip = slip->d;
         if (sip->isrefered || page > 0) {
-            xfseeko(fip->file, sip->hdrstart, SEEK_SET, fip->filename);
+            fseek(fip->file, sip->hdrstart, SEEK_SET);
             /* mark refered-to page 0 segments, change segpages > 1 to 1 */
             writeseghdr(fip, sip);
-            xfseeko(fip->file, sip->datastart, SEEK_SET, fip->filename);
+            fseek(fip->file, sip->datastart, SEEK_SET);
             for (i = sip->datastart; i < sip->dataend; i++)
                 pdfout(ygetc(fip->file));
         }

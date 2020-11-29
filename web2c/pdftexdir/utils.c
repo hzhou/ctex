@@ -17,29 +17,18 @@ You should have received a copy of the GNU General Public License along
 with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <w2c/config.h>		/* for large file support */
 #include <sys/types.h>
 #include <regex.h>
-#include <kpathsea/config.h>
-#include <kpathsea/c-proto.h>
-#include <kpathsea/c-stat.h>
-#include <kpathsea/c-fopen.h>
-#include <kpathsea/version.h>
 #include <string.h>
 #include <time.h>
 #include <float.h>              /* for DBL_EPSILON */
-#include "md5.h"
+#include <errno.h>
+#include "../libmd5/md5.h"
 #include <zlib.h>
 #include "ptexlib.h"
 #include <png.h>
-#ifdef POPPLER_VERSION
-/* POPPLER_VERSION should be a proper version string */
-#define xpdfVersion POPPLER_VERSION
-#define xpdfString "poppler"
-#else
-#include <xpdf/config.h>        /* just to get the xpdf version */
 #define xpdfString "xpdf"
-#endif
+#define xpdfVersion " - CUSTOM"
 
 #define check_nprintf(size_get, size_want) \
     if ((unsigned)(size_get) >= (unsigned)(size_want)) \
@@ -387,9 +376,9 @@ void writestreamlength(longinteger length, longinteger offset)
     if (jobname_cstr == NULL)
         jobname_cstr = xstrdup(makecstring(jobname));
     if (fixedpdfdraftmode == 0) {
-        xfseeko(pdffile, (off_t) offset, SEEK_SET, jobname_cstr);
-        fprintf(pdffile, "%" LONGINTEGER_PRI "i", (LONGINTEGER_TYPE) length);
-        xfseeko(pdffile, (off_t) pdfoffset(), SEEK_SET, jobname_cstr);
+        fseek(pdffile, offset, SEEK_SET);
+        fprintf(pdffile, "%d", (int) length);
+        fseek(pdffile, pdfoffset(), SEEK_SET);
     }
 }
 

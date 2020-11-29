@@ -19,8 +19,6 @@ with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "ptexlib.h"
-#include <kpathsea/c-auto.h>
-#include <kpathsea/c-memstr.h>
 #include <math.h>
 #include <string.h>
 

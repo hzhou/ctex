@@ -129,8 +129,8 @@ size_t          T##_limit
 
 #  define xfree(p)            do { if (p != NULL) free(p); p = NULL; } while (0)
 #  define strend(s)           strchr(s, 0)
-#  define xtalloc             XTALLOC
-#  define xretalloc           XRETALLOC
+#  define xtalloc(n,t)        malloc(n * sizeof(t))
+#  define xretalloc(ptr,n,t)  ptr = realloc(ptr, n*sizeof(t))           
 
 #  define ASCENT_CODE         0
 #  define CAPHEIGHT_CODE      1

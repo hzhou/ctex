@@ -19,6 +19,7 @@ with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "ptexlib.h"
 #include "image.h"
+#include "math.h"
 
 static int transparent_page_group = 0;
 

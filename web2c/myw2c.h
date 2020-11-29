@@ -39,6 +39,10 @@ typedef bool boolean;
 #define xftell(f,filename) ftell(f)
 #define xstrdup strdup
 
+#define kpathsea_version_string " - CUSTOM"
+#define kpathsea_debug false
+#define kpse_invocation_name "mykpse"
+
 void mykpse_add_path(const char *dir);
 char * mykpse_find_file(const char *fname, const char *ext);
 FILE * mykpse_open_file(const char *fname);

@@ -16,6 +16,13 @@ typedef enum kpse_filefmt {
     kpse_tfm_format,
     kpse_ocp_format,
     kpse_ofm_format,
+    kpse_truetype_format,
+    kpse_type1_format,
+    kpse_opentype_format,
+    kpse_fontmap_format,
+    kpse_sfd_format,
+    kpse_enc_format,
+    kpse_miscfonts_format,
 } kpse_file_format_type;
 
 extern char *kpse_program_name;

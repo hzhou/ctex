@@ -18,6 +18,8 @@ with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "ptexlib.h"
+#include "pdftex.h"
+#include <math.h>
 
 /**********************************************************************/
 

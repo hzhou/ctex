@@ -21,8 +21,7 @@ with this program.  If not, see <http://www.gnu.org/licenses/>.
    MINGW32 <rpcndr.h> defining 'boolean' as 'unsigned char' and
    <kpathsea/types.h> defining Pascal's boolean as 'int'.
 */
-#include <w2c/config.h>
-#include <kpathsea/lib.h>
+#include "../myw2c.h"
 
 #include <stdlib.h>
 #include <math.h>
