@@ -80,7 +80,7 @@ read_line (void)
 #endif
 
 int
-main (int argc, char * *argv)
+main (int argc, char **argv)
 {
   const char *coerce;
   unsigned coerce_len;
@@ -111,7 +111,10 @@ main (int argc, char * *argv)
 
   sprintf (filename, "%sd.h", output_name);
   sprintf (tempfile, "%s.tmp", output_name);
+
+  printf(" --> [%s]\n", filename);
   out = xfopen (filename, "w");
+
   fputs ("#undef TRIP\n#undef TRAP\n", out);
   /* We have only one binary that can do both ini stuff and vir stuff.  */
   fputs ("#define STAT\n#define INI\n", out);
@@ -181,13 +184,19 @@ main (int argc, char * *argv)
 
   if (do_ini) {
     sprintf (ini_name, "%sini.c", output_name);
+
+    printf(" --> [%s]\n", ini_name);
     ini = xfopen (ini_name, "w");
+
     fputs ("#define EXTERN extern\n", ini);
     fprintf (ini, "#include \"%sd.h\"\n\n", output_name);
   }
 
   sprintf (filename, "%s0.c", output_name);
+
+  printf(" --> [%s]\n", filename);
   out = xfopen (filename, "w");
+
   fputs ("#define EXTERN extern\n", out);
   fprintf (out, "#include \"%sd.h\"\n\n", output_name);
 
@@ -195,6 +204,7 @@ main (int argc, char * *argv)
     {
       /* Read one routine into a temp file */
       has_ini = false;
+
       temp = xfopen (tempfile, "wb+");
 
       while (read_line ())
@@ -227,7 +237,10 @@ main (int argc, char * *argv)
 	{
 	  xfclose (out, filename);
 	  sprintf (filename, "%s%d.c", output_name, ++filenumber);
+
+          printf(" --> [%s]\n", filename);
 	  out = xfopen (filename, "w");
+
 	  fputs ("#define EXTERN extern\n", out);
 	  fprintf (out, "#include \"%sd.h\"\n\n", output_name);
 	  lines_in_file = 0;
