@@ -3,6 +3,7 @@ CC = gcc
 all: lib.a
 
 lib_a_OBJECTS = \
+    mykpse.o \
     basechsuffix.o \
     chartostring.o \
     coredump.o \

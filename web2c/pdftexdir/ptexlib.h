@@ -37,7 +37,7 @@ with this program.  If not, see <http://www.gnu.org/licenses/>.
 #      undef pdfTeX             /* to avoid warning about redefining pdfTeX in pdftexd.h */
 #    endif                      /* pdfTeX */
 #    define EXTERN extern
-#    include "pdftexd.h"
+#    include "mytexd.h"
 #  endif
 
 /* pdftexlib macros */

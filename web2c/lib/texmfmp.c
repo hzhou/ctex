@@ -1,3 +1,5 @@
+#include <sys/types.h>
+#include <sys/stat.h>
 /* texmfmp.c: Hand-coded routines for TeX or Metafont in C.  Originally
    written by Tim Morgan, drawing from other Unix ports of TeX.  This is
    a collection of miscellany, everything that's easier (or only
@@ -11,17 +13,6 @@
    to instantiate data from texd.h here.  The ?d.h file is what
    #defines TeX or MF, which avoids the need for a special
    Makefile rule.  */
-
-#include <kpathsea/config.h>
-#include <kpathsea/c-ctype.h>
-#include <kpathsea/cnf.h>
-#include <kpathsea/line.h>
-#include <kpathsea/readable.h>
-#include <kpathsea/variable.h>
-#include <kpathsea/absolute.h>
-#ifdef WIN32
-#include <kpathsea/concatn.h>
-#endif
 
 #if defined (HAVE_SYS_TIME_H)
 #include <sys/time.h>
@@ -148,10 +139,11 @@ generic_synctex_get_current_name (void)
     ret = xstrdup("");
     return ret;
   }
-  if (kpse_absolute_p(fullnameoffile, false)) {
+  if (fullnameoffile[0]=='/') {
      return xstrdup(fullnameoffile);
   }
-  pwdbuf = xgetcwd();
+  char buf[1024];
+  pwdbuf = getcwd(buf, 1024);
 #if defined(W32USYNCTEX)
   if (file_system_codepage != 0 && file_system_codepage != win32_codepage) {
      wpwd = get_wstring_from_mbstring(win32_codepage, pwdbuf, wpwd=NULL);
@@ -160,7 +152,7 @@ generic_synctex_get_current_name (void)
      free (wpwd);
   }
 #endif /* W32USYNCTEX */
-  ret = concat3(pwdbuf, DIR_SEP_STRING, fullnameoffile);
+  ret = concat3(pwdbuf, "/", fullnameoffile);
   free(pwdbuf) ;
   return ret;
 }
@@ -533,7 +525,7 @@ shell_cmd_is_allowed (const char *cmd, char **safecmd, char **cmdname)
     {
       char *p, *q, *r;
       p = *safecmd;
-      if (strlen (p) > 2 && p[1] == ':' && !IS_DIR_SEP (p[2])) {
+      if (strlen (p) > 2 && p[1] == ':' && (p[2]!='/')) {
           q = xmalloc (strlen (p) + 2);
           q[0] = p[0];
           q[1] = p[1];
@@ -542,7 +534,7 @@ shell_cmd_is_allowed (const char *cmd, char **safecmd, char **cmdname)
           strcat (q, (p + 2));
           free (*safecmd);
           *safecmd = q;
-      } else if (!IS_DIR_SEP (p[0]) && !(p[1] == ':' && IS_DIR_SEP (p[2]))) { 
+      } else if (p[0]!='/' && !(p[1] == ':' && p[2]!='/')) { 
         p = kpse_var_value ("SELFAUTOLOC");
         if (p) {
           r = *safecmd;
@@ -753,8 +745,8 @@ maininit (int ac, string *av)
   interactionoption = 4;
 
   /* Have things to record as we go along.  */
-  kpse_record_input = recorder_record_input;
-  kpse_record_output = recorder_record_output;
+  // kpse_record_input = recorder_record_input;
+  // kpse_record_output = recorder_record_output;
 
 #if defined(__SyncTeX__)
   /* 0 means "disable Synchronize TeXnology".
@@ -768,11 +760,11 @@ maininit (int ac, string *av)
 #endif
 
 #if IS_pTeX
-  kpse_set_program_name (argv[0], NULL);
+  kpse_set_program_name (argv[0]);
   initkanji ();
 #endif
 #if (defined(XeTeX) || defined(pdfTeX)) && defined(WIN32)
-  kpse_set_program_name (argv[0], NULL);
+  kpse_set_program_name (argv[0]);
 #endif
 #if (IS_upTeX || defined(XeTeX) || defined(pdfTeX)) && defined(WIN32)
 /* 
@@ -845,7 +837,7 @@ maininit (int ac, string *av)
   if (user_progname)
     kpse_reset_program_name (user_progname);
 #else
-  kpse_set_program_name (argv[0], user_progname);
+  kpse_set_program_name (argv[0]);
 #endif
 
 #if defined(MF)
@@ -863,13 +855,13 @@ maininit (int ac, string *av)
 #endif
 
   /* Make the given engine name available in the variable `engine'.  */
-  xputenv ("engine", TEXMFENGINENAME);
+  // xputenv ("engine", TEXMFENGINENAME);
   
   if (user_cnf_lines) {
     unsigned i;
     for (i = 0; i < user_cnf_nlines; i++) {
       /* debug printf ("ucnf%d: %s\n", i, user_cnf_lines[i]); */
-      kpathsea_cnf_line_env_progname (kpse_def, user_cnf_lines[i]);
+      // kpathsea_cnf_line_env_progname (kpse_def, user_cnf_lines[i]);
       free (user_cnf_lines[i]);
     }
   }
@@ -1429,7 +1421,7 @@ ipcpage (int is_eof)
     /* Have to pass whole filename to the other end, since it may have
        been started up and running as a daemon, e.g., as with the NeXT
        preview program.  */
-    p = concat3 (cwd, DIR_SEP_STRING, name);
+    p = concat3 (cwd, "/", name);
     free (cwd);
     free (name);
 
@@ -1472,7 +1464,7 @@ tcx_get_num (int upb,
   if (*post == start) {
     /* Could not get a number. If blank line, fine. Else complain.  */
     string p = start;
-    while (*p && ISSPACE (*p))
+    while (*p && isspace (*p))
       p++;
     if (*p != 0)
       fprintf (stderr, "%s:%d: Expected numeric constant, not `%s'.\n",
@@ -1497,9 +1489,11 @@ void
 readtcxfile (void)
 {
   string orig_filename;
+  /*
   if (!find_suffix (translate_filename)) {
     translate_filename = concat (translate_filename, ".tcx");
   }
+  */
   orig_filename = translate_filename;
   translate_filename
     = kpse_find_file (translate_filename, kpse_web2c_format, true);
@@ -1507,7 +1501,8 @@ readtcxfile (void)
     string line;
     unsigned line_count = 0;
     FILE *translate_file = xfopen (translate_filename, FOPEN_R_MODE);
-    while ((line = read_line (translate_file))) {
+    char line_buf[1024];
+    while ((line = fgets (line_buf, 1024, translate_file))) {
       int first;
       string start2;
       string comment_loc = strchr (line, '%');
@@ -1547,11 +1542,10 @@ readtcxfile (void)
 
         xprn[second] = printable;
       }
-      free (line);
     }
     xfclose(translate_file, translate_filename);
   } else {
-    WARNING1 ("Could not open char translation file `%s'", orig_filename);
+    printf ("Could not open char translation file `%s'", orig_filename);
   }
 }
 #endif /* !Aleph && !XeTeX */
@@ -1688,272 +1682,9 @@ get_input_file_name (void)
    option table in a variable `long_options'.  */
 #define ARGUMENT_IS(a) STREQ (long_options[option_index].name, a)
 
-/* SunOS cc can't initialize automatic structs, so make this static.  */
-static struct option long_options[]
-  = { { DUMP_OPTION,                 1, 0, 0 },
-#ifdef TeX
-      /* Obsolete -- for backward compatibility only. */
-      { "efmt",                      1, 0, 0 },
-#endif
-      { "cnf-line",                  1, 0, 0 },
-      { "help",                      0, 0, 0 },
-      { "ini",                       0, &iniversion, 1 },
-      { "interaction",               1, 0, 0 },
-      { "halt-on-error",             0, &haltonerrorp, 1 },
-      { "kpathsea-debug",            1, 0, 0 },
-      { "progname",                  1, 0, 0 },
-      { "recorder",                  0, &recorder_enabled, 1 },
-      { "version",                   0, 0, 0 },
-#ifdef TeX
-#ifdef IPC
-      { "ipc",                       0, &ipcon, 1 },
-      { "ipc-start",                 0, &ipcon, 2 },
-#endif /* IPC */
-#if !defined(Aleph)
-      { "mltex",                     0, &mltexp, 1 },
-#if !defined(XeTeX) && !IS_pTeX
-      { "enc",                       0, &enctexp, 1 },
-#endif
-#endif /* !Aleph */
-#if IS_eTeX
-      { "etex",                      0, &etexp, 1 },
-#endif
-      { "output-comment",            1, 0, 0 },
-#if defined(pdfTeX)
-      { "draftmode",                 0, 0, 0 },
-      { "output-format",             1, 0, 0 },
-#endif /* pdfTeX */
-      { "shell-escape",              0, &shellenabledp, 1 },
-      { "no-shell-escape",           0, &shellenabledp, -1 },
-      { "enable-write18",            0, &shellenabledp, 1 },
-      { "disable-write18",           0, &shellenabledp, -1 },
-      { "shell-restricted",          0, 0, 0 },
-      { "debug-format",              0, &debugformatfile, 1 },
-      { "src-specials",              2, 0, 0 },
-#if defined(__SyncTeX__)
-      /* Synchronization: just like "interaction" above */
-      { "synctex",                   1, 0, 0 },
-#endif
-#endif /* TeX */
-#if defined (TeX) || defined (MF)
-      { "file-line-error-style",     0, &filelineerrorstylep, 1 },
-      { "no-file-line-error-style",  0, &filelineerrorstylep, -1 },
-      /* Shorter option names for the above. */
-      { "file-line-error",           0, &filelineerrorstylep, 1 },
-      { "no-file-line-error",        0, &filelineerrorstylep, -1 },
-      { "jobname",                   1, 0, 0 },
-      { "output-directory",          1, 0, 0 },
-      { "parse-first-line",          0, &parsefirstlinep, 1 },
-      { "no-parse-first-line",       0, &parsefirstlinep, -1 },
-#if !defined(Aleph)
-      { "translate-file",            1, 0, 0 },
-      { "default-translate-file",    1, 0, 0 },
-      { "8bit",                      0, &eightbitp, 1 },
-#endif /* !Aleph */
-#if defined(XeTeX)
-      { "no-pdf",                    0, &nopdfoutput, 1 },
-      { "output-driver",             1, 0, 0 },
-      { "papersize",                 1, 0, 0 },
-#endif /* XeTeX */
-      { "mktex",                     1, 0, 0 },
-      { "no-mktex",                  1, 0, 0 },
-#endif /* TeX or MF */
-#if IS_pTeX
-#ifdef WIN32
-      { "guess-input-enc",           0, &infile_enc_auto, 1 },
-      { "no-guess-input-enc",        0, &infile_enc_auto, 0 },
-#endif
-      { "kanji",                     1, 0, 0 },
-      { "kanji-internal",            1, 0, 0 },
-#endif /* IS_pTeX */
-      { 0, 0, 0, 0 } };
-
 static void
 parse_options (int argc, string *argv)
 {
-  int g;   /* `getopt' return code.  */
-  int option_index;
-
-  for (;;) {
-    g = getopt_long_only (argc, argv, "+", long_options, &option_index);
-
-    if (g == -1) /* End of arguments, exit the loop.  */
-      break;
-
-    if (g == '?') { /* Unknown option.  */
-      continue;
-    }
-
-    assert (g == 0); /* We have no short option names.  */
-
-    if (ARGUMENT_IS ("kpathsea-debug")) {
-      kpathsea_debug |= atoi (optarg);
-
-#ifdef XeTeX
-    } else if (ARGUMENT_IS ("papersize")) {
-      papersize = optarg;
-    } else if (ARGUMENT_IS ("output-driver")) {
-      outputdriver = optarg;
-#endif
-
-    } else if (ARGUMENT_IS ("progname")) {
-      user_progname = optarg;
-
-    } else if (ARGUMENT_IS ("cnf-line")) {
-      if (user_cnf_lines == NULL) {
-        user_cnf_nlines = 1;
-        user_cnf_lines = xmalloc (sizeof (const_string));
-      } else {
-        user_cnf_nlines++;
-        user_cnf_lines = xrealloc (user_cnf_lines,
-                                   user_cnf_nlines * sizeof (const_string));
-      }
-      user_cnf_lines[user_cnf_nlines-1] = xstrdup (optarg);
-
-    } else if (ARGUMENT_IS ("jobname")) {
-#ifdef XeTeX
-      c_job_name = optarg;
-#else
-      c_job_name = normalize_quotes (optarg, "jobname");
-#endif
-
-    } else if (ARGUMENT_IS (DUMP_OPTION)) {
-      dump_name = optarg;
-      dumpoption = true;
-
-#ifdef TeX
-    /* For backward compatibility only. */
-    } else if (ARGUMENT_IS ("efmt")) {
-      dump_name = optarg;
-      dumpoption = true;
-#endif
-
-    } else if (ARGUMENT_IS ("output-directory")) {
-      output_directory = optarg;
-      
-#ifdef TeX
-    } else if (ARGUMENT_IS ("output-comment")) {
-      unsigned len = strlen (optarg);
-      if (len < 256) {
-        outputcomment = optarg;
-      } else {
-        WARNING2 ("Comment truncated to 255 characters from %d. (%s)",
-                  len, optarg);
-        outputcomment = xmalloc (256);
-        strncpy (outputcomment, optarg, 255);
-        outputcomment[255] = 0;
-      }
-
-#ifdef IPC
-    } else if (ARGUMENT_IS ("ipc-start")) {
-      ipc_open_out ();
-      /* Try to start up the other end if it's not already.  */
-      if (!ipc_is_open ()) {
-#ifdef WIN32
-        if (_spawnlp (_P_NOWAIT, IPC_SERVER_CMD, IPC_SERVER_CMD, NULL) != -1) {
-#else
-        if (system (IPC_SERVER_CMD) == 0) {
-#endif
-          unsigned i;
-          for (i = 0; i < 20 && !ipc_is_open (); i++) {
-#ifdef WIN32
-            Sleep (100); /* 2000ms is too long for a simple w32 example */
-#else
-            sleep (2);
-#endif
-            ipc_open_out ();
-          }
-        }
-      }
-#endif /* IPC */
-
-    } else if (ARGUMENT_IS ("shell-restricted")) {
-      shellenabledp = 1;
-      restrictedshell = 1;
-      
-    } else if (ARGUMENT_IS ("src-specials")) {
-       last_source_name = xstrdup("");
-       /* Option `--src" without any value means `auto' mode. */
-       if (optarg == NULL) {
-         insertsrcspecialeverypar = true;
-         insertsrcspecialauto = true;
-         srcspecialsoption = true;
-         srcspecialsp = true;
-       } else {
-          parse_src_specials_option(optarg);
-       }
-#endif /* TeX */
-#if defined(pdfTeX)
-    } else if (ARGUMENT_IS ("output-format")) {
-       pdfoutputoption = 1;
-       if (strcmp(optarg, "dvi") == 0) {
-         pdfoutputvalue = 0;
-       } else if (strcmp(optarg, "pdf") == 0) {
-         pdfoutputvalue = 2;
-       } else {
-         WARNING1 ("Ignoring unknown value `%s' for --output-format", optarg);
-         pdfoutputoption = 0;
-       }
-    } else if (ARGUMENT_IS ("draftmode")) {
-      pdfdraftmodeoption = 1;
-      pdfdraftmodevalue = 1;
-#endif /* pdfTeX */
-#if defined (TeX) || defined (MF)
-#if !defined(Aleph)
-    } else if (ARGUMENT_IS ("translate-file")) {
-      translate_filename = optarg;
-    } else if (ARGUMENT_IS ("default-translate-file")) {
-      default_translate_filename = optarg;
-#endif /* !Aleph */
-    } else if (ARGUMENT_IS ("mktex")) {
-      kpse_maketex_option (optarg, true);
-    } else if (ARGUMENT_IS ("no-mktex")) {
-      kpse_maketex_option (optarg, false);
-#endif /* TeX or MF */
-    } else if (ARGUMENT_IS ("interaction")) {
-        /* These numbers match @d's in *.ch */
-      if (STREQ (optarg, "batchmode")) {
-        interactionoption = 0;
-      } else if (STREQ (optarg, "nonstopmode")) {
-        interactionoption = 1;
-      } else if (STREQ (optarg, "scrollmode")) {
-        interactionoption = 2;
-      } else if (STREQ (optarg, "errorstopmode")) {
-        interactionoption = 3;
-      } else {
-        WARNING1 ("Ignoring unknown argument `%s' to --interaction", optarg);
-      }
-#if IS_pTeX
-    } else if (ARGUMENT_IS ("kanji")) {
-      if (!set_enc_string (optarg, NULL)) {
-        WARNING1 ("Ignoring unknown argument `%s' to --kanji", optarg);
-      }
-    } else if (ARGUMENT_IS ("kanji-internal")) {
-      if (!set_enc_string (NULL, optarg)) {
-        WARNING1 ("Ignoring unknown argument `%s' to --kanji-internal", optarg);
-      }
-#endif
-
-    } else if (ARGUMENT_IS ("help")) {
-        usagehelp (PROGRAM_HELP, BUG_ADDRESS);
-
-#if defined(__SyncTeX__)
-    } else if (ARGUMENT_IS ("synctex")) {
-		/* Synchronize TeXnology: catching the command line option as a long  */
-		synctexoption = (int) strtol(optarg, NULL, 0);
-#endif
-
-    } else if (ARGUMENT_IS ("version")) {
-        char *versions;
-#if defined (pdfTeX) || defined(XeTeX)
-        initversionstring(&versions); 
-#else
-        versions = NULL;
-#endif
-        printversionandexit (BANNER, COPYRIGHT_HOLDER, AUTHOR, versions);
-
-    } /* Else it was a flag; getopt has already done the assignment.  */
-  }
 }
 
 #if defined(TeX)
@@ -1995,7 +1726,7 @@ parse_src_specials_option (const_string opt_list)
         insertsrcspecialeverymath =  insertsrcspecialeveryhbox =
         insertsrcspecialeveryvbox = insertsrcspecialeverydisplay = false;
     } else {
-      WARNING1 ("Ignoring unknown argument `%s' to --src-specials", tok);
+      printf ("Ignoring unknown argument `%s' to --src-specials", tok);
     }
     tok = strtok(0, ", ");
   }
@@ -2018,8 +1749,9 @@ static void
 parse_first_line (const_string filename)
 {
   FILE *f = filename ? fopen (filename, FOPEN_R_MODE) : NULL;
+  char line_buf[1024];
   if (f) {
-    string first_line = read_line (f);
+    string first_line = fgets (line_buf, 1024, f);
     xfclose (f, filename);
 
     /* We deal with the general format "%&fmt --translate-file=tcx" */
@@ -2034,7 +1766,7 @@ parse_first_line (const_string filename)
 
       /* Here we use ISBLANK instead of IS_SPC_OR_EOL because we are
          parsing the whitespace-delimited %& line, not TeX input.  */
-      for (s = first_line+2; ISBLANK(*s); ++s)
+      for (s = first_line+2; isblank(*s); ++s)
         ;
       npart = 0;
       while (*s && npart != 3) {
@@ -2052,9 +1784,9 @@ parse_first_line (const_string filename)
         } else {
           string f_name = concat (part[0], DUMP_EXT);
           string d_name = kpse_find_file (f_name, DUMP_FORMAT, false);
-          if (d_name && kpse_readable_file (d_name)) {
+          if (d_name) {
             dump_name = xstrdup (part[0]);
-            kpse_reset_program_name (dump_name);
+            // kpse_reset_program_name (dump_name);
             /* Tell TeX/MF/MP we have a %&name line... */
             dumpline = true;
           }
@@ -2083,8 +1815,6 @@ parse_first_line (const_string filename)
         }
       }
     }
-    if (first_line)
-      free (first_line);
   }
 }
 
@@ -2306,7 +2036,7 @@ catch_interrupt (DWORD arg)
   }
 }
 #else /* not WIN32 */
-static RETSIGTYPE
+static void
 catch_interrupt (int arg)
 {
   interrupt = 1;
@@ -2386,7 +2116,7 @@ get_date_and_time (integer *minutes,  integer *day,
     /* warn if they gave an invalid value, empty (null string) ok.  */
     if (sde_texprim && strlen (sde_texprim) > 0
         && !STREQ (sde_texprim, "0")) {
-WARNING1 ("invalid value (expected 0 or 1) for environment variable $FORCE_SOURCE_DATE: %s", 
+printf ("invalid value (expected 0 or 1) for environment variable $FORCE_SOURCE_DATE: %s", 
           sde_texprim);
     }
 #endif /* not onlyTeX */
@@ -2686,10 +2416,10 @@ calledit (packedASCIIcode *filename,
 #ifdef WIN32
   fp = editorname;
   if ((isalpha(*edit_value) && *(edit_value + 1) == ':'
-        && IS_DIR_SEP (*(edit_value + 2)))
+        && (*(edit_value + 2) == '/'))
       || (*edit_value == '"' && isalpha(*(edit_value + 1))
         && *(edit_value + 2) == ':'
-        && IS_DIR_SEP (*(edit_value + 3)))
+        && (*(edit_value + 3)=='/'))
      )
     dontchange = 1;
 #endif
@@ -3015,7 +2745,7 @@ compare_paths (const_string p1, const_string p2)
 #else
          (((ret = (*p1 - *p2)) == 0) && (*p2 != 0))
 #endif
-                || (IS_DIR_SEP(*p1) && IS_DIR_SEP(*p2))) {
+                || ((*p1=='/') && (*p2=='/'))) {
        p1++, p2++;
   }
   ret = (ret < 0 ? -1 : (ret > 0 ? 1 : 0));
@@ -3147,7 +2877,6 @@ makesrcspecial (strnumber srcfilename, int lineno)
 /* pdfTeX routines also used for e-pTeX, e-upTeX, and XeTeX */
 #if defined (pdfTeX) || defined (epTeX) || defined (eupTeX) || defined(XeTeX)
 
-#include <kpathsea/c-stat.h>
 #include "md5.h"
 
 #define check_nprintf(size_get, size_want) \
@@ -3294,19 +3023,19 @@ find_input_file(integer s)
     /* Look in -output-directory first, if the filename is not
        absolute.  This is because we want the pdf* functions to
        be able to find the same files as \openin */
-    if (output_directory && !kpse_absolute_p (filename, false)) {
+    if (output_directory && filename[0]!='/') {
         string pathname;
 
-        pathname = concat3(output_directory, DIR_SEP_STRING, filename);
-        if (!access(pathname, R_OK) && !dir_p (pathname)) {
+        pathname = concat3(output_directory, "/", filename);
+        if (!access(pathname, R_OK)) {
             return pathname;
         }
         xfree (pathname);
     }
-    if (! kpse_in_name_ok(filename)) {
+    if (0) {
        return NULL;                /* no permission */
     }
-    return kpse_find_tex(filename);
+    return mykpse_find_file(filename, "tex");
 }
 
 #if !defined(XeTeX)

@@ -60,5 +60,3 @@ with this program.  If not, see <http://www.gnu.org/licenses/>.
     open_input (&(f), kpse_vf_format, FOPEN_RBIN_MODE)
 
 #define pdfassert   assert
-
-#include <pdftexdir/ptexlib.h>

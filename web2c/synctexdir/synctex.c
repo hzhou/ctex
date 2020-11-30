@@ -303,10 +303,10 @@ static int fsyscp_remove(char *name);
 
 /*  This macro layer was added to take luatex into account as suggested by T. Hoekwater. */
 #   if !defined(SYNCTEX_GET_JOB_NAME)
-#       define SYNCTEX_GET_JOB_NAME() (gettexstring(jobname))
+#       define SYNCTEX_GET_JOB_NAME() "tex-jobname"
 #   endif
 #   if !defined(SYNCTEX_GET_LOG_NAME)
-#       define SYNCTEX_GET_LOG_NAME() (gettexstring(texmflogname))
+#       define SYNCTEX_GET_LOG_NAME() "tex-logname"
 #   endif
 #   if !defined(SYNCTEX_CURRENT_TAG)
 #       define SYNCTEX_CURRENT_TAG (curinput.synctextagfield)
@@ -519,11 +519,6 @@ static const char *synctex_suffix = ".synctex";
 static const char *synctex_suffix_gz = ".gz";
 static const char *synctex_suffix_busy = "(busy)";
 
-/*  for DIR_SEP_STRING */
-#   include <kpathsea/c-pathch.h>
-/*  for kpse_absolute_p */
-#   include <kpathsea/absolute.h>
-
 #ifdef W32UPTEXSYNCTEX
 static char *chgto_oem(char *src)
 {
@@ -649,7 +644,7 @@ static void *synctex_dot_open(void)
             /* Initialize the_busy_name to the void string */
             the_busy_name[0] = (char)0;
             /* If an output directory was specified, use it instead of cwd.  */
-            if (output_directory && !kpse_absolute_p(tmp, false)) {
+            if (output_directory && tmp[0]!='/') {
                 synctex_ctxt.flags.output_p = 1;
                 strcat(the_busy_name, output_directory);
                 strcat(the_busy_name, DIR_SEP_STRING);

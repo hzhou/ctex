@@ -5,6 +5,8 @@
 #define LIB_LIB_H
 
 #define FOPEN_W_MODE "w"
+#define FOPEN_R_MODE "r"
+#define FOPEN_WBIN_MODE "w"
 #define FOPEN_RBIN_MODE "r"
 #define DIR_SEP_STRING "/"
 
@@ -12,6 +14,7 @@ typedef enum kpse_filefmt {
     kpse_tex_format,
     kpse_mf_format,
     kpse_mp_format,
+    kpse_fmt_format,
     kpse_vf_format,
     kpse_tfm_format,
     kpse_ocp_format,
@@ -23,15 +26,19 @@ typedef enum kpse_filefmt {
     kpse_sfd_format,
     kpse_enc_format,
     kpse_miscfonts_format,
+    kpse_web2c_format,
 } kpse_file_format_type;
 
 extern char *kpse_program_name;
+extern boolean kpse_make_tex_discard_errors;
+
 void kpse_set_program_name(char *name);
 const char *kpse_get_ext(kpse_file_format_type);
-const char *kpse_var_value(const char *name);
+char *kpse_var_value(const char *name);
 
 #define kpse_find_file(s,fmt,must_exist) mykpse_find_file(s, kpse_get_ext(fmt))
 
+char *concat(const char *a, const char *b);
 char *concat3(const char *a, const char *b, const char *c);
 
 /* basechsuffix.c */

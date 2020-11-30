@@ -10,6 +10,8 @@
 #include <ctype.h>
 #include <assert.h>
 #include <limits.h>
+#include <math.h>
+#include <errno.h>
 
 #include <unistd.h>
 
@@ -21,23 +23,27 @@ typedef bool boolean;
 #define integer int
 #define longinteger long
 #define schar char
+#define real double
 
-#ifndef CPASCAL_H
-#define uexit exit
+#ifndef Fputs
 #define Fputs(F, str) fputs(str, F)
+#endif
+#ifndef vgetc
 #define vgetc(f)      (void)getc(f)
-
-#else
-#define WEB2C_NORETURN
 #endif
 
+#define WEB2C_NORETURN
 #define SCHAR_TYPE char
 #define STREQ(a, b) (strcmp(a, b) == 0)
+#define STRNEQ(a, b, n) (strncmp(a, b, n) == 0)
+#define FILESTRCASEEQ(a, b) STREQ(a,b)
 
 #define xmalloc malloc
+#define xrealloc realloc
 #define xfseek(f,off,whence,filename) fseek(f,off,whence)
 #define xftell(f,filename) ftell(f)
 #define xstrdup strdup
+#define uexit exit
 
 #define kpathsea_version_string " - CUSTOM"
 #define kpathsea_debug false

@@ -46,7 +46,7 @@ I would appreciate to be listed as contributor and see "SyncTeX" highlighted.
 
 */
 
-#    include "pdftexd.h"
+#    include "mytexd.h"
 
 /*  We observe pdfoutputvalue in order to determine whether output mode is
  *  pdf or dvi.

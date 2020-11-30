@@ -4,6 +4,7 @@
 
 #include "../myw2c.h"
 #include "lib.h"
+#include "libgen.h"
 
 /* Return the basename of NAME, with trailing characters OLD replaced by
    NEW.  (If last characters in NAME are not OLD, just append NEW.)
@@ -18,15 +19,14 @@ basenamechangesuffix (const_string name,  const_string old_suffix,
 {
   string answer;
   unsigned c;
-  const_string base = xbasename (name);
+  const_string base = basename ((char *)name);
   unsigned base_len = strlen (base);
   unsigned copy_limit = base_len;
   unsigned old_suffix_len = strlen (old_suffix);
   
   if (old_suffix_len <= base_len) {
     for (c = 0; c < old_suffix_len; c++) {
-      if (!FILECHARCASEEQ (old_suffix[old_suffix_len - c - 1],
-                       base[base_len - c - 1]))
+      if (!(old_suffix[old_suffix_len - c - 1] == base[base_len - c - 1]))
         break;
     }
     if (c == old_suffix_len) {

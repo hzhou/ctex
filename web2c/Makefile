@@ -1,6 +1,7 @@
-CC = gcc -I.. -I.
+CC = gcc -I.. -I. -Ilibmd5 -D__SyncTeX__ 
+CXX = g++ -I.. -I.
 
-all:  web2c tangle
+all: web2c tangle pdftex
 
 # --------------------------
 tangle: tangle.o mykpse.o tangle_glue.o
@@ -55,32 +56,54 @@ web2c = web2c/web2c -htexmfmp.h -t -cpdftexcoerce
 fixwrites = web2c/fixwrites -t pdftex
 splitup = web2c/splitup -i -l 65000 pdftex
 
-pdftex0.c: pdftexdir/pdftex.p
+output/pdftex0.c: pdftexdir/pdftex.p
 	cat $(pdftex_defines) $< | $(web2c) | $(fixwrites) | $(splitup)
+	mkdir -p output
+	mv -v pdftexd.h pdftex0.c pdftexini.c output/
 
 # --------------------------
 pdftex_OBJECTS = \
-    pdftexdir/pdftexextra.o \
-    pdftexdir/pdftexini.o \
-    pdftex0.o \
+    mykpse.o \
+    texextra.o \
+    synctexdir/synctex.o \
+    my-pdftexini.o \
+    my-pdftex0.o \
     pdftex-pool.o
 
-pdftex: libpdftex.a $(pdftex_OBJECTS)
-	$(CC) -o pdftex $(pdftex_OBJECTS) libpdftex.a
+pdftex_DEPS = \
+    pdftexdir/libpdftex.a \
+    lib/lib.a \
+    libmd5/libmd5.a \
+    xpdf/libxpdf.a
+
+pdftex: $(pdftex_OBJECTS) $(pdftex_DEPS)
+	$(CXX) -o pdftex $(pdftex_OBJECTS) $(pdftex_DEPS) -lz -lpng -lm
 
 pdftex-pool.c: pdftexdir/pdftex.pool
 	web2c/makecpool pdftexdir/pdftex > $@ || rm $@
 
 # --------------------------
-lib/lib.a:
+texextra.o: lib/texmfmp.c
+
+# --------------------------
+lib/lib.a: lib/mykpse.c
 	$(MAKE) -C lib
 
 libmd5/libmd5.a:
 	$(MAKE) -C libmd5
 
+xpdf/libxpdf.a:
+	$(MAKE) -C xpdf
+
 pdftexdir/libpdftex.a:
 	$(MAKE) -C pdftexdir
 
+synctexdir/synctex.o: synctexdir/synctex.c
+	$(CC) -DSYNCTEX_ENGINE_H=\"synctexdir/synctex-pdftex.h\" -c -o $@ $<
+
+# --------------------------
+clean:
+	find . -name '*.o' |xargs rm
 # --------------------------
 %.o: %.c
 	$(CC) -c -o $@ $<
