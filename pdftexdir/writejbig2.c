@@ -124,10 +124,10 @@ typedef struct _LIST {
 
 typedef struct _SEGINFO {
     unsigned long segnum;
-    boolean isrefered;
-    boolean refers;
+    bool isrefered;
+    bool refers;
     unsigned int seghdrflags;   /* set by readseghdr() */
-    boolean pageassocsizeflag;  /* set by readseghdr() */
+    bool pageassocsizeflag;  /* set by readseghdr() */
     unsigned int reftosegcount; /* set by readseghdr() */
     unsigned int countofrefered;        /* set by readseghdr() */
     unsigned int fieldlen;      /* set by readseghdr() */
@@ -138,10 +138,10 @@ typedef struct _SEGINFO {
     off_t hdrend;               /* set by readseghdr() */
     off_t datastart;
     off_t dataend;
-    boolean endofstripeflag;    /* set by checkseghdrflags() */
-    boolean endofpageflag;      /* set by checkseghdrflags() */
-    boolean pageinfoflag;       /* set by checkseghdrflags() */
-    boolean endoffileflag;      /* set by checkseghdrflags() */
+    bool endofstripeflag;    /* set by checkseghdrflags() */
+    bool endofpageflag;      /* set by checkseghdrflags() */
+    bool pageinfoflag;       /* set by checkseghdrflags() */
+    bool endoffileflag;      /* set by checkseghdrflags() */
 } SEGINFO;
 
 typedef struct _PAGEINFO {
@@ -163,7 +163,7 @@ typedef struct _FILEINFO {
     LIST pages;                 /* not including page0 */
     LIST page0;
     unsigned int filehdrflags;  /* set by readfilehdr() */
-    boolean sequentialaccess;   /* set by readfilehdr() */
+    bool sequentialaccess;   /* set by readfilehdr() */
     unsigned long numofpages;   /* set by readfilehdr() */
     off_t streamstart;          /* set by get_jbig2_info() */
     unsigned long pdfpage0objnum;
@@ -357,7 +357,7 @@ static unsigned long read4bytes(FILE * f)
 
 /**********************************************************************/
 
-static off_t getstreamlen(LITEM * slip, boolean refer)
+static off_t getstreamlen(LITEM * slip, bool refer)
 {
     SEGINFO *sip;
     off_t len = 0;
@@ -399,7 +399,7 @@ static void readfilehdr(FILEINFO * fip)
 /**********************************************************************/
 /* for first reading of file; return value tells if header been read */
 
-static boolean readseghdr(FILEINFO * fip, SEGINFO * sip)
+static bool readseghdr(FILEINFO * fip, SEGINFO * sip)
 {
     unsigned int i;
     sip->hdrstart = ftell(fip->file);
@@ -627,7 +627,7 @@ static void rd_jbig2_info(FILEINFO * fip)
     off_t seekdist = 0;         /* for sequential-access only */
     off_t streampos = 0;        /* for random-access only */
     unsigned long currentpage = 0;
-    boolean sipavail = false;
+    bool sipavail = false;
     PAGEINFO *pip;
     SEGINFO *sip = NULL;
     LIST *plp, *slp;
@@ -758,7 +758,7 @@ static void wr_jbig2(FILEINFO * fip, unsigned long page)
 
 /**********************************************************************/
 
-void read_jbig2_info(integer img)
+void read_jbig2_info(int img)
 {
     FILEINFO *fip, tmp;
     PAGEINFO *pip;
@@ -801,7 +801,7 @@ void read_jbig2_info(integer img)
 
 /**********************************************************************/
 
-void write_jbig2(integer img)
+void write_jbig2(int img)
 {
     FILEINFO *fip, tmp;
     PAGEINFO *pip;

@@ -77,7 +77,7 @@ pdftex_DEPS = \
     pdftexdir/libpdftex.a \
     lib/lib.a \
     libmd5/libmd5.a \
-    xpdf/libxpdf.a
+    libxpdf/libxpdf.a
 
 pdftex: $(pdftex_OBJECTS) $(pdftex_DEPS)
 	$(CXX) -o pdftex $(pdftex_OBJECTS) $(pdftex_DEPS) -lz -lpng -lm
@@ -85,26 +85,25 @@ pdftex: $(pdftex_OBJECTS) $(pdftex_DEPS)
 # --------------------------
 texextra.o: lib/texmfmp.c
 
-# --------------------------
-lib/lib.a: lib/mykpse.c
-	$(MAKE) -C lib
-
-libmd5/libmd5.a:
-	$(MAKE) -C libmd5
-
-xpdf/libxpdf.a:
-	$(MAKE) -C xpdf
-
-pdftexdir/libpdftex.a:
-	$(MAKE) -C pdftexdir
-
 synctexdir/synctex.o: synctexdir/synctex.c
 	$(CC) -DSYNCTEX_ENGINE_H=\"synctexdir/synctex-pdftex.h\" -c -o $@ $<
 
+lib/lib.a: lib/mykpse.c
+	$(MAKE) -C lib lib.a
+
+libmd5/libmd5.a:
+	$(MAKE) -C libmd5 libmd5.a
+
+libxpdf/libxpdf.a:
+	$(MAKE) -C libxpdf libxpdf.a
+
+pdftexdir/libpdftex.a:
+	$(MAKE) -C pdftexdir libpdftex.a
+
 # --------------------------
 clean:
-	find . -name '*.o' |xargs rm
-# --------------------------
+	find . -name '*.[oa]' |xargs rm -v
+
 %.o: %.c
 	$(CC) -c -o $@ $<
 

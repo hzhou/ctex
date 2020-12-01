@@ -5,8 +5,8 @@ void
 initialize ( void ) 
 {
   initialize_regmem 
-  integer i  ;
-  integer k  ;
+  int i  ;
+  int k  ;
   hyphpointer z  ;
   xchr [32 ]= ' ' ;
   xchr [33 ]= '!' ;
@@ -103,19 +103,19 @@ initialize ( void )
   xchr [124 ]= '|' ;
   xchr [125 ]= '}' ;
   xchr [126 ]= '~' ;
-  {register integer for_end; i = 0 ;for_end = 31 ; if ( i <= for_end) do 
+  {register int for_end; i = 0 ;for_end = 31 ; if ( i <= for_end) do 
     xchr [i ]= i ;
   while ( i++ < for_end ) ;} 
-  {register integer for_end; i = 127 ;for_end = 255 ; if ( i <= for_end) do 
+  {register int for_end; i = 127 ;for_end = 255 ; if ( i <= for_end) do 
     xchr [i ]= i ;
   while ( i++ < for_end ) ;} 
-  {register integer for_end; i = 0 ;for_end = 255 ; if ( i <= for_end) do 
+  {register int for_end; i = 0 ;for_end = 255 ; if ( i <= for_end) do 
     mubyteread [i ]= -268435455L ;
   while ( i++ < for_end ) ;} 
-  {register integer for_end; i = 0 ;for_end = 255 ; if ( i <= for_end) do 
+  {register int for_end; i = 0 ;for_end = 255 ; if ( i <= for_end) do 
     mubytewrite [i ]= 0 ;
   while ( i++ < for_end ) ;} 
-  {register integer for_end; i = 0 ;for_end = 127 ; if ( i <= for_end) do 
+  {register int for_end; i = 0 ;for_end = 127 ; if ( i <= for_end) do 
     mubytecswrite [i ]= -268435455L ;
   while ( i++ < for_end ) ;} 
   mubytekeep = 0 ;
@@ -126,16 +126,16 @@ initialize ( void )
   messageprinting = false ;
   noconvert = false ;
   activenoconvert = false ;
-  {register integer for_end; i = 0 ;for_end = 255 ; if ( i <= for_end) do 
+  {register int for_end; i = 0 ;for_end = 255 ; if ( i <= for_end) do 
     xord [chr ( i ) ]= 127 ;
   while ( i++ < for_end ) ;} 
-  {register integer for_end; i = 128 ;for_end = 255 ; if ( i <= for_end) do 
+  {register int for_end; i = 128 ;for_end = 255 ; if ( i <= for_end) do 
     xord [xchr [i ]]= i ;
   while ( i++ < for_end ) ;} 
-  {register integer for_end; i = 0 ;for_end = 126 ; if ( i <= for_end) do 
+  {register int for_end; i = 0 ;for_end = 126 ; if ( i <= for_end) do 
     xord [xchr [i ]]= i ;
   while ( i++ < for_end ) ;} 
-  {register integer for_end; i = 0 ;for_end = 255 ; if ( i <= for_end) do 
+  {register int for_end; i = 0 ;for_end = 255 ; if ( i <= for_end) do 
     xprn [i ]= ( eightbitp || ( ( i >= 32 ) && ( i <= 126 ) ) ) ;
   while ( i++ < for_end ) ;} 
   if ( translatefilename ) 
@@ -151,7 +151,7 @@ initialize ( void )
   interrupt = 0 ;
   OKtointerrupt = true ;
   twotothe [0 ]= 1 ;
-  {register integer for_end; k = 1 ;for_end = 30 ; if ( k <= for_end) do 
+  {register int for_end; k = 1 ;for_end = 30 ; if ( k <= for_end) do 
     twotothe [k ]= 2 * twotothe [k - 1 ];
   while ( k++ < for_end ) ;} 
   speclog [1 ]= 93032640L ;
@@ -167,7 +167,7 @@ initialize ( void )
   speclog [11 ]= 65552L ;
   speclog [12 ]= 32772L ;
   speclog [13 ]= 16385 ;
-  {register integer for_end; k = 14 ;for_end = 27 ; if ( k <= for_end) do 
+  {register int for_end; k = 14 ;for_end = 27 ; if ( k <= for_end) do 
     speclog [k ]= twotothe [27 - k ];
   while ( k++ < for_end ) ;} 
   speclog [28 ]= 1 ;
@@ -197,14 +197,14 @@ initialize ( void )
   lastnodetype = -1 ;
   pagesofar [7 ]= 0 ;
   pagemaxdepth = 0 ;
-  {register integer for_end; k = 29277 ;for_end = 30185 ; if ( k <= for_end) 
+  {register int for_end; k = 29277 ;for_end = 30185 ; if ( k <= for_end) 
   do 
     xeqlevel [k ]= 1 ;
   while ( k++ < for_end ) ;} 
   nonewcontrolsequence = true ;
   prim [0 ].v.LH = 0 ;
   prim [0 ].v.RH = 0 ;
-  {register integer for_end; k = 1 ;for_end = 2100 ; if ( k <= for_end) do 
+  {register int for_end; k = 1 ;for_end = 2100 ; if ( k <= for_end) do 
     prim [k ]= prim [0 ];
   while ( k++ < for_end ) ;} 
   saveptr = 0 ;
@@ -223,7 +223,7 @@ initialize ( void )
   curvallevel = 0 ;
   radix = 0 ;
   curorder = 0 ;
-  {register integer for_end; k = 0 ;for_end = 16 ; if ( k <= for_end) do 
+  {register int for_end; k = 0 ;for_end = 16 ; if ( k <= for_end) do 
     readopen [k ]= 2 ;
   while ( k++ < for_end ) ;} 
   condptr = -268435455L ;
@@ -270,7 +270,7 @@ initialize ( void )
   onehundredbp = 6578176L ;
   onehundredinch = 473628672L ;
   tenpow [0 ]= 1 ;
-  {register integer for_end; i = 1 ;for_end = 9 ; if ( i <= for_end) do 
+  {register int for_end; i = 1 ;for_end = 9 ; if ( i <= for_end) do 
     tenpow [i ]= 10 * tenpow [i - 1 ];
   while ( i++ < for_end ) ;} 
   initpdfoutput = false ;
@@ -278,7 +278,7 @@ initialize ( void )
   sysobjptr = 0 ;
   objtabsize = infobjtabsize ;
   destnamessize = infdestnamessize ;
-  {register integer for_end; k = 1 ;for_end = 9 ; if ( k <= for_end) do 
+  {register int for_end; k = 1 ;for_end = 9 ; if ( k <= for_end) do 
     headtab [k ]= 0 ;
   while ( k++ < for_end ) ;} 
   pdfboxspecmedia = 1 ;
@@ -310,7 +310,7 @@ initialize ( void )
   curtail = -268435455L ;
   curprehead = -268435455L ;
   curpretail = -268435455L ;
-  {register integer for_end; z = 0 ;for_end = hyphsize ; if ( z <= for_end) 
+  {register int for_end; z = 0 ;for_end = hyphsize ; if ( z <= for_end) 
   do 
     {
       hyphword [z ]= 0 ;
@@ -332,7 +332,7 @@ initialize ( void )
   aftertoken = 0 ;
   longhelpseen = false ;
   formatident = 0 ;
-  {register integer for_end; k = 0 ;for_end = 17 ; if ( k <= for_end) do 
+  {register int for_end; k = 0 ;for_end = 17 ; if ( k <= for_end) do 
     writeopen [k ]= false ;
   while ( k++ < for_end ) ;} 
   altrule = -268435455L ;
@@ -376,7 +376,7 @@ initialize ( void )
 #ifdef INITEX
   if ( iniversion ) 
   {
-    {register integer for_end; k = membot + 1 ;for_end = membot + 19 ; if ( 
+    {register int for_end; k = membot + 1 ;for_end = membot + 19 ; if ( 
     k <= for_end) do 
       mem [k ].cint = 0 ;
     while ( k++ < for_end ) ;} 
@@ -406,7 +406,7 @@ initialize ( void )
     lomemmax = rover + 1000 ;
     mem [lomemmax ].hh .v.RH = -268435455L ;
     mem [lomemmax ].hh .v.LH = -268435455L ;
-    {register integer for_end; k = memtop - 14 ;for_end = memtop ; if ( k <= 
+    {register int for_end; k = memtop - 14 ;for_end = memtop ; if ( k <= 
     for_end) do 
       mem [k ]= mem [lomemmax ];
     while ( k++ < for_end ) ;} 
@@ -429,14 +429,14 @@ initialize ( void )
     eqtb [26627 ].hh.b0 = 103 ;
     eqtb [26627 ].hh .v.RH = -268435455L ;
     eqtb [26627 ].hh.b1 = 0 ;
-    {register integer for_end; k = 1 ;for_end = eqtbtop ; if ( k <= for_end) 
+    {register int for_end; k = 1 ;for_end = eqtbtop ; if ( k <= for_end) 
     do 
       eqtb [k ]= eqtb [26627 ];
     while ( k++ < for_end ) ;} 
     eqtb [26628 ].hh .v.RH = membot ;
     eqtb [26628 ].hh.b1 = 1 ;
     eqtb [26628 ].hh.b0 = 119 ;
-    {register integer for_end; k = 26629 ;for_end = 27157 ; if ( k <= 
+    {register int for_end; k = 26629 ;for_end = 27157 ; if ( k <= 
     for_end) do 
       eqtb [k ]= eqtb [26628 ];
     while ( k++ < for_end ) ;} 
@@ -444,36 +444,36 @@ initialize ( void )
     eqtb [27158 ].hh .v.RH = -268435455L ;
     eqtb [27158 ].hh.b0 = 120 ;
     eqtb [27158 ].hh.b1 = 1 ;
-    {register integer for_end; k = 27429 ;for_end = 27432 ; if ( k <= 
+    {register int for_end; k = 27429 ;for_end = 27432 ; if ( k <= 
     for_end) do 
       eqtb [k ]= eqtb [27158 ];
     while ( k++ < for_end ) ;} 
-    {register integer for_end; k = 27159 ;for_end = 27428 ; if ( k <= 
+    {register int for_end; k = 27159 ;for_end = 27428 ; if ( k <= 
     for_end) do 
       eqtb [k ]= eqtb [26627 ];
     while ( k++ < for_end ) ;} 
     eqtb [27433 ].hh .v.RH = -268435455L ;
     eqtb [27433 ].hh.b0 = 121 ;
     eqtb [27433 ].hh.b1 = 1 ;
-    {register integer for_end; k = 27434 ;for_end = 27688 ; if ( k <= 
+    {register int for_end; k = 27434 ;for_end = 27688 ; if ( k <= 
     for_end) do 
       eqtb [k ]= eqtb [27433 ];
     while ( k++ < for_end ) ;} 
     eqtb [27689 ].hh .v.RH = 0 ;
     eqtb [27689 ].hh.b0 = 122 ;
     eqtb [27689 ].hh.b1 = 1 ;
-    {register integer for_end; k = 27693 ;for_end = 27740 ; if ( k <= 
+    {register int for_end; k = 27693 ;for_end = 27740 ; if ( k <= 
     for_end) do 
       eqtb [k ]= eqtb [27689 ];
     while ( k++ < for_end ) ;} 
     eqtb [27741 ].hh .v.RH = 0 ;
     eqtb [27741 ].hh.b0 = 122 ;
     eqtb [27741 ].hh.b1 = 1 ;
-    {register integer for_end; k = 27742 ;for_end = 29276 ; if ( k <= 
+    {register int for_end; k = 27742 ;for_end = 29276 ; if ( k <= 
     for_end) do 
       eqtb [k ]= eqtb [27741 ];
     while ( k++ < for_end ) ;} 
-    {register integer for_end; k = 0 ;for_end = 255 ; if ( k <= for_end) do 
+    {register int for_end; k = 0 ;for_end = 255 ; if ( k <= for_end) do 
       {
 	eqtb [27741 + k ].hh .v.RH = 12 ;
 	eqtb [28765 + k ].hh .v.RH = k ;
@@ -486,10 +486,10 @@ initialize ( void )
     eqtb [27778 ].hh .v.RH = 14 ;
     eqtb [27868 ].hh .v.RH = 15 ;
     eqtb [27741 ].hh .v.RH = 9 ;
-    {register integer for_end; k = 48 ;for_end = 57 ; if ( k <= for_end) do 
+    {register int for_end; k = 48 ;for_end = 57 ; if ( k <= for_end) do 
       eqtb [28765 + k ].hh .v.RH = k + 28672 ;
     while ( k++ < for_end ) ;} 
-    {register integer for_end; k = 65 ;for_end = 90 ; if ( k <= for_end) do 
+    {register int for_end; k = 65 ;for_end = 90 ; if ( k <= for_end) do 
       {
 	eqtb [27741 + k ].hh .v.RH = 11 ;
 	eqtb [27741 + k + 32 ].hh .v.RH = 11 ;
@@ -502,7 +502,7 @@ initialize ( void )
 	eqtb [28509 + k ].hh .v.RH = 999 ;
       } 
     while ( k++ < for_end ) ;} 
-    {register integer for_end; k = 29277 ;for_end = 29639 ; if ( k <= 
+    {register int for_end; k = 29277 ;for_end = 29639 ; if ( k <= 
     for_end) do 
       eqtb [k ].cint = 0 ;
     while ( k++ < for_end ) ;} 
@@ -514,11 +514,11 @@ initialize ( void )
     eqtb [29317 ].cint = 25 ;
     eqtb [29322 ].cint = 92 ;
     eqtb [29325 ].cint = 13 ;
-    {register integer for_end; k = 0 ;for_end = 255 ; if ( k <= for_end) do 
+    {register int for_end; k = 0 ;for_end = 255 ; if ( k <= for_end) do 
       eqtb [29640 + k ].cint = -1 ;
     while ( k++ < for_end ) ;} 
     eqtb [29686 ].cint = 0 ;
-    {register integer for_end; k = 29896 ;for_end = 30185 ; if ( k <= 
+    {register int for_end; k = 29896 ;for_end = 30185 ; if ( k <= 
     for_end) do 
       eqtb [k ].cint = 0 ;
     while ( k++ < for_end ) ;} 
@@ -551,11 +551,11 @@ initialize ( void )
     eqtb [29927 ].cint = eqtb [29928 ].cint ;
     eqtb [29924 ].cint = eqtb [29928 ].cint ;
     eqtb [29925 ].cint = eqtb [29928 ].cint ;
-    {register integer for_end; k = - (integer) trieopsize ;for_end = 
+    {register int for_end; k = - (int) trieopsize ;for_end = 
     trieopsize ; if ( k <= for_end) do 
       trieophash [k ]= 0 ;
     while ( k++ < for_end ) ;} 
-    {register integer for_end; k = 0 ;for_end = 255 ; if ( k <= for_end) do 
+    {register int for_end; k = 0 ;for_end = 255 ; if ( k <= for_end) do 
       trieused [k ]= mintrieop ;
     while ( k++ < for_end ) ;} 
     maxopused = mintrieop ;
@@ -571,7 +571,7 @@ initialize ( void )
     eTeXmode = 0 ;
     maxregnum = 255 ;
     maxreghelpline = 791 ;
-    {register integer for_end; i = 0 ;for_end = 5 ; if ( i <= for_end) do 
+    {register int for_end; i = 0 ;for_end = 5 ; if ( i <= for_end) do 
       saroot [i ]= -268435455L ;
     while ( i++ < for_end ) ;} 
   } 
@@ -579,16 +579,16 @@ initialize ( void )
   synctexoffset = 29383 ;
 } 
 #ifdef INITEX
-boolean 
+bool 
 getstringsstarted ( void ) 
 {
-  /* 30 10 */ register boolean Result; getstringsstarted_regmem 
+  /* 30 10 */ register bool Result; getstringsstarted_regmem 
   unsigned char k, l  ;
   strnumber g  ;
   poolptr = 0 ;
   strptr = 0 ;
   strstart [0 ]= 0 ;
-  {register integer for_end; k = 0 ;for_end = 255 ; if ( k <= for_end) do 
+  {register int for_end; k = 0 ;for_end = 255 ; if ( k <= for_end) do 
     {
       if ( ( ( k < 32 ) || ( k > 126 ) ) ) 
       {
@@ -699,9 +699,9 @@ zprimitive ( strnumber s , quarterword c , halfword o )
 {
   primitive_regmem 
   poolpointer k  ;
-  integer j  ;
+  int j  ;
   smallnumber l  ;
-  integer primval  ;
+  int primval  ;
   if ( s < 256 ) 
   {
     curval = s + 257 ;
@@ -713,7 +713,7 @@ zprimitive ( strnumber s , quarterword c , halfword o )
     l = strstart [s + 1 ]- k ;
     if ( first + l > bufsize + 1 ) 
     overflow ( 258 , bufsize ) ;
-    {register integer for_end; j = 0 ;for_end = l - 1 ; if ( j <= for_end) 
+    {register int for_end; j = 0 ;for_end = l - 1 ; if ( j <= for_end) 
     do 
       buffer [first + j ]= strpool [k + j ];
     while ( j++ < for_end ) ;} 
@@ -738,9 +738,9 @@ trieopcode
 znewtrieop ( smallnumber d , smallnumber n , trieopcode v ) 
 {
   /* 10 */ register trieopcode Result; newtrieop_regmem 
-  integer h  ;
+  int h  ;
   trieopcode u  ;
-  integer l  ;
+  int l  ;
   h = abs ( n + 313 * d + 361 * v + 1009 * curlang ) % ( trieopsize - 
   negtrieopsize ) + negtrieopsize ;
   while ( true ) {
@@ -773,7 +773,7 @@ znewtrieop ( smallnumber d , smallnumber n , trieopcode v )
       Result = trieopval [l ];
       return Result ;
     } 
-    if ( h > - (integer) trieopsize ) 
+    if ( h > - (int) trieopsize ) 
     decr ( h ) ;
     else h = trieopsize ;
   } 
@@ -922,10 +922,10 @@ newpatterns ( void )
 {
   /* 30 31 */ newpatterns_regmem 
   unsigned char k, l  ;
-  boolean digitsensed  ;
+  bool digitsensed  ;
   trieopcode v  ;
   triepointer p, q  ;
-  boolean firstchild  ;
+  bool firstchild  ;
   ASCIIcode c  ;
   if ( trienotready ) 
   {
@@ -1104,7 +1104,7 @@ newpatterns ( void )
       q = p ;
       p = triel [q ];
       firstchild = true ;
-      {register integer for_end; c = 0 ;for_end = 255 ; if ( c <= for_end) 
+      {register int for_end; c = 0 ;for_end = 255 ; if ( c <= for_end) 
       do 
 	if ( ( eqtb [27997 + c ].hh .v.RH > 0 ) || ( ( c == 255 ) && 
 	firstchild ) ) 
@@ -1160,17 +1160,17 @@ inittrie ( void )
 {
   inittrie_regmem 
   triepointer p  ;
-  integer j, k, t  ;
+  int j, k, t  ;
   triepointer r, s  ;
-  opstart [0 ]= - (integer) mintrieop ;
-  {register integer for_end; j = 1 ;for_end = 255 ; if ( j <= for_end) do 
+  opstart [0 ]= - (int) mintrieop ;
+  {register int for_end; j = 1 ;for_end = 255 ; if ( j <= for_end) do 
     opstart [j ]= opstart [j - 1 ]+ trieused [j - 1 ];
   while ( j++ < for_end ) ;} 
-  {register integer for_end; j = 1 ;for_end = trieopptr ; if ( j <= for_end) 
+  {register int for_end; j = 1 ;for_end = trieopptr ; if ( j <= for_end) 
   do 
     trieophash [j ]= opstart [trieoplang [j ]]+ trieopval [j ];
   while ( j++ < for_end ) ;} 
-  {register integer for_end; j = 1 ;for_end = trieopptr ; if ( j <= for_end) 
+  {register int for_end; j = 1 ;for_end = trieopptr ; if ( j <= for_end) 
   do 
     while ( trieophash [j ]> j ) {
 	
@@ -1188,17 +1188,17 @@ inittrie ( void )
       trieophash [k ]= k ;
     } 
   while ( j++ < for_end ) ;} 
-  {register integer for_end; p = 0 ;for_end = triesize ; if ( p <= for_end) 
+  {register int for_end; p = 0 ;for_end = triesize ; if ( p <= for_end) 
   do 
     triehash [p ]= 0 ;
   while ( p++ < for_end ) ;} 
   trier [0 ]= compresstrie ( trier [0 ]) ;
   triel [0 ]= compresstrie ( triel [0 ]) ;
-  {register integer for_end; p = 0 ;for_end = trieptr ; if ( p <= for_end) 
+  {register int for_end; p = 0 ;for_end = trieptr ; if ( p <= for_end) 
   do 
     triehash [p ]= 0 ;
   while ( p++ < for_end ) ;} 
-  {register integer for_end; p = 0 ;for_end = 255 ; if ( p <= for_end) do 
+  {register int for_end; p = 0 ;for_end = 255 ; if ( p <= for_end) do 
     triemin [p ]= p + 1 ;
   while ( p++ < for_end ) ;} 
   trietrl [0 ]= 1 ;
@@ -1211,7 +1211,7 @@ inittrie ( void )
   if ( trier [0 ]!= 0 ) 
   {
     if ( triel [0 ]== 0 ) 
-    {register integer for_end; p = 0 ;for_end = 255 ; if ( p <= for_end) do 
+    {register int for_end; p = 0 ;for_end = 255 ; if ( p <= for_end) do 
       triemin [p ]= p + 2 ;
     while ( p++ < for_end ) ;} 
     firstfit ( trier [0 ]) ;
@@ -1220,7 +1220,7 @@ inittrie ( void )
   } 
   if ( triemax == 0 ) 
   {
-    {register integer for_end; r = 0 ;for_end = 256 ; if ( r <= for_end) do 
+    {register int for_end; r = 0 ;for_end = 256 ; if ( r <= for_end) do 
       {
 	trietrl [r ]= 0 ;
 	trietro [r ]= mintrieop ;
@@ -1251,7 +1251,7 @@ inittrie ( void )
 } 
 #endif /* INITEX */
 void 
-zlinebreak ( boolean d ) 
+zlinebreak ( bool d ) 
 {
   /* 30 31 32 33 34 35 22 */ linebreak_regmem 
   halfword q, r, s, prevs  ;
@@ -2131,7 +2131,7 @@ newhyphexceptions ( void )
 	    overflow ( 259 , poolsize - initpoolptr ) ;
 	  } 
 	  h = 0 ;
-	  {register integer for_end; j = 1 ;for_end = n ; if ( j <= for_end) 
+	  {register int for_end; j = 1 ;for_end = n ; if ( j <= for_end) 
 	  do 
 	    {
 	      h = ( h + h + hc [j ]) % 607 ;
@@ -2212,14 +2212,14 @@ newhyphexceptions ( void )
     } 
   } 
 } 
-boolean 
+bool 
 zdomarks ( smallnumber a , smallnumber l , halfword q ) 
 {
-  register boolean Result; domarks_regmem 
+  register bool Result; domarks_regmem 
   smallnumber i  ;
   if ( l < 4 ) 
   {
-    {register integer for_end; i = 0 ;for_end = 15 ; if ( i <= for_end) do 
+    {register int for_end; i = 0 ;for_end = 15 ; if ( i <= for_end) do 
       {
 	if ( odd ( i ) ) 
 	curptr = mem [q + ( i / 2 ) + 1 ].hh .v.RH ;
@@ -2281,7 +2281,7 @@ zdomarks ( smallnumber a , smallnumber l , halfword q )
 	;
 #ifdef INITEX
     case 3 : 
-      {register integer for_end; i = 0 ;for_end = 4 ; if ( i <= for_end) do 
+      {register int for_end; i = 0 ;for_end = 4 ; if ( i <= for_end) do 
 	{
 	  if ( odd ( i ) ) 
 	  curptr = mem [q + ( i / 2 ) + 1 ].hh .v.RH ;
@@ -2319,8 +2319,8 @@ prefixedcommand ( void )
   halfword j  ;
   fontindex k  ;
   halfword p, q, r  ;
-  integer n  ;
-  boolean e  ;
+  int n  ;
+  bool e  ;
   a = 0 ;
   while ( curcmd == 93 ) {
       
@@ -3066,7 +3066,7 @@ prefixedcommand ( void )
 	mem [p ].hh .v.LH = n ;
 	n = curval ;
 	mem [p + 1 ].cint = n ;
-	{register integer for_end; j = p + 2 ;for_end = p + n + 1 ; if ( j 
+	{register int for_end; j = p + 2 ;for_end = p + n + 1 ; if ( j 
 	<= for_end) do 
 	  {
 	    scanint () ;
@@ -3080,7 +3080,7 @@ prefixedcommand ( void )
 	  
 	p = getnode ( 2 * n + 1 ) ;
 	mem [p ].hh .v.LH = n ;
-	{register integer for_end; j = 1 ;for_end = n ; if ( j <= for_end) 
+	{register int for_end; j = 1 ;for_end = n ; if ( j <= for_end) 
 	do 
 	  {
 	    scandimen ( false , false , false ) ;
@@ -3217,9 +3217,9 @@ void
 storefmtfile ( void ) 
 {
   /* 41 42 31 32 */ storefmtfile_regmem 
-  integer j, k, l  ;
+  int j, k, l  ;
   halfword p, q  ;
-  integer x  ;
+  int x  ;
   ASCIIcode * formatengine  ;
   if ( saveptr != 0 ) 
   {
@@ -3281,7 +3281,7 @@ storefmtfile ( void )
   x = strlen ( enginename ) ;
   formatengine = xmallocarray ( ASCIIcode , x + 4 ) ;
   strcpy ( stringcast ( formatengine ) , enginename ) ;
-  {register integer for_end; k = x ;for_end = x + 3 ; if ( k <= for_end) do 
+  {register int for_end; k = x ;for_end = x + 3 ; if ( k <= for_end) do 
     formatengine [k ]= 0 ;
   while ( k++ < for_end ) ;} 
   x = x + 4 - ( x % 4 ) ;
@@ -3295,7 +3295,7 @@ storefmtfile ( void )
   dumpint ( 268435455L ) ;
   dumpint ( hashhigh ) ;
   dumpint ( eTeXmode ) ;
-  {register integer for_end; j = 0 ;for_end = -0 ; if ( j <= for_end) do 
+  {register int for_end; j = 0 ;for_end = -0 ; if ( j <= for_end) do 
     eqtb [29382 + j ].cint = 0 ;
   while ( j++ < for_end ) ;} 
   while ( pseudofiles != -268435455L ) pseudoclose () ;
@@ -3331,7 +3331,7 @@ storefmtfile ( void )
   dumpint ( lomemmax ) ;
   dumpint ( rover ) ;
   if ( ( eTeXmode == 1 ) ) 
-  {register integer for_end; k = 0 ;for_end = 5 ; if ( k <= for_end) do 
+  {register int for_end; k = 0 ;for_end = 5 ; if ( k <= for_end) do 
     dumpint ( saroot [k ]) ;
   while ( k++ < for_end ) ;} 
   p = membot ;
@@ -3421,12 +3421,12 @@ storefmtfile ( void )
   dumpthings ( eqtb [30186 ], hashhigh ) ;
   dumpint ( parloc ) ;
   dumpint ( writeloc ) ;
-  {register integer for_end; p = 0 ;for_end = 2100 ; if ( p <= for_end) do 
+  {register int for_end; p = 0 ;for_end = 2100 ; if ( p <= for_end) do 
     dumphh ( prim [p ]) ;
   while ( p++ < for_end ) ;} 
   dumpint ( hashused ) ;
   cscount = 15513 - hashused + hashhigh ;
-  {register integer for_end; p = 514 ;for_end = hashused ; if ( p <= 
+  {register int for_end; p = 514 ;for_end = hashused ; if ( p <= 
   for_end) do 
     if ( hash [p ].v.RH != 0 ) 
     {
@@ -3469,7 +3469,7 @@ storefmtfile ( void )
     dumpthings ( bcharlabel [0 ], fontptr + 1 ) ;
     dumpthings ( fontbchar [0 ], fontptr + 1 ) ;
     dumpthings ( fontfalsebchar [0 ], fontptr + 1 ) ;
-    {register integer for_end; k = 0 ;for_end = fontptr ; if ( k <= for_end) 
+    {register int for_end; k = 0 ;for_end = fontptr ; if ( k <= for_end) 
     do 
       {
 	printnl ( 1710 ) ;
@@ -3496,7 +3496,7 @@ storefmtfile ( void )
   if ( hyphnext <= 607 ) 
   hyphnext = hyphsize ;
   dumpint ( hyphnext ) ;
-  {register integer for_end; k = 0 ;for_end = hyphsize ; if ( k <= for_end) 
+  {register int for_end; k = 0 ;for_end = hyphsize ; if ( k <= for_end) 
   do 
     if ( hyphword [k ]!= 0 ) 
     {
@@ -3530,7 +3530,7 @@ storefmtfile ( void )
   else print ( 1716 ) ;
   print ( 1717 ) ;
   printint ( trieopsize ) ;
-  {register integer for_end; k = 255 ;for_end = 0 ; if ( k >= for_end) do 
+  {register int for_end; k = 255 ;for_end = 0 ; if ( k >= for_end) do 
     if ( trieused [k ]> 0 ) 
     {
       printnl ( 957 ) ;
@@ -3545,7 +3545,7 @@ storefmtfile ( void )
     dumpimagemeta () ;
     dumpint ( pdfmemsize ) ;
     dumpint ( pdfmemptr ) ;
-    {register integer for_end; k = 1 ;for_end = pdfmemptr - 1 ; if ( k <= 
+    {register int for_end; k = 1 ;for_end = pdfmemptr - 1 ; if ( k <= 
     for_end) do 
       {
 	dumpint ( pdfmem [k ]) ;
@@ -3557,7 +3557,7 @@ storefmtfile ( void )
     dumpint ( objtabsize ) ;
     dumpint ( objptr ) ;
     dumpint ( sysobjptr ) ;
-    {register integer for_end; k = 1 ;for_end = sysobjptr ; if ( k <= 
+    {register int for_end; k = 1 ;for_end = sysobjptr ; if ( k <= 
     for_end) do 
       {
 	dumpint ( objtab [k ].int0 ) ;
@@ -3586,13 +3586,13 @@ storefmtfile ( void )
   wclose ( fmtfile ) ;
 } 
 #endif /* INITEX */
-boolean 
+bool 
 loadfmtfile ( void ) 
 {
-  /* 6666 10 */ register boolean Result; loadfmtfile_regmem 
-  integer j, k  ;
+  /* 6666 10 */ register bool Result; loadfmtfile_regmem 
+  int j, k  ;
   halfword p, q  ;
-  integer x  ;
+  int x  ;
   ASCIIcode * formatengine  ;
   ASCIIcode dummyxord  ;
   ASCIIcode dummyxchr  ;
@@ -3650,13 +3650,13 @@ loadfmtfile ( void )
   } 
   if ( translatefilename ) 
   {
-    {register integer for_end; k = 0 ;for_end = 255 ; if ( k <= for_end) do 
+    {register int for_end; k = 0 ;for_end = 255 ; if ( k <= for_end) do 
       undumpthings ( dummyxord , 1 ) ;
     while ( k++ < for_end ) ;} 
-    {register integer for_end; k = 0 ;for_end = 255 ; if ( k <= for_end) do 
+    {register int for_end; k = 0 ;for_end = 255 ; if ( k <= for_end) do 
       undumpthings ( dummyxchr , 1 ) ;
     while ( k++ < for_end ) ;} 
-    {register integer for_end; k = 0 ;for_end = 255 ; if ( k <= for_end) do 
+    {register int for_end; k = 0 ;for_end = 255 ; if ( k <= for_end) do 
       undumpthings ( dummyxprn , 1 ) ;
     while ( k++ < for_end ) ;} 
   } 
@@ -3666,7 +3666,7 @@ loadfmtfile ( void )
     undumpthings ( xchr [0 ], 256 ) ;
     undumpthings ( xprn [0 ], 256 ) ;
     if ( eightbitp ) 
-    {register integer for_end; k = 0 ;for_end = 255 ; if ( k <= for_end) do 
+    {register int for_end; k = 0 ;for_end = 255 ; if ( k <= for_end) do 
       xprn [k ]= 1 ;
     while ( k++ < for_end ) ;} 
   } 
@@ -3686,7 +3686,7 @@ loadfmtfile ( void )
   hash = yhash - hashoffset ;
   hash [514 ].v.LH = 0 ;
   hash [514 ].v.RH = 0 ;
-  {register integer for_end; x = 515 ;for_end = hashtop ; if ( x <= for_end) 
+  {register int for_end; x = 515 ;for_end = hashtop ; if ( x <= for_end) 
   do 
     hash [x ]= hash [514 ];
   while ( x++ < for_end ) ;} 
@@ -3695,7 +3695,7 @@ loadfmtfile ( void )
   eqtb [26627 ].hh.b0 = 103 ;
   eqtb [26627 ].hh .v.RH = -268435455L ;
   eqtb [26627 ].hh.b1 = 0 ;
-  {register integer for_end; x = 30186 ;for_end = eqtbtop ; if ( x <= 
+  {register int for_end; x = 30186 ;for_end = eqtbtop ; if ( x <= 
   for_end) do 
     eqtb [x ]= eqtb [26627 ];
   while ( x++ < for_end ) ;} 
@@ -3828,7 +3828,7 @@ loadfmtfile ( void )
     else rover = x ;
   } 
   if ( ( eTeXmode == 1 ) ) 
-  {register integer for_end; k = 0 ;for_end = 5 ; if ( k <= for_end) do 
+  {register int for_end; k = 0 ;for_end = 5 ; if ( k <= for_end) do 
     {
       undumpint ( x ) ;
       if ( ( x < -268435455L ) || ( x > lomemmax ) ) 
@@ -3886,7 +3886,7 @@ loadfmtfile ( void )
     undumpint ( x ) ;
     if ( ( x < 0 ) || ( k + x > 30186 ) ) 
     goto lab6666 ;
-    {register integer for_end; j = k ;for_end = k + x - 1 ; if ( j <= 
+    {register int for_end; j = k ;for_end = k + x - 1 ; if ( j <= 
     for_end) do 
       eqtb [j ]= eqtb [k - 1 ];
     while ( j++ < for_end ) ;} 
@@ -3908,7 +3908,7 @@ loadfmtfile ( void )
     else
     writeloc = x ;
   } 
-  {register integer for_end; p = 0 ;for_end = 2100 ; if ( p <= for_end) do 
+  {register int for_end; p = 0 ;for_end = 2100 ; if ( p <= for_end) do 
     undumphh ( prim [p ]) ;
   while ( p++ < for_end ) ;} 
   {
@@ -3989,51 +3989,51 @@ loadfmtfile ( void )
     fontbc = xmallocarray ( eightbits , fontmax ) ;
     fontec = xmallocarray ( eightbits , fontmax ) ;
     fontglue = xmallocarray ( halfword , fontmax ) ;
-    hyphenchar = xmallocarray ( integer , fontmax ) ;
-    skewchar = xmallocarray ( integer , fontmax ) ;
+    hyphenchar = xmallocarray ( int , fontmax ) ;
+    skewchar = xmallocarray ( int , fontmax ) ;
     bcharlabel = xmallocarray ( fontindex , fontmax ) ;
     fontbchar = xmallocarray ( ninebits , fontmax ) ;
     fontfalsebchar = xmallocarray ( ninebits , fontmax ) ;
-    charbase = xmallocarray ( integer , fontmax ) ;
-    widthbase = xmallocarray ( integer , fontmax ) ;
-    heightbase = xmallocarray ( integer , fontmax ) ;
-    depthbase = xmallocarray ( integer , fontmax ) ;
-    italicbase = xmallocarray ( integer , fontmax ) ;
-    ligkernbase = xmallocarray ( integer , fontmax ) ;
-    kernbase = xmallocarray ( integer , fontmax ) ;
-    extenbase = xmallocarray ( integer , fontmax ) ;
-    parambase = xmallocarray ( integer , fontmax ) ;
+    charbase = xmallocarray ( int , fontmax ) ;
+    widthbase = xmallocarray ( int , fontmax ) ;
+    heightbase = xmallocarray ( int , fontmax ) ;
+    depthbase = xmallocarray ( int , fontmax ) ;
+    italicbase = xmallocarray ( int , fontmax ) ;
+    ligkernbase = xmallocarray ( int , fontmax ) ;
+    kernbase = xmallocarray ( int , fontmax ) ;
+    extenbase = xmallocarray ( int , fontmax ) ;
+    parambase = xmallocarray ( int , fontmax ) ;
     pdfcharused = xmallocarray ( charusedarray , fontmax ) ;
     pdffontsize = xmallocarray ( scaled , fontmax ) ;
-    pdffontnum = xmallocarray ( integer , fontmax ) ;
+    pdffontnum = xmallocarray ( int , fontmax ) ;
     pdffontmap = xmallocarray ( fmentryptr , fontmax ) ;
     pdffonttype = xmallocarray ( eightbits , fontmax ) ;
     pdffontattr = xmallocarray ( strnumber , fontmax ) ;
     pdffontblink = xmallocarray ( internalfontnumber , fontmax ) ;
     pdffontelink = xmallocarray ( internalfontnumber , fontmax ) ;
-    pdffontstretch = xmallocarray ( integer , fontmax ) ;
-    pdffontshrink = xmallocarray ( integer , fontmax ) ;
-    pdffontstep = xmallocarray ( integer , fontmax ) ;
-    pdffontexpandratio = xmallocarray ( integer , fontmax ) ;
-    pdffontautoexpand = xmallocarray ( boolean , fontmax ) ;
-    pdffontlpbase = xmallocarray ( integer , fontmax ) ;
-    pdffontrpbase = xmallocarray ( integer , fontmax ) ;
-    pdffontefbase = xmallocarray ( integer , fontmax ) ;
-    pdffontknbsbase = xmallocarray ( integer , fontmax ) ;
-    pdffontstbsbase = xmallocarray ( integer , fontmax ) ;
-    pdffontshbsbase = xmallocarray ( integer , fontmax ) ;
-    pdffontknbcbase = xmallocarray ( integer , fontmax ) ;
-    pdffontknacbase = xmallocarray ( integer , fontmax ) ;
-    vfpacketbase = xmallocarray ( integer , fontmax ) ;
+    pdffontstretch = xmallocarray ( int , fontmax ) ;
+    pdffontshrink = xmallocarray ( int , fontmax ) ;
+    pdffontstep = xmallocarray ( int , fontmax ) ;
+    pdffontexpandratio = xmallocarray ( int , fontmax ) ;
+    pdffontautoexpand = xmallocarray ( bool , fontmax ) ;
+    pdffontlpbase = xmallocarray ( int , fontmax ) ;
+    pdffontrpbase = xmallocarray ( int , fontmax ) ;
+    pdffontefbase = xmallocarray ( int , fontmax ) ;
+    pdffontknbsbase = xmallocarray ( int , fontmax ) ;
+    pdffontstbsbase = xmallocarray ( int , fontmax ) ;
+    pdffontshbsbase = xmallocarray ( int , fontmax ) ;
+    pdffontknbcbase = xmallocarray ( int , fontmax ) ;
+    pdffontknacbase = xmallocarray ( int , fontmax ) ;
+    vfpacketbase = xmallocarray ( int , fontmax ) ;
     vfdefaultfont = xmallocarray ( internalfontnumber , fontmax ) ;
     vflocalfontnum = xmallocarray ( internalfontnumber , fontmax ) ;
-    vfefnts = xmallocarray ( integer , fontmax ) ;
+    vfefnts = xmallocarray ( int , fontmax ) ;
     vfifnts = xmallocarray ( internalfontnumber , fontmax ) ;
-    pdffontnobuiltintounicode = xmallocarray ( boolean , fontmax ) ;
-    {register integer for_end; fontk = 0 ;for_end = fontmax ; if ( fontk <= 
+    pdffontnobuiltintounicode = xmallocarray ( bool , fontmax ) ;
+    {register int for_end; fontk = 0 ;for_end = fontmax ; if ( fontk <= 
     for_end) do 
       {
-	{register integer for_end; k = 0 ;for_end = 31 ; if ( k <= for_end) 
+	{register int for_end; k = 0 ;for_end = 31 ; if ( k <= for_end) 
 	do 
 	  pdfcharused [fontk ][ k ]= 0 ;
 	while ( k++ < for_end ) ;} 
@@ -4122,7 +4122,7 @@ loadfmtfile ( void )
     hyphnext = x ;
   } 
   j = 0 ;
-  {register integer for_end; k = 1 ;for_end = hyphcount ; if ( k <= for_end) 
+  {register int for_end; k = 1 ;for_end = hyphcount ; if ( k <= for_end) 
   do 
     {
       undumpint ( j ) ;
@@ -4221,7 +4221,7 @@ loadfmtfile ( void )
   undumpuppercheckthings ( maxtrieop , hyfnext [1 ], j ) ;
 	;
 #ifdef INITEX
-  {register integer for_end; k = 0 ;for_end = 255 ; if ( k <= for_end) do 
+  {register int for_end; k = 0 ;for_end = 255 ; if ( k <= for_end) do 
     trieused [k ]= 0 ;
   while ( k++ < for_end ) ;} 
 #endif /* INITEX */
@@ -4256,9 +4256,9 @@ loadfmtfile ( void )
     undumpimagemeta ( eqtb [29348 ].cint , eqtb [29349 ].cint , eqtb [
     29352 ].cint ) ;
     undumpint ( pdfmemsize ) ;
-    pdfmem = xreallocarray ( pdfmem , integer , pdfmemsize ) ;
+    pdfmem = xreallocarray ( pdfmem , int , pdfmemsize ) ;
     undumpint ( pdfmemptr ) ;
-    {register integer for_end; k = 1 ;for_end = pdfmemptr - 1 ; if ( k <= 
+    {register int for_end; k = 1 ;for_end = pdfmemptr - 1 ; if ( k <= 
     for_end) do 
       {
 	undumpint ( pdfmem [k ]) ;
@@ -4267,7 +4267,7 @@ loadfmtfile ( void )
     undumpint ( objtabsize ) ;
     undumpint ( objptr ) ;
     undumpint ( sysobjptr ) ;
-    {register integer for_end; k = 1 ;for_end = sysobjptr ; if ( k <= 
+    {register int for_end; k = 1 ;for_end = sysobjptr ; if ( k <= 
     for_end) do 
       {
 	undumpint ( objtab [k ].int0 ) ;
@@ -4374,7 +4374,7 @@ finalcleanup ( void )
 #ifdef INITEX
     if ( iniversion ) 
     {
-      {register integer for_end; c = 0 ;for_end = 4 ; if ( c <= for_end) do 
+      {register int for_end; c = 0 ;for_end = 4 ; if ( c <= for_end) do 
 	if ( curmark [c ]!= -268435455L ) 
 	deletetokenref ( curmark [c ]) ;
       while ( c++ < for_end ) ;} 
@@ -4383,7 +4383,7 @@ finalcleanup ( void )
 	if ( domarks ( 3 , 0 , saroot [6 ]) ) 
 	saroot [6 ]= -268435455L ;
       } 
-      {register integer for_end; c = 2 ;for_end = 3 ; if ( c <= for_end) do 
+      {register int for_end; c = 2 ;for_end = 3 ; if ( c <= for_end) do 
 	flushnodelist ( discptr [c ]) ;
       while ( c++ < for_end ) ;} 
       if ( lastglue != 268435455L ) 
@@ -5191,8 +5191,8 @@ mainbody ( void )
   savestack = xmallocarray ( memoryword , savesize ) ;
   inputstack = xmallocarray ( instaterecord , stacksize ) ;
   inputfile = xmallocarray ( alphafile , maxinopen ) ;
-  linestack = xmallocarray ( integer , maxinopen ) ;
-  eofseen = xmallocarray ( boolean , maxinopen ) ;
+  linestack = xmallocarray ( int , maxinopen ) ;
+  eofseen = xmallocarray ( bool , maxinopen ) ;
   grpstack = xmallocarray ( savepointer , maxinopen ) ;
   ifstack = xmallocarray ( halfword , maxinopen ) ;
   sourcefilenamestack = xmallocarray ( strnumber , maxinopen ) ;
@@ -5203,12 +5203,12 @@ mainbody ( void )
   hyphlist = xmallocarray ( halfword , hyphsize ) ;
   hyphlink = xmallocarray ( hyphpointer , hyphsize ) ;
   objtab = xmallocarray ( objentry , infobjtabsize ) ;
-  pdfmem = xmallocarray ( integer , infpdfmemsize ) ;
+  pdfmem = xmallocarray ( int , infpdfmemsize ) ;
   destnames = xmallocarray ( destnameentry , infdestnamessize ) ;
   pdfopbuf = xmallocarray ( eightbits , pdfopbufsize ) ;
   pdfosbuf = xmallocarray ( eightbits , infpdfosbufsize ) ;
-  pdfosobjnum = xmallocarray ( integer , pdfosmaxobjs ) ;
-  pdfosobjoff = xmallocarray ( integer , pdfosmaxobjs ) ;
+  pdfosobjnum = xmallocarray ( int , pdfosmaxobjs ) ;
+  pdfosobjoff = xmallocarray ( int , pdfosmaxobjs ) ;
 	;
 #ifdef INITEX
   if ( iniversion ) 
@@ -5223,7 +5223,7 @@ mainbody ( void )
     hash = yhash - hashoffset ;
     hash [514 ].v.LH = 0 ;
     hash [514 ].v.RH = 0 ;
-    {register integer for_end; hashused = 515 ;for_end = hashtop ; if ( 
+    {register int for_end; hashused = 515 ;for_end = hashtop ; if ( 
     hashused <= for_end) do 
       hash [hashused ]= hash [514 ];
     while ( hashused++ < for_end ) ;} 
@@ -5517,7 +5517,7 @@ mainbody ( void )
       triel = xmallocarray ( triepointer , triesize ) ;
       trier = xmallocarray ( triepointer , triesize ) ;
       triehash = xmallocarray ( triepointer , triesize ) ;
-      trietaken = xmallocarray ( boolean , triesize ) ;
+      trietaken = xmallocarray ( bool , triesize ) ;
       triel [0 ]= 0 ;
       triec [0 ]= 0 ;
       trieptr = 0 ;
@@ -5532,51 +5532,51 @@ mainbody ( void )
       fontbc = xmallocarray ( eightbits , fontmax ) ;
       fontec = xmallocarray ( eightbits , fontmax ) ;
       fontglue = xmallocarray ( halfword , fontmax ) ;
-      hyphenchar = xmallocarray ( integer , fontmax ) ;
-      skewchar = xmallocarray ( integer , fontmax ) ;
+      hyphenchar = xmallocarray ( int , fontmax ) ;
+      skewchar = xmallocarray ( int , fontmax ) ;
       bcharlabel = xmallocarray ( fontindex , fontmax ) ;
       fontbchar = xmallocarray ( ninebits , fontmax ) ;
       fontfalsebchar = xmallocarray ( ninebits , fontmax ) ;
-      charbase = xmallocarray ( integer , fontmax ) ;
-      widthbase = xmallocarray ( integer , fontmax ) ;
-      heightbase = xmallocarray ( integer , fontmax ) ;
-      depthbase = xmallocarray ( integer , fontmax ) ;
-      italicbase = xmallocarray ( integer , fontmax ) ;
-      ligkernbase = xmallocarray ( integer , fontmax ) ;
-      kernbase = xmallocarray ( integer , fontmax ) ;
-      extenbase = xmallocarray ( integer , fontmax ) ;
-      parambase = xmallocarray ( integer , fontmax ) ;
+      charbase = xmallocarray ( int , fontmax ) ;
+      widthbase = xmallocarray ( int , fontmax ) ;
+      heightbase = xmallocarray ( int , fontmax ) ;
+      depthbase = xmallocarray ( int , fontmax ) ;
+      italicbase = xmallocarray ( int , fontmax ) ;
+      ligkernbase = xmallocarray ( int , fontmax ) ;
+      kernbase = xmallocarray ( int , fontmax ) ;
+      extenbase = xmallocarray ( int , fontmax ) ;
+      parambase = xmallocarray ( int , fontmax ) ;
       pdfcharused = xmallocarray ( charusedarray , fontmax ) ;
       pdffontsize = xmallocarray ( scaled , fontmax ) ;
-      pdffontnum = xmallocarray ( integer , fontmax ) ;
+      pdffontnum = xmallocarray ( int , fontmax ) ;
       pdffontmap = xmallocarray ( fmentryptr , fontmax ) ;
       pdffonttype = xmallocarray ( eightbits , fontmax ) ;
       pdffontattr = xmallocarray ( strnumber , fontmax ) ;
       pdffontblink = xmallocarray ( internalfontnumber , fontmax ) ;
       pdffontelink = xmallocarray ( internalfontnumber , fontmax ) ;
-      pdffontstretch = xmallocarray ( integer , fontmax ) ;
-      pdffontshrink = xmallocarray ( integer , fontmax ) ;
-      pdffontstep = xmallocarray ( integer , fontmax ) ;
-      pdffontexpandratio = xmallocarray ( integer , fontmax ) ;
-      pdffontautoexpand = xmallocarray ( boolean , fontmax ) ;
-      pdffontlpbase = xmallocarray ( integer , fontmax ) ;
-      pdffontrpbase = xmallocarray ( integer , fontmax ) ;
-      pdffontefbase = xmallocarray ( integer , fontmax ) ;
-      pdffontknbsbase = xmallocarray ( integer , fontmax ) ;
-      pdffontstbsbase = xmallocarray ( integer , fontmax ) ;
-      pdffontshbsbase = xmallocarray ( integer , fontmax ) ;
-      pdffontknbcbase = xmallocarray ( integer , fontmax ) ;
-      pdffontknacbase = xmallocarray ( integer , fontmax ) ;
-      vfpacketbase = xmallocarray ( integer , fontmax ) ;
+      pdffontstretch = xmallocarray ( int , fontmax ) ;
+      pdffontshrink = xmallocarray ( int , fontmax ) ;
+      pdffontstep = xmallocarray ( int , fontmax ) ;
+      pdffontexpandratio = xmallocarray ( int , fontmax ) ;
+      pdffontautoexpand = xmallocarray ( bool , fontmax ) ;
+      pdffontlpbase = xmallocarray ( int , fontmax ) ;
+      pdffontrpbase = xmallocarray ( int , fontmax ) ;
+      pdffontefbase = xmallocarray ( int , fontmax ) ;
+      pdffontknbsbase = xmallocarray ( int , fontmax ) ;
+      pdffontstbsbase = xmallocarray ( int , fontmax ) ;
+      pdffontshbsbase = xmallocarray ( int , fontmax ) ;
+      pdffontknbcbase = xmallocarray ( int , fontmax ) ;
+      pdffontknacbase = xmallocarray ( int , fontmax ) ;
+      vfpacketbase = xmallocarray ( int , fontmax ) ;
       vfdefaultfont = xmallocarray ( internalfontnumber , fontmax ) ;
       vflocalfontnum = xmallocarray ( internalfontnumber , fontmax ) ;
-      vfefnts = xmallocarray ( integer , fontmax ) ;
+      vfefnts = xmallocarray ( int , fontmax ) ;
       vfifnts = xmallocarray ( internalfontnumber , fontmax ) ;
-      pdffontnobuiltintounicode = xmallocarray ( boolean , fontmax ) ;
-      {register integer for_end; fontk = 0 ;for_end = fontmax ; if ( fontk 
+      pdffontnobuiltintounicode = xmallocarray ( bool , fontmax ) ;
+      {register int for_end; fontk = 0 ;for_end = fontmax ; if ( fontk 
       <= for_end) do 
 	{
-	  {register integer for_end; k = 0 ;for_end = 31 ; if ( k <= 
+	  {register int for_end; k = 0 ;for_end = 31 ; if ( k <= 
 	  for_end) do 
 	    pdfcharused [fontk ][ k ]= 0 ;
 	  while ( k++ < for_end ) ;} 
@@ -5628,14 +5628,14 @@ mainbody ( void )
       fontglue [0 ]= -268435455L ;
       fontparams [0 ]= 7 ;
       parambase [0 ]= -1 ;
-      {register integer for_end; fontk = 0 ;for_end = 6 ; if ( fontk <= 
+      {register int for_end; fontk = 0 ;for_end = 6 ; if ( fontk <= 
       for_end) do 
 	fontinfo [fontk ].cint = 0 ;
       while ( fontk++ < for_end ) ;} 
     } 
 #endif /* INITEX */
-    fontused = xmallocarray ( boolean , fontmax ) ;
-    {register integer for_end; fontk = 0 ;for_end = fontmax ; if ( fontk <= 
+    fontused = xmallocarray ( bool , fontmax ) ;
+    {register int for_end; fontk = 0 ;for_end = fontmax ; if ( fontk <= 
     for_end) do 
       fontused [fontk ]= false ;
     while ( fontk++ < for_end ) ;} 

@@ -21,7 +21,7 @@ with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 typedef struct {
     char *dataptr;
-    integer len;
+    int len;
 } packet_entry;
 
 /* define packet_ptr, packet_array & packet_limit */
@@ -38,7 +38,7 @@ define_array(vf);
 
 static char *packet_data_ptr;
 
-integer newvfpacket(internalfontnumber f)
+int newvfpacket(internalfontnumber f)
 {
     int i, n = fontec[f] - fontbc[f] + 1;
     alloc_array(vf, 1, SMALL_ARRAY_SIZE);
@@ -52,7 +52,7 @@ integer newvfpacket(internalfontnumber f)
     return vf_ptr++ - vf_array;
 }
 
-void storepacket(internalfontnumber f, integer c, strnumber s)
+void storepacket(internalfontnumber f, int c, strnumber s)
 {
     int l = strstart[s + 1] - strstart[s];
     vf_array[vfpacketbase[f]].len[c - fontbc[f]] = l;

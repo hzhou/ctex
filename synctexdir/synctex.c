@@ -154,7 +154,7 @@
  *  and *tex.web for details, the synctex_ prefix prevents name conflicts, it
  *  is some kind of namespace
  */
-/*  synctexoption is a global integer variable defined in *tex.web
+/*  synctexoption is a global int variable defined in *tex.web
  *  it is set to 1 by texmfmp.c if the command line has the '-synctex=1'
  *  option.  */
 #   if !defined(synctex_options)
@@ -170,7 +170,7 @@
 #   if !defined(mem)
 #       define mem zmem
 #   endif
-/*  glue code: synctexoffset is a global integer variable defined in *tex.web
+/*  glue code: synctexoffset is a global int variable defined in *tex.web
  *  it is set to the offset where the primitive \synctex reads and writes its
  *  value.  */
 #   if !defined(SYNCTEX_VALUE)
@@ -389,22 +389,22 @@ static struct {
     synctex_fprintf_t fprintf;  /*  either fprintf or gzprintf */
     char *busy_name;            /*  the real "foo.synctex(busy)" or "foo.synctex.gz(busy)" name, with output_directory  */
     char *root_name;            /*  in general jobname.tex  */
-    integer count;              /*  The number of interesting records in "foo.synctex"  */
+    int count;              /*  The number of interesting records in "foo.synctex"  */
     /*  next concern the last sync record encountered  */
     halfword node;              /*  the last synchronized node, must be set 
                                  *  before the recorder */
     synctex_recorder_t recorder;/*  the recorder of the node above, the
                                  *  routine that knows how to record the 
                                  *  node to the .synctex file */
-    integer tag, line;          /*  current tag and line  */
-    integer curh, curv;         /*  current point  */
-    integer magnification;      /*  The magnification as given by \mag */
-    integer unit;               /*  The unit, defaults to 1, use 8192 to produce shorter but less accurate info */
-    integer total_length;       /*  The total length of the bytes written since    the last check point  */
-    integer options;            /* unsigned options */
-    integer lastv;              /* compression trick if
+    int tag, line;          /*  current tag and line  */
+    int curh, curv;         /*  current point  */
+    int magnification;      /*  The magnification as given by \mag */
+    int unit;               /*  The unit, defaults to 1, use 8192 to produce shorter but less accurate info */
+    int total_length;       /*  The total length of the bytes written since    the last check point  */
+    int options;            /* unsigned options */
+    int lastv;              /* compression trick if
                                  |synctex_options&4|>0.  */
-    integer form_depth;        /*  pdf forms are an example of nested sheets */
+    int form_depth;        /*  pdf forms are an example of nested sheets */
     struct _flags {
         unsigned int option_read:1; /*  Command line option read (in case of problem or at the end) */
         unsigned int content_ready:1; /*  Command line option read (in case of problem or at the end) */
@@ -484,7 +484,7 @@ void synctexinitcommand(void)
 /*  Free all memory used, close and remove the file if any,
  *  It is sent locally when there is a problem with synctex output.
  *  It is sent by pdftex when a fatal error occurred in pdftex.web. */
-void synctexabort(boolean log_opened __attribute__ ((unused)))
+void synctexabort(bool log_opened __attribute__ ((unused)))
 {
     SYNCTEX_RETURN_IF_DISABLED;
 #   if SYNCTEX_DEBUG
@@ -513,7 +513,7 @@ void synctexabort(boolean log_opened __attribute__ ((unused)))
 }
 
 static inline int synctex_record_preamble(void);
-static inline int synctex_record_input(integer tag, char *name);
+static inline int synctex_record_input(int tag, char *name);
 
 static const char *synctex_suffix = ".synctex";
 static const char *synctex_suffix_gz = ".gz";
@@ -871,7 +871,7 @@ static inline int synctex_record_postamble(void);
  *  However, it does not mean that it will be in sync with the pdf, especially
  *  when the output is dvi or xdv and the dvi (or xdv) to pdf driver has not been applied.
  */
-void synctexterminate(boolean log_opened)
+void synctexterminate(bool log_opened)
 {
     char *tmp = NULL;
     char *the_real_syncname = NULL;
@@ -1042,12 +1042,12 @@ void synctexterminate(boolean log_opened)
     synctexabort(0);
 }
 
-static inline int synctex_record_sheet(integer sheet);
+static inline int synctex_record_sheet(int sheet);
 
 /*  Recording the "{..." line.  In *tex.web, use synctex_sheet(pdf_output) at
  *  the very beginning of the ship_out procedure.
  */
-void synctexsheet(integer mag)
+void synctexsheet(int mag)
 {
     SYNCTEX_RETURN_IF_DISABLED;
 #   if SYNCTEX_DEBUG
@@ -1081,7 +1081,7 @@ void synctexsheet(integer mag)
 }
 
 static inline int synctex_record_anchor(void);
-static inline int synctex_record_teehs(integer sheet);
+static inline int synctex_record_teehs(int sheet);
 
 /*  Recording the "}..." line.  In *tex.web, use synctex_teehs at
  *  the very end of the ship_out procedure.
@@ -1120,7 +1120,7 @@ void synctexteehs(void)
     } } while(false)
 
 /*  Recording a "}..." or a ">" line  */
-static inline int synctex_record_teehs(integer sheet)
+static inline int synctex_record_teehs(int sheet)
 {
 #   if SYNCTEX_DEBUG > 999
     printf("\nSynchronize DEBUG: synctex_record_teehs\n");
@@ -1735,7 +1735,7 @@ static inline int synctex_record_preamble(void)
 }
 
 /*  Recording a "Input:..." line  */
-static inline int synctex_record_input(integer tag, char *name)
+static inline int synctex_record_input(int tag, char *name)
 {
     int len = 0;
 #   if SYNCTEX_DEBUG > 999
@@ -1789,7 +1789,7 @@ static inline int synctex_record_content(void)
 }
 
 /*  Recording a "{..." line  */
-static inline int synctex_record_sheet(integer sheet)
+static inline int synctex_record_sheet(int sheet)
 {
 #   if SYNCTEX_DEBUG > 999
     printf("\nSynchronize DEBUG: synctex_record_sheet\n");

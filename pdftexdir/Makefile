@@ -1,5 +1,5 @@
 CC = gcc -I.. -I.
-CXX = g++ -I.. -I. -I../xpdf -I../xpdf/goo -I../xpdf/xpdf
+CXX = g++ -I.. -I. -I../libxpdf -I../libxpdf/goo -I../libxpdf/xpdf
 
 libpdftex_a_OBJECTS = \
     avl.o \
