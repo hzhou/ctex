@@ -43,7 +43,7 @@ pdftex_ch_files = \
 pdftex-final.ch: tie $(pdftex_ch_files)
 	./tie -c $@ $(pdftex_ch_files)
 
-pdftexdir/pdftex.p: tangle pdftex-final.ch
+pdftexdir/pdftex.p pdftexdir/pdftex.pool &: tangle pdftex-final.ch
 	./tangle pdftexdir/pdftex.web pdftex-final.ch
 
 pdftex_defines = \
