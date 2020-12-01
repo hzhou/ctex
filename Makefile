@@ -103,13 +103,13 @@ web2c = ./web2c -htexmfmp.h -t -cpdftexcoerce
 fixwrites = ./fixwrites -t pdftex
 splitup = ./splitup -i -l 65000 pdftex
 
-output/pdftex0.c output/pdftexini.c output/pdftexd.h: web/pdftex.p web2c fixwrites splitup
+PDFTEX_OUTPUT = output/pdftex0.c output/pdftexini.c output/pdftexd.h ouput/pdftex-pool.c
+WEB2C_TOOL = web2c fixwrites splitup makecpool
+$(PDFTEX_OUTPUT): web/pdftex.p web/pdftex.pool $(WEB2C_TOOL)
 	cat $(pdftex_defines) $< | $(web2c) | $(fixwrites) | $(splitup)
 	mkdir -p output
 	mv -v pdftexd.h pdftex0.c pdftexini.c output/
-
-output/pdftex-pool.c: web/pdftex.pool makecpool
-	./makecpool pdftexdir/pdftex > $@ || rm $@
+	./makecpool pdftexdir/pdftex > output/pdftex-pool.c || rm output/pdftex-pool.c
 
 # --------------------------
 clean:
