@@ -7,7 +7,7 @@
 /* Return true if we're at the end of FILE, else false.  This implements
    Pascal's `eof' builtin.  */
 
-boolean
+bool
 eof (FILE *file)
 {
   register int c;
@@ -35,7 +35,7 @@ eof (FILE *file)
 /* Return true on end-of-line in FILE or at the end of FILE, else false.  */
 /* Accept both CR and LF as end-of-line. */
 
-boolean
+bool
 eoln (FILE *file)
 {
   register int c;

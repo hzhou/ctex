@@ -30,7 +30,7 @@ with this program.  If not, see <http://www.gnu.org/licenses/>.
 static char *zipbuf = NULL;
 static z_stream c_stream;       /* compression stream */
 
-void writezip(boolean finish)
+void writezip(bool finish)
 {
     int err;
     static int level_old = 0;

@@ -337,7 +337,7 @@ void
 zprintfilename ( int n , int a , int e ) 
 {
   printfilename_regmem 
-  boolean mustquote  ;
+  bool mustquote  ;
   poolpointer j  ;
   mustquote = false ;
   if ( a != 0 ) 
@@ -954,10 +954,10 @@ zconfusion ( strnumber s )
     jumpout () ;
   } 
 } 
-boolean 
+bool 
 initterminal ( void ) 
 {
-  /* 10 */ register boolean Result; initterminal_regmem 
+  /* 10 */ register bool Result; initterminal_regmem 
   topenin () ;
   if ( last > first ) 
   {
@@ -1005,12 +1005,12 @@ makestring ( void )
   Result = strptr - 1 ;
   return Result ;
 } 
-boolean 
+bool 
 zstreqbuf ( strnumber s , int k ) 
 {
-  /* 45 */ register boolean Result; streqbuf_regmem 
+  /* 45 */ register bool Result; streqbuf_regmem 
   poolpointer j  ;
-  boolean result  ;
+  bool result  ;
   j = strstart [s ];
   while ( j < strstart [s + 1 ]) {
       
@@ -1026,12 +1026,12 @@ zstreqbuf ( strnumber s , int k )
   lab45: Result = result ;
   return Result ;
 } 
-boolean 
+bool 
 zstreqstr ( strnumber s , strnumber t ) 
 {
-  /* 45 */ register boolean Result; streqstr_regmem 
+  /* 45 */ register bool Result; streqstr_regmem 
   poolpointer j, k  ;
-  boolean result  ;
+  bool result  ;
   result = false ;
   if ( ( strstart [s + 1 ]- strstart [s ]) != ( strstart [t + 1 ]- 
   strstart [t ]) ) 
@@ -1310,7 +1310,7 @@ scaled
 zxovern ( scaled x , int n ) 
 {
   register scaled Result; xovern_regmem 
-  boolean negative  ;
+  bool negative  ;
   negative = false ;
   if ( n == 0 ) 
   {
@@ -1345,7 +1345,7 @@ scaled
 zxnoverd ( scaled x , int n , int d ) 
 {
   register scaled Result; xnoverd_regmem 
-  boolean positive  ;
+  bool positive  ;
   nonnegativeinteger t, u, v  ;
   if ( x >= 0 ) 
   positive = true ;
@@ -1400,7 +1400,7 @@ zmakefrac ( int p , int q )
   register int Result; makefrac_regmem 
   int f  ;
   int n  ;
-  boolean negative  ;
+  bool negative  ;
   int becareful  ;
   if ( p >= 0 ) 
   negative = false ;
@@ -1457,7 +1457,7 @@ ztakefrac ( int q , int f )
 {
   register int Result; takefrac_regmem 
   int p  ;
-  boolean negative  ;
+  bool negative  ;
   int n  ;
   int becareful  ;
   if ( f >= 0 ) 
@@ -2233,11 +2233,11 @@ znewpenalty ( int m )
 } 
 #ifdef TEXMF_DEBUG
 void 
-zcheckmem ( boolean printlocs ) 
+zcheckmem ( bool printlocs ) 
 {
   /* 31 32 */ checkmem_regmem 
   halfword p, q  ;
-  boolean clobbered  ;
+  bool clobbered  ;
   {register int for_end; p = memmin ;for_end = lomemmax ; if ( p <= 
   for_end) do 
     freearr [p ]= false ;
@@ -2457,7 +2457,7 @@ zpdferror ( strnumber t , strnumber p )
   } 
 } 
 void 
-zpdfwarning ( strnumber t , strnumber p , boolean prependnl , boolean appendnl 
+zpdfwarning ( strnumber t , strnumber p , bool prependnl , bool appendnl 
 ) 
 {
   pdfwarning_regmem 
@@ -2649,10 +2649,10 @@ zpdfprint ( strnumber s )
     incr ( j ) ;
   } 
 } 
-boolean 
+bool 
 zstrinstr ( strnumber s , strnumber r , int i ) 
 {
-  /* 45 */ register boolean Result; strinstr_regmem 
+  /* 45 */ register bool Result; strinstr_regmem 
   poolpointer j, k  ;
   Result = false ;
   if ( ( strstart [s + 1 ]- strstart [s ]) < i + ( strstart [r + 1 ]- 
@@ -2822,7 +2822,7 @@ scaled
 zroundxnoverd ( scaled x , int n , int d ) 
 {
   register scaled Result; roundxnoverd_regmem 
-  boolean positive  ;
+  bool positive  ;
   nonnegativeinteger t, u, v  ;
   if ( x >= 0 ) 
   positive = true ;
@@ -2923,7 +2923,7 @@ pdfnewobjnum ( void )
   return Result ;
 } 
 void 
-zpdfosswitch ( boolean pdfos ) 
+zpdfosswitch ( bool pdfos ) 
 {
   pdfosswitch_regmem 
   if ( pdfos && pdfosenable ) 
@@ -3416,7 +3416,7 @@ zpdfcheckobj ( int t , int n )
   pdferror ( 1782 , 1807 ) ;
 } 
 int 
-zfindobj ( int t , int i , boolean byname ) 
+zfindobj ( int t , int i , bool byname ) 
 {
   register int Result; findobj_regmem 
   Result = avlfindobj ( t , i , byname ) ;
@@ -3433,7 +3433,7 @@ zflushstr ( strnumber s )
   } 
 } 
 int 
-zgetobj ( int t , int i , boolean byname ) 
+zgetobj ( int t , int i , bool byname ) 
 {
   register int Result; getobj_regmem 
   int r  ;
@@ -5844,7 +5844,7 @@ begindiagnostic ( void )
   } 
 } 
 void 
-zenddiagnostic ( boolean blankline ) 
+zenddiagnostic ( bool blankline ) 
 {
   enddiagnostic_regmem 
   printnl ( 345 ) ;
@@ -7682,7 +7682,7 @@ zrestoretrace ( halfword p , strnumber s )
 } 
 #endif /* STAT */
 void 
-zprintgroup ( boolean e ) 
+zprintgroup ( bool e ) 
 {
   /* 10 */ printgroup_regmem 
   switch ( curgroup ) 
@@ -7762,7 +7762,7 @@ zprintgroup ( boolean e )
 } 
 #ifdef STAT
 void 
-zgrouptrace ( boolean e ) 
+zgrouptrace ( bool e ) 
 {
   grouptrace_regmem 
   begindiagnostic () ;
@@ -7775,10 +7775,10 @@ zgrouptrace ( boolean e )
   enddiagnostic ( false ) ;
 } 
 #endif /* STAT */
-boolean 
+bool 
 pseudoinput ( void ) 
 {
-  register boolean Result; pseudoinput_regmem 
+  register bool Result; pseudoinput_regmem 
   halfword p  ;
   int sz  ;
   fourquarters w  ;
@@ -7846,7 +7846,7 @@ groupwarning ( void )
 {
   groupwarning_regmem 
   int i  ;
-  boolean w  ;
+  bool w  ;
   baseptr = inputptr ;
   inputstack [baseptr ]= curinput ;
   i = inopen ;
@@ -7880,7 +7880,7 @@ ifwarning ( void )
 {
   ifwarning_regmem 
   int i  ;
-  boolean w  ;
+  bool w  ;
   baseptr = inputptr ;
   inputstack [baseptr ]= curinput ;
   i = inopen ;
@@ -8505,7 +8505,7 @@ unsave ( void )
   halfword p  ;
   quarterword l  ;
   halfword t  ;
-  boolean a  ;
+  bool a  ;
   a = false ;
   if ( curlevel > 1 ) 
   {
@@ -8742,7 +8742,7 @@ showcontext ( void )
   /* 30 */ showcontext_regmem 
   unsigned char oldsetting  ;
   int nn  ;
-  boolean bottomline  ;
+  bool bottomline  ;
   int i  ;
   int j  ;
   int l  ;
@@ -9453,7 +9453,7 @@ getnext ( void )
   int k  ;
   halfword t  ;
   int i, j  ;
-  boolean mubyteincs  ;
+  bool mubyteincs  ;
   halfword p  ;
   unsigned char cat  ;
   ASCIIcode c, cc  ;
@@ -10446,7 +10446,7 @@ znewindex ( quarterword i , halfword q )
   while ( k++ < for_end ) ;} 
 } 
 void 
-zfindsaelement ( smallnumber t , halfword n , boolean w ) 
+zfindsaelement ( smallnumber t , halfword n , bool w ) 
 {
   /* 45 46 47 48 49 10 */ findsaelement_regmem 
   halfword q  ;
@@ -10580,7 +10580,7 @@ expand ( void )
 {
   /* 21 */ expand_regmem 
   halfword t  ;
-  boolean b  ;
+  bool b  ;
   halfword p, q, r  ;
   int j  ;
   int cvbackup  ;
@@ -10957,10 +10957,10 @@ scanoptionalequals ( void )
   if ( curtok != 3133 ) 
   backinput () ;
 } 
-boolean 
+bool 
 zscankeyword ( strnumber s ) 
 {
-  /* 10 */ register boolean Result; scankeyword_regmem 
+  /* 10 */ register bool Result; scankeyword_regmem 
   halfword p  ;
   halfword q  ;
   poolpointer k  ;
@@ -11201,7 +11201,7 @@ getxorprotected ( void )
   } 
 } 
 int 
-zeffectivechar ( boolean errp , internalfontnumber f , quarterword c ) 
+zeffectivechar ( bool errp , internalfontnumber f , quarterword c ) 
 {
   /* 40 */ register int Result; effectivechar_regmem 
   int basec  ;
@@ -11332,7 +11332,7 @@ scanfontident ( void )
   curval = f ;
 } 
 void 
-zfindfontdimen ( boolean writing ) 
+zfindfontdimen ( bool writing ) 
 {
   findfontdimen_regmem 
   internalfontnumber f  ;
@@ -11392,7 +11392,7 @@ zfindfontdimen ( boolean writing )
   } 
 } 
 void 
-zscansomethinginternal ( smallnumber level , boolean negative ) 
+zscansomethinginternal ( smallnumber level , bool negative ) 
 {
   /* 10 20 */ scansomethinginternal_regmem 
   halfword m  ;
@@ -12174,11 +12174,11 @@ void
 scanint ( void ) 
 {
   /* 30 20 */ scanint_regmem 
-  boolean negative  ;
+  bool negative  ;
   int m  ;
   smallnumber d  ;
-  boolean vacuous  ;
-  boolean OKsofar  ;
+  bool vacuous  ;
+  bool OKsofar  ;
   radix = 0 ;
   OKsofar = true ;
   negative = false ;
@@ -12341,10 +12341,10 @@ scanint ( void )
   curval = - (int) curval ;
 } 
 void 
-zscandimen ( boolean mu , boolean inf , boolean shortcut ) 
+zscandimen ( bool mu , bool inf , bool shortcut ) 
 {
   /* 30 31 32 40 45 88 89 */ scandimen_regmem 
-  boolean negative  ;
+  bool negative  ;
   int f  ;
   int num, denom  ;
   smallnumber k, kk  ;
@@ -12671,9 +12671,9 @@ void
 zscanglue ( smallnumber level ) 
 {
   /* 10 */ scanglue_regmem 
-  boolean negative  ;
+  bool negative  ;
   halfword q  ;
-  boolean mu  ;
+  bool mu  ;
   mu = ( level == 3 ) ;
   negative = false ;
   do {
@@ -12723,7 +12723,7 @@ zscanglue ( smallnumber level )
   curval = q ;
 } 
 int 
-zaddorsub ( int x , int y , int maxanswer , boolean negative ) 
+zaddorsub ( int x , int y , int maxanswer , bool negative ) 
 {
   register int Result; addorsub_regmem 
   int a  ;
@@ -12753,7 +12753,7 @@ int
 zquotient ( int n , int d ) 
 {
   register int Result; quotient_regmem 
-  boolean negative  ;
+  bool negative  ;
   int a  ;
   if ( d == 0 ) 
   {
@@ -12789,7 +12789,7 @@ int
 zfract ( int x , int n , int d , int maxanswer ) 
 {
   /* 40 41 88 30 */ register int Result; fract_regmem 
-  boolean negative  ;
+  bool negative  ;
   int a  ;
   int f  ;
   int h  ;
@@ -12889,7 +12889,7 @@ void
 scanexpr ( void ) 
 {
   /* 20 22 40 */ scanexpr_regmem 
-  boolean a, b  ;
+  bool a, b  ;
   smallnumber l  ;
   smallnumber r  ;
   smallnumber s  ;
@@ -13514,7 +13514,7 @@ convtoks ( void )
   smallnumber savescannerstatus  ;
   halfword savedefref  ;
   halfword savewarningindex  ;
-  boolean flag  ;
+  bool flag  ;
   int i  ;
   int j  ;
   poolpointer b  ;
@@ -14211,7 +14211,7 @@ convtoks ( void )
   begintokenlist ( mem [memtop - 3 ].hh .v.RH , 4 ) ;
 } 
 halfword 
-zscantoks ( boolean macrodef , boolean xpand ) 
+zscantoks ( bool macrodef , bool xpand ) 
 {
   /* 40 30 31 32 */ register halfword Result; scantoks_regmem 
   halfword t  ;
@@ -14622,15 +14622,15 @@ void
 conditional ( void ) 
 {
   /* 10 50 */ conditional_regmem 
-  boolean b  ;
-  boolean e  ;
+  bool b  ;
+  bool e  ;
   unsigned char r  ;
   int m, n  ;
   halfword p, q  ;
   smallnumber savescannerstatus  ;
   halfword savecondptr  ;
   smallnumber thisif  ;
-  boolean isunless  ;
+  bool isunless  ;
   if ( eqtb [29375 ].cint > 0 ) {
       
     if ( eqtb [29313 ].cint <= 1 ) 
@@ -15085,10 +15085,10 @@ beginname ( void )
   extdelimiter = 0 ;
   quotedfilename = false ;
 } 
-boolean 
+bool 
 zmorename ( ASCIIcode c ) 
 {
-  register boolean Result; morename_regmem 
+  register bool Result; morename_regmem 
   if ( ( c == 32 ) && stopatspace && ( ! quotedfilename ) ) 
   Result = false ;
   else if ( c == 34 ) 
@@ -15123,7 +15123,7 @@ endname ( void )
   endname_regmem 
   strnumber tempstr  ;
   poolpointer j, s, t  ;
-  boolean mustquote  ;
+  bool mustquote  ;
   if ( strptr + 3 > maxstrings ) 
   overflow ( 260 , maxstrings - initstrptr ) ;
   {
@@ -15370,7 +15370,7 @@ makenamestring ( void )
   register strnumber Result; makenamestring_regmem 
   int k  ;
   poolpointer saveareadelimiter, saveextdelimiter  ;
-  boolean savenameinprogress, savestopatspace  ;
+  bool savenameinprogress, savestopatspace  ;
   if ( ( poolptr + namelength > poolsize ) || ( strptr == maxstrings ) || ( ( 
   poolptr - strstart [strptr ]) > 0 ) ) 
   Result = 63 ;
@@ -15773,8 +15773,8 @@ zreadfontinfo ( halfword u , strnumber nom , strnumber aire , scaled s )
 {
   /* 30 11 45 */ register internalfontnumber Result; readfontinfo_regmem 
   fontindex k  ;
-  boolean nametoolong  ;
-  boolean fileopened  ;
+  bool nametoolong  ;
+  bool fileopened  ;
   halfword lf, lh, bc, ec, nw, nh, nd, ni, nl, nk, ne, np  ;
   internalfontnumber f  ;
   internalfontnumber g  ;
@@ -16981,7 +16981,7 @@ zwriteout ( halfword p )
   smallnumber j  ;
   halfword q, r  ;
   int d  ;
-  boolean clobbered  ;
+  bool clobbered  ;
   int runsystemret  ;
   mubytesout = eqtb [29336 ].cint ;
   eqtb [29336 ].cint = mem [p + 1 ].hh.b1 - 64 ;
@@ -17424,7 +17424,7 @@ hlistout ( void )
   halfword leaderbox  ;
   scaled leaderwd  ;
   scaled lx  ;
-  boolean outerdoingleaders  ;
+  bool outerdoingleaders  ;
   scaled edge  ;
   halfword prevp  ;
   double gluetemp  ;
@@ -18104,7 +18104,7 @@ vlistout ( void )
   halfword leaderbox  ;
   scaled leaderht  ;
   scaled lx  ;
-  boolean outerdoingleaders  ;
+  bool outerdoingleaders  ;
   scaled edge  ;
   double gluetemp  ;
   double curglue  ;
@@ -19734,8 +19734,8 @@ zpdfbeginstring ( internalfontnumber f )
   pdfbeginstring_regmem 
   scaled sout, v, vout  ;
   int s  ;
-  boolean mustendstring  ;
-  boolean mustinsertspace  ;
+  bool mustendstring  ;
+  bool mustinsertspace  ;
   if ( ! pdfdoingtext ) 
   pdfbegintext () ;
   if ( f != pdff ) 
@@ -20110,7 +20110,7 @@ zslowprintsubstr ( int s , int maxlen )
   print ( 277 ) ;
 } 
 void 
-zliteral ( strnumber s , int literalmode , boolean warn ) 
+zliteral ( strnumber s , int literalmode , bool warn ) 
 {
   literal_regmem 
   poolpointer j  ;
@@ -20366,7 +20366,7 @@ zpdfprintstr ( strnumber s )
 {
   /* 30 */ pdfprintstr_regmem 
   poolpointer i, j  ;
-  boolean ishexstring  ;
+  bool ishexstring  ;
   i = strstart [s ];
   j = i + ( strstart [s + 1 ]- strstart [s ]) - 1 ;
   if ( i > j ) 
@@ -20896,7 +20896,7 @@ zfixexpandvalue ( internalfontnumber f , int e )
   register int Result; fixexpandvalue_regmem 
   int step  ;
   int maxexpand  ;
-  boolean neg  ;
+  bool neg  ;
   Result = 0 ;
   if ( e == 0 ) 
   return Result ;
@@ -20961,7 +20961,7 @@ zexpandfont ( internalfontnumber f , int e )
   return Result ;
 } 
 void 
-zsetexpandparams ( internalfontnumber f , boolean autoexpand , int 
+zsetexpandparams ( internalfontnumber f , bool autoexpand , int 
 stretchlimit , int shrinklimit , int fontstep , int expandratio ) 
 {
   setexpandparams_regmem 
@@ -20999,7 +20999,7 @@ readexpandfont ( void )
   readexpandfont_regmem 
   int shrinklimit, stretchlimit, fontstep  ;
   internalfontnumber f  ;
-  boolean autoexpand  ;
+  bool autoexpand  ;
   scanfontident () ;
   f = curval ;
   if ( f == 0 ) 
@@ -21255,10 +21255,10 @@ znewletterspacedfont ( smallnumber a )
   eqtb [17626 + f ]= eqtb [u ];
   hash [17626 + f ].v.RH = t ;
 } 
-boolean 
+bool 
 zisletterspacedfont ( internalfontnumber f ) 
 {
-  /* 30 */ register boolean Result; isletterspacedfont_regmem 
+  /* 30 */ register bool Result; isletterspacedfont_regmem 
   poolpointer i, j  ;
   Result = false ;
   if ( pdffonttype [f ]!= 1 ) 
@@ -21793,10 +21793,10 @@ pdfcheckvfcurval ( void )
   if ( pdffonttype [f ]== 1 ) 
   pdferror ( 597 , 1132 ) ;
 } 
-boolean 
+bool 
 zautoexpandvf ( internalfontnumber f ) 
 {
-  register boolean Result; autoexpandvf_regmem 
+  register bool Result; autoexpandvf_regmem 
   internalfontnumber bf, lf  ;
   int e, k  ;
   Result = false ;
@@ -21876,7 +21876,7 @@ zdovfpacket ( internalfontnumber vff , eightbits c )
   internalfontnumber f, k, n  ;
   scaled savecurh, savecurv  ;
   int cmd  ;
-  boolean charmove  ;
+  bool charmove  ;
   scaled w, x, y, z  ;
   strnumber s  ;
   incr ( vfcurs ) ;
@@ -23419,7 +23419,7 @@ pdfhlistout ( void )
   halfword leaderbox  ;
   scaled leaderwd  ;
   scaled lx  ;
-  boolean outerdoingleaders  ;
+  bool outerdoingleaders  ;
   scaled edge  ;
   halfword prevp  ;
   double gluetemp  ;
@@ -24060,7 +24060,7 @@ pdfvlistout ( void )
   halfword leaderbox  ;
   scaled leaderht  ;
   scaled lx  ;
-  boolean outerdoingleaders  ;
+  bool outerdoingleaders  ;
   scaled edge  ;
   double gluetemp  ;
   double curglue  ;
@@ -24382,10 +24382,10 @@ fixpdfdraftmode ( void )
     fixedpdfobjcompresslevel = 0 ;
   } 
 } 
-boolean 
+bool 
 zsubstrofstr ( strnumber s , strnumber t ) 
 {
-  /* 22 10 */ register boolean Result; substrofstr_regmem 
+  /* 22 10 */ register bool Result; substrofstr_regmem 
   poolpointer j, k, kk  ;
   k = strstart [t ];
   while ( ( k < strstart [t + 1 ]- ( strstart [s + 1 ]- strstart [s ]) ) 
@@ -24408,12 +24408,12 @@ zsubstrofstr ( strnumber s , strnumber t )
   return Result ;
 } 
 void 
-zpdfshipout ( halfword p , boolean shippingpage ) 
+zpdfshipout ( halfword p , bool shippingpage ) 
 {
   /* 30 31 */ pdfshipout_regmem 
   int i, j, k  ;
   poolpointer s  ;
-  boolean mediaboxgiven  ;
+  bool mediaboxgiven  ;
   halfword savefontlist  ;
   halfword saveobjlist  ;
   halfword saveximagelist  ;
@@ -25475,10 +25475,10 @@ zshipout ( halfword p )
   pdfshipout ( p , true ) ;
   else dvishipout ( p ) ;
 } 
-boolean 
+bool 
 zstrlessstr ( strnumber s1 , strnumber s2 ) 
 {
-  register boolean Result; strlessstr_regmem 
+  register bool Result; strlessstr_regmem 
   poolpointer j1, j2, e1, e2  ;
   packedASCIIcode c1, c2  ;
   j1 = strstart [s1 ];
@@ -25683,7 +25683,7 @@ pdfprintinfo ( void )
 {
   pdfprintinfo_regmem 
   strnumber s  ;
-  boolean creatorgiven, producergiven, creationdategiven, moddategiven, 
+  bool creatorgiven, producergiven, creationdategiven, moddategiven, 
   trappedgiven  ;
   pdfnewdict ( 0 , 0 , 3 ) ;
   creatorgiven = false ;
@@ -25820,7 +25820,7 @@ pdfprintinfo ( void )
   pdfenddict () ;
 } 
 void 
-zscanspec ( groupcode c , boolean threecodes ) 
+zscanspec ( groupcode c , bool threecodes ) 
 {
   /* 40 */ scanspec_regmem 
   int s  ;
@@ -25849,10 +25849,10 @@ zscanspec ( groupcode c , boolean threecodes )
   newsavelevel ( c ) ;
   scanleftbrace () ;
 } 
-boolean 
+bool 
 zcheckexpandpars ( internalfontnumber f ) 
 {
-  register boolean Result; checkexpandpars_regmem 
+  register bool Result; checkexpandpars_regmem 
   internalfontnumber k  ;
   Result = false ;
   if ( ( pdffontstep [f ]== 0 ) || ( ( pdffontstretch [f ]== 0 ) && ( 
@@ -26997,7 +26997,7 @@ zvardelimiter ( halfword d , smallnumber s , scaled v )
   eightbits hd  ;
   fourquarters r  ;
   smallnumber z  ;
-  boolean largeattempt  ;
+  bool largeattempt  ;
   f = 0 ;
   w = 0 ;
   largeattempt = false ;
@@ -27951,7 +27951,7 @@ mlisttohlist ( void )
 {
   /* 21 82 80 81 83 30 */ mlisttohlist_regmem 
   halfword mlist  ;
-  boolean penalties  ;
+  bool penalties  ;
   smallnumber style  ;
   smallnumber savestyle  ;
   halfword q  ;
@@ -28671,10 +28671,10 @@ initcol ( void )
     begintokenlist ( mem [curalign + 3 ].cint , 1 ) ;
   } 
 } 
-boolean 
+bool 
 fincol ( void ) 
 {
-  /* 10 */ register boolean Result; fincol_regmem 
+  /* 10 */ register bool Result; fincol_regmem 
   halfword p  ;
   halfword q, r  ;
   halfword s  ;
@@ -29301,11 +29301,11 @@ popnode ( void )
   return Result ;
 } 
 halfword 
-zfindprotcharleft ( halfword l , boolean d ) 
+zfindprotcharleft ( halfword l , bool d ) 
 {
   register halfword Result; findprotcharleft_regmem 
   halfword t  ;
-  boolean run  ;
+  bool run  ;
   if ( ( mem [l ].hh .v.RH != -268435455L ) && ( mem [l ].hh.b0 == 0 ) && 
   ( mem [l + 1 ].cint == 0 ) && ( mem [l + 3 ].cint == 0 ) && ( mem [l + 
   2 ].cint == 0 ) && ( mem [l + 5 ].hh .v.RH == -268435455L ) ) 
@@ -29355,7 +29355,7 @@ zfindprotcharright ( halfword l , halfword r )
 {
   register halfword Result; findprotcharright_regmem 
   halfword t  ;
-  boolean run  ;
+  bool run  ;
   Result = -268435455L ;
   if ( r == -268435455L ) 
   return Result ;
@@ -29449,7 +29449,7 @@ ztrybreak ( int pi , smallnumber breaktype )
   halfword lp, rp, cp  ;
   halfword prevr  ;
   halfword oldl  ;
-  boolean nobreakyet  ;
+  bool nobreakyet  ;
   halfword prevprevr  ;
   halfword s  ;
   halfword q  ;
@@ -29457,12 +29457,12 @@ ztrybreak ( int pi , smallnumber breaktype )
   int t  ;
   internalfontnumber f  ;
   halfword l  ;
-  boolean noderstaysactive  ;
+  bool noderstaysactive  ;
   scaled linewidth  ;
   unsigned char fitclass  ;
   halfword b  ;
   int d  ;
-  boolean artificialdemerits  ;
+  bool artificialdemerits  ;
   halfword savelink  ;
   scaled shortfall  ;
   scaled g  ;
@@ -30288,16 +30288,16 @@ ztrybreak ( int pi , smallnumber breaktype )
   } 
 } 
 void 
-zpostlinebreak ( boolean d ) 
+zpostlinebreak ( bool d ) 
 {
   /* 30 31 */ postlinebreak_regmem 
   halfword q, r, s  ;
   halfword p, k  ;
   scaled w  ;
-  boolean gluebreak  ;
+  bool gluebreak  ;
   halfword ptmp  ;
-  boolean discbreak  ;
-  boolean postdiscbreak  ;
+  bool discbreak  ;
+  bool postdiscbreak  ;
   scaled curwidth  ;
   scaled curindent  ;
   quarterword t  ;
@@ -31302,10 +31302,10 @@ hyphenate ( void )
   mem [s ].hh .v.RH = q ;
   flushlist ( initlist ) ;
 } 
-boolean 
-zeTeXenabled ( boolean b , quarterword j , halfword k ) 
+bool 
+zeTeXenabled ( bool b , quarterword j , halfword k ) 
 {
-  register boolean Result; eTeXenabled_regmem 
+  register bool Result; eTeXenabled_regmem 
   if ( ! b ) 
   {
     {
@@ -31525,7 +31525,7 @@ showsavegroups ( void )
   curgroup = c ;
 } 
 halfword 
-zprunepagetop ( halfword p , boolean s ) 
+zprunepagetop ( halfword p , bool s ) 
 {
   /* 60 */ register halfword Result; prunepagetop_regmem 
   halfword prevp  ;
@@ -31965,7 +31965,7 @@ zfireup ( halfword c )
   halfword p, q, r, s  ;
   halfword prevp  ;
   unsigned char n  ;
-  boolean wait  ;
+  bool wait  ;
   int savevbadness  ;
   scaled savevfuzz  ;
   halfword savesplittopskip  ;
@@ -32695,10 +32695,10 @@ reportillegalcase ( void )
   } 
   error () ;
 } 
-boolean 
+bool 
 privileged ( void ) 
 {
-  register boolean Result; privileged_regmem 
+  register bool Result; privileged_regmem 
   if ( curlist .modefield > 0 ) 
   Result = true ;
   else {
@@ -32708,10 +32708,10 @@ privileged ( void )
   } 
   return Result ;
 } 
-boolean 
+bool 
 itsallover ( void ) 
 {
-  /* 10 */ register boolean Result; itsallover_regmem 
+  /* 10 */ register bool Result; itsallover_regmem 
   if ( privileged () ) 
   {
     if ( ( memtop - 2 == pagetail ) && ( curlist .headfield == curlist 
@@ -33037,7 +33037,7 @@ zbeginbox ( int boxcontext )
   /* 10 30 */ beginbox_regmem 
   halfword p, q  ;
   halfword r  ;
-  boolean fm  ;
+  bool fm  ;
   halfword tx  ;
   quarterword m  ;
   halfword k  ;
@@ -33319,7 +33319,7 @@ znormmin ( int h )
   return Result ;
 } 
 void 
-znewgraf ( boolean indented ) 
+znewgraf ( bool indented ) 
 {
   newgraf_regmem 
   curlist .pgfield = 0 ;
@@ -33512,7 +33512,7 @@ deletelast ( void )
   /* 10 */ deletelast_regmem 
   halfword p, q  ;
   halfword r  ;
-  boolean fm  ;
+  bool fm  ;
   halfword tx  ;
   quarterword m  ;
   if ( ( curlist .modefield == 1 ) && ( curlist .tailfield == curlist 
@@ -34855,7 +34855,7 @@ mathlimitswitch ( void )
   error () ;
 } 
 void 
-zscandelimiter ( halfword p , boolean r ) 
+zscandelimiter ( halfword p , bool r ) 
 {
   scandelimiter_regmem 
   if ( r ) 
@@ -35364,8 +35364,8 @@ void
 aftermath ( void ) 
 {
   aftermath_regmem 
-  boolean l  ;
-  boolean danger  ;
+  bool l  ;
+  bool danger  ;
   int m  ;
   halfword p  ;
   halfword a  ;
@@ -35778,7 +35778,7 @@ zdoregistercommand ( smallnumber a )
   /* 40 10 */ doregistercommand_regmem 
   halfword l, q, r, s  ;
   unsigned char p  ;
-  boolean e  ;
+  bool e  ;
   int w  ;
   q = curcmd ;
   e = false ;
@@ -36588,7 +36588,7 @@ znewwritewhatsit ( smallnumber w )
   else mem [curlist .tailfield + 1 ].hh.b1 = eqtb [29336 ].cint + 64 ;
 } 
 void 
-zcheckpdfoutput ( strnumber s , boolean iserror ) 
+zcheckpdfoutput ( strnumber s , bool iserror ) 
 {
   checkpdfoutput_regmem 
   if ( eqtb [29339 ].cint <= 0 ) 
@@ -39703,10 +39703,10 @@ giveerrhelp ( void )
   giveerrhelp_regmem 
   tokenshow ( eqtb [27167 ].hh .v.RH ) ;
 } 
-boolean 
+bool 
 openfmtfile ( void ) 
 {
-  /* 40 10 */ register boolean Result; openfmtfile_regmem 
+  /* 40 10 */ register bool Result; openfmtfile_regmem 
   int j  ;
   j = curinput .locfield ;
   if ( buffer [curinput .locfield ]== 38 ) 
@@ -39744,8 +39744,8 @@ closefilesandterminate ( void )
 {
   /* 30 31 */ closefilesandterminate_regmem 
   int a, b, c, i, j, k, l  ;
-  boolean isroot  ;
-  boolean isnames  ;
+  bool isroot  ;
+  bool isnames  ;
   int root, outlines, threads, namestree, dests  ;
   int xrefoffsetwidth, nameshead, namestail  ;
   {register int for_end; k = 0 ;for_end = 15 ; if ( k <= for_end) do 
@@ -41059,8 +41059,8 @@ scanfilenamebraced ( void )
   strnumber s  ;
   halfword p  ;
   int i  ;
-  boolean savestopatspace  ;
-  boolean dummy  ;
+  bool savestopatspace  ;
+  bool dummy  ;
   savescannerstatus = scannerstatus ;
   savedefref = defref ;
   savecurcs = curcs ;

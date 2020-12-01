@@ -23,7 +23,7 @@ with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define pdfmarkchar(f, c) pdfcharused[f][c/8] |= (1<<(c%8))
 
 /* test whether a char in font is marked */
-#define pdfcharmarked(f, c) (boolean)(pdfcharused[f][c/8] & (1<<(c%8)))
+#define pdfcharmarked(f, c) (bool)(pdfcharused[f][c/8] & (1<<(c%8)))
 
 /* writepdf() always writes by fwrite() */
 #define       writepdf(a, b) \

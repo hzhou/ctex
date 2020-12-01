@@ -29,7 +29,7 @@
 #define unused 271828
 
 /* Says whether to give voluminous progress reports.  */
-boolean debug = false;
+bool debug = false;
 int indent = 0;
 int line_pos = 0;
 int last_brace = 0;

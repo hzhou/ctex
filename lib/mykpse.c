@@ -6,7 +6,7 @@
 #include "lib.h"
 
 char *kpse_program_name;
-boolean kpse_make_tex_discard_errors;
+bool kpse_make_tex_discard_errors;
 
 static const char *kpse_ext_list[] = {
     "tex",

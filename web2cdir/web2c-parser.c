@@ -81,8 +81,8 @@ char my_routine[100];	/* Name of routine being parsed, if any */
 static char array_bounds[80], array_offset[80];
 static int uses_mem, uses_eqtb, lower_sym, upper_sym;
 static FILE *orig_out;
-boolean doing_statements = false;
-static boolean var_formals = false;
+bool doing_statements = false;
+static bool var_formals = false;
 static int param_id_list[MAX_ARGS], ids_paramed=0;
 
 extern char conditional[], temp[], *std_header;
@@ -90,14 +90,14 @@ extern int tex, mf, strict_for;
 extern FILE *coerce;
 extern char coerce_name[];
 extern string program_name;
-extern boolean debug;
+extern bool debug;
 
 static long my_labs (long);
 static void compute_array_bounds (void);
 static void fixup_var_list (void);
 static void do_proc_args (void);
 static void gen_function_head (void);
-static boolean doreturn (string);
+static bool doreturn (string);
 
 #line 102 "y.tab.c" /* yacc.c:339  */
 
@@ -3791,7 +3791,7 @@ fixup_var_list (void)
    routines where the line labeled "10" isn't the end of the routine.
    Otherwise, return 0.  */
 
-static boolean
+static bool
 doreturn (string label)
 {
     return

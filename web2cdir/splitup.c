@@ -34,7 +34,7 @@
 
 int filenumber = 0, ifdef_nesting = 0, lines_in_file = 0;
 char *output_name = NULL;
-boolean has_ini;
+bool has_ini;
 
 /* This used to be a fixed 2000, but since bibtex.c is almost 10000 lines
    (200+K), we may as well decrease the number of split files we create.
@@ -44,7 +44,7 @@ boolean has_ini;
 long int max_lines;
 
 /* Do we split out a separate *ini.c file? */
-boolean do_ini;
+bool do_ini;
 
 /* Don't need long filenames, since we generate them all.  */
 char buffer[1024], tempfile[100], filename[100], ini_name[100];

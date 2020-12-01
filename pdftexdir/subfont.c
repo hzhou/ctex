@@ -78,7 +78,7 @@ void sfd_free(void)
         avl_destroy(sfd_tree, destroy_sfd_entry);
 }
 
-static void sfd_getline(boolean expect_eof)
+static void sfd_getline(bool expect_eof)
 {
     char *p;
     int c;
@@ -170,7 +170,7 @@ static sfd_entry *read_sfd(char *sfd_name)
     return sfd;
 }
 
-boolean handle_subfont_fm(fm_entry * fm, int mode)
+bool handle_subfont_fm(fm_entry * fm, int mode)
 {
     size_t l;
     char *p, *q, *r;

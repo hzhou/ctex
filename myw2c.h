@@ -17,7 +17,6 @@
 
 typedef char * string;
 typedef const char * const_string;
-typedef bool boolean;
 
 /* temporary -- we should modify the source */
 #define longinteger long

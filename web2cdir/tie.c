@@ -76,7 +76,7 @@
 
 
 
-typedef int boolean;
+typedef int bool;
 typedef char *string;
 
 
@@ -154,7 +154,7 @@ static input_description *input_organization[max_file_index + 1];
 
 
 
-static boolean input_has_ended = false;
+static bool input_has_ended = false;
 
 
 
@@ -250,7 +250,7 @@ void get_line(file_index i)
 
 
 
-boolean lines_dont_match(file_index i, file_index j)
+bool lines_dont_match(file_index i, file_index j)
 {
     buffer_index k, lmt;
     if (input_organization[i]->limit != input_organization[j]->limit)
@@ -264,7 +264,7 @@ boolean lines_dont_match(file_index i, file_index j)
 
 
 
-void init_change_file(file_index i, boolean b)
+void init_change_file(file_index i, bool b)
 {
     register input_description *inp_desc = input_organization[i];
 
@@ -320,7 +320,7 @@ void put_line(file_index j)
 
 
 
-boolean e_of_ch_module(file_index i)
+bool e_of_ch_module(file_index i)
 {
     register input_description *inp_desc = input_organization[i];
     if (inp_desc->limit < 0) {
@@ -337,7 +337,7 @@ boolean e_of_ch_module(file_index i)
 
 
 
-boolean e_of_ch_preamble(file_index i)
+bool e_of_ch_preamble(file_index i)
 {
     register input_description *inp_desc = input_organization[i];
     if (inp_desc->limit >= 2 && inp_desc->buffer[0] == 64)

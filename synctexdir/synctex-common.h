@@ -46,6 +46,6 @@ Latest Revision: Wed Jul  1 08:07:50 UTC 2009
 extern void synctexinitcommand(void);
 
 /*  Send this message to clean memory, and close the file.  */
-extern void synctexterminate(boolean log_opened);
+extern void synctexterminate(bool log_opened);
 
 #  endif

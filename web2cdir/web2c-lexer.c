@@ -707,7 +707,7 @@ char *yytext_ptr;
 #undef read
 
 char conditional[20], negbuf[2], temp[20];
-extern boolean doing_statements;
+extern bool doing_statements;
 
 
 /* We only read one input file.  This is the default definition, but

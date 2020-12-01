@@ -18,8 +18,8 @@ with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 /* Do this early in order to avoid a conflict between
-   MINGW32 <rpcndr.h> defining 'boolean' as 'unsigned char' and
-   <kpathsea/types.h> defining Pascal's boolean as 'int'.
+   MINGW32 <rpcndr.h> defining 'bool' as 'unsigned char' and
+   <kpathsea/types.h> defining Pascal's bool as 'int'.
 */
 #include "../myw2c.h"
 
