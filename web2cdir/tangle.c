@@ -77,7 +77,7 @@ int semiptr;
 eightbits outstate;
 int outval, outapp;
 ASCIIcode outsign;
-schar lastsign;
+int8_t lastsign;
 ASCIIcode outcontrib[linelength + 1];
 int ii;
 int line;
@@ -2598,7 +2598,7 @@ eightbits getnext(void)
 void zscannumeric(namepointer p)
 {
     /* 21 30 */ int accumulator;
-    schar nextsign;
+    int8_t nextsign;
     namepointer q;
     int val;
     accumulator = 0;

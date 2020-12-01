@@ -2318,7 +2318,7 @@ yyreduce:
                 if (0 <= lower_bound && upper_bound <= UCHAR_MAX)
                   my_output ("unsigned char");
                 else if (SCHAR_MIN <= lower_bound && upper_bound <= SCHAR_MAX)
-                  my_output ("schar");
+                  my_output ("int8_t");
                 else if (SHRT_MIN <= lower_bound && upper_bound <= SHRT_MAX)
                   my_output ("short");
                 else if (0 <= lower_bound && upper_bound <= USHRT_MAX)

@@ -31335,7 +31335,7 @@ showsavegroups ( void )
   savepointer v  ;
   quarterword l  ;
   groupcode c  ;
-  schar a  ;
+  int8_t a  ;
   int i  ;
   quarterword j  ;
   strnumber s  ;

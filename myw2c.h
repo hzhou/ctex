@@ -20,7 +20,6 @@ typedef const char * const_string;
 
 /* temporary -- we should modify the source */
 #define longinteger long
-#define schar char
 
 #ifndef Fputs
 #define Fputs(F, str) fputs(str, F)
@@ -29,8 +28,7 @@ typedef const char * const_string;
 #define vgetc(f)      (void)getc(f)
 #endif
 
-#define WEB2C_NORETURN
-#define SCHAR_TYPE char
+#define WEB2C_NORETURN  /* indicates the function exits */
 #define STREQ(a, b) (strcmp(a, b) == 0)
 #define STRNEQ(a, b, n) (strncmp(a, b, n) == 0)
 #define FILESTRCASEEQ(a, b) STREQ(a,b)

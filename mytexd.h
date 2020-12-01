@@ -264,7 +264,7 @@ EXTERN unsigned char interactionoption  ;
 EXTERN bool deletionsallowed  ;
 EXTERN bool setboxallowed  ;
 EXTERN unsigned char history  ;
-EXTERN schar errorcount  ;
+EXTERN int8_t errorcount  ;
 EXTERN strnumber helpline[6]  ;
 EXTERN unsigned char helpptr  ;
 EXTERN bool useerrhelp  ;
