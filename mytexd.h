@@ -830,5 +830,5 @@ poolpointer makesrcspecial (strnumber srcfilename, int lineno);
 void remembersourceinfo (strnumber srcfilename, int lineno);
 void calledit (packedASCIIcode *filename, poolpointer fnstart, int fnlength, int linenumber);
 
-#include "pdftexcoerce.h"
+#include "my-pdftexcoerce.h"
 #endif /* MYTEXD_H */

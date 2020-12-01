@@ -86,7 +86,7 @@ pdftex_ch_files = \
 pdftex-final.ch: tie $(pdftex_ch_files)
 	./tie -c $@ $(pdftex_ch_files)
 
-# multiple targets: web/pdftex.p web/pdftex.pool
+# -> web/pdftex.p web/pdftex.pool
 web/pdftex.p: tangle pdftex-final.ch
 	./tangle web/pdftex.web pdftex-final.ch
 
@@ -104,12 +104,12 @@ web2c = ./web2c -htexmfmp.h -t -cpdftexcoerce
 fixwrites = ./fixwrites -t pdftex
 splitup = ./splitup -i -l 65000 pdftex
 
-# multiple targets: output/pdftex0.c output/pdftexini.c output/pdftexd.h ouput/pdftex-pool.c
+# ->: [output/] pdftex0.c pdftexini.c pdftexd.h pdftex-pool.c
 WEB2C_TOOL = web2c fixwrites splitup makecpool
 output/pdftex0.c: web/pdftex.p web/pdftex.pool $(WEB2C_TOOL)
 	cat $(pdftex_defines) $< | $(web2c) | $(fixwrites) | $(splitup)
 	mkdir -p output
-	mv -v pdftexd.h pdftex0.c pdftexini.c output/
+	mv -v pdftex0.c pdftexini.c pdftexd.h pdftexcoerce.h output/
 	./makecpool web/pdftex > output/pdftex-pool.c || rm output/pdftex-pool.c
 
 # --------------------------
