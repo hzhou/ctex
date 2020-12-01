@@ -1,70 +1,9 @@
 CC = gcc -I.. -I. -Ilibmd5 -D__SyncTeX__ 
 CXX = g++ -I.. -I.
 
-all: web2c tangle pdftex
+all: pdftex pdftex-web2c
 
-# --------------------------
-tangle: tangle.o mykpse.o tangle_glue.o
-	$(CC) -o tangle tangle.o mykpse.o tangle_glue.o
-
-# --------------------------
-ctangle: ctangleboot
-	ln -sf ctangleboot ctangle
-
-ctangleboot: ctangleboot.o cwebboot.o mykpse.o
-	$(CC) -o $@ ctangleboot.o cwebboot.o mykpse.o
-
-tie: tie.o
-	$(CC) -o $@ $<
-
-.PHONY: web2c
-web2c:
-	$(MAKE) -C web2c
-
-# --------------------------
-pdftex_ch_files = \
-    pdftexdir/pdftex.web \
-    pdftexdir/tex.ch0 \
-    tex.ch \
-    zlib-fmt.ch \
-    enctex.ch \
-    synctexdir/synctex-def.ch0 \
-    synctexdir/synctex-mem.ch0 \
-    synctexdir/synctex-e-mem.ch0 \
-    synctexdir/synctex-e-mem.ch1 \
-    synctexdir/synctex-rec.ch0 \
-    synctexdir/synctex-rec.ch1 \
-    synctexdir/synctex-e-rec.ch0 \
-    synctexdir/synctex-pdf-rec.ch2 \
-    pdftexdir/pdftex.ch \
-    pdftexdir/char-warning-pdftex.ch \
-    tex-binpool.ch
-
-pdftex-final.ch: tie $(pdftex_ch_files)
-	./tie -c $@ $(pdftex_ch_files)
-
-pdftexdir/pdftex.p pdftexdir/pdftex.pool &: tangle pdftex-final.ch
-	./tangle pdftexdir/pdftex.web pdftex-final.ch
-
-pdftex_defines = \
-    ./web2c/common.defines \
-    ./web2c/texmf.defines \
-    ./synctexdir/synctex.defines \
-    ./pdftexdir/pdftex.defines
-
-web2c = web2c/web2c -htexmfmp.h -t -cpdftexcoerce
-fixwrites = web2c/fixwrites -t pdftex
-splitup = web2c/splitup -i -l 65000 pdftex
-
-output/pdftex0.c: pdftexdir/pdftex.p
-	cat $(pdftex_defines) $< | $(web2c) | $(fixwrites) | $(splitup)
-	mkdir -p output
-	mv -v pdftexd.h pdftex0.c pdftexini.c output/
-
-output/pdftex-pool.c: pdftexdir/pdftex.pool
-	web2c/makecpool pdftexdir/pdftex > $@ || rm $@
-
-# --------------------------
+# ---- pdftex ----------------------
 pdftex_OBJECTS = \
     mykpse.o \
     texextra.o \
@@ -82,7 +21,7 @@ pdftex_DEPS = \
 pdftex: $(pdftex_OBJECTS) $(pdftex_DEPS)
 	$(CXX) -o pdftex $(pdftex_OBJECTS) $(pdftex_DEPS) -lz -lpng -lm
 
-# --------------------------
+# ----
 texextra.o: lib/texmfmp.c
 
 synctexdir/synctex.o: synctexdir/synctex.c
@@ -100,9 +39,83 @@ libxpdf/libxpdf.a:
 pdftexdir/libpdftex.a:
 	$(MAKE) -C pdftexdir libpdftex.a
 
+# ---- web2c stuff ----------------------
+tangle_OBJS = web2cdir/tangle.o web2cdir/tangle_glue.o mykpse.o 
+tangle: $(tangle_OBJS)
+	$(CC) -o tangle $(tangle_OBJS)
+
+tie: web2cdir/tie.o
+	$(CC) -o $@ $<
+
+web2c_OBJS = \
+    mykpse.o \
+    web2cdir/web2c-parser.o \
+    web2cdir/web2c-lexer.o \
+    web2cdir/main.o
+web2c: $(web2c_OBJS)
+	$(CC) -o $@ $(web2c_OBJS)
+
+fixwrites: web2cdir/fixwrites.o mykpse.o
+	$(CC) -o $@ $< mykpse.o
+
+splitup: web2cdir/splitup.o mykpse.o
+	$(CC) -o $@ $< mykpse.o
+
+makecpool: web2cdir/makecpool.o
+	$(CC) -o $@ $<
+
+# -- pdftex.p pdftex.pool ----------------------
+pdftex_ch_files = \
+    web/pdftex.web \
+    web/tex.ch0 \
+    web/tex.ch \
+    web/zlib-fmt.ch \
+    web/enctex.ch \
+    synctexdir/synctex-def.ch0 \
+    synctexdir/synctex-mem.ch0 \
+    synctexdir/synctex-e-mem.ch0 \
+    synctexdir/synctex-e-mem.ch1 \
+    synctexdir/synctex-rec.ch0 \
+    synctexdir/synctex-rec.ch1 \
+    synctexdir/synctex-e-rec.ch0 \
+    synctexdir/synctex-pdf-rec.ch2 \
+    web/pdftex.ch \
+    web/char-warning-pdftex.ch \
+    web/tex-binpool.ch
+
+pdftex-final.ch: tie $(pdftex_ch_files)
+	./tie -c $@ $(pdftex_ch_files)
+
+web/pdftex.p web/pdftex.pool: tangle pdftex-final.ch
+	./tangle web/pdftex.web pdftex-final.ch
+
+# -- pdftex-web2c --------------
+.PHONY: pdftex-web2c
+pdftex-web2c: output/pdftex0.c output/pdftex-pool.c
+
+pdftex_defines = \
+    web2cdir/common.defines \
+    web2cdir/texmf.defines \
+    synctexdir/synctex.defines \
+    pdftexdir/pdftex.defines
+
+web2c = ./web2c -htexmfmp.h -t -cpdftexcoerce
+fixwrites = ./fixwrites -t pdftex
+splitup = ./splitup -i -l 65000 pdftex
+
+output/pdftex0.c output/pdftexini.c output/pdftexd.h: pdftexdir/pdftex.p web2c fixwrites splitup
+	cat $(pdftex_defines) $< | $(web2c) | $(fixwrites) | $(splitup)
+	mkdir -p output
+	mv -v pdftexd.h pdftex0.c pdftexini.c output/
+
+output/pdftex-pool.c: pdftexdir/pdftex.pool makecpool
+	./makecpool pdftexdir/pdftex > $@ || rm $@
+
 # --------------------------
 clean:
-	find . -name '*.[oa]' |xargs rm -v
+	find . -name '*.[oa]' |xargs rm -fv
+	rm -fv tangle tie web2c fixwrites splitup makecpool
+	rm -fv pdftex-final.ch output/*
 
 %.o: %.c
 	$(CC) -c -o $@ $<

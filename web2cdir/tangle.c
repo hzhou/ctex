@@ -24,8 +24,8 @@ typedef unsigned char ASCIIcode;
 typedef FILE *textfile;
 typedef unsigned char eightbits;
 typedef unsigned short sixteenbits;
-typedef integer namepointer;
-typedef integer textpointer;
+typedef int namepointer;
+typedef int textpointer;
 typedef struct {
     sixteenbits endfield;
     sixteenbits bytefield;
@@ -41,68 +41,68 @@ textfile changefile;
 textfile Pascalfile;
 textfile pool;
 ASCIIcode buffer[bufsize + 1];
-boolean phaseone;
+bool phaseone;
 ASCIIcode bytemem[3][maxbytes + 1];
 eightbits tokmem[5][maxtoks + 1];
 sixteenbits bytestart[maxnames + 1];
 sixteenbits tokstart[maxtexts + 1];
 sixteenbits links[maxnames + 1];
 sixteenbits ilk[maxnames + 1];
-integer equiv[maxnames + 1];
+int equiv[maxnames + 1];
 sixteenbits textlink[maxtexts + 1];
 namepointer nameptr;
 namepointer stringptr;
-integer byteptr[3];
-integer poolchecksum;
+int byteptr[3];
+int poolchecksum;
 textpointer textptr;
-integer tokptr[5];
+int tokptr[5];
 unsigned char z;
-integer idfirst;
-integer idloc;
-integer doublechars;
+int idfirst;
+int idloc;
+int doublechars;
 sixteenbits hash[hashsize + 1], chophash[hashsize + 1];
 ASCIIcode choppedid[maxidlength + 1];
 ASCIIcode modtext[longestname + 1];
 textpointer lastunnamed;
 outputstate curstate;
 outputstate stack[stacksize + 1];
-integer stackptr;
+int stackptr;
 unsigned char zo;
 eightbits bracelevel;
-integer curval;
+int curval;
 ASCIIcode outbuf[outbufsize + 1];
-integer outptr;
-integer breakptr;
-integer semiptr;
+int outptr;
+int breakptr;
+int semiptr;
 eightbits outstate;
-integer outval, outapp;
+int outval, outapp;
 ASCIIcode outsign;
 schar lastsign;
 ASCIIcode outcontrib[linelength + 1];
-integer ii;
-integer line;
-integer otherline;
-integer templine;
-integer limit;
-integer loc;
-boolean inputhasended;
-boolean changing;
+int ii;
+int line;
+int otherline;
+int templine;
+int limit;
+int loc;
+bool inputhasended;
+bool changing;
 ASCIIcode changebuffer[bufsize + 1];
-integer changelimit;
+int changelimit;
 namepointer curmodule;
-boolean scanninghex;
+bool scanninghex;
 eightbits nextcontrol;
 textpointer currepltext;
 short modulecount;
 char * webname, *chgname, *pascalname, *poolname;
-boolean forceuppercase, forcelowercase, allowunderlines, strictmode;
-integer unambiglength;
+bool forceuppercase, forcelowercase, allowunderlines, strictmode;
+int unambiglength;
 
 /* ------------------------------------------- */
 void error (void);
 void initialize (void);
 void openinput (void);
-boolean zinputln (textfile f);
+bool zinputln (textfile f);
 #define inputln(f) zinputln((textfile) (f))
 void zprintid (namepointer p);
 #define printid(p) zprintid((namepointer) (p))
@@ -119,16 +119,16 @@ void zpushlevel (namepointer p);
 void poplevel (void);
 sixteenbits getoutput (void);
 void flushbuffer (void);
-void zappval (integer v);
-#define appval(v) zappval((integer) (v))
+void zappval (int v);
+#define appval(v) zappval((int) (v))
 void zsendout (eightbits t,sixteenbits v);
 #define sendout(t, v) zsendout((eightbits) (t), (sixteenbits) (v))
-void zsendsign (integer v);
-#define sendsign(v) zsendsign((integer) (v))
-void zsendval (integer v);
-#define sendval(v) zsendval((integer) (v))
+void zsendsign (int v);
+#define sendsign(v) zsendsign((int) (v))
+void zsendval (int v);
+#define sendval(v) zsendval((int) (v))
 void sendtheoutput (void);
-boolean linesdontmatch (void);
+bool linesdontmatch (void);
 void primethechangebuffer (void);
 void checkchange (void);
 void f_getline (void);
@@ -148,8 +148,8 @@ void scanmodule (void);
 /* ------------------------------------------- */
 void error(void)
 {
-    integer j;
-    integer k, l;
+    int j;
+    int k, l;
     if (phaseone) {
         if (changing)
             Fputs(stdout, ". (change file ");
@@ -161,7 +161,7 @@ void error(void)
         else
             l = loc;
         {
-            register integer for_end;
+            register int for_end;
             k = 1;
             for_end = l;
             if (k <= for_end)
@@ -174,7 +174,7 @@ void error(void)
         }
         putc('\n', stdout);
         {
-            register integer for_end;
+            register int for_end;
             k = 1;
             for_end = l;
             if (k <= for_end)
@@ -183,7 +183,7 @@ void error(void)
                 while (k++ < for_end);
         }
         {
-            register integer for_end;
+            register int for_end;
             k = l + 1;
             for_end = limit;
             if (k <= for_end)
@@ -196,7 +196,7 @@ void error(void)
 
         fprintf(stdout, "%s%ld%c\n", ". (l.", (long) line, ')');
         {
-            register integer for_end;
+            register int for_end;
             j = 1;
             for_end = outptr;
             if (j <= for_end)
@@ -266,7 +266,7 @@ void initialize(void)
     unsigned char i;
     unsigned char wi;
     unsigned char zi;
-    integer h;
+    int h;
     history = 0;
     xchr[32] = ' ';
     xchr[33] = '!';
@@ -366,7 +366,7 @@ void initialize(void)
     xchr[0] = ' ';
     xchr[127] = ' ';
     {
-        register integer for_end;
+        register int for_end;
         i = 1;
         for_end = 31;
         if (i <= for_end)
@@ -375,7 +375,7 @@ void initialize(void)
             while (i++ < for_end);
     }
     {
-        register integer for_end;
+        register int for_end;
         i = 128;
         for_end = 255;
         if (i <= for_end)
@@ -384,7 +384,7 @@ void initialize(void)
             while (i++ < for_end);
     }
     {
-        register integer for_end;
+        register int for_end;
         i = 0;
         for_end = 255;
         if (i <= for_end)
@@ -393,7 +393,7 @@ void initialize(void)
             while (i++ < for_end);
     }
     {
-        register integer for_end;
+        register int for_end;
         i = 1;
         for_end = 255;
         if (i <= for_end)
@@ -408,7 +408,7 @@ void initialize(void)
     assert(Pascalfile);
 
     {
-        register integer for_end;
+        register int for_end;
         wi = 0;
         for_end = 2;
         if (wi <= for_end)
@@ -423,7 +423,7 @@ void initialize(void)
     stringptr = 256;
     poolchecksum = 271828L;
     {
-        register integer for_end;
+        register int for_end;
         zi = 0;
         for_end = 4;
         if (zi <= for_end)
@@ -439,7 +439,7 @@ void initialize(void)
     ilk[0] = 0;
     equiv[0] = 0;
     {
-        register integer for_end;
+        register int for_end;
         h = 0;
         for_end = hashsize - 1;
         if (h <= for_end)
@@ -462,10 +462,10 @@ void openinput(void)
         changefile = mykpse_open_file(chgname);
 }
 
-boolean zinputln(textfile f)
+bool zinputln(textfile f)
 {
-    register boolean Result;
-    integer finallimit;
+    register bool Result;
+    int finallimit;
     limit = 0;
     finallimit = 0;
     if (f_eof(f))
@@ -501,7 +501,7 @@ boolean zinputln(textfile f)
 
 void zprintid(namepointer p)
 {
-    integer k;
+    int k;
     unsigned char w;
     if (p >= nameptr)
         Fputs(stdout, "IMPOSSIBLE");
@@ -509,7 +509,7 @@ void zprintid(namepointer p)
 
         w = p % 3;
         {
-            register integer for_end;
+            register int for_end;
             k = bytestart[p];
             for_end = bytestart[p + 3] - 1;
             if (k <= for_end)
@@ -524,13 +524,13 @@ namepointer zidlookup(eightbits t)
 {
     /* 31 32 */ register namepointer Result;
     eightbits c;
-    integer i;
-    integer h;
-    integer k;
+    int i;
+    int h;
+    int k;
     unsigned char w;
-    integer l;
+    int l;
     namepointer p, q;
-    integer s;
+    int s;
     l = idloc - idfirst;
     h = buffer[idfirst];
     i = idfirst + 1;
@@ -635,7 +635,7 @@ namepointer zidlookup(eightbits t)
                             Fputs(stdout, "! Identifier conflict with ");
                         }
                         {
-                            register integer for_end;
+                            register int for_end;
                             k = bytestart[q];
                             for_end = bytestart[q + 3] - 1;
                             if (k <= for_end)
@@ -731,8 +731,8 @@ namepointer zmodlookup(sixteenbits l)
 {
     /* 31 */ register namepointer Result;
     unsigned char c;
-    integer j;
-    integer k;
+    int j;
+    int k;
     unsigned char w;
     namepointer p;
     namepointer q;
@@ -798,7 +798,7 @@ namepointer zmodlookup(sixteenbits l)
     c = 1;
     equiv[p] = 0;
     {
-        register integer for_end;
+        register int for_end;
         j = 1;
         for_end = l;
         if (j <= for_end)
@@ -825,9 +825,9 @@ namepointer zprefixlookup(sixteenbits l)
 {
     register namepointer Result;
     unsigned char c;
-    integer count;
-    integer j;
-    integer k;
+    int count;
+    int j;
+    int k;
     unsigned char w;
     namepointer p;
     namepointer q;
@@ -960,14 +960,14 @@ sixteenbits getoutput(void)
     sixteenbits a;
     eightbits b;
     sixteenbits bal;
-    integer k;
+    int k;
     unsigned char w;
   lab20:if (stackptr == 0) {
         a = 0;
         goto lab31;
     }
     if (curstate.bytefield == curstate.endfield) {
-        curval = -(integer) curstate.modfield;
+        curval = -(int) curstate.modfield;
         poplevel();
         if (curval == 0)
             goto lab20;
@@ -1167,13 +1167,13 @@ sixteenbits getoutput(void)
 
 void flushbuffer(void)
 {
-    integer k;
-    integer b;
+    int k;
+    int b;
     b = breakptr;
     if ((semiptr != 0) && (outptr - semiptr <= linelength))
         breakptr = semiptr;
     {
-        register integer for_end;
+        register int for_end;
         k = 1;
         for_end = breakptr;
         if (k <= for_end)
@@ -1190,7 +1190,7 @@ void flushbuffer(void)
                 b = breakptr;
         }
         {
-            register integer for_end;
+            register int for_end;
             k = breakptr;
             for_end = outptr - 1;
             if (k <= for_end)
@@ -1212,9 +1212,9 @@ void flushbuffer(void)
     }
 }
 
-void zappval(integer v)
+void zappval(int v)
 {
-    integer k;
+    int k;
     k = outbufsize;
     do {
         outbuf[k] = v % 10;
@@ -1232,7 +1232,7 @@ void zappval(integer v)
 
 void zsendout(eightbits t, sixteenbits v)
 {
-    /* 20 */ integer k;
+    /* 20 */ int k;
   lab20:switch (outstate) {
         case 1:
             if (t != 3) {
@@ -1307,7 +1307,7 @@ void zsendout(eightbits t, sixteenbits v)
             break;
     }
     if (t != 0) {
-        register integer for_end;
+        register int for_end;
         k = 1;
         for_end = v;
         if (k <= for_end)
@@ -1333,7 +1333,7 @@ void zsendout(eightbits t, sixteenbits v)
         outstate = 0;
 }
 
-void zsendsign(integer v)
+void zsendsign(int v)
 {
     switch (outstate) {
         case 2:
@@ -1364,7 +1364,7 @@ void zsendsign(integer v)
     lastsign = outapp;
 }
 
-void zsendval(integer v)
+void zsendval(int v)
 {
     /* 666 10 */ switch (outstate) {
         case 1:
@@ -1457,7 +1457,7 @@ void zsendval(integer v)
             outbuf[outptr] = 45;
             outptr = outptr + 1;
         }
-        appval(-(integer) v);
+        appval(-(int) v);
         {
             outbuf[outptr] = 41;
             outptr = outptr + 1;
@@ -1472,10 +1472,10 @@ void zsendval(integer v)
 void sendtheoutput(void)
 {
     /* 2 21 22 */ eightbits curchar;
-    integer k;
-    integer j;
+    int k;
+    int j;
     unsigned char w;
-    integer n;
+    int n;
     while (stackptr > 0) {
 
         curchar = getoutput();
@@ -1822,7 +1822,7 @@ void sendtheoutput(void)
                         outcontrib[1] = 91;
                     if (curval < 0) {
                         outcontrib[k] = 58;
-                        curval = -(integer) curval;
+                        curval = -(int) curval;
                         k = k + 1;
                     }
                     n = 10;
@@ -1913,15 +1913,15 @@ void sendtheoutput(void)
     }
 }
 
-boolean linesdontmatch(void)
+bool linesdontmatch(void)
 {
-    /* 10 */ register boolean Result;
-    integer k;
+    /* 10 */ register bool Result;
+    int k;
     Result = true;
     if (changelimit != limit)
         goto lab10;
     if (limit > 0) {
-        register integer for_end;
+        register int for_end;
         k = 0;
         for_end = limit - 1;
         if (k <= for_end)
@@ -1937,7 +1937,7 @@ boolean linesdontmatch(void)
 
 void primethechangebuffer(void)
 {
-    /* 22 30 10 */ integer k;
+    /* 22 30 10 */ int k;
     changelimit = 0;
     while (true) {
 
@@ -1977,7 +1977,7 @@ void primethechangebuffer(void)
     {
         changelimit = limit;
         if (limit > 0) {
-            register integer for_end;
+            register int for_end;
             k = 0;
             for_end = limit - 1;
             if (k <= for_end)
@@ -1991,8 +1991,8 @@ void primethechangebuffer(void)
 
 void checkchange(void)
 {
-    /* 10 */ integer n;
-    integer k;
+    /* 10 */ int n;
+    int k;
     if (linesdontmatch())
         goto lab10;
     n = 0;
@@ -2044,7 +2044,7 @@ void checkchange(void)
         {
             changelimit = limit;
             if (limit > 0) {
-                register integer for_end;
+                register int for_end;
                 k = 0;
                 for_end = limit - 1;
                 if (k <= for_end)
@@ -2277,7 +2277,7 @@ eightbits getnext(void)
     /* 20 30 31 */ register eightbits Result;
     eightbits c;
     eightbits d;
-    integer j, k;
+    int j, k;
   lab20:if (loc > limit) {
         f_getline();
         if (inputhasended) {
@@ -2460,7 +2460,7 @@ eightbits getnext(void)
                             Fputs(stdout, "! Section name too long: ");
                         }
                         {
-                            register integer for_end;
+                            register int for_end;
                             j = 1;
                             for_end = 25;
                             if (j <= for_end)
@@ -2597,10 +2597,10 @@ eightbits getnext(void)
 
 void zscannumeric(namepointer p)
 {
-    /* 21 30 */ integer accumulator;
+    /* 21 30 */ int accumulator;
     schar nextsign;
     namepointer q;
-    integer val;
+    int val;
     accumulator = 0;
     nextsign = 1;
     while (true) {
@@ -2679,7 +2679,7 @@ void zscannumeric(namepointer p)
                 ;
                 break;
             case 45:
-                nextsign = -(integer) nextsign;
+                nextsign = -(int) nextsign;
                 break;
             case 132:
             case 133:
@@ -3200,7 +3200,7 @@ void main(int argc, char **argv)
         scanmodule();
     if (changelimit != 0) {
         {
-            register integer for_end;
+            register int for_end;
             ii = 0;
             for_end = changelimit;
             if (ii <= for_end)
@@ -3258,7 +3258,7 @@ void main(int argc, char **argv)
 
         putc('*', pool);
         {
-            register integer for_end;
+            register int for_end;
             ii = 1;
             for_end = 9;
             if (ii <= for_end)
@@ -3269,7 +3269,7 @@ void main(int argc, char **argv)
                 while (ii++ < for_end);
         }
         {
-            register integer for_end;
+            register int for_end;
             ii = 9;
             for_end = 1;
             if (ii >= for_end)
