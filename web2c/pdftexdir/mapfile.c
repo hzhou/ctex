@@ -180,7 +180,7 @@ int avl_do_entry(fm_entry * fm, int mode)
     fm_entry *p;
     void *a;
     void **aa;
-    boolean suppress_warn = (getpdfsuppresswarningdupmap() > 0);
+    bool suppress_warn = (getpdfsuppresswarningdupmap() > 0);
 
     /* handle tfm_name link */
 
@@ -277,7 +277,7 @@ static char *add_encname(char *s)
 /* consistency check for map entry, with warn flag; return zero if ok,
    nonzero bits of warnings otherwise. */
 
-static int check_fm_entry(fm_entry * fm, boolean warn)
+static int check_fm_entry(fm_entry * fm, bool warn)
 {
     int a = 0;
     assert(fm != NULL);
@@ -482,11 +482,11 @@ static void fm_scan_line(void)
                         s--;    /* e. g. 0.5ExtendFont: %f = 0.5E */
                     if (str_prefix(s, "SlantFont")) {
                         d *= 1000.0;    /* correct rounding also for neg. numbers */
-                        fm->slant = (integer) (d > 0 ? d + 0.5 : d - 0.5);
+                        fm->slant = (int) (d > 0 ? d + 0.5 : d - 0.5);
                         r = s + strlen("SlantFont");
                     } else if (str_prefix(s, "ExtendFont")) {
                         d *= 1000.0;
-                        fm->extend = (integer) (d > 0 ? d + 0.5 : d - 0.5);
+                        fm->extend = (int) (d > 0 ? d + 0.5 : d - 0.5);
                         if (fm->extend == 1000)
                             fm->extend = 0;
                         r = s + strlen("ExtendFont");
@@ -644,7 +644,7 @@ static fmentryptr fmlookup(internalfontnumber f)
     return (fmentryptr) dummy_fm_entry();
 }
 
-boolean hasfmentry(internalfontnumber f)
+bool hasfmentry(internalfontnumber f)
 {
     if (pdffontmap[f] == NULL)
         pdffontmap[f] = fmlookup(f);
@@ -652,14 +652,14 @@ boolean hasfmentry(internalfontnumber f)
     return pdffontmap[f] != (fmentryptr) dummy_fm_entry();
 }
 
-boolean isscalable(internalfontnumber f)
+bool isscalable(internalfontnumber f)
 {
     return hasfmentry(f) && (!is_pk((fm_entry *)pdffontmap[f]));
 }
 
 /* check whether a map entry is valid for font replacement */
 
-static boolean fm_valid_for_font_replacement(fm_entry * fm)
+static bool fm_valid_for_font_replacement(fm_entry * fm)
 {
     ff_entry *ff;
 
@@ -825,13 +825,13 @@ static void process_map_item(char *s, int type)
     }
 }
 
-void pdfmapfile(integer t)
+void pdfmapfile(int t)
 {
     process_map_item(makecstring(tokenstostring(t)), MAPFILE);
     flushstr(lasttokensstring);
 }
 
-void pdfmapline(integer t)
+void pdfmapline(int t)
 {
     process_map_item(makecstring(tokenstostring(t)), MAPLINE);
     flushstr(lasttokensstring);
@@ -858,7 +858,7 @@ void pdfinitmapfile(const_string map_name)
  * so this tree typically is much smaller than the tfm_tree or ps_tree.
  */
 
-ff_entry *check_ff_exist(char *ff_name, boolean is_tt)
+ff_entry *check_ff_exist(char *ff_name, bool is_tt)
 {
     ff_entry *ff;
     ff_entry tmp;

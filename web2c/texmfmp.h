@@ -124,23 +124,23 @@ extern void pdftex_fail(const char *fmt, ...);
 #endif
 extern char start_time_str[];
 extern void initstarttime(void);
-extern string find_input_file(integer s);
+extern string find_input_file(int s);
 #if !defined(XeTeX)
-extern char *makecstring(integer s);
-extern char *makecfilename(integer s);
+extern char *makecstring(int s);
+extern char *makecfilename(int s);
 #endif /* !XeTeX */
 extern void getcreationdate(void);
-extern void getfilemoddate(integer s);
-extern void getfilesize(integer s);
-extern void getfiledump(integer s, int offset, int length);
+extern void getfilemoddate(int s);
+extern void getfilesize(int s);
+extern void getfiledump(int s, int offset, int length);
 extern void convertStringToHexString(const char *in, char *out, int lin);
-extern void getmd5sum(integer s, boolean file);
+extern void getmd5sum(int s, bool file);
 #endif
 
 /* pdftex etc. except for tex use these for pipe support */
 #if defined(TeX) && !defined(onlyTeX)
-extern boolean open_in_or_pipe (FILE **, int, const_string fopen_mode);
-extern boolean open_out_or_pipe (FILE **, const_string fopen_mode);
+extern bool open_in_or_pipe (FILE **, int, const_string fopen_mode);
+extern bool open_out_or_pipe (FILE **, const_string fopen_mode);
 extern void close_file_or_pipe (FILE *);
 #define ENABLE_PIPES 1
 #else
@@ -170,7 +170,7 @@ extern string translate_filename;
    unnecessarily increase the size of the memoryword structure.  This is
    the basic requirement.  On most machines, if you're building a
    normal-sized TeX, then glueratio must probably meet the following
-   restriction: sizeof(glueratio) <= sizeof(integer).  Usually, then,
+   restriction: sizeof(glueratio) <= sizeof(int).  Usually, then,
    glueratio must be `float'.  But if you build a big TeX, you can (on
    most machines) and should make it `double' to avoid loss of precision
    and conversions to and from double during calculations.  (All this
@@ -199,10 +199,10 @@ extern void ipcpage (int);
 
 /* Used to write to a TFM file.  */
 #define put2bytes(f, h) do { \
-    integer v = (integer) (h); putbyte (v >> 8, f);  putbyte (v & 0xff, f); \
+    int v = (int) (h); putbyte (v >> 8, f);  putbyte (v & 0xff, f); \
   } while (0)
 #define put4bytes(f, w) do { \
-    integer v = (integer) (w); \
+    int v = (int) (w); \
     putbyte (v >> 24, f); putbyte (v >> 16, f); \
     putbyte (v >> 8, f);  putbyte (v & 0xff, f); \
   } while (0)
@@ -210,19 +210,19 @@ extern void ipcpage (int);
 /* Read a line of input as quickly as possible.  */
 #define	inputln(stream, flag) input_line (stream)
 #ifdef XeTeX
-extern boolean input_line (UFILE *);
+extern bool input_line (UFILE *);
 #else
-extern boolean input_line (FILE *);
+extern bool input_line (FILE *);
 #endif
 
 /* This routine has to return four values.  */
 #define	dateandtime(i,j,k,l) get_date_and_time (&(i), &(j), &(k), &(l))
-extern void get_date_and_time (integer *, integer *, integer *, integer *);
+extern void get_date_and_time (int *, int *, int *, int *);
 
 #if defined(pdfTeX) || defined(epTeX) || defined(eupTeX) || defined(XeTeX)
 /* Get high-res time info. */
 #define secondsandmicros(i,j) get_seconds_and_micros (&(i), &(j))
-extern void get_seconds_and_micros (integer *, integer *);
+extern void get_seconds_and_micros (int *, int *);
 #endif
 
 /* Copy command-line arguments into the buffer, despite the name.  */
@@ -280,7 +280,7 @@ extern void topenin (void);
 
 #ifdef XeTeX
 #if ENABLE_PIPES
-extern boolean u_open_in_or_pipe(unicodefile* f, integer filefmt, const_string fopen_mode, integer mode, integer encodingData);
+extern bool u_open_in_or_pipe(unicodefile* f, int filefmt, const_string fopen_mode, int mode, int encodingData);
 extern void u_close_file_or_pipe(unicodefile* f);
 #define uopenin(f,p,m,d) u_open_in_or_pipe(&(f), p, FOPEN_RBIN_MODE, m, d)
 #define uclose(f) u_close_file_or_pipe(&(f))
@@ -298,7 +298,7 @@ extern void u_close_file_or_pipe(unicodefile* f);
 #endif
 
 #ifdef MF
-extern boolean initscreen (void);
+extern bool initscreen (void);
 extern void updatescreen (void);
 /* Can't prototype these for same reason as `calledit' above.  */
 #if 0  /* Therefore the real declaration is found in the coerce.h files.  */
@@ -383,7 +383,7 @@ extern void do_undump (char *, int, int, FILE *);
 #define	dumpint(x)							\
   do									\
     {									\
-      integer x_val = (x);						\
+      int x_val = (x);						\
       generic_dump (x_val);						\
     }									\
   while (0)
@@ -395,7 +395,7 @@ extern void do_undump (char *, int, int, FILE *);
 #define undumpint(x)							\
   do									\
     {									\
-      integer x_val;							\
+      int x_val;							\
       generic_undump (x_val);						\
       x = x_val;							\
     }									\

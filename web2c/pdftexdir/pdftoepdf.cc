@@ -60,8 +60,8 @@ extern "C" {
 // usual web2c way, but we cannot include that file here because C++
 // does not allow it.
 extern int getpdfsuppresswarningpagegroup(void);
-extern integer getpdfsuppressptexinfo(void);
-extern integer zround(double);
+extern int getpdfsuppressptexinfo(void);
+extern int zround(double);
 }
 
 // The prefix "PTEX" for the PDF keys is special to pdfTeX;
@@ -418,7 +418,7 @@ static void copyFont(char *tag, Object * fontRef)
         && (fontmap = lookup_fontmap(basefont->getName())) != NULL) {
         // round /StemV value, since the PDF input is a float
         // (see Font Descriptors in PDF reference), but we only store an
-        // integer, since we don't want to change the struct.
+        // int, since we don't want to change the struct.
         fontdesc->dictLookup("StemV", &stemV);
         fd = epdf_create_fontdescriptor(fontmap, zround(stemV->getNum()));
         if (fontdesc->dictLookup("CharSet", &charset) &&
@@ -516,7 +516,7 @@ static char *convertNumToPDF(double n)
             n = -n;
         }
         n += epsilon;           // for rounding
-        // handle the integer part, simply with sprintf
+        // handle the int part, simply with sprintf
         ival = (int) floor(n);
         n -= ival;
         sprintf(ints, "%d", ival);

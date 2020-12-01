@@ -107,9 +107,9 @@ static const char *standard_glyph_names[256] = {
     "oslash", "oe", "germandbls", notdef, notdef, notdef, notdef
 };
 
-integer t1_length1, t1_length2, t1_length3;
-static integer t1_save_offset;
-static integer t1_fontname_offset;
+int t1_length1, t1_length2, t1_length3;
+static int t1_save_offset;
+static int t1_fontname_offset;
 static fd_entry *fd_cur;
 
 static char charstringname[] = "/CharStrings";
@@ -154,9 +154,9 @@ typedef unsigned char byte;
 
 typedef struct {
     byte nargs;                 /* number of arguments */
-    boolean bottom;             /* take arguments from bottom of stack? */
-    boolean clear;              /* clear stack? */
-    boolean valid;
+    bool bottom;             /* take arguments from bottom of stack? */
+    bool clear;              /* clear stack? */
+    bool valid;
 } cc_entry;                     /* CharString Command */
 
 typedef struct {
@@ -164,8 +164,8 @@ typedef struct {
     byte *data;
     unsigned short len;         /* length of the whole string */
     unsigned short cslen;       /* length of the encoded part of the string */
-    boolean used;
-    boolean valid;
+    bool used;
+    bool valid;
 } cs_entry;
 
 static unsigned short t1_dr, t1_er;
@@ -204,7 +204,7 @@ static const char *cs_token_pairs_list[][2] = {
 };
 static const char **cs_token_pair;
 
-static boolean t1_pfa, t1_cs, t1_scan, t1_eexec_encrypt, t1_synthetic;
+static bool t1_pfa, t1_cs, t1_scan, t1_eexec_encrypt, t1_synthetic;
 static int t1_in_eexec;         /* 0 before eexec-encrypted, 1 during, 2 after */
 static long t1_block_length;
 static int last_hexbyte;
@@ -387,7 +387,7 @@ static float t1_scan_num(char *p, char **r)
     return f;
 }
 
-static boolean str_suffix(const char *begin_buf, const char *end_buf,
+static bool str_suffix(const char *begin_buf, const char *end_buf,
                           const char *s)
 {
     const char *s1 = end_buf - 1, *s2 = strend(s) - 1;
@@ -508,7 +508,7 @@ static void t1_close_font_file(const char *close_name_suffix)
     cur_file_name = NULL;
 }
 
-static void t1_check_block_len(boolean decrypt)
+static void t1_check_block_len(bool decrypt)
 {
     int l, c;
     if (t1_block_length == 0)
@@ -893,7 +893,7 @@ static void t1_check_end(void)
         t1_putline();
 }
 
-static boolean t1_open_fontfile(const char *open_name_prefix)
+static bool t1_open_fontfile(const char *open_name_prefix)
 {
     ff_entry *ff;
     ff = check_ff_exist(fd_cur->fm->ff_name, is_truetype(fd_cur->fm));
@@ -950,7 +950,7 @@ static const char **check_cs_token_pair(void)
     return NULL;
 }
 
-static void cs_store(boolean is_subr)
+static void cs_store(bool is_subr)
 {
     char *p;
     cs_entry *ptr;
@@ -994,9 +994,9 @@ static void cs_store(boolean is_subr)
 
 #define CC_STACK_SIZE    24
 
-static integer cc_stack[CC_STACK_SIZE], *stack_ptr = cc_stack;
+static int cc_stack[CC_STACK_SIZE], *stack_ptr = cc_stack;
 static cc_entry cc_tab[CS_MAX];
-static boolean is_cc_init = false;
+static bool is_cc_init = false;
 
 #define cc_pop(N)                   \
     if (stack_ptr - cc_stack < (N)) \
@@ -1010,7 +1010,7 @@ static boolean is_cc_init = false;
 }
 
 /*
-static integer cc_get(integer index)
+static int cc_get(int index)
 {
     if (index <  0) {
         if (stack_ptr + index < cc_stack )
@@ -1129,9 +1129,9 @@ static void cs_mark(const char *cs_name, int subr)
     byte *data;
     int i, b, cs_len;
     int last_cmd = 0;
-    integer a, a1, a2;
+    int a, a1, a2;
     unsigned short cr;
-    static integer lastargOtherSubr3 = 3;       /* the argument of last call to
+    static int lastargOtherSubr3 = 3;       /* the argument of last call to
                                                    OtherSubrs[3] */
     cs_entry *ptr;
     cc_entry *cc;
@@ -1184,7 +1184,7 @@ static void cs_mark(const char *cs_name, int subr)
                 a |= (cs_getchar() & 0xff) << 16;
                 a |= (cs_getchar() & 0xff) << 8;
                 a |= (cs_getchar() & 0xff) << 0;
-                if (sizeof(integer) > 4 && (a & 0x80000000))
+                if (sizeof(int) > 4 && (a & 0x80000000))
                     a |= ~0x7FFFFFFF;
             }
             cc_push(a);
@@ -1468,7 +1468,7 @@ static void t1_read_subrs(void)
 #define t1_subr_flush()  t1_flush_cs(true)
 #define t1_cs_flush()    t1_flush_cs(false)
 
-static void t1_flush_cs(boolean is_subr)
+static void t1_flush_cs(bool is_subr)
 {
     char *p;
     byte *r, *return_cs = NULL;

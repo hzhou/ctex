@@ -1839,7 +1839,7 @@ static const char *poolfilearr[] = {
   "Using character substitution: ",
   "synctex",
   NULL };
-int loadpoolstrings (integer spare_size) {
+int loadpoolstrings (int spare_size) {
   const char *s;
   strnumber g=0;
   int i=0,j=0;

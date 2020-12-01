@@ -10,13 +10,13 @@
    DFLT to *VAR.  */
 
 void
-setupboundvariable (integer *var, const_string var_name, integer dflt)
+setupboundvariable (int *var, const_string var_name, int dflt)
 {
   string expansion = kpse_var_value (var_name);
   *var = dflt;
 
   if (expansion) {
-    integer conf_val = atoi (expansion);
+    int conf_val = atoi (expansion);
     /* It's ok if the cnf file specifies 0 for extra_mem_{top,bot}, etc.
        But negative numbers are always wrong.  */
     if (conf_val < 0 || (conf_val == 0 && dflt > 0)) {

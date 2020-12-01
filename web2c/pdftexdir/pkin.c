@@ -62,9 +62,9 @@ static shalfword pkbyte(void)
     return (i);
 }
 
-static integer pkduo(void)
+static int pkduo(void)
 {
-    register integer i;
+    register int i;
 
     i = pkbyte();
     if (i > 127)
@@ -73,9 +73,9 @@ static integer pkduo(void)
     return (i);
 }
 
-static integer pktrio(void)
+static int pktrio(void)
 {
-    register integer i;
+    register int i;
 
     i = pkbyte();
     if (i > 127)
@@ -85,9 +85,9 @@ static integer pktrio(void)
     return (i);
 }
 
-static integer pkquad(void)
+static int pkquad(void)
 {
-    register integer i;
+    register int i;
 
     i = pkbyte();
     if (i > 127)
@@ -126,7 +126,7 @@ static shalfword getnyb(void)
     return (temp);
 }
 
-static boolean getbit(void)
+static bool getbit(void)
 {
     bitweight >>= 1;
     if (bitweight == 0) {
@@ -221,11 +221,11 @@ static halfword gpower[17] = { 0, 1, 3, 7, 15, 31, 63, 127,
 
 static void unpack(chardesc * cd)
 {
-    register integer i, j;
+    register int i, j;
     register halfword word, wordweight;
     halfword *raster;
     shalfword rowsleft;
-    boolean turnon;
+    bool turnon;
     shalfword hbit;
     halfword count;
     shalfword wordwidth;
@@ -305,7 +305,7 @@ static void unpack(chardesc * cd)
             }
             turnon = !turnon;
         }
-        if ((rowsleft != 0) || ((integer) hbit != cd->cwidth))
+        if ((rowsleft != 0) || ((int) hbit != cd->cwidth))
             pdftex_fail("error while unpacking; more bits than required");
     }
 }
@@ -323,11 +323,11 @@ static void unpack(chardesc * cd)
  *   return EOF if no character definition is available
  */
 
-int readchar(boolean check_preamble, chardesc * cd)
+int readchar(bool check_preamble, chardesc * cd)
 {
     register shalfword i;
-    register integer k;
-    register integer length = 0;
+    register int k;
+    register int length = 0;
 
 /*
  *   Check the preamble of the pkfile

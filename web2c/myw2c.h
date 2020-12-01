@@ -20,10 +20,8 @@ typedef const char * const_string;
 typedef bool boolean;
 
 /* temporary -- we should modify the source */
-#define integer int
 #define longinteger long
 #define schar char
-#define real double
 
 #ifndef Fputs
 #define Fputs(F, str) fputs(str, F)

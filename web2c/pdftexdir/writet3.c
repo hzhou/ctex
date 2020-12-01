@@ -49,14 +49,14 @@ typedef char t3_line_entry;
 define_array(t3_line);
 
 FILE *t3_file;
-static boolean t3_image_used;
+static bool t3_image_used;
 
-static integer t3_char_procs[256];
+static int t3_char_procs[256];
 static float t3_char_widths[256];
 static int t3_glyph_num;
 static float t3_font_scale;
-static integer t3_b0, t3_b1, t3_b2, t3_b3;
-static boolean is_pk_font;
+static int t3_b0, t3_b1, t3_b2, t3_b3;
+static bool is_pk_font;
 
 #define t3_open()       \
     open_input(&t3_file, kpse_miscfonts_format, FOPEN_RBIN_MODE)
@@ -98,8 +98,8 @@ static void t3_putline(void)
         t3_putchar(*p++);
 }
 
-static void update_bbox(integer llx, integer lly, integer urx, integer ury,
-                        boolean is_first_glyph)
+static void update_bbox(int llx, int lly, int urx, int ury,
+                        bool is_first_glyph)
 {
     if (is_first_glyph) {
         t3_b0 = llx;
@@ -169,7 +169,7 @@ static void t3_write_glyph(internalfontnumber f)
     pdfendstream();
 }
 
-static integer get_pk_font_scale(internalfontnumber f)
+static int get_pk_font_scale(internalfontnumber f)
 {
     return
         dividescaled(pkscalefactor,
@@ -177,7 +177,7 @@ static integer get_pk_font_scale(internalfontnumber f)
                                   fixeddecimaldigits + 2), 0);
 }
 
-static integer pk_char_width(internalfontnumber f, scaled w)
+static int pk_char_width(internalfontnumber f, scaled w)
 {
     return
         dividescaled(dividescaled(w, pdffontsize[f], 7),
@@ -190,16 +190,16 @@ scaled getpkcharwidth(internalfontnumber f, scaled w)
         (pk_char_width(f, w) / 100.0) * pdffontsize[f];
 }
 
-static boolean writepk(internalfontnumber f)
+static bool writepk(internalfontnumber f)
 {
     kpse_glyph_file_type font_ret;
-    integer llx, lly, urx, ury;
-    integer cw, rw, i, j;
+    int llx, lly, urx, ury;
+    int cw, rw, i, j;
     halfword *row;
     char *name;
     chardesc cd;
-    boolean is_null_glyph, check_preamble;
-    integer dpi;
+    bool is_null_glyph, check_preamble;
+    int dpi;
     dpi =
         kpse_magstep_fix(round
                          (fixedpkresolution *
@@ -304,13 +304,13 @@ void writet3(fm_entry * fm, int objnum, internalfontnumber f)
 {
     static char t3_font_scale_str[] = "\\pdffontscale";
     int i;
-    integer wptr, eptr, cptr;
+    int wptr, eptr, cptr;
     int first_char, last_char;
-    integer pk_font_scale;
-    boolean is_notdef;
+    int pk_font_scale;
+    bool is_notdef;
     fe_entry *fe;
     char **glyph_names;
-    integer tounicode_objnum;
+    int tounicode_objnum;
     t3_glyph_num = 0;
     t3_image_used = false;
     for (i = 0; i < 256; i++) {

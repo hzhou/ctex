@@ -205,7 +205,7 @@ static void write_fontname_object(fd_entry * fd)
 
 /**********************************************************************/
 
-fd_entry *lookup_fd_entry(char *s, integer slant, integer extend)
+fd_entry *lookup_fd_entry(char *s, int slant, int extend)
 {
     fd_entry fd;
     fm_entry fm;
@@ -336,7 +336,7 @@ static void create_charwidth_array(fo_entry * fo, internalfontnumber f)
     assert(fo != NULL);
     assert(fo->cw == NULL);
     fo->cw = new_cw_entry();
-    fo->cw->width = xtalloc(256, integer);
+    fo->cw->width = xtalloc(256, int);
     for (i = 0; i < fo->first_char; i++)
         fo->cw->width[i] = 0;
     for (i = fo->first_char; i <= fo->last_char; i++)
@@ -617,7 +617,7 @@ void writefontstuff(void)
 
 /**********************************************************************/
 
-static void create_fontdictionary(fm_entry * fm, integer font_objnum,
+static void create_fontdictionary(fm_entry * fm, int font_objnum,
                            internalfontnumber f)
 {
     fo_entry *fo = new_fo_entry();
@@ -704,7 +704,7 @@ font_is_used(internalfontnumber f)
 }
 
 void
-dopdffont(integer font_objnum, internalfontnumber f)
+dopdffont(int font_objnum, internalfontnumber f)
 {
     fm_entry *fm;
     if (!font_is_used(f))

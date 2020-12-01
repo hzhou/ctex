@@ -128,7 +128,7 @@ void deftounicode(strnumber glyph, strnumber unistr)
 }
 
 
-static long check_unicode_value(const char *s, boolean multiple_value)
+static long check_unicode_value(const char *s, bool multiple_value)
 {
     int l = strlen(s);
     int i;
@@ -195,7 +195,7 @@ static void set_glyph_unicode(const char *s, const char* tfmname,
     char buf[SMALL_BUF_SIZE], buf2[SMALL_BUF_SIZE], *p;
     const char *p2; /* p2 points in s; p above points in writable copies */
     long code;
-    boolean last_component;
+    bool last_component;
     glyph_unicode_entry tmp, *ptmp;
 
     /* skip dummy entries */
@@ -316,14 +316,14 @@ static void set_glyph_unicode(const char *s, const char* tfmname,
 
 
 /* tfmname is without .tfm extension, but encname ends in .enc; */
-integer write_tounicode(char **glyph_names, const char *tfmname,
+int write_tounicode(char **glyph_names, const char *tfmname,
                         const char* encname)
 {
     char buf[SMALL_BUF_SIZE], *p;
     static char builtin_suffix[] = "builtin";
     short range_size[257];
     glyph_unicode_entry gtab[257];
-    integer objnum;
+    int objnum;
     int i, j;
     int bfchar_count, bfrange_count, subrange_count;
 

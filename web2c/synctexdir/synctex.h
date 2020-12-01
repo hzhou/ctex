@@ -46,7 +46,7 @@ I would appreciate to be listed as contributor and see "SyncTeX" highlighted.
 #include "synctex-common.h"
 
 /*  Free all memory used, close and remove the file if any. */
-void synctexabort(boolean log_opened);
+void synctexabort(bool log_opened);
 
 /*  Send this message when starting a new input.  */
 extern void synctexstartinput(void);
@@ -54,7 +54,7 @@ extern void synctexstartinput(void);
 /*  Recording the "{..." line.  In *tex.web, use synctex_sheet(pdf_output) at
  *  the very beginning of the ship_out procedure.
  */
-extern void synctexsheet(integer mag);
+extern void synctexsheet(int mag);
 
 /*  Recording the "}..." line.  In *tex.web, use synctex_teehs at
  *  the very end of the ship_out procedure.

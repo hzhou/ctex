@@ -61,6 +61,9 @@ output/pdftex0.c: pdftexdir/pdftex.p
 	mkdir -p output
 	mv -v pdftexd.h pdftex0.c pdftexini.c output/
 
+output/pdftex-pool.c: pdftexdir/pdftex.pool
+	web2c/makecpool pdftexdir/pdftex > $@ || rm $@
+
 # --------------------------
 pdftex_OBJECTS = \
     mykpse.o \
@@ -68,7 +71,7 @@ pdftex_OBJECTS = \
     synctexdir/synctex.o \
     my-pdftexini.o \
     my-pdftex0.o \
-    pdftex-pool.o
+    my-pdftex-pool.o
 
 pdftex_DEPS = \
     pdftexdir/libpdftex.a \
@@ -78,9 +81,6 @@ pdftex_DEPS = \
 
 pdftex: $(pdftex_OBJECTS) $(pdftex_DEPS)
 	$(CXX) -o pdftex $(pdftex_OBJECTS) $(pdftex_DEPS) -lz -lpng -lm
-
-pdftex-pool.c: pdftexdir/pdftex.pool
-	web2c/makecpool pdftexdir/pdftex > $@ || rm $@
 
 # --------------------------
 texextra.o: lib/texmfmp.c

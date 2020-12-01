@@ -71,7 +71,7 @@ string fullnameoffile;       /* Defaults to NULL.  */
 static string recorder_name; /* Defaults to NULL.  */
 static FILE *recorder_file;  /* Defaults to NULL.  */
 /* For the filename recorder. */
-boolean recorder_enabled;    /* Defaults to false. */
+bool recorder_enabled;    /* Defaults to false. */
 /* For the output-dir option. */
 string output_directory;     /* Defaults to NULL.  */
 
@@ -114,7 +114,7 @@ recorder_start(void)
 }
 
 /* Change the name of the recorder file after we know the log file to
-   the usual thing -- no pid integer and the document file name instead
+   the usual thing -- no pid int and the document file name instead
    of the program name.  Unfortunately, we have to explicitly take
    -output-directory into account (again), since the NEW_NAME we are
    called with does not; it is just the log file name with .log replaced
@@ -188,7 +188,7 @@ recorder_record_output (const_string name)
    whether or not the open succeeded.  If it did, `nameoffile' is set to
    the full filename opened, and `namelength' to its length.  */
 
-boolean
+bool
 open_input (FILE **f_ptr, int filefmt, const_string fopen_mode)
 {
     string fname = NULL;
@@ -239,7 +239,7 @@ open_input (FILE **f_ptr, int filefmt, const_string fopen_mode)
                which we set `tex_input_type' to 0 in the change file.  */
             /* According to the pdfTeX people, pounding the disk for .vf files
                is overkill as well.  A more general solution would be nice. */
-            boolean must_exist;
+            bool must_exist;
             must_exist = (filefmt != kpse_tex_format || texinputtype)
                     && (filefmt != kpse_vf_format);
             fname = kpse_find_file (nameoffile + 1,
@@ -307,10 +307,10 @@ open_input (FILE **f_ptr, int filefmt, const_string fopen_mode)
    \@input{bar} statement, we should look for somedir/bar.aux too. (See
    bibtex-auxinclude.test.) */
 
-boolean
+bool
 open_input_with_dirname (FILE **f_ptr, int filefmt, const char *fname)
 {
-  boolean ret = false;
+  bool ret = false;
   char *top_dir = dirname ((char *) fname);
 
   if (top_dir && *top_dir && !STREQ (top_dir, ".")
@@ -336,11 +336,11 @@ open_input_with_dirname (FILE **f_ptr, int filefmt, const char *fname)
    succeeded.  If it did, `nameoffile' is reset to the name opened if
    necessary, and `namelength' to its length.  */
 
-boolean
+bool
 open_output (FILE **f_ptr, const_string fopen_mode)
 {
     string fname;
-    boolean absolute = (nameoffile[1] == '/');
+    bool absolute = (nameoffile[1] == '/');
 
     /* If we have an explicit output directory, use it. */
     if (output_directory && !absolute) {

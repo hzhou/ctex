@@ -241,7 +241,7 @@ err:
     return;
 }
 
-void read_jpg_info(integer img)
+void read_jpg_info(int img)
 {
     int i, units = 0;
     unsigned short appmk, length;
@@ -368,7 +368,7 @@ void read_jpg_info(integer img)
     }
 }
 
-void write_jpg(integer img)
+void write_jpg(int img)
 {
     long unsigned l;
     FILE *f;

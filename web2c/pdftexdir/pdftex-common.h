@@ -32,32 +32,32 @@ with this program.  If not, see <http://www.gnu.org/licenses/>.
 typedef unsigned char eightbits;
 #endif
 
-extern integer pdfboxspecmedia;
-extern integer pdfboxspeccrop;
-extern integer pdfboxspecbleed;
-extern integer pdfboxspectrim;
-extern integer pdfboxspecart;
+extern int pdfboxspecmedia;
+extern int pdfboxspeccrop;
+extern int pdfboxspecbleed;
+extern int pdfboxspectrim;
+extern int pdfboxspecart;
 
 extern longinteger pdfstreamlength;
-extern integer pdfptr;
-extern integer poolptr;
+extern int pdfptr;
+extern int poolptr;
 extern eightbits *pdfbuf;
-extern integer pdfbufsize;
-extern boolean pdfosmode;
+extern int pdfbufsize;
+extern bool pdfosmode;
 extern eightbits pdflastbyte;
-extern integer fixedinclusioncopyfont;
-extern integer pdfpagegroupval;
+extern int fixedinclusioncopyfont;
+extern int pdfpagegroupval;
 
 /* pdftexcoerce.h - generated from pdftex.web */
-extern integer pdfnewobjnum(void);
+extern int pdfnewobjnum(void);
 extern void pdfbeginstream(void);
 extern void pdfendobj(void);
 extern void pdfendstream(void);
 extern void pdfflush(void);
-extern void zpdfosgetosbuf(integer);
-#define pdfosgetosbuf(s) zpdfosgetosbuf((integer) (s))
-extern void zpdfbeginobj(integer, integer);
-#define pdfbeginobj(i, pdfoslevel) zpdfbeginobj((integer) (i), (integer) (pdfoslevel))
+extern void zpdfosgetosbuf(int);
+#define pdfosgetosbuf(s) zpdfosgetosbuf((int) (s))
+extern void zpdfbeginobj(int, int);
+#define pdfbeginobj(i, pdfoslevel) zpdfbeginobj((int) (i), (int) (pdfoslevel))
 
 /* epdf.c */
 #ifdef __cplusplus

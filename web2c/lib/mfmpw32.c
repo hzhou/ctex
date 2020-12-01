@@ -6,7 +6,7 @@
   Converted to inline assembler for Visual C++ [45].xx
   by Fabrice Popineau <Fabrice.Popineau@supelec.fr> */
 
-__declspec(naked) fraction __stdcall ztakefraction(integer p, integer q) {
+__declspec(naked) fraction __stdcall ztakefraction(int p, int q) {
 __asm {
         push ebp
 	mov ebp,esp
@@ -44,7 +44,7 @@ LL3:
 }
 }
 
-__declspec(naked) integer __stdcall ztakescaled(integer p, scaled q) {
+__declspec(naked) int __stdcall ztakescaled(int p, scaled q) {
 __asm {
         push ebp
 	mov ebp,esp
@@ -82,7 +82,7 @@ LL3:
 	  }
 }
 
-__declspec(naked) scaled __stdcall zmakescaled(integer p, integer q) {
+__declspec(naked) scaled __stdcall zmakescaled(int p, int q) {
   __asm {
         mov cx, 16
         push ebp
@@ -134,7 +134,7 @@ LL34:
   }
 }
 
-__declspec(naked) fraction __stdcall zmakefraction(integer p, integer q) {
+__declspec(naked) fraction __stdcall zmakefraction(int p, int q) {
   __asm {
         mov cx, 4
         push ebp

@@ -62,15 +62,15 @@ int comp_string_entry(const void *pa, const void *pb, void *p)
 
 
 typedef struct oentry_ {
-    integer int0;
-    integer objptr;
+    int int0;
+    int objptr;
 } oentry;
 
 /* AVL sort oentry into avl_table[] */
 
 static int compare_info(const void *pa, const void *pb, void *param)
 {
-    integer a, b;
+    int a, b;
     int as, ae, bs, be, al, bl;
 
     a = ((const oentry *) pa)->int0;
@@ -92,7 +92,7 @@ static int compare_info(const void *pa, const void *pb, void *param)
             if (strpool[as] > strpool[bs])
                 return 1;
         }
-    } else {                    /* integer comparison */
+    } else {                    /* int comparison */
         if (a < b)
             return -1;
         if (a > b)
@@ -101,7 +101,7 @@ static int compare_info(const void *pa, const void *pb, void *param)
     return 0;
 }
 
-void avlputobj(integer objptr, integer t)
+void avlputobj(int objptr, int t)
 {
     static void **pp;
     static oentry *oe;
@@ -122,7 +122,7 @@ void avlputobj(integer objptr, integer t)
 
 /* replacement for linear search pascal function "find_obj()" */
 
-integer avlfindobj(integer t, integer i, integer byname)
+int avlfindobj(int t, int i, int byname)
 {
     static oentry *p;
     static oentry tmp;

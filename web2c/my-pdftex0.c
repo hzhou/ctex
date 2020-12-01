@@ -106,11 +106,11 @@ zprintchar ( ASCIIcode s )
   incr ( tally ) ;
 } 
 void 
-zprint ( integer s ) 
+zprint ( int s ) 
 {
   /* 10 */ print_regmem 
   poolpointer j  ;
-  integer nl  ;
+  int nl  ;
   if ( s >= strptr ) 
   s = 261 ;
   else if ( s < 256 ) {
@@ -170,7 +170,7 @@ zprint ( integer s )
   } 
 } 
 void 
-zslowprint ( integer s ) 
+zslowprint ( int s ) 
 {
   slowprint_regmem 
   poolpointer j  ;
@@ -199,7 +199,7 @@ void
 zprintesc ( strnumber s ) 
 {
   printesc_regmem 
-  integer c  ;
+  int c  ;
   c = eqtb [29322 ].cint ;
   if ( c >= 0 ) {
       
@@ -231,7 +231,7 @@ zprintint ( longinteger n )
   {
     printchar ( 45 ) ;
     if ( n > -100000000L ) 
-    n = - (integer) n ;
+    n = - (int) n ;
     else {
 	
       m = -1 - n ;
@@ -255,7 +255,7 @@ zprintint ( longinteger n )
   printthedigs ( k ) ;
 } 
 void 
-zprintcs ( integer p ) 
+zprintcs ( int p ) 
 {
   printcs_regmem 
   halfword q  ;
@@ -334,7 +334,7 @@ zsprintcs ( halfword p )
   else printesc ( hash [p ].v.RH ) ;
 } 
 void 
-zprintfilename ( integer n , integer a , integer e ) 
+zprintfilename ( int n , int a , int e ) 
 {
   printfilename_regmem 
   boolean mustquote  ;
@@ -370,19 +370,19 @@ zprintfilename ( integer n , integer a , integer e )
   if ( mustquote ) 
   printchar ( 34 ) ;
   if ( a != 0 ) 
-  {register integer for_end; j = strstart [a ];for_end = strstart [a + 1 
+  {register int for_end; j = strstart [a ];for_end = strstart [a + 1 
   ]- 1 ; if ( j <= for_end) do 
     if ( strpool [j ]!= 34 ) 
     print ( strpool [j ]) ;
   while ( j++ < for_end ) ;} 
   if ( n != 0 ) 
-  {register integer for_end; j = strstart [n ];for_end = strstart [n + 1 
+  {register int for_end; j = strstart [n ];for_end = strstart [n + 1 
   ]- 1 ; if ( j <= for_end) do 
     if ( strpool [j ]!= 34 ) 
     print ( strpool [j ]) ;
   while ( j++ < for_end ) ;} 
   if ( e != 0 ) 
-  {register integer for_end; j = strstart [e ];for_end = strstart [e + 1 
+  {register int for_end; j = strstart [e ];for_end = strstart [e + 1 
   ]- 1 ; if ( j <= for_end) do 
     if ( strpool [j ]!= 34 ) 
     print ( strpool [j ]) ;
@@ -391,7 +391,7 @@ zprintfilename ( integer n , integer a , integer e )
   printchar ( 34 ) ;
 } 
 void 
-zprintsize ( integer s ) 
+zprintsize ( int s ) 
 {
   printsize_regmem 
   if ( s == 0 ) 
@@ -436,17 +436,17 @@ zprintsanum ( halfword q )
   printint ( n ) ;
 } 
 void 
-zprintcsnames ( integer hstart , integer hfinish ) 
+zprintcsnames ( int hstart , int hfinish ) 
 {
   printcsnames_regmem 
-  integer c, h  ;
+  int c, h  ;
   fprintf ( stderr , "%s%ld%s%ld%c\n",  "fmtdebug:csnames from " , (long)hstart , " to " , (long)hfinish ,   ':' ) ;
-  {register integer for_end; h = hstart ;for_end = hfinish ; if ( h <= 
+  {register int for_end; h = hstart ;for_end = hfinish ; if ( h <= 
   for_end) do 
     {
       if ( hash [h ].v.RH > 0 ) 
       {
-	{register integer for_end; c = strstart [hash [h ].v.RH ];
+	{register int for_end; c = strstart [hash [h ].v.RH ];
 	for_end = strstart [hash [h ].v.RH + 1 ]- 1 ; if ( c <= for_end) 
 	do 
 	  {
@@ -462,7 +462,7 @@ void
 printfileline ( void ) 
 {
   printfileline_regmem 
-  integer level  ;
+  int level  ;
   level = inopen ;
   while ( ( level > 0 ) && ( fullsourcefilenamestack [level ]== 0 ) ) decr ( 
   level ) ;
@@ -480,12 +480,12 @@ printfileline ( void )
   } 
 } 
 ASCIIcode 
-zzreadbuffer ( integer * i ) 
+zzreadbuffer ( int * i ) 
 {
   register ASCIIcode Result; readbuffer_regmem 
   halfword p  ;
-  integer lastfound  ;
-  integer lasttype  ;
+  int lastfound  ;
+  int lasttype  ;
   mubyteskip = 0 ;
   mubytetoken = 0 ;
   Result = buffer [*i ];
@@ -586,7 +586,7 @@ zzreadbuffer ( integer * i )
   return Result ;
 } 
 void 
-zzprintbuffer ( integer * i ) 
+zzprintbuffer ( int * i ) 
 {
   printbuffer_regmem 
   ASCIIcode c  ;
@@ -623,7 +623,7 @@ error ( void )
 {
   /* 22 10 */ error_regmem 
   ASCIIcode c  ;
-  integer s1, s2, s3, s4  ;
+  int s1, s2, s3, s4  ;
   if ( history < 2 ) 
   history = 2 ;
   printchar ( 46 ) ;
@@ -867,7 +867,7 @@ zfatalerror ( strnumber s )
   } 
 } 
 void 
-zoverflow ( strnumber s , integer n ) 
+zoverflow ( strnumber s , int n ) 
 {
   overflow_regmem 
   normalizeselector () ;
@@ -1006,7 +1006,7 @@ makestring ( void )
   return Result ;
 } 
 boolean 
-zstreqbuf ( strnumber s , integer k ) 
+zstreqbuf ( strnumber s , int k ) 
 {
   /* 45 */ register boolean Result; streqbuf_regmem 
   poolpointer j  ;
@@ -1055,7 +1055,7 @@ zsearchstring ( strnumber search )
   /* 40 */ register strnumber Result; searchstring_regmem 
   strnumber result  ;
   strnumber s  ;
-  integer len  ;
+  int len  ;
   result = 0 ;
   len = ( strstart [search + 1 ]- strstart [search ]) ;
   if ( len == 0 ) 
@@ -1103,7 +1103,7 @@ slowmakestring ( void )
   return Result ;
 } 
 void 
-zprinttwo ( integer n ) 
+zprinttwo ( int n ) 
 {
   printtwo_regmem 
   n = abs ( n ) % 100 ;
@@ -1111,7 +1111,7 @@ zprinttwo ( integer n )
   printchar ( 48 + ( n % 10 ) ) ;
 } 
 void 
-zprinthex ( integer n ) 
+zprinthex ( int n ) 
 {
   printhex_regmem 
   unsigned char k  ;
@@ -1125,7 +1125,7 @@ zprinthex ( integer n )
   printthedigs ( k ) ;
 } 
 void 
-zprintromanint ( integer n ) 
+zprintromanint ( int n ) 
 {
   /* 10 */ printromanint_regmem 
   poolpointer j, k  ;
@@ -1176,7 +1176,7 @@ void
 terminput ( void ) 
 {
   terminput_regmem 
-  integer k  ;
+  int k  ;
   fflush ( stdout ) ;
   if ( ! inputln ( stdin , true ) ) 
   fatalerror ( 263 ) ;
@@ -1191,7 +1191,7 @@ terminput ( void )
   incr ( selector ) ;
 } 
 void 
-zinterror ( integer n ) 
+zinterror ( int n ) 
 {
   interror_regmem 
   print ( 286 ) ;
@@ -1240,10 +1240,10 @@ pauseforinstructions ( void )
     interrupt = 0 ;
   } 
 } 
-integer 
-zhalf ( integer x ) 
+int 
+zhalf ( int x ) 
 {
-  register integer Result; half_regmem 
+  register int Result; half_regmem 
   if ( odd ( x ) ) 
   Result = ( x + 1 ) / 2 ;
   else Result = x / 2 ;
@@ -1253,7 +1253,7 @@ scaled
 zrounddecimals ( smallnumber k ) 
 {
   register scaled Result; rounddecimals_regmem 
-  integer a  ;
+  int a  ;
   a = 0 ;
   while ( k > 0 ) {
       
@@ -1271,7 +1271,7 @@ zprintscaled ( scaled s )
   if ( s < 0 ) 
   {
     printchar ( 45 ) ;
-    s = - (integer) s ;
+    s = - (int) s ;
   } 
   printint ( s / 65536L ) ;
   printchar ( 46 ) ;
@@ -1286,17 +1286,17 @@ zprintscaled ( scaled s )
   } while ( ! ( s <= delta ) ) ;
 } 
 scaled 
-zmultandadd ( integer n , scaled x , scaled y , scaled maxanswer ) 
+zmultandadd ( int n , scaled x , scaled y , scaled maxanswer ) 
 {
   register scaled Result; multandadd_regmem 
   if ( n < 0 ) 
   {
-    x = - (integer) x ;
-    n = - (integer) n ;
+    x = - (int) x ;
+    n = - (int) n ;
   } 
   if ( n == 0 ) 
   Result = y ;
-  else if ( ( ( x <= ( maxanswer - y ) / n ) && ( - (integer) x <= ( maxanswer 
+  else if ( ( ( x <= ( maxanswer - y ) / n ) && ( - (int) x <= ( maxanswer 
   + y ) / n ) ) ) 
   Result = n * x + y ;
   else {
@@ -1307,7 +1307,7 @@ zmultandadd ( integer n , scaled x , scaled y , scaled maxanswer )
   return Result ;
 } 
 scaled 
-zxovern ( scaled x , integer n ) 
+zxovern ( scaled x , int n ) 
 {
   register scaled Result; xovern_regmem 
   boolean negative  ;
@@ -1322,8 +1322,8 @@ zxovern ( scaled x , integer n )
       
     if ( n < 0 ) 
     {
-      x = - (integer) x ;
-      n = - (integer) n ;
+      x = - (int) x ;
+      n = - (int) n ;
       negative = true ;
     } 
     if ( x >= 0 ) 
@@ -1333,16 +1333,16 @@ zxovern ( scaled x , integer n )
     } 
     else {
 	
-      Result = - (integer) ( ( - (integer) x ) / n ) ;
-      texremainder = - (integer) ( ( - (integer) x ) % n ) ;
+      Result = - (int) ( ( - (int) x ) / n ) ;
+      texremainder = - (int) ( ( - (int) x ) % n ) ;
     } 
   } 
   if ( negative ) 
-  texremainder = - (integer) texremainder ;
+  texremainder = - (int) texremainder ;
   return Result ;
 } 
 scaled 
-zxnoverd ( scaled x , integer n , integer d ) 
+zxnoverd ( scaled x , int n , int d ) 
 {
   register scaled Result; xnoverd_regmem 
   boolean positive  ;
@@ -1351,7 +1351,7 @@ zxnoverd ( scaled x , integer n , integer d )
   positive = true ;
   else {
       
-    x = - (integer) x ;
+    x = - (int) x ;
     positive = false ;
   } 
   t = ( x % 32768L ) * n ;
@@ -1367,8 +1367,8 @@ zxnoverd ( scaled x , integer n , integer d )
   } 
   else {
       
-    Result = - (integer) u ;
-    texremainder = - (integer) ( v % d ) ;
+    Result = - (int) u ;
+    texremainder = - (int) ( v % d ) ;
   } 
   return Result ;
 } 
@@ -1376,7 +1376,7 @@ halfword
 zbadness ( scaled t , scaled s ) 
 {
   register halfword Result; badness_regmem 
-  integer r  ;
+  int r  ;
   if ( t == 0 ) 
   Result = 0 ;
   else if ( s <= 0 ) 
@@ -1394,19 +1394,19 @@ zbadness ( scaled t , scaled s )
   } 
   return Result ;
 } 
-integer 
-zmakefrac ( integer p , integer q ) 
+int 
+zmakefrac ( int p , int q ) 
 {
-  register integer Result; makefrac_regmem 
-  integer f  ;
-  integer n  ;
+  register int Result; makefrac_regmem 
+  int f  ;
+  int n  ;
   boolean negative  ;
-  integer becareful  ;
+  int becareful  ;
   if ( p >= 0 ) 
   negative = false ;
   else {
       
-    p = - (integer) p ;
+    p = - (int) p ;
     negative = true ;
   } 
   if ( q <= 0 ) 
@@ -1416,7 +1416,7 @@ zmakefrac ( integer p , integer q )
     if ( q == 0 ) 
     confusion ( 47 ) ;
 #endif /* TEXMF_DEBUG */
-    q = - (integer) q ;
+    q = - (int) q ;
     negative = ! negative ;
   } 
   n = p / q ;
@@ -1447,29 +1447,29 @@ zmakefrac ( integer p , integer q )
     if ( becareful + p >= 0 ) 
     incr ( f ) ;
     if ( negative ) 
-    Result = - (integer) ( f + n ) ;
+    Result = - (int) ( f + n ) ;
     else Result = f + n ;
   } 
   return Result ;
 } 
-integer 
-ztakefrac ( integer q , integer f ) 
+int 
+ztakefrac ( int q , int f ) 
 {
-  register integer Result; takefrac_regmem 
-  integer p  ;
+  register int Result; takefrac_regmem 
+  int p  ;
   boolean negative  ;
-  integer n  ;
-  integer becareful  ;
+  int n  ;
+  int becareful  ;
   if ( f >= 0 ) 
   negative = false ;
   else {
       
-    f = - (integer) f ;
+    f = - (int) f ;
     negative = true ;
   } 
   if ( q < 0 ) 
   {
-    q = - (integer) q ;
+    q = - (int) q ;
     negative = ! negative ;
   } 
   if ( f < 268435456L ) 
@@ -1508,16 +1508,16 @@ ztakefrac ( integer q , integer f )
     n = 2147483647L - p ;
   } 
   if ( negative ) 
-  Result = - (integer) ( n + p ) ;
+  Result = - (int) ( n + p ) ;
   else Result = n + p ;
   return Result ;
 } 
-integer 
-zmlog ( integer x ) 
+int 
+zmlog ( int x ) 
 {
-  register integer Result; mlog_regmem 
-  integer y, z  ;
-  integer k  ;
+  register int Result; mlog_regmem 
+  int y, z  ;
+  int k  ;
   if ( x <= 0 ) 
   {
     {
@@ -1565,20 +1565,20 @@ zmlog ( integer x )
   } 
   return Result ;
 } 
-integer 
-zabvscd ( integer a , integer b , integer c , integer d ) 
+int 
+zabvscd ( int a , int b , int c , int d ) 
 {
-  /* 10 */ register integer Result; abvscd_regmem 
-  integer q, r  ;
+  /* 10 */ register int Result; abvscd_regmem 
+  int q, r  ;
   if ( a < 0 ) 
   {
-    a = - (integer) a ;
-    b = - (integer) b ;
+    a = - (int) a ;
+    b = - (int) b ;
   } 
   if ( c < 0 ) 
   {
-    c = - (integer) c ;
-    d = - (integer) d ;
+    c = - (int) c ;
+    d = - (int) d ;
   } 
   if ( d <= 0 ) 
   {
@@ -1611,8 +1611,8 @@ zabvscd ( integer a , integer b , integer c , integer d )
     q = a ;
     a = c ;
     c = q ;
-    q = - (integer) b ;
-    b = - (integer) d ;
+    q = - (int) b ;
+    b = - (int) d ;
     d = q ;
   } 
   else if ( b <= 0 ) 
@@ -1685,8 +1685,8 @@ newrandoms ( void )
 {
   newrandoms_regmem 
   unsigned char k  ;
-  integer x  ;
-  {register integer for_end; k = 0 ;for_end = 23 ; if ( k <= for_end) do 
+  int x  ;
+  {register int for_end; k = 0 ;for_end = 23 ; if ( k <= for_end) do 
     {
       x = randoms [k ]- randoms [k + 31 ];
       if ( x < 0 ) 
@@ -1694,7 +1694,7 @@ newrandoms ( void )
       randoms [k ]= x ;
     } 
   while ( k++ < for_end ) ;} 
-  {register integer for_end; k = 24 ;for_end = 54 ; if ( k <= for_end) do 
+  {register int for_end; k = 24 ;for_end = 54 ; if ( k <= for_end) do 
     {
       x = randoms [k ]- randoms [k - 24 ];
       if ( x < 0 ) 
@@ -1705,15 +1705,15 @@ newrandoms ( void )
   jrandom = 54 ;
 } 
 void 
-zinitrandoms ( integer seed ) 
+zinitrandoms ( int seed ) 
 {
   initrandoms_regmem 
-  integer j, jj, k  ;
+  int j, jj, k  ;
   unsigned char i  ;
   j = abs ( seed ) ;
   while ( j >= 268435456L ) j = ( j ) / 2 ;
   k = 1 ;
-  {register integer for_end; i = 0 ;for_end = 54 ; if ( i <= for_end) do 
+  {register int for_end; i = 0 ;for_end = 54 ; if ( i <= for_end) do 
     {
       jj = k ;
       k = j - k ;
@@ -1727,11 +1727,11 @@ zinitrandoms ( integer seed )
   newrandoms () ;
   newrandoms () ;
 } 
-integer 
-zunifrand ( integer x ) 
+int 
+zunifrand ( int x ) 
 {
-  register integer Result; unifrand_regmem 
-  integer y  ;
+  register int Result; unifrand_regmem 
+  int y  ;
   if ( jrandom == 0 ) 
   newrandoms () ;
   else decr ( jrandom ) ;
@@ -1740,14 +1740,14 @@ zunifrand ( integer x )
   Result = 0 ;
   else if ( x > 0 ) 
   Result = y ;
-  else Result = - (integer) y ;
+  else Result = - (int) y ;
   return Result ;
 } 
-integer 
+int 
 normrand ( void ) 
 {
-  register integer Result; normrand_regmem 
-  integer x, u, l  ;
+  register int Result; normrand_regmem 
+  int x, u, l  ;
   do {
       do { if ( jrandom == 0 ) 
       newrandoms () ;
@@ -1793,10 +1793,10 @@ zprintword ( memoryword w )
 } 
 #endif /* TEXMF_DEBUG */
 void 
-zshowtokenlist ( integer p , integer q , integer l ) 
+zshowtokenlist ( int p , int q , int l ) 
 {
   /* 10 */ showtokenlist_regmem 
-  integer m, c  ;
+  int m, c  ;
   ASCIIcode matchchr  ;
   ASCIIcode n  ;
   matchchr = 35 ;
@@ -1968,13 +1968,13 @@ zflushlist ( halfword p )
   } 
 } 
 halfword 
-zgetnode ( integer s ) 
+zgetnode ( int s ) 
 {
   /* 40 10 20 */ register halfword Result; getnode_regmem 
   halfword p  ;
   halfword q  ;
-  integer r  ;
-  integer t  ;
+  int r  ;
+  int t  ;
   lab20: p = rover ;
   do {
       q = p + mem [p ].hh .v.LH ;
@@ -2220,7 +2220,7 @@ znewkern ( scaled w )
   return Result ;
 } 
 halfword 
-znewpenalty ( integer m ) 
+znewpenalty ( int m ) 
 {
   register halfword Result; newpenalty_regmem 
   halfword p  ;
@@ -2238,11 +2238,11 @@ zcheckmem ( boolean printlocs )
   /* 31 32 */ checkmem_regmem 
   halfword p, q  ;
   boolean clobbered  ;
-  {register integer for_end; p = memmin ;for_end = lomemmax ; if ( p <= 
+  {register int for_end; p = memmin ;for_end = lomemmax ; if ( p <= 
   for_end) do 
     freearr [p ]= false ;
   while ( p++ < for_end ) ;} 
-  {register integer for_end; p = himemmin ;for_end = memend ; if ( p <= 
+  {register int for_end; p = himemmin ;for_end = memend ; if ( p <= 
   for_end) do 
     freearr [p ]= false ;
   while ( p++ < for_end ) ;} 
@@ -2285,7 +2285,7 @@ zcheckmem ( boolean printlocs )
       printint ( q ) ;
       goto lab32 ;
     } 
-    {register integer for_end; q = p ;for_end = p + mem [p ].hh .v.LH - 1 
+    {register int for_end; q = p ;for_end = p + mem [p ].hh .v.LH - 1 
     ; if ( q <= for_end) do 
       {
 	if ( freearr [q ]) 
@@ -2315,7 +2315,7 @@ zcheckmem ( boolean printlocs )
   if ( printlocs ) 
   {
     printnl ( 309 ) ;
-    {register integer for_end; p = memmin ;for_end = lomemmax ; if ( p <= 
+    {register int for_end; p = memmin ;for_end = lomemmax ; if ( p <= 
     for_end) do 
       if ( ! freearr [p ]&& ( ( p > waslomax ) || wasfree [p ]) ) 
       {
@@ -2323,7 +2323,7 @@ zcheckmem ( boolean printlocs )
 	printint ( p ) ;
       } 
     while ( p++ < for_end ) ;} 
-    {register integer for_end; p = himemmin ;for_end = memend ; if ( p <= 
+    {register int for_end; p = himemmin ;for_end = memend ; if ( p <= 
     for_end) do 
       if ( ! freearr [p ]&& ( ( p < washimin ) || ( p > wasmemend ) || 
       wasfree [p ]) ) 
@@ -2333,11 +2333,11 @@ zcheckmem ( boolean printlocs )
       } 
     while ( p++ < for_end ) ;} 
   } 
-  {register integer for_end; p = memmin ;for_end = lomemmax ; if ( p <= 
+  {register int for_end; p = memmin ;for_end = lomemmax ; if ( p <= 
   for_end) do 
     wasfree [p ]= freearr [p ];
   while ( p++ < for_end ) ;} 
-  {register integer for_end; p = himemmin ;for_end = memend ; if ( p <= 
+  {register int for_end; p = himemmin ;for_end = memend ; if ( p <= 
   for_end) do 
     wasfree [p ]= freearr [p ];
   while ( p++ < for_end ) ;} 
@@ -2351,8 +2351,8 @@ void
 zsearchmem ( halfword p ) 
 {
   searchmem_regmem 
-  integer q  ;
-  {register integer for_end; q = memmin ;for_end = lomemmax ; if ( q <= 
+  int q  ;
+  {register int for_end; q = memmin ;for_end = lomemmax ; if ( q <= 
   for_end) do 
     {
       if ( mem [q ].hh .v.RH == p ) 
@@ -2369,7 +2369,7 @@ zsearchmem ( halfword p )
       } 
     } 
   while ( q++ < for_end ) ;} 
-  {register integer for_end; q = himemmin ;for_end = memend ; if ( q <= 
+  {register int for_end; q = himemmin ;for_end = memend ; if ( q <= 
   for_end) do 
     {
       if ( mem [q ].hh .v.RH == p ) 
@@ -2386,7 +2386,7 @@ zsearchmem ( halfword p )
       } 
     } 
   while ( q++ < for_end ) ;} 
-  {register integer for_end; q = 1 ;for_end = 27688 ; if ( q <= for_end) do 
+  {register int for_end; q = 1 ;for_end = 27688 ; if ( q <= for_end) do 
     {
       if ( eqtb [q ].hh .v.RH == p ) 
       {
@@ -2397,7 +2397,7 @@ zsearchmem ( halfword p )
     } 
   while ( q++ < for_end ) ;} 
   if ( saveptr > 0 ) 
-  {register integer for_end; q = 0 ;for_end = saveptr - 1 ; if ( q <= 
+  {register int for_end; q = 0 ;for_end = saveptr - 1 ; if ( q <= 
   for_end) do 
     {
       if ( savestack [q ].hh .v.RH == p ) 
@@ -2408,7 +2408,7 @@ zsearchmem ( halfword p )
       } 
     } 
   while ( q++ < for_end ) ;} 
-  {register integer for_end; q = 0 ;for_end = hyphsize ; if ( q <= for_end) 
+  {register int for_end; q = 0 ;for_end = hyphsize ; if ( q <= for_end) 
   do 
     {
       if ( hyphlist [q ]== p ) 
@@ -2480,10 +2480,10 @@ zpdfwarning ( strnumber t , strnumber p , boolean prependnl , boolean appendnl
   history = 1 ;
 } 
 void 
-zpdfosgetosbuf ( integer s ) 
+zpdfosgetosbuf ( int s ) 
 {
   pdfosgetosbuf_regmem 
-  integer a  ;
+  int a  ;
   if ( s > suppdfosbufsize - pdfptr ) 
   overflow ( 1028 , pdfosbufsize ) ;
   if ( pdfptr + s > pdfosbufsize ) 
@@ -2507,7 +2507,7 @@ removelastspace ( void )
   decr ( pdfptr ) ;
 } 
 void 
-zpdfprintoctal ( integer n ) 
+zpdfprintoctal ( int n ) 
 {
   pdfprintoctal_regmem 
   unsigned char k  ;
@@ -2583,7 +2583,7 @@ zpdfprintoctal ( integer n )
   } 
 } 
 void 
-zpdfprintchar ( internalfontnumber f , integer c ) 
+zpdfprintchar ( internalfontnumber f , int c ) 
 {
   pdfprintchar_regmem 
   pdfmarkchar ( f , c ) ;
@@ -2627,7 +2627,7 @@ zpdfprint ( strnumber s )
 {
   pdfprint_regmem 
   poolpointer j  ;
-  integer c  ;
+  int c  ;
   j = strstart [s ];
   while ( j < strstart [s + 1 ]) {
       
@@ -2650,7 +2650,7 @@ zpdfprint ( strnumber s )
   } 
 } 
 boolean 
-zstrinstr ( strnumber s , strnumber r , integer i ) 
+zstrinstr ( strnumber s , strnumber r , int i ) 
 {
   /* 45 */ register boolean Result; strinstr_regmem 
   poolpointer j, k  ;
@@ -2674,7 +2674,7 @@ void
 zpdfprintint ( longinteger n ) 
 {
   pdfprintint_regmem 
-  integer k  ;
+  int k  ;
   longinteger m  ;
   k = 0 ;
   if ( n < 0 ) 
@@ -2694,7 +2694,7 @@ zpdfprintint ( longinteger n )
       } 
     } 
     if ( n > -100000000L ) 
-    n = - (integer) n ;
+    n = - (int) n ;
     else {
 	
       m = -1 - n ;
@@ -2733,7 +2733,7 @@ zpdfprintint ( longinteger n )
   } 
 } 
 void 
-zpdfprinttwo ( integer n ) 
+zpdfprinttwo ( int n ) 
 {
   pdfprinttwo_regmem 
   n = abs ( n ) % 100 ;
@@ -2781,21 +2781,21 @@ ztokenstostring ( halfword p )
   return Result ;
 } 
 scaled 
-zdividescaled ( scaled s , scaled m , integer dd ) 
+zdividescaled ( scaled s , scaled m , int dd ) 
 {
   register scaled Result; dividescaled_regmem 
   scaled q, r  ;
-  integer sign, i  ;
+  int sign, i  ;
   sign = 1 ;
   if ( s < 0 ) 
   {
-    sign = - (integer) sign ;
-    s = - (integer) s ;
+    sign = - (int) sign ;
+    s = - (int) s ;
   } 
   if ( m < 0 ) 
   {
-    sign = - (integer) sign ;
-    m = - (integer) m ;
+    sign = - (int) sign ;
+    m = - (int) m ;
   } 
   if ( m == 0 ) 
   pdferror ( 1031 , 1032 ) ;
@@ -2803,7 +2803,7 @@ zdividescaled ( scaled s , scaled m , integer dd )
   pdferror ( 1031 , 1033 ) ;
   q = s / m ;
   r = s % m ;
-  {register integer for_end; i = 1 ;for_end = dd ; if ( i <= for_end) do 
+  {register int for_end; i = 1 ;for_end = dd ; if ( i <= for_end) do 
     {
       q = 10 * q + ( 10 * r ) / m ;
       r = ( 10 * r ) % m ;
@@ -2819,7 +2819,7 @@ zdividescaled ( scaled s , scaled m , integer dd )
   return Result ;
 } 
 scaled 
-zroundxnoverd ( scaled x , integer n , integer d ) 
+zroundxnoverd ( scaled x , int n , int d ) 
 {
   register scaled Result; roundxnoverd_regmem 
   boolean positive  ;
@@ -2828,7 +2828,7 @@ zroundxnoverd ( scaled x , integer n , integer d )
   positive = true ;
   else {
       
-    x = - (integer) x ;
+    x = - (int) x ;
     positive = false ;
   } 
   t = ( x % 32768L ) * n ;
@@ -2842,14 +2842,14 @@ zroundxnoverd ( scaled x , integer n , integer d )
   incr ( u ) ;
   if ( positive ) 
   Result = u ;
-  else Result = - (integer) u ;
+  else Result = - (int) u ;
   return Result ;
 } 
 void 
-zappenddestname ( strnumber s , integer n ) 
+zappenddestname ( strnumber s , int n ) 
 {
   appenddestname_regmem 
-  integer a  ;
+  int a  ;
   if ( pdfdestnamesptr == supdestnamessize ) 
   overflow ( 1073 , destnamessize ) ;
   if ( pdfdestnamesptr == destnamessize ) 
@@ -2865,10 +2865,10 @@ zappenddestname ( strnumber s , integer n )
   incr ( pdfdestnamesptr ) ;
 } 
 void 
-zpdfcreateobj ( integer t , integer i ) 
+zpdfcreateobj ( int t , int i ) 
 {
   /* 30 */ pdfcreateobj_regmem 
-  integer a, p, q  ;
+  int a, p, q  ;
   if ( sysobjptr == supobjtabsize ) 
   overflow ( 1074 , objtabsize ) ;
   if ( sysobjptr == objtabsize ) 
@@ -2911,13 +2911,13 @@ zpdfcreateobj ( integer t , integer i )
     objtab [objptr ].int1 = headtab [t ];
     headtab [t ]= objptr ;
     if ( ( t == 5 ) && ( i < 0 ) ) 
-    appenddestname ( - (integer) objtab [objptr ].int0 , objptr ) ;
+    appenddestname ( - (int) objtab [objptr ].int0 , objptr ) ;
   } 
 } 
-integer 
+int 
 pdfnewobjnum ( void ) 
 {
-  register integer Result; pdfnewobjnum_regmem 
+  register int Result; pdfnewobjnum_regmem 
   pdfcreateobj ( 0 , 0 ) ;
   Result = objptr ;
   return Result ;
@@ -2950,7 +2950,7 @@ zpdfosswitch ( boolean pdfos )
   } 
 } 
 void 
-zpdfosprepareobj ( integer i , integer pdfoslevel ) 
+zpdfosprepareobj ( int i , int pdfoslevel ) 
 {
   pdfosprepareobj_regmem 
   pdfosswitch ( ( pdfoslevel > 0 ) && ( fixedpdfobjcompresslevel >= pdfoslevel 
@@ -2978,7 +2978,7 @@ zpdfosprepareobj ( integer i , integer pdfoslevel )
   } 
 } 
 void 
-zpdfbeginobj ( integer i , integer pdfoslevel ) 
+zpdfbeginobj ( int i , int pdfoslevel ) 
 {
   pdfbeginobj_regmem 
   checkpdfversion () ;
@@ -3028,7 +3028,7 @@ zpdfbeginobj ( integer i , integer pdfoslevel )
   } 
 } 
 void 
-zpdfnewobj ( integer t , integer i , integer pdfos ) 
+zpdfnewobj ( int t , int i , int pdfos ) 
 {
   pdfnewobj_regmem 
   pdfcreateobj ( t , i ) ;
@@ -3063,7 +3063,7 @@ pdfendobj ( void )
   } 
 } 
 void 
-zpdfbegindict ( integer i , integer pdfoslevel ) 
+zpdfbegindict ( int i , int pdfoslevel ) 
 {
   pdfbegindict_regmem 
   checkpdfversion () ;
@@ -3130,7 +3130,7 @@ zpdfbegindict ( integer i , integer pdfoslevel )
   } 
 } 
 void 
-zpdfnewdict ( integer t , integer i , integer pdfos ) 
+zpdfnewdict ( int t , int i , int pdfos ) 
 {
   pdfnewdict_regmem 
   pdfcreateobj ( t , i ) ;
@@ -3341,7 +3341,7 @@ pdfoswriteobjstream ( void )
   pdfoscurobjnum = 0 ;
 } 
 halfword 
-zappendptr ( halfword p , integer i ) 
+zappendptr ( halfword p , int i ) 
 {
   register halfword Result; appendptr_regmem 
   halfword q  ;
@@ -3372,7 +3372,7 @@ zappendptr ( halfword p , integer i )
   return Result ;
 } 
 halfword 
-zpdflookuplist ( halfword p , integer i ) 
+zpdflookuplist ( halfword p , int i ) 
 {
   register halfword Result; pdflookuplist_regmem 
   Result = -268435455L ;
@@ -3406,19 +3406,19 @@ zprevrightmost ( halfword s , halfword e )
   return Result ;
 } 
 void 
-zpdfcheckobj ( integer t , integer n ) 
+zpdfcheckobj ( int t , int n ) 
 {
   pdfcheckobj_regmem 
-  integer k  ;
+  int k  ;
   k = headtab [t ];
   while ( ( k != 0 ) && ( k != n ) ) k = objtab [k ].int1 ;
   if ( k == 0 ) 
   pdferror ( 1782 , 1807 ) ;
 } 
-integer 
-zfindobj ( integer t , integer i , boolean byname ) 
+int 
+zfindobj ( int t , int i , boolean byname ) 
 {
-  register integer Result; findobj_regmem 
+  register int Result; findobj_regmem 
   Result = avlfindobj ( t , i , byname ) ;
   return Result ;
 } 
@@ -3432,11 +3432,11 @@ zflushstr ( strnumber s )
     poolptr = strstart [strptr ];
   } 
 } 
-integer 
-zgetobj ( integer t , integer i , boolean byname ) 
+int 
+zgetobj ( int t , int i , boolean byname ) 
 {
-  register integer Result; getobj_regmem 
-  integer r  ;
+  register int Result; getobj_regmem 
+  int r  ;
   strnumber s  ;
   if ( byname > 0 ) 
   {
@@ -3452,7 +3452,7 @@ zgetobj ( integer t , integer i , boolean byname )
   {
     if ( byname > 0 ) 
     {
-      pdfcreateobj ( t , - (integer) s ) ;
+      pdfcreateobj ( t , - (int) s ) ;
       s = 0 ;
     } 
     else pdfcreateobj ( t , i ) ;
@@ -3465,11 +3465,11 @@ zgetobj ( integer t , integer i , boolean byname )
   Result = r ;
   return Result ;
 } 
-integer 
+int 
 getmicrointerval ( void ) 
 {
-  register integer Result; getmicrointerval_regmem 
-  integer s, m  ;
+  register int Result; getmicrointerval_regmem 
+  int s, m  ;
   secondsandmicros ( s , m ) ;
   if ( ( s - epochseconds ) > 32767 ) 
   Result = 2147483647L ;
@@ -3509,10 +3509,10 @@ zprintfontidentifier ( internalfontnumber f )
   } 
 } 
 void 
-zshortdisplay ( integer p ) 
+zshortdisplay ( int p ) 
 {
   shortdisplay_regmem 
-  integer n  ;
+  int n  ;
   while ( p > memmin ) {
       
     if ( ( p >= himemmin ) ) 
@@ -3576,7 +3576,7 @@ zshortdisplay ( integer p )
   } 
 } 
 void 
-zprintfontandchar ( integer p ) 
+zprintfontandchar ( int p ) 
 {
   printfontandchar_regmem 
   if ( p > memend ) 
@@ -3591,7 +3591,7 @@ zprintfontandchar ( integer p )
   } 
 } 
 void 
-zprintmark ( integer p ) 
+zprintmark ( int p ) 
 {
   printmark_regmem 
   printchar ( 123 ) ;
@@ -3610,7 +3610,7 @@ zprintruledimen ( scaled d )
   else printscaled ( d ) ;
 } 
 void 
-zprintglue ( scaled d , integer order , strnumber s ) 
+zprintglue ( scaled d , int order , strnumber s ) 
 {
   printglue_regmem 
   printscaled ( d ) ;
@@ -3629,7 +3629,7 @@ zprintglue ( scaled d , integer order , strnumber s )
   print ( s ) ;
 } 
 void 
-zprintspec ( integer p , strnumber s ) 
+zprintspec ( int p , strnumber s ) 
 {
   printspec_regmem 
   if ( ( p < memmin ) || ( p >= lomemmax ) ) 
@@ -3664,7 +3664,7 @@ void
 zprintdelimiter ( halfword p ) 
 {
   printdelimiter_regmem 
-  integer a  ;
+  int a  ;
   a = mem [p ].qqqq .b0 * 256 + mem [p ].qqqq .b1 ;
   a = a * 4096 + mem [p ].qqqq .b2 * 256 + mem [p ].qqqq .b3 ;
   if ( a < 0 ) 
@@ -3715,7 +3715,7 @@ zprintsubsidiarydata ( halfword p , ASCIIcode c )
   } 
 } 
 void 
-zprintstyle ( integer c ) 
+zprintstyle ( int c ) 
 {
   printstyle_regmem 
   switch ( c / 2 ) 
@@ -3737,7 +3737,7 @@ zprintstyle ( integer c )
   } 
 } 
 void 
-zprintskipparam ( integer n ) 
+zprintskipparam ( int n ) 
 {
   printskipparam_regmem 
   switch ( n ) 
@@ -3801,11 +3801,11 @@ zprintskipparam ( integer n )
   } 
 } 
 void 
-zshownodelist ( integer p ) 
+zshownodelist ( int p ) 
 {
   /* 10 */ shownodelist_regmem 
-  integer n  ;
-  real g  ;
+  int n  ;
+  double g  ;
   if ( ( poolptr - strstart [strptr ]) > depththreshold ) 
   {
     if ( p > -268435455L ) 
@@ -5281,7 +5281,7 @@ zcopynodelist ( halfword p )
   return Result ;
 } 
 void 
-zprintmode ( integer m ) 
+zprintmode ( int m ) 
 {
   printmode_regmem 
   if ( m > 0 ) 
@@ -5298,7 +5298,7 @@ zprintmode ( integer m )
   } 
   else if ( m == 0 ) 
   print ( 368 ) ;
-  else switch ( ( - (integer) m ) / ( 103 ) ) 
+  else switch ( ( - (int) m ) / ( 103 ) ) 
   {case 0 : 
     print ( 369 ) ;
     break ;
@@ -5311,7 +5311,7 @@ zprintmode ( integer m )
   } 
 } 
 void 
-zprintinmode ( integer m ) 
+zprintinmode ( int m ) 
 {
   printinmode_regmem 
   if ( m > 0 ) 
@@ -5328,7 +5328,7 @@ zprintinmode ( integer m )
   } 
   else if ( m == 0 ) 
   print ( 375 ) ;
-  else switch ( ( - (integer) m ) / ( 103 ) ) 
+  else switch ( ( - (int) m ) / ( 103 ) ) 
   {case 0 : 
     print ( 376 ) ;
     break ;
@@ -5377,15 +5377,15 @@ void
 showactivities ( void ) 
 {
   showactivities_regmem 
-  integer p  ;
+  int p  ;
   short m  ;
   memoryword a  ;
   halfword q, r  ;
-  integer t  ;
+  int t  ;
   nest [nestptr ]= curlist ;
   printnl ( 345 ) ;
   println () ;
-  {register integer for_end; p = nestptr ;for_end = 0 ; if ( p >= for_end) 
+  {register int for_end; p = nestptr ;for_end = 0 ; if ( p >= for_end) 
   do 
     {
       m = nest [p ].modefield ;
@@ -5501,7 +5501,7 @@ showactivities ( void )
   while ( p-- > for_end ) ;} 
 } 
 void 
-zprintparam ( integer n ) 
+zprintparam ( int n ) 
 {
   printparam_regmem 
   switch ( n ) 
@@ -5853,7 +5853,7 @@ zenddiagnostic ( boolean blankline )
   selector = oldsetting ;
 } 
 void 
-zprintlengthparam ( integer n ) 
+zprintlengthparam ( int n ) 
 {
   printlengthparam_regmem 
   switch ( n ) 
@@ -5968,7 +5968,7 @@ void
 zprintcmdchr ( quarterword cmd , halfword chrcode ) 
 {
   printcmdchr_regmem 
-  integer n  ;
+  int n  ;
   switch ( cmd ) 
   {case 1 : 
     {
@@ -7513,15 +7513,15 @@ zshoweqtb ( halfword n )
 } 
 #endif /* STAT */
 halfword 
-zidlookup ( integer j , integer l ) 
+zidlookup ( int j , int l ) 
 {
   /* 40 */ register halfword Result; idlookup_regmem 
-  integer h  ;
-  integer d  ;
+  int h  ;
+  int d  ;
   halfword p  ;
   halfword k  ;
   h = buffer [j ];
-  {register integer for_end; k = j + 1 ;for_end = j + l - 1 ; if ( k <= 
+  {register int for_end; k = j + 1 ;for_end = j + l - 1 ; if ( k <= 
   for_end) do 
     {
       h = h + h + buffer [k ];
@@ -7575,7 +7575,7 @@ zidlookup ( integer j , integer l )
 	  decr ( poolptr ) ;
 	  strpool [poolptr + l ]= strpool [poolptr ];
 	} 
-	{register integer for_end; k = j ;for_end = j + l - 1 ; if ( k <= 
+	{register int for_end; k = j ;for_end = j + l - 1 ; if ( k <= 
 	for_end) do 
 	  {
 	    strpool [poolptr ]= buffer [k ];
@@ -7600,10 +7600,10 @@ halfword
 zprimlookup ( strnumber s ) 
 {
   /* 40 */ register halfword Result; primlookup_regmem 
-  integer h  ;
+  int h  ;
   halfword p  ;
   halfword k  ;
-  integer j, l  ;
+  int j, l  ;
   if ( s <= 255 ) 
   {
     if ( s < 0 ) 
@@ -7620,7 +7620,7 @@ zprimlookup ( strnumber s )
     l = ( poolptr - strstart [strptr ]) ;
     else l = ( strstart [s + 1 ]- strstart [s ]) ;
     h = strpool [j ];
-    {register integer for_end; k = j + 1 ;for_end = j + l - 1 ; if ( k <= 
+    {register int for_end; k = j + 1 ;for_end = j + l - 1 ; if ( k <= 
     for_end) do 
       {
 	h = h + h + strpool [k ];
@@ -7780,7 +7780,7 @@ pseudoinput ( void )
 {
   register boolean Result; pseudoinput_regmem 
   halfword p  ;
-  integer sz  ;
+  int sz  ;
   fourquarters w  ;
   halfword r  ;
   last = first ;
@@ -7798,7 +7798,7 @@ pseudoinput ( void )
       overflow ( 258 , bufsize ) ;
     } 
     last = first ;
-    {register integer for_end; r = p + 1 ;for_end = p + sz - 1 ; if ( r <= 
+    {register int for_end; r = p + 1 ;for_end = p + sz - 1 ; if ( r <= 
     for_end) do 
       {
 	w = mem [r ].qqqq ;
@@ -7845,7 +7845,7 @@ void
 groupwarning ( void ) 
 {
   groupwarning_regmem 
-  integer i  ;
+  int i  ;
   boolean w  ;
   baseptr = inputptr ;
   inputstack [baseptr ]= curinput ;
@@ -7879,7 +7879,7 @@ void
 ifwarning ( void ) 
 {
   ifwarning_regmem 
-  integer i  ;
+  int i  ;
   boolean w  ;
   baseptr = inputptr ;
   inputstack [baseptr ]= curinput ;
@@ -7921,7 +7921,7 @@ filewarning ( void )
   halfword p  ;
   quarterword l  ;
   quarterword c  ;
-  integer i  ;
+  int i  ;
   p = saveptr ;
   l = curlevel ;
   c = curgroup ;
@@ -8175,7 +8175,7 @@ zsadef ( halfword p , halfword e )
   deletesaref ( p ) ;
 } 
 void 
-zsawdef ( halfword p , integer w ) 
+zsawdef ( halfword p , int w ) 
 {
   sawdef_regmem 
   incr ( mem [p + 1 ].hh .v.LH ) ;
@@ -8227,7 +8227,7 @@ zgsadef ( halfword p , halfword e )
   deletesaref ( p ) ;
 } 
 void 
-zgsawdef ( halfword p , integer w ) 
+zgsawdef ( halfword p , int w ) 
 {
   gsawdef_regmem 
   incr ( mem [p + 1 ].hh .v.LH ) ;
@@ -8411,7 +8411,7 @@ zeqdefine ( halfword p , quarterword t , halfword e )
 #endif /* STAT */
 } 
 void 
-zeqworddefine ( halfword p , integer w ) 
+zeqworddefine ( halfword p , int w ) 
 {
   /* 10 */ eqworddefine_regmem 
   if ( ( eTeXmode == 1 ) && ( eqtb [p ].cint == w ) ) 
@@ -8462,7 +8462,7 @@ zgeqdefine ( halfword p , quarterword t , halfword e )
 #endif /* STAT */
 } 
 void 
-zgeqworddefine ( halfword p , integer w ) 
+zgeqworddefine ( halfword p , int w ) 
 {
   geqworddefine_regmem 
 	;
@@ -8685,8 +8685,8 @@ void
 showcurcmdchr ( void ) 
 {
   showcurcmdchr_regmem 
-  integer n  ;
-  integer l  ;
+  int n  ;
+  int l  ;
   halfword p  ;
   begindiagnostic () ;
   printnl ( 123 ) ;
@@ -8741,15 +8741,15 @@ showcontext ( void )
 {
   /* 30 */ showcontext_regmem 
   unsigned char oldsetting  ;
-  integer nn  ;
+  int nn  ;
   boolean bottomline  ;
-  integer i  ;
-  integer j  ;
-  integer l  ;
-  integer m  ;
-  integer n  ;
-  integer p  ;
-  integer q  ;
+  int i  ;
+  int j  ;
+  int l  ;
+  int m  ;
+  int n  ;
+  int p  ;
+  int q  ;
   baseptr = inputptr ;
   inputstack [baseptr ]= curinput ;
   nn = -1 ;
@@ -8923,19 +8923,19 @@ showcontext ( void )
 	  p = l + firstcount - halferrorline + 3 ;
 	  n = halferrorline ;
 	} 
-	{register integer for_end; q = p ;for_end = firstcount - 1 ; if ( q 
+	{register int for_end; q = p ;for_end = firstcount - 1 ; if ( q 
 	<= for_end) do 
 	  printchar ( trickbuf [q % errorline ]) ;
 	while ( q++ < for_end ) ;} 
 	println () ;
-	{register integer for_end; q = 1 ;for_end = n ; if ( q <= for_end) 
+	{register int for_end; q = 1 ;for_end = n ; if ( q <= for_end) 
 	do 
 	  printchar ( 32 ) ;
 	while ( q++ < for_end ) ;} 
 	if ( m + n <= errorline ) 
 	p = firstcount + m ;
 	else p = firstcount + ( errorline - n - 3 ) ;
-	{register integer for_end; q = firstcount ;for_end = p - 1 ; if ( q 
+	{register int for_end; q = firstcount ;for_end = p - 1 ; if ( q 
 	<= for_end) do 
 	  printchar ( trickbuf [q % errorline ]) ;
 	while ( q++ < for_end ) ;} 
@@ -9149,7 +9149,7 @@ mubyteupdate ( void )
   poolpointer j  ;
   halfword p  ;
   halfword q  ;
-  integer inmutree  ;
+  int inmutree  ;
   j = strstart [strptr ];
   if ( mubyteread [strpool [j ]]== -268435455L ) 
   {
@@ -9450,9 +9450,9 @@ void
 getnext ( void ) 
 {
   /* 20 25 21 26 40 10 */ getnext_regmem 
-  integer k  ;
+  int k  ;
   halfword t  ;
-  integer i, j  ;
+  int i, j  ;
   boolean mubyteincs  ;
   halfword p  ;
   unsigned char cat  ;
@@ -10029,7 +10029,7 @@ void
 firmuptheline ( void ) 
 {
   firmuptheline_regmem 
-  integer k  ;
+  int k  ;
   curinput .limitfield = last ;
   if ( eqtb [29305 ].cint > 0 ) {
       
@@ -10050,7 +10050,7 @@ firmuptheline ( void )
       } 
       if ( last > first ) 
       {
-	{register integer for_end; k = first ;for_end = last - 1 ; if ( k <= 
+	{register int for_end; k = first ;for_end = last - 1 ; if ( k <= 
 	for_end) do 
 	  buffer [k + curinput .startfield - first ]= buffer [k ];
 	while ( k++ < for_end ) ;} 
@@ -10222,7 +10222,7 @@ macrocall ( void )
 	  } 
 	  pstack [n ]= mem [memtop - 3 ].hh .v.RH ;
 	  alignstate = alignstate - unbalance ;
-	  {register integer for_end; m = 0 ;for_end = n ; if ( m <= for_end) 
+	  {register int for_end; m = 0 ;for_end = n ; if ( m <= for_end) 
 	  do 
 	    flushlist ( pstack [m ]) ;
 	  while ( m++ < for_end ) ;} 
@@ -10283,7 +10283,7 @@ macrocall ( void )
 		} 
 		pstack [n ]= mem [memtop - 3 ].hh .v.RH ;
 		alignstate = alignstate - unbalance ;
-		{register integer for_end; m = 0 ;for_end = n ; if ( m <= 
+		{register int for_end; m = 0 ;for_end = n ; if ( m <= 
 		for_end) do 
 		  flushlist ( pstack [m ]) ;
 		while ( m++ < for_end ) ;} 
@@ -10413,7 +10413,7 @@ macrocall ( void )
       if ( maxparamstack > paramsize ) 
       overflow ( 725 , paramsize ) ;
     } 
-    {register integer for_end; m = 0 ;for_end = n - 1 ; if ( m <= for_end) 
+    {register int for_end; m = 0 ;for_end = n - 1 ; if ( m <= for_end) 
     do 
       paramstack [paramptr + m ]= pstack [m ];
     while ( m++ < for_end ) ;} 
@@ -10441,7 +10441,7 @@ znewindex ( quarterword i , halfword q )
   mem [curptr ].hh.b0 = i ;
   mem [curptr ].hh.b1 = 0 ;
   mem [curptr ].hh .v.RH = q ;
-  {register integer for_end; k = 1 ;for_end = 8 ; if ( k <= for_end) do 
+  {register int for_end; k = 1 ;for_end = 8 ; if ( k <= for_end) do 
     mem [curptr + k ]= sanull ;
   while ( k++ < for_end ) ;} 
 } 
@@ -10582,8 +10582,8 @@ expand ( void )
   halfword t  ;
   boolean b  ;
   halfword p, q, r  ;
-  integer j  ;
-  integer cvbackup  ;
+  int j  ;
+  int cvbackup  ;
   smallnumber cvlbackup, radixbackup, cobackup  ;
   halfword backupbackup  ;
   smallnumber savescannerstatus  ;
@@ -11200,12 +11200,12 @@ getxorprotected ( void )
     expand () ;
   } 
 } 
-integer 
+int 
 zeffectivechar ( boolean errp , internalfontnumber f , quarterword c ) 
 {
-  /* 40 */ register integer Result; effectivechar_regmem 
-  integer basec  ;
-  integer result  ;
+  /* 40 */ register int Result; effectivechar_regmem 
+  int basec  ;
+  int result  ;
   result = c ;
   if ( ! mltexenabledp ) 
   goto lab40 ;
@@ -11253,13 +11253,13 @@ zeffectivechar ( boolean errp , internalfontnumber f , quarterword c )
   lab40: Result = result ;
   return Result ;
 } 
-integer 
+int 
 ztestnoligatures ( internalfontnumber f ) 
 {
-  /* 10 */ register integer Result; testnoligatures_regmem 
-  integer c  ;
+  /* 10 */ register int Result; testnoligatures_regmem 
+  int c  ;
   Result = 1 ;
-  {register integer for_end; c = fontbc [f ];for_end = fontec [f ]; if ( 
+  {register int for_end; c = fontbc [f ];for_end = fontec [f ]; if ( 
   c <= for_end) do 
     if ( ( fontinfo [charbase [f ]+ c ].qqqq .b0 > 0 ) ) {
 	
@@ -11272,10 +11272,10 @@ ztestnoligatures ( internalfontnumber f )
   while ( c++ < for_end ) ;} 
   return Result ;
 } 
-integer 
+int 
 zgettagcode ( internalfontnumber f , eightbits c ) 
 {
-  register integer Result; gettagcode_regmem 
+  register int Result; gettagcode_regmem 
   smallnumber i  ;
   if ( ( ( fontbc [f ]<= c ) && ( c <= fontec [f ]) && ( fontinfo [
   charbase [f ]+ c ].qqqq .b0 > 0 ) ) ) 
@@ -11336,7 +11336,7 @@ zfindfontdimen ( boolean writing )
 {
   findfontdimen_regmem 
   internalfontnumber f  ;
-  integer n  ;
+  int n  ;
   scanint () ;
   n = curval ;
   scanfontident () ;
@@ -11396,11 +11396,11 @@ zscansomethinginternal ( smallnumber level , boolean negative )
 {
   /* 10 20 */ scansomethinginternal_regmem 
   halfword m  ;
-  integer n, k  ;
+  int n, k  ;
   halfword q, r  ;
   halfword tx  ;
   fourquarters i  ;
-  integer p  ;
+  int p  ;
   lab20: m = curchr ;
   switch ( curcmd ) 
   {case 85 : 
@@ -11832,15 +11832,15 @@ zscansomethinginternal ( smallnumber level , boolean negative )
 	    curval = newspec ( m ) ;
 	    deleteglueref ( m ) ;
 	    {
-	      mem [curval + 1 ].cint = - (integer) mem [curval + 1 ].cint 
+	      mem [curval + 1 ].cint = - (int) mem [curval + 1 ].cint 
 	      ;
-	      mem [curval + 2 ].cint = - (integer) mem [curval + 2 ].cint 
+	      mem [curval + 2 ].cint = - (int) mem [curval + 2 ].cint 
 	      ;
-	      mem [curval + 3 ].cint = - (integer) mem [curval + 3 ].cint 
+	      mem [curval + 3 ].cint = - (int) mem [curval + 3 ].cint 
 	      ;
 	    } 
 	  } 
-	  else curval = - (integer) curval ;
+	  else curval = - (int) curval ;
 	} 
 	return ;
       } 
@@ -12000,7 +12000,7 @@ zscansomethinginternal ( smallnumber level , boolean negative )
 	  curval = 0 ;
 	  else if ( curif < 32 ) 
 	  curval = curif + 1 ;
-	  else curval = - (integer) ( curif - 31 ) ;
+	  else curval = - (int) ( curif - 31 ) ;
 	  break ;
 	case 25 : 
 	  if ( ( iflimit == 4 ) || ( iflimit == 3 ) ) 
@@ -12160,12 +12160,12 @@ zscansomethinginternal ( smallnumber level , boolean negative )
     {
       curval = newspec ( curval ) ;
       {
-	mem [curval + 1 ].cint = - (integer) mem [curval + 1 ].cint ;
-	mem [curval + 2 ].cint = - (integer) mem [curval + 2 ].cint ;
-	mem [curval + 3 ].cint = - (integer) mem [curval + 3 ].cint ;
+	mem [curval + 1 ].cint = - (int) mem [curval + 1 ].cint ;
+	mem [curval + 2 ].cint = - (int) mem [curval + 2 ].cint ;
+	mem [curval + 3 ].cint = - (int) mem [curval + 3 ].cint ;
       } 
     } 
-    else curval = - (integer) curval ;
+    else curval = - (int) curval ;
   } 
   else if ( ( curvallevel >= 2 ) && ( curvallevel <= 3 ) ) 
   incr ( mem [curval ].hh .v.RH ) ;
@@ -12175,7 +12175,7 @@ scanint ( void )
 {
   /* 30 20 */ scanint_regmem 
   boolean negative  ;
-  integer m  ;
+  int m  ;
   smallnumber d  ;
   boolean vacuous  ;
   boolean OKsofar  ;
@@ -12338,19 +12338,19 @@ scanint ( void )
     backinput () ;
   } 
   if ( negative ) 
-  curval = - (integer) curval ;
+  curval = - (int) curval ;
 } 
 void 
 zscandimen ( boolean mu , boolean inf , boolean shortcut ) 
 {
   /* 30 31 32 40 45 88 89 */ scandimen_regmem 
   boolean negative  ;
-  integer f  ;
-  integer num, denom  ;
+  int f  ;
+  int num, denom  ;
   smallnumber k, kk  ;
   halfword p, q  ;
   scaled v  ;
-  integer savecurval  ;
+  int savecurval  ;
   f = 0 ;
   aritherror = false ;
   curorder = 0 ;
@@ -12424,7 +12424,7 @@ zscandimen ( boolean mu , boolean inf , boolean shortcut )
 	  } 
 	} 
 	lab31: {
-	    register integer for_end; kk = k ;for_end = 1 ; if ( kk >= 
+	    register int for_end; kk = k ;for_end = 1 ; if ( kk >= 
 	for_end) do 
 	  {
 	    dig [kk - 1 ]= mem [p ].hh .v.LH ;
@@ -12449,7 +12449,7 @@ zscandimen ( boolean mu , boolean inf , boolean shortcut )
   if ( curval < 0 ) 
   {
     negative = ! negative ;
-    curval = - (integer) curval ;
+    curval = - (int) curval ;
   } 
   if ( inf ) {
       
@@ -12665,7 +12665,7 @@ zscandimen ( boolean mu , boolean inf , boolean shortcut )
     aritherror = false ;
   } 
   if ( negative ) 
-  curval = - (integer) curval ;
+  curval = - (int) curval ;
 } 
 void 
 zscanglue ( smallnumber level ) 
@@ -12704,7 +12704,7 @@ zscanglue ( smallnumber level )
     backinput () ;
     scandimen ( mu , false , false ) ;
     if ( negative ) 
-    curval = - (integer) curval ;
+    curval = - (int) curval ;
   } 
   q = newspec ( membot ) ;
   mem [q + 1 ].cint = curval ;
@@ -12722,13 +12722,13 @@ zscanglue ( smallnumber level )
   } 
   curval = q ;
 } 
-integer 
-zaddorsub ( integer x , integer y , integer maxanswer , boolean negative ) 
+int 
+zaddorsub ( int x , int y , int maxanswer , boolean negative ) 
 {
-  register integer Result; addorsub_regmem 
-  integer a  ;
+  register int Result; addorsub_regmem 
+  int a  ;
   if ( negative ) 
-  y = - (integer) y ;
+  y = - (int) y ;
   if ( x >= 0 ) {
       
     if ( y <= maxanswer - x ) 
@@ -12739,7 +12739,7 @@ zaddorsub ( integer x , integer y , integer maxanswer , boolean negative )
       a = 0 ;
     } 
   } 
-  else if ( y >= - (integer) maxanswer - x ) 
+  else if ( y >= - (int) maxanswer - x ) 
   a = x + y ;
   else {
       
@@ -12749,12 +12749,12 @@ zaddorsub ( integer x , integer y , integer maxanswer , boolean negative )
   Result = a ;
   return Result ;
 } 
-integer 
-zquotient ( integer n , integer d ) 
+int 
+zquotient ( int n , int d ) 
 {
-  register integer Result; quotient_regmem 
+  register int Result; quotient_regmem 
   boolean negative  ;
-  integer a  ;
+  int a  ;
   if ( d == 0 ) 
   {
     aritherror = true ;
@@ -12766,12 +12766,12 @@ zquotient ( integer n , integer d )
     negative = false ;
     else {
 	
-      d = - (integer) d ;
+      d = - (int) d ;
       negative = true ;
     } 
     if ( n < 0 ) 
     {
-      n = - (integer) n ;
+      n = - (int) n ;
       negative = ! negative ;
     } 
     a = n / d ;
@@ -12780,21 +12780,21 @@ zquotient ( integer n , integer d )
     if ( d + n >= 0 ) 
     incr ( a ) ;
     if ( negative ) 
-    a = - (integer) a ;
+    a = - (int) a ;
   } 
   Result = a ;
   return Result ;
 } 
-integer 
-zfract ( integer x , integer n , integer d , integer maxanswer ) 
+int 
+zfract ( int x , int n , int d , int maxanswer ) 
 {
-  /* 40 41 88 30 */ register integer Result; fract_regmem 
+  /* 40 41 88 30 */ register int Result; fract_regmem 
   boolean negative  ;
-  integer a  ;
-  integer f  ;
-  integer h  ;
-  integer r  ;
-  integer t  ;
+  int a  ;
+  int f  ;
+  int h  ;
+  int r  ;
+  int t  ;
   if ( d == 0 ) 
   goto lab88 ;
   a = 0 ;
@@ -12802,19 +12802,19 @@ zfract ( integer x , integer n , integer d , integer maxanswer )
   negative = false ;
   else {
       
-    d = - (integer) d ;
+    d = - (int) d ;
     negative = true ;
   } 
   if ( x < 0 ) 
   {
-    x = - (integer) x ;
+    x = - (int) x ;
     negative = ! negative ;
   } 
   else if ( x == 0 ) 
   goto lab30 ;
   if ( n < 0 ) 
   {
-    n = - (integer) n ;
+    n = - (int) n ;
     negative = ! negative ;
   } 
   t = n / d ;
@@ -12839,7 +12839,7 @@ zfract ( integer x , integer n , integer d , integer maxanswer )
   } 
   f = 0 ;
   r = ( d / 2 ) - d ;
-  h = - (integer) r ;
+  h = - (int) r ;
   while ( true ) {
       
     if ( odd ( n ) ) 
@@ -12875,7 +12875,7 @@ zfract ( integer x , integer n , integer d , integer maxanswer )
   goto lab88 ;
   a = a + f ;
   lab40: if ( negative ) 
-  a = - (integer) a ;
+  a = - (int) a ;
   goto lab30 ;
   lab88: {
       
@@ -12894,10 +12894,10 @@ scanexpr ( void )
   smallnumber r  ;
   smallnumber s  ;
   smallnumber o  ;
-  integer e  ;
-  integer t  ;
-  integer f  ;
-  integer n  ;
+  int e  ;
+  int t  ;
+  int f  ;
+  int n  ;
   halfword p  ;
   halfword q  ;
   l = curvallevel ;
@@ -13259,7 +13259,7 @@ pseudostart ( void )
   poolpointer l, m  ;
   halfword p, q, r  ;
   fourquarters w  ;
-  integer nl, sz  ;
+  int nl, sz  ;
   scangeneraltext () ;
   oldsetting = selector ;
   selector = 21 ;
@@ -13515,8 +13515,8 @@ convtoks ( void )
   halfword savedefref  ;
   halfword savewarningindex  ;
   boolean flag  ;
-  integer i  ;
-  integer j  ;
+  int i  ;
+  int j  ;
   poolpointer b  ;
   strnumber s  ;
   strnumber t  ;
@@ -14086,7 +14086,7 @@ convtoks ( void )
     {
       {
 	if ( pdffontnum [curval ]< 0 ) 
-	ff = - (integer) pdffontnum [curval ];
+	ff = - (int) pdffontnum [curval ];
 	else ff = curval ;
       } 
       if ( c == 9 ) 
@@ -14429,12 +14429,12 @@ zscantoks ( boolean macrodef , boolean xpand )
   return Result ;
 } 
 void 
-zreadtoks ( integer n , halfword r , halfword j ) 
+zreadtoks ( int n , halfword r , halfword j ) 
 {
   /* 30 */ readtoks_regmem 
   halfword p  ;
   halfword q  ;
-  integer s  ;
+  int s  ;
   smallnumber m  ;
   scannerstatus = 2 ;
   warningindex = r ;
@@ -14572,7 +14572,7 @@ void
 passtext ( void ) 
 {
   /* 30 */ passtext_regmem 
-  integer l  ;
+  int l  ;
   smallnumber savescannerstatus  ;
   savescannerstatus = scannerstatus ;
   scannerstatus = 1 ;
@@ -14625,7 +14625,7 @@ conditional ( void )
   boolean b  ;
   boolean e  ;
   unsigned char r  ;
-  integer m, n  ;
+  int m, n  ;
   halfword p, q  ;
   smallnumber savescannerstatus  ;
   halfword savecondptr  ;
@@ -14911,7 +14911,7 @@ conditional ( void )
       else scandimen ( false , false , false ) ;
       n = curval ;
       if ( n < 0 ) 
-      n = - (integer) n ;
+      n = - (int) n ;
       do {
 	  getxtoken () ;
       } while ( ! ( curcmd != 10 ) ) ;
@@ -14939,7 +14939,7 @@ conditional ( void )
       scanint () ;
       else scandimen ( false , false , false ) ;
       if ( curval < 0 ) 
-      curval = - (integer) curval ;
+      curval = - (int) curval ;
       switch ( r ) 
       {case 60 : 
 	b = ( n < curval ) ;
@@ -15143,12 +15143,12 @@ endname ( void )
     } 
     if ( mustquote ) 
     {
-      {register integer for_end; j = poolptr - 1 ;for_end = t ; if ( j >= 
+      {register int for_end; j = poolptr - 1 ;for_end = t ; if ( j >= 
       for_end) do 
 	strpool [j + 2 ]= strpool [j ];
       while ( j-- > for_end ) ;} 
       strpool [t + 1 ]= 34 ;
-      {register integer for_end; j = t - 1 ;for_end = s ; if ( j >= for_end) 
+      {register int for_end; j = t - 1 ;for_end = s ; if ( j >= for_end) 
       do 
 	strpool [j + 1 ]= strpool [j ];
       while ( j-- > for_end ) ;} 
@@ -15172,12 +15172,12 @@ endname ( void )
   } 
   if ( mustquote ) 
   {
-    {register integer for_end; j = poolptr - 1 ;for_end = t ; if ( j >= 
+    {register int for_end; j = poolptr - 1 ;for_end = t ; if ( j >= 
     for_end) do 
       strpool [j + 2 ]= strpool [j ];
     while ( j-- > for_end ) ;} 
     strpool [t + 1 ]= 34 ;
-    {register integer for_end; j = t - 1 ;for_end = s ; if ( j >= for_end) 
+    {register int for_end; j = t - 1 ;for_end = s ; if ( j >= for_end) 
     do 
       strpool [j + 1 ]= strpool [j ];
     while ( j-- > for_end ) ;} 
@@ -15200,7 +15200,7 @@ endname ( void )
     if ( mustquote ) 
     {
       strpool [t + 1 ]= 34 ;
-      {register integer for_end; j = t - 1 ;for_end = s ; if ( j >= for_end) 
+      {register int for_end; j = t - 1 ;for_end = s ; if ( j >= for_end) 
       do 
 	strpool [j + 1 ]= strpool [j ];
       while ( j-- > for_end ) ;} 
@@ -15220,7 +15220,7 @@ endname ( void )
     {
       curarea = tempstr ;
       decr ( strptr ) ;
-      {register integer for_end; j = strstart [strptr + 1 ];for_end = 
+      {register int for_end; j = strstart [strptr + 1 ];for_end = 
       poolptr - 1 ; if ( j <= for_end) do 
 	{
 	  strpool [j - areadelimiter ]= strpool [j ];
@@ -15247,7 +15247,7 @@ endname ( void )
     {
       curname = tempstr ;
       decr ( strptr ) ;
-      {register integer for_end; j = strstart [strptr + 1 ];for_end = 
+      {register int for_end; j = strstart [strptr + 1 ];for_end = 
       poolptr - 1 ; if ( j <= for_end) do 
 	{
 	  strpool [j - extdelimiter + areadelimiter + 1 ]= strpool [j ];
@@ -15262,7 +15262,7 @@ void
 zpackfilename ( strnumber n , strnumber a , strnumber e ) 
 {
   packfilename_regmem 
-  integer k  ;
+  int k  ;
   ASCIIcode c  ;
   poolpointer j  ;
   k = 0 ;
@@ -15271,7 +15271,7 @@ zpackfilename ( strnumber n , strnumber a , strnumber e )
   nameoffile = xmallocarray ( ASCIIcode , ( strstart [a + 1 ]- strstart [a 
   ]) + ( strstart [n + 1 ]- strstart [n ]) + ( strstart [e + 1 ]- 
   strstart [e ]) + 1 ) ;
-  {register integer for_end; j = strstart [a ];for_end = strstart [a + 1 
+  {register int for_end; j = strstart [a ];for_end = strstart [a + 1 
   ]- 1 ; if ( j <= for_end) do 
     {
       c = strpool [j ];
@@ -15283,7 +15283,7 @@ zpackfilename ( strnumber n , strnumber a , strnumber e )
       } 
     } 
   while ( j++ < for_end ) ;} 
-  {register integer for_end; j = strstart [n ];for_end = strstart [n + 1 
+  {register int for_end; j = strstart [n ];for_end = strstart [n + 1 
   ]- 1 ; if ( j <= for_end) do 
     {
       c = strpool [j ];
@@ -15295,7 +15295,7 @@ zpackfilename ( strnumber n , strnumber a , strnumber e )
       } 
     } 
   while ( j++ < for_end ) ;} 
-  {register integer for_end; j = strstart [e ];for_end = strstart [e + 1 
+  {register int for_end; j = strstart [e ];for_end = strstart [e + 1 
   ]- 1 ; if ( j <= for_end) do 
     {
       c = strpool [j ];
@@ -15313,19 +15313,19 @@ zpackfilename ( strnumber n , strnumber a , strnumber e )
   nameoffile [namelength + 1 ]= 0 ;
 } 
 void 
-zpackbufferedname ( smallnumber n , integer a , integer b ) 
+zpackbufferedname ( smallnumber n , int a , int b ) 
 {
   packbufferedname_regmem 
-  integer k  ;
+  int k  ;
   ASCIIcode c  ;
-  integer j  ;
+  int j  ;
   if ( n + b - a + 5 > maxint ) 
   b = a + maxint - n - 5 ;
   k = 0 ;
   if ( nameoffile ) 
   libcfree ( nameoffile ) ;
   nameoffile = xmallocarray ( ASCIIcode , n + ( b - a + 1 ) + 5 ) ;
-  {register integer for_end; j = 1 ;for_end = n ; if ( j <= for_end) do 
+  {register int for_end; j = 1 ;for_end = n ; if ( j <= for_end) do 
     {
       c = xord [ucharcast ( TEXformatdefault [j ]) ];
       if ( ! ( c == 34 ) ) 
@@ -15336,7 +15336,7 @@ zpackbufferedname ( smallnumber n , integer a , integer b )
       } 
     } 
   while ( j++ < for_end ) ;} 
-  {register integer for_end; j = a ;for_end = b ; if ( j <= for_end) do 
+  {register int for_end; j = a ;for_end = b ; if ( j <= for_end) do 
     {
       c = buffer [j ];
       if ( ! ( c == 34 ) ) 
@@ -15347,7 +15347,7 @@ zpackbufferedname ( smallnumber n , integer a , integer b )
       } 
     } 
   while ( j++ < for_end ) ;} 
-  {register integer for_end; j = formatdefaultlength - 3 ;for_end = 
+  {register int for_end; j = formatdefaultlength - 3 ;for_end = 
   formatdefaultlength ; if ( j <= for_end) do 
     {
       c = xord [ucharcast ( TEXformatdefault [j ]) ];
@@ -15368,7 +15368,7 @@ strnumber
 makenamestring ( void ) 
 {
   register strnumber Result; makenamestring_regmem 
-  integer k  ;
+  int k  ;
   poolpointer saveareadelimiter, saveextdelimiter  ;
   boolean savenameinprogress, savestopatspace  ;
   if ( ( poolptr + namelength > poolsize ) || ( strptr == maxstrings ) || ( ( 
@@ -15376,7 +15376,7 @@ makenamestring ( void )
   Result = 63 ;
   else {
       
-    {register integer for_end; k = 1 ;for_end = namelength ; if ( k <= 
+    {register int for_end; k = 1 ;for_end = namelength ; if ( k <= 
     for_end) do 
       {
 	strpool [poolptr ]= xord [nameoffile [k ]];
@@ -15475,7 +15475,7 @@ void
 zpromptfilename ( strnumber s , strnumber e ) 
 {
   /* 30 */ promptfilename_regmem 
-  integer k  ;
+  int k  ;
   strnumber savedcurname  ;
   strnumber savedcurext  ;
   strnumber savedcurarea  ;
@@ -15555,8 +15555,8 @@ openlogfile ( void )
 {
   openlogfile_regmem 
   unsigned char oldsetting  ;
-  integer k  ;
-  integer l  ;
+  int k  ;
+  int l  ;
   constcstring months  ;
   oldsetting = selector ;
   if ( jobname == 0 ) 
@@ -15583,7 +15583,7 @@ openlogfile ( void )
     printint ( eqtb [29298 ].cint ) ;
     printchar ( 32 ) ;
     months = " JANFEBMARAPRMAYJUNJULAUGSEPOCTNOVDEC" ;
-    {register integer for_end; k = 3 * eqtb [29299 ].cint - 2 ;for_end = 3 
+    {register int for_end; k = 3 * eqtb [29299 ].cint - 2 ;for_end = 3 
     * eqtb [29299 ].cint ; if ( k <= for_end) do 
       putc ( months [k ],  logfile );
     while ( k++ < for_end ) ;} 
@@ -15653,7 +15653,7 @@ openlogfile ( void )
   l = inputstack [0 ].limitfield ;
   if ( buffer [l ]== eqtb [29325 ].cint ) 
   decr ( l ) ;
-  {register integer for_end; k = 1 ;for_end = l ; if ( k <= for_end) do 
+  {register int for_end; k = 1 ;for_end = l ; if ( k <= for_end) do 
     print ( buffer [k ]) ;
   while ( k++ < for_end ) ;} 
   println () ;
@@ -15725,7 +15725,7 @@ zeffectivecharinfo ( internalfontnumber f , quarterword c )
 {
   /* 10 */ register fourquarters Result; effectivecharinfo_regmem 
   fourquarters ci  ;
-  integer basec  ;
+  int basec  ;
   if ( ! mltexenabledp ) 
   {
     Result = fontinfo [charbase [f ]+ c ].qqqq ;
@@ -15781,10 +15781,10 @@ zreadfontinfo ( halfword u , strnumber nom , strnumber aire , scaled s )
   eightbits a, b, c, d  ;
   fourquarters qw  ;
   scaled sw  ;
-  integer bchlabel  ;
+  int bchlabel  ;
   short bchar  ;
   scaled z  ;
-  integer alpha  ;
+  int alpha  ;
   unsigned char beta  ;
   g = 0 ;
   fileopened = false ;
@@ -15930,7 +15930,7 @@ zreadfontinfo ( halfword u , strnumber nom , strnumber aire , scaled s )
     else if ( s != -1000 ) 
     {
       print ( 960 ) ;
-      printint ( - (integer) s ) ;
+      printint ( - (int) s ) ;
     } 
     print ( 969 ) ;
     {
@@ -15998,11 +15998,11 @@ zreadfontinfo ( halfword u , strnumber nom , strnumber aire , scaled s )
 	
       if ( s >= 0 ) 
       z = s ;
-      else z = xnoverd ( z , - (integer) s , 1000 ) ;
+      else z = xnoverd ( z , - (int) s , 1000 ) ;
     } 
     fontsize [f ]= z ;
   } 
-  {register integer for_end; k = fmemptr ;for_end = widthbase [f ]- 1 
+  {register int for_end; k = fmemptr ;for_end = widthbase [f ]- 1 
   ; if ( k <= for_end) do 
     {
       {
@@ -16069,7 +16069,7 @@ zreadfontinfo ( halfword u , strnumber nom , strnumber aire , scaled s )
       beta = 256 / alpha ;
       alpha = alpha * z ;
     } 
-    {register integer for_end; k = widthbase [f ];for_end = ligkernbase [
+    {register int for_end; k = widthbase [f ];for_end = ligkernbase [
     f ]- 1 ; if ( k <= for_end) do 
       {
 	tfmtemp = getc ( tfmfile ) ;
@@ -16102,7 +16102,7 @@ zreadfontinfo ( halfword u , strnumber nom , strnumber aire , scaled s )
   bchar = 256 ;
   if ( nl > 0 ) 
   {
-    {register integer for_end; k = ligkernbase [f ];for_end = kernbase [f 
+    {register int for_end; k = ligkernbase [f ];for_end = kernbase [f 
     ]+ 256 * ( 128 ) - 1 ; if ( k <= for_end) do 
       {
 	{
@@ -16165,7 +16165,7 @@ zreadfontinfo ( halfword u , strnumber nom , strnumber aire , scaled s )
     if ( a == 255 ) 
     bchlabel = 256 * c + d ;
   } 
-  {register integer for_end; k = kernbase [f ]+ 256 * ( 128 ) ;for_end = 
+  {register int for_end; k = kernbase [f ]+ 256 * ( 128 ) ;for_end = 
   extenbase [f ]- 1 ; if ( k <= for_end) do 
     {
       tfmtemp = getc ( tfmfile ) ;
@@ -16185,7 +16185,7 @@ zreadfontinfo ( halfword u , strnumber nom , strnumber aire , scaled s )
       else goto lab11 ;
     } 
   while ( k++ < for_end ) ;} 
-  {register integer for_end; k = extenbase [f ];for_end = parambase [f ]
+  {register int for_end; k = extenbase [f ];for_end = parambase [f ]
   - 1 ; if ( k <= for_end) do 
     {
       {
@@ -16245,7 +16245,7 @@ zreadfontinfo ( halfword u , strnumber nom , strnumber aire , scaled s )
     } 
   while ( k++ < for_end ) ;} 
   {
-    {register integer for_end; k = 1 ;for_end = np ; if ( k <= for_end) do 
+    {register int for_end; k = 1 ;for_end = np ; if ( k <= for_end) do 
       if ( k == 1 ) 
       {
 	tfmtemp = getc ( tfmfile ) ;
@@ -16280,7 +16280,7 @@ zreadfontinfo ( halfword u , strnumber nom , strnumber aire , scaled s )
     while ( k++ < for_end ) ;} 
     if ( feof ( tfmfile ) ) 
     goto lab11 ;
-    {register integer for_end; k = np + 1 ;for_end = 7 ; if ( k <= for_end) 
+    {register int for_end; k = np + 1 ;for_end = 7 ; if ( k <= for_end) 
     do 
       fontinfo [parambase [f ]+ k - 1 ].cint = 0 ;
     while ( k++ < for_end ) ;} 
@@ -16340,7 +16340,7 @@ zreadfontinfo ( halfword u , strnumber nom , strnumber aire , scaled s )
   else if ( s != -1000 ) 
   {
     print ( 960 ) ;
-    printint ( - (integer) s ) ;
+    printint ( - (int) s ) ;
   } 
   if ( fileopened ) 
   print ( 961 ) ;
@@ -16367,7 +16367,7 @@ zstorescaledf ( scaled sq , scaled z )
   register scaled Result; storescaledf_regmem 
   eightbits a, b, c, d  ;
   scaled sw  ;
-  integer alpha  ;
+  int alpha  ;
   unsigned char beta  ;
   alpha = 16 ;
   if ( z >= 134217728L ) 
@@ -16412,7 +16412,7 @@ void
 zcharwarning ( internalfontnumber f , eightbits c ) 
 {
   charwarning_regmem 
-  integer oldsetting  ;
+  int oldsetting  ;
   if ( eqtb [29312 ].cint > 0 ) 
   {
     oldsetting = eqtb [29306 ].cint ;
@@ -16501,7 +16501,7 @@ dviswap ( void )
   dvigone = dvigone + halfbuf ;
 } 
 void 
-zdvifour ( integer x ) 
+zdvifour ( int x ) 
 {
   dvifour_regmem 
   if ( x >= 0 ) 
@@ -16544,7 +16544,7 @@ zdvifour ( integer x )
   } 
 } 
 void 
-zdvipop ( integer l ) 
+zdvipop ( int l ) 
 {
   dvipop_regmem 
   if ( ( l == dvioffset + dviptr ) && ( dviptr > 0 ) ) 
@@ -16638,7 +16638,7 @@ zdvifontdef ( internalfontnumber f )
     if ( dviptr == dvilimit ) 
     dviswap () ;
   } 
-  {register integer for_end; k = strstart [fontarea [f ]];for_end = 
+  {register int for_end; k = strstart [fontarea [f ]];for_end = 
   strstart [fontarea [f ]+ 1 ]- 1 ; if ( k <= for_end) do 
     {
       dvibuf [dviptr ]= strpool [k ];
@@ -16647,7 +16647,7 @@ zdvifontdef ( internalfontnumber f )
       dviswap () ;
     } 
   while ( k++ < for_end ) ;} 
-  {register integer for_end; k = strstart [fontname [f ]];for_end = 
+  {register int for_end; k = strstart [fontname [f ]];for_end = 
   strstart [fontname [f ]+ 1 ]- 1 ; if ( k <= for_end) do 
     {
       dvibuf [dviptr ]= strpool [k ];
@@ -16663,7 +16663,7 @@ zmovement ( scaled w , eightbits o )
   /* 10 40 45 2 1 */ movement_regmem 
   smallnumber mstate  ;
   halfword p, q  ;
-  integer k  ;
+  int k  ;
   q = getnode ( 3 ) ;
   mem [q + 1 ].cint = w ;
   mem [q + 2 ].cint = dvioffset + dviptr ;
@@ -16860,7 +16860,7 @@ zmovement ( scaled w , eightbits o )
   } 
 } 
 void 
-zprunemovements ( integer l ) 
+zprunemovements ( int l ) 
 {
   /* 30 10 */ prunemovements_regmem 
   halfword p  ;
@@ -16951,11 +16951,11 @@ zspecialout ( halfword p )
     dvifour ( ( poolptr - strstart [strptr ]) ) ;
   } 
   if ( ( eqtb [29338 ].cint == 1 ) || ( eqtb [29338 ].cint == 3 ) ) 
-  {register integer for_end; k = strstart [strptr ];for_end = poolptr - 1 
+  {register int for_end; k = strstart [strptr ];for_end = poolptr - 1 
   ; if ( k <= for_end) do 
     strpool [k ]= xchr [strpool [k ]];
   while ( k++ < for_end ) ;} 
-  {register integer for_end; k = strstart [strptr ];for_end = poolptr - 1 
+  {register int for_end; k = strstart [strptr ];for_end = poolptr - 1 
   ; if ( k <= for_end) do 
     {
       dvibuf [dviptr ]= strpool [k ];
@@ -16977,12 +16977,12 @@ zwriteout ( halfword p )
 {
   writeout_regmem 
   unsigned char oldsetting  ;
-  integer oldmode  ;
+  int oldmode  ;
   smallnumber j  ;
   halfword q, r  ;
-  integer d  ;
+  int d  ;
   boolean clobbered  ;
-  integer runsystemret  ;
+  int runsystemret  ;
   mubytesout = eqtb [29336 ].cint ;
   eqtb [29336 ].cint = mem [p + 1 ].hh.b1 - 64 ;
   if ( ( eqtb [29336 ].cint > 2 ) || ( eqtb [29336 ].cint == -1 ) || ( 
@@ -17060,7 +17060,7 @@ zwriteout ( halfword p )
     if ( ! logopened ) 
     selector = 17 ;
     printnl ( 1917 ) ;
-    {register integer for_end; d = 0 ;for_end = ( poolptr - strstart [
+    {register int for_end; d = 0 ;for_end = ( poolptr - strstart [
     strptr ]) - 1 ; if ( d <= for_end) do 
       {
 	print ( strpool [strstart [strptr ]+ d ]) ;
@@ -17078,7 +17078,7 @@ zwriteout ( halfword p )
 	incr ( poolptr ) ;
       } 
       clobbered = false ;
-      {register integer for_end; d = 0 ;for_end = ( poolptr - strstart [
+      {register int for_end; d = 0 ;for_end = ( poolptr - strstart [
       strptr ]) - 1 ; if ( d <= for_end) do 
 	{
 	  strpool [strstart [strptr ]+ d ]= xchr [strpool [strstart [
@@ -17204,7 +17204,7 @@ znewedge ( smallnumber s , scaled w )
   return Result ;
 } 
 halfword 
-zzreverse ( halfword thisbox , halfword t , scaled * curg , real * curglue ) 
+zzreverse ( halfword thisbox , halfword t , scaled * curg , double * curglue ) 
 {
   /* 21 15 30 */ register halfword Result; reverse_regmem 
   halfword l  ;
@@ -17212,7 +17212,7 @@ zzreverse ( halfword thisbox , halfword t , scaled * curg , real * curglue )
   halfword q  ;
   glueord gorder  ;
   unsigned char gsign  ;
-  real gluetemp  ;
+  double gluetemp  ;
   halfword m, n  ;
   gorder = mem [thisbox + 5 ].hh.b1 ;
   gsign = mem [thisbox + 5 ].hh.b0 ;
@@ -17351,7 +17351,7 @@ zzreverse ( halfword thisbox , halfword t , scaled * curg , real * curglue )
 		  freenode ( p , 4 ) ;
 		  mem [t ].hh .v.RH = q ;
 		  mem [t + 1 ].cint = rulewd ;
-		  mem [t + 2 ].cint = - (integer) curh - rulewd ;
+		  mem [t + 2 ].cint = - (int) curh - rulewd ;
 		  goto lab30 ;
 		} 
 	      } 
@@ -17420,15 +17420,15 @@ hlistout ( void )
   glueord gorder  ;
   unsigned char gsign  ;
   halfword p  ;
-  integer saveloc  ;
+  int saveloc  ;
   halfword leaderbox  ;
   scaled leaderwd  ;
   scaled lx  ;
   boolean outerdoingleaders  ;
   scaled edge  ;
   halfword prevp  ;
-  real gluetemp  ;
-  real curglue  ;
+  double gluetemp  ;
+  double curglue  ;
   scaled curg  ;
   curg = 0 ;
   curglue = 0.0 ;
@@ -17476,7 +17476,7 @@ hlistout ( void )
       curh = 0 ;
       mem [p ].hh .v.RH = reverse ( thisbox , -268435455L , curg , curglue ) 
       ;
-      mem [p + 1 ].cint = - (integer) curh ;
+      mem [p + 1 ].cint = - (int) curh ;
       curh = saveh ;
       mem [thisbox ].hh.b1 = 1 ;
     } 
@@ -17708,7 +17708,7 @@ hlistout ( void )
 	} 
 	curh = curh + accentwidth ;
 	dvih = curh ;
-	curh = curh + ( - (integer) accentwidth - delta ) ;
+	curh = curh + ( - (int) accentwidth - delta ) ;
 	if ( curh != dvih ) 
 	{
 	  movement ( curh - dvih , 143 ) ;
@@ -18100,14 +18100,14 @@ vlistout ( void )
   glueord gorder  ;
   unsigned char gsign  ;
   halfword p  ;
-  integer saveloc  ;
+  int saveloc  ;
   halfword leaderbox  ;
   scaled leaderht  ;
   scaled lx  ;
   boolean outerdoingleaders  ;
   scaled edge  ;
-  real gluetemp  ;
-  real curglue  ;
+  double gluetemp  ;
+  double curglue  ;
   scaled curg  ;
   curg = 0 ;
   curglue = 0.0 ;
@@ -18341,7 +18341,7 @@ void
 zdvishipout ( halfword p ) 
 {
   /* 30 */ dvishipout_regmem 
-  integer pageloc  ;
+  int pageloc  ;
   unsigned char j, k  ;
   poolpointer s  ;
   unsigned char oldsetting  ;
@@ -18360,7 +18360,7 @@ zdvishipout ( halfword p )
     printchar ( 91 ) ;
     j = 9 ;
     while ( ( eqtb [29384 + j ].cint == 0 ) && ( j > 0 ) ) decr ( j ) ;
-    {register integer for_end; k = 0 ;for_end = j ; if ( k <= for_end) do 
+    {register int for_end; k = 0 ;for_end = j ; if ( k <= for_end) do 
       {
 	printint ( eqtb [29384 + k ].cint ) ;
 	if ( k < j ) 
@@ -18456,7 +18456,7 @@ zdvishipout ( halfword p )
 	  if ( dviptr == dvilimit ) 
 	  dviswap () ;
 	} 
-	{register integer for_end; s = 0 ;for_end = l - 1 ; if ( s <= 
+	{register int for_end; s = 0 ;for_end = l - 1 ; if ( s <= 
 	for_end) do 
 	  {
 	    dvibuf [dviptr ]= outputcomment [s ];
@@ -18486,7 +18486,7 @@ zdvishipout ( halfword p )
 	  if ( dviptr == dvilimit ) 
 	  dviswap () ;
 	} 
-	{register integer for_end; s = strstart [strptr ];for_end = 
+	{register int for_end; s = strstart [strptr ];for_end = 
 	poolptr - 1 ; if ( s <= for_end) do 
 	  {
 	    dvibuf [dviptr ]= strpool [s ];
@@ -18505,7 +18505,7 @@ zdvishipout ( halfword p )
       if ( dviptr == dvilimit ) 
       dviswap () ;
     } 
-    {register integer for_end; k = 0 ;for_end = 9 ; if ( k <= for_end) do 
+    {register int for_end; k = 0 ;for_end = 9 ; if ( k <= for_end) do 
       dvifour ( eqtb [29384 + k ].cint ) ;
     while ( k++ < for_end ) ;} 
     dvifour ( lastbop ) ;
@@ -18602,38 +18602,38 @@ zdvishipout ( halfword p )
   } 
   synctexteehs () ;
 } 
-integer 
+int 
 getpdfcompresslevel ( void ) 
 {
-  register integer Result; getpdfcompresslevel_regmem 
+  register int Result; getpdfcompresslevel_regmem 
   Result = eqtb [29340 ].cint ;
   return Result ;
 } 
-integer 
+int 
 getpdfsuppresswarningdupmap ( void ) 
 {
-  register integer Result; getpdfsuppresswarningdupmap_regmem 
+  register int Result; getpdfsuppresswarningdupmap_regmem 
   Result = eqtb [29368 ].cint ;
   return Result ;
 } 
-integer 
+int 
 getpdfsuppresswarningpagegroup ( void ) 
 {
-  register integer Result; getpdfsuppresswarningpagegroup_regmem 
+  register int Result; getpdfsuppresswarningpagegroup_regmem 
   Result = eqtb [29369 ].cint ;
   return Result ;
 } 
-integer 
+int 
 getpdfsuppressptexinfo ( void ) 
 {
-  register integer Result; getpdfsuppressptexinfo_regmem 
+  register int Result; getpdfsuppressptexinfo_regmem 
   Result = eqtb [29371 ].cint ;
   return Result ;
 } 
-integer 
+int 
 getpdfomitcharset ( void ) 
 {
-  register integer Result; getpdfomitcharset_regmem 
+  register int Result; getpdfomitcharset_regmem 
   Result = eqtb [29372 ].cint ;
   return Result ;
 } 
@@ -18665,15 +18665,15 @@ getnullptr ( void )
   Result = -268435455L ;
   return Result ;
 } 
-integer 
-zgettexint ( integer code ) 
+int 
+zgettexint ( int code ) 
 {
-  register integer Result; gettexint_regmem 
+  register int Result; gettexint_regmem 
   Result = eqtb [29277 + code ].cint ;
   return Result ;
 } 
 scaled 
-zgettexdimen ( integer code ) 
+zgettexdimen ( int code ) 
 {
   register scaled Result; gettexdimen_regmem 
   Result = eqtb [29896 + code ].cint ;
@@ -18741,11 +18741,11 @@ newdummyfont ( void )
   return Result ;
 } 
 void 
-zshortdisplayn ( integer p , integer m ) 
+zshortdisplayn ( int p , int m ) 
 {
   shortdisplayn_regmem 
-  integer n  ;
-  integer i  ;
+  int n  ;
+  int i  ;
   i = 0 ;
   fontinshortdisplay = 0 ;
   if ( p == -268435455L ) 
@@ -18839,11 +18839,11 @@ zshortdisplayn ( integer p , integer m )
   } 
   fflush ( stdout ) ;
 } 
-integer 
-zpdfgetmem ( integer s ) 
+int 
+zpdfgetmem ( int s ) 
 {
-  register integer Result; pdfgetmem_regmem 
-  integer a  ;
+  register int Result; pdfgetmem_regmem 
+  int a  ;
   if ( s > suppdfmemsize - pdfmemptr ) 
   overflow ( 1005 , pdfmemsize ) ;
   if ( pdfmemptr + s > pdfmemsize ) 
@@ -18854,16 +18854,16 @@ zpdfgetmem ( integer s )
     else if ( pdfmemsize < suppdfmemsize - a ) 
     pdfmemsize = pdfmemsize + a ;
     else pdfmemsize = suppdfmemsize ;
-    pdfmem = xreallocarray ( pdfmem , integer , pdfmemsize ) ;
+    pdfmem = xreallocarray ( pdfmem , int , pdfmemsize ) ;
   } 
   Result = pdfmemptr ;
   pdfmemptr = pdfmemptr + s ;
   return Result ;
 } 
-integer 
-zfixint ( integer val , integer min , integer max ) 
+int 
+zfixint ( int val , int min , int max ) 
 {
-  register integer Result; fixint_regmem 
+  register int Result; fixint_regmem 
   if ( val < min ) 
   Result = min ;
   else if ( val > max ) 
@@ -19255,7 +19255,7 @@ zadvcharwidth ( internalfontnumber f , eightbits c )
 {
   advcharwidth_regmem 
   scaled w, sout  ;
-  integer s  ;
+  int s  ;
   w = fontinfo [widthbase [f ]+ fontinfo [charbase [f ]+ effectivechar ( 
   true , f , c ) ].qqqq .b0 ].cint ;
   if ( isscalable ( f ) ) 
@@ -19275,14 +19275,14 @@ zadvcharwidth ( internalfontnumber f , eightbits c )
       sout = roundxnoverd ( roundxnoverd ( pdffontsize [f ], abs ( s ) , 
       10000 ) , 1000 + pdfcurTma , 1000 ) ;
       if ( s < 0 ) 
-      sout = - (integer) sout ;
+      sout = - (int) sout ;
       pdfdeltah = pdfdeltah + sout ;
     } 
   } 
   else pdfdeltah = pdfdeltah + getpkcharwidth ( f , w ) ;
 } 
 void 
-zpdfprintreal ( integer m , integer d ) 
+zpdfprintreal ( int m , int d ) 
 {
   pdfprintreal_regmem 
   if ( m < 0 ) 
@@ -19301,7 +19301,7 @@ zpdfprintreal ( integer m , integer d )
 	incr ( pdfptr ) ;
       } 
     } 
-    m = - (integer) m ;
+    m = - (int) m ;
   } 
   pdfprintint ( m / tenpow [d ]) ;
   m = m % tenpow [d ];
@@ -19491,7 +19491,7 @@ void
 zpdfsettextmatrix ( scaled v , scaled vout , internalfontnumber f ) 
 {
   pdfsettextmatrix_regmem 
-  integer pdfnewTma  ;
+  int pdfnewTma  ;
   {
     {
       if ( pdfosmode && ( 1 + pdfptr > pdfbufsize ) ) 
@@ -19563,7 +19563,7 @@ zpdfsettextmatrix ( scaled v , scaled vout , internalfontnumber f )
   pdfdeltah = 0 ;
 } 
 void 
-zpdfusefont ( internalfontnumber f , integer fontnum ) 
+zpdfusefont ( internalfontnumber f , int fontnum ) 
 {
   pdfusefont_regmem 
   {
@@ -19573,7 +19573,7 @@ zpdfusefont ( internalfontnumber f , integer fontnum )
   pdffontsize [f ]= scaledout ;
   fontused [f ]= true ;
   pdfassert ( ( fontnum > 0 ) || ( ( fontnum < 0 ) && ( pdffontnum [
-  - (integer) fontnum ]> 0 ) ) ) ;
+  - (int) fontnum ]> 0 ) ) ) ;
   pdffontnum [f ]= fontnum ;
   if ( eqtb [29342 ].cint > 0 ) 
   {
@@ -19586,7 +19586,7 @@ zpdfinitfont ( internalfontnumber f )
 {
   pdfinitfont_regmem 
   internalfontnumber k, b  ;
-  integer i  ;
+  int i  ;
   pdfassert ( ! fontused [f ]) ;
   if ( pdffontautoexpand [f ]&& ( pdffontblink [f ]!= 0 ) ) 
   {
@@ -19611,7 +19611,7 @@ zpdfinitfont ( internalfontnumber f )
 	pdfassert ( pdffontnum [k ]!= 0 ) ;
 	if ( pdffontnum [k ]< 0 ) 
 	pdfusefont ( f , pdffontnum [k ]) ;
-	else pdfusefont ( f , - (integer) k ) ;
+	else pdfusefont ( f , - (int) k ) ;
 	return ;
       } 
       i = objtab [i ].int1 ;
@@ -19636,7 +19636,7 @@ zpdfsetfont ( internalfontnumber f )
   pdfinitfont ( f ) ;
   {
     if ( pdffontnum [f ]< 0 ) 
-    ff = - (integer) pdffontnum [f ];
+    ff = - (int) pdffontnum [f ];
     else ff = f ;
   } 
   k = ff ;
@@ -19645,7 +19645,7 @@ zpdfsetfont ( internalfontnumber f )
       
     {
       if ( pdffontnum [mem [p ].hh .v.LH ]< 0 ) 
-      ff = - (integer) pdffontnum [mem [p ].hh .v.LH ];
+      ff = - (int) pdffontnum [mem [p ].hh .v.LH ];
       else ff = mem [p ].hh .v.LH ;
     } 
     if ( ff == k ) 
@@ -19733,7 +19733,7 @@ zpdfbeginstring ( internalfontnumber f )
 {
   pdfbeginstring_regmem 
   scaled sout, v, vout  ;
-  integer s  ;
+  int s  ;
   boolean mustendstring  ;
   boolean mustinsertspace  ;
   if ( ! pdfdoingtext ) 
@@ -19758,7 +19758,7 @@ zpdfbeginstring ( internalfontnumber f )
       sout = roundxnoverd ( roundxnoverd ( pdffontsize [f ], abs ( s ) , 
       1000 ) , 1000 + pdfcurTma , 1000 ) ;
       if ( s < 0 ) 
-      sout = - (integer) sout ;
+      sout = - (int) sout ;
     } 
   } 
   if ( abs ( curv - pdfv ) >= minbpval ) 
@@ -19833,7 +19833,7 @@ zpdfbeginstring ( internalfontnumber f )
 	incr ( pdfptr ) ;
       } 
     } 
-    pdfprintint ( - (integer) s ) ;
+    pdfprintint ( - (int) s ) ;
     {
       {
 	if ( pdfosmode && ( 1 + pdfptr > pdfbufsize ) ) 
@@ -19856,7 +19856,7 @@ void
 pdfinsertfakespace ( void ) 
 {
   pdfinsertfakespace_regmem 
-  integer s  ;
+  int s  ;
   s = genfakedinterwordspace ;
   genfakedinterwordspace = 0 ;
   pdfreaddummyfont () ;
@@ -20091,7 +20091,7 @@ zpdfrectangle ( scaled left , scaled top , scaled right , scaled bottom )
   } 
 } 
 void 
-zslowprintsubstr ( integer s , integer maxlen ) 
+zslowprintsubstr ( int s , int maxlen ) 
 {
   slowprintsubstr_regmem 
   poolpointer j  ;
@@ -20110,7 +20110,7 @@ zslowprintsubstr ( integer s , integer maxlen )
   print ( 277 ) ;
 } 
 void 
-zliteral ( strnumber s , integer literalmode , boolean warn ) 
+zliteral ( strnumber s , int literalmode , boolean warn ) 
 {
   literal_regmem 
   poolpointer j  ;
@@ -20194,10 +20194,10 @@ zliteral ( strnumber s , integer literalmode , boolean warn )
   } 
 } 
 void 
-zpdfprintfwint ( longinteger n , integer w ) 
+zpdfprintfwint ( longinteger n , int w ) 
 {
   pdfprintfwint_regmem 
-  integer k  ;
+  int k  ;
   k = 0 ;
   do {
       dig [k ]= n % 10 ;
@@ -20222,11 +20222,11 @@ zpdfprintfwint ( longinteger n , integer w )
   } 
 } 
 void 
-zpdfoutbytes ( longinteger n , integer w ) 
+zpdfoutbytes ( longinteger n , int w ) 
 {
   pdfoutbytes_regmem 
-  integer k  ;
-  integer byte[8]  ;
+  int k  ;
+  int byte[8]  ;
   k = 0 ;
   do {
       byte [k ]= n % 256 ;
@@ -20251,7 +20251,7 @@ zpdfoutbytes ( longinteger n , integer w )
   } 
 } 
 void 
-zpdfintentry ( strnumber s , integer v ) 
+zpdfintentry ( strnumber s , int v ) 
 {
   pdfintentry_regmem 
   {
@@ -20286,7 +20286,7 @@ zpdfintentry ( strnumber s , integer v )
   pdfprintint ( v ) ;
 } 
 void 
-zpdfintentryln ( strnumber s , integer v ) 
+zpdfintentryln ( strnumber s , int v ) 
 {
   pdfintentryln_regmem 
   pdfintentry ( s , v ) ;
@@ -20306,7 +20306,7 @@ zpdfintentryln ( strnumber s , integer v )
   } 
 } 
 void 
-zpdfindirect ( strnumber s , integer o ) 
+zpdfindirect ( strnumber s , int o ) 
 {
   pdfindirect_regmem 
   {
@@ -20342,7 +20342,7 @@ zpdfindirect ( strnumber s , integer o )
   pdfprint ( 1082 ) ;
 } 
 void 
-zpdfindirectln ( strnumber s , integer o ) 
+zpdfindirectln ( strnumber s , int o ) 
 {
   pdfindirectln_regmem 
   pdfindirect ( s , o ) ;
@@ -20512,10 +20512,10 @@ zpdfstrentryln ( strnumber s , strnumber v )
   } 
 } 
 void 
-zsettagcode ( internalfontnumber f , eightbits c , integer i ) 
+zsettagcode ( internalfontnumber f , eightbits c , int i ) 
 {
   settagcode_regmem 
-  integer fixedi  ;
+  int fixedi  ;
   if ( ( ( fontbc [f ]<= c ) && ( c <= fontec [f ]) && ( fontinfo [
   charbase [f ]+ c ].qqqq .b0 > 0 ) ) ) 
   {
@@ -20552,8 +20552,8 @@ void
 zsetnoligatures ( internalfontnumber f ) 
 {
   setnoligatures_regmem 
-  integer c  ;
-  {register integer for_end; c = fontbc [f ];for_end = fontec [f ]; if ( 
+  int c  ;
+  {register int for_end; c = fontbc [f ];for_end = fontec [f ]; if ( 
   c <= for_end) do 
     if ( ( fontinfo [charbase [f ]+ c ].qqqq .b0 > 0 ) ) {
 	
@@ -20563,20 +20563,20 @@ zsetnoligatures ( internalfontnumber f )
     } 
   while ( c++ < for_end ) ;} 
 } 
-integer 
-zinitfontbase ( integer v ) 
+int 
+zinitfontbase ( int v ) 
 {
-  register integer Result; initfontbase_regmem 
-  integer i, j  ;
+  register int Result; initfontbase_regmem 
+  int i, j  ;
   i = pdfgetmem ( 256 ) ;
-  {register integer for_end; j = 0 ;for_end = 255 ; if ( j <= for_end) do 
+  {register int for_end; j = 0 ;for_end = 255 ; if ( j <= for_end) do 
     pdfmem [i + j ]= v ;
   while ( j++ < for_end ) ;} 
   Result = i ;
   return Result ;
 } 
 void 
-zsetlpcode ( internalfontnumber f , eightbits c , integer i ) 
+zsetlpcode ( internalfontnumber f , eightbits c , int i ) 
 {
   setlpcode_regmem 
   if ( pdffontlpbase [f ]== 0 ) 
@@ -20584,7 +20584,7 @@ zsetlpcode ( internalfontnumber f , eightbits c , integer i )
   pdfmem [pdffontlpbase [f ]+ c ]= fixint ( i , -1000 , 1000 ) ;
 } 
 void 
-zsetrpcode ( internalfontnumber f , eightbits c , integer i ) 
+zsetrpcode ( internalfontnumber f , eightbits c , int i ) 
 {
   setrpcode_regmem 
   if ( pdffontrpbase [f ]== 0 ) 
@@ -20592,7 +20592,7 @@ zsetrpcode ( internalfontnumber f , eightbits c , integer i )
   pdfmem [pdffontrpbase [f ]+ c ]= fixint ( i , -1000 , 1000 ) ;
 } 
 void 
-zsetefcode ( internalfontnumber f , eightbits c , integer i ) 
+zsetefcode ( internalfontnumber f , eightbits c , int i ) 
 {
   setefcode_regmem 
   if ( pdffontefbase [f ]== 0 ) 
@@ -20600,7 +20600,7 @@ zsetefcode ( internalfontnumber f , eightbits c , integer i )
   pdfmem [pdffontefbase [f ]+ c ]= fixint ( i , 0 , 1000 ) ;
 } 
 void 
-zsetknbscode ( internalfontnumber f , eightbits c , integer i ) 
+zsetknbscode ( internalfontnumber f , eightbits c , int i ) 
 {
   setknbscode_regmem 
   if ( pdffontknbsbase [f ]== 0 ) 
@@ -20608,7 +20608,7 @@ zsetknbscode ( internalfontnumber f , eightbits c , integer i )
   pdfmem [pdffontknbsbase [f ]+ c ]= fixint ( i , -1000 , 1000 ) ;
 } 
 void 
-zsetstbscode ( internalfontnumber f , eightbits c , integer i ) 
+zsetstbscode ( internalfontnumber f , eightbits c , int i ) 
 {
   setstbscode_regmem 
   if ( pdffontstbsbase [f ]== 0 ) 
@@ -20616,7 +20616,7 @@ zsetstbscode ( internalfontnumber f , eightbits c , integer i )
   pdfmem [pdffontstbsbase [f ]+ c ]= fixint ( i , -1000 , 1000 ) ;
 } 
 void 
-zsetshbscode ( internalfontnumber f , eightbits c , integer i ) 
+zsetshbscode ( internalfontnumber f , eightbits c , int i ) 
 {
   setshbscode_regmem 
   if ( pdffontshbsbase [f ]== 0 ) 
@@ -20624,7 +20624,7 @@ zsetshbscode ( internalfontnumber f , eightbits c , integer i )
   pdfmem [pdffontshbsbase [f ]+ c ]= fixint ( i , -1000 , 1000 ) ;
 } 
 void 
-zsetknbccode ( internalfontnumber f , eightbits c , integer i ) 
+zsetknbccode ( internalfontnumber f , eightbits c , int i ) 
 {
   setknbccode_regmem 
   if ( pdffontknbcbase [f ]== 0 ) 
@@ -20632,7 +20632,7 @@ zsetknbccode ( internalfontnumber f , eightbits c , integer i )
   pdfmem [pdffontknbcbase [f ]+ c ]= fixint ( i , -1000 , 1000 ) ;
 } 
 void 
-zsetknaccode ( internalfontnumber f , eightbits c , integer i ) 
+zsetknaccode ( internalfontnumber f , eightbits c , int i ) 
 {
   setknaccode_regmem 
   if ( pdffontknacbase [f ]== 0 ) 
@@ -20706,7 +20706,7 @@ zgetautokern ( internalfontnumber f , halfword l , halfword r )
 {
   register halfword Result; getautokern_regmem 
   scaled tmpw  ;
-  integer k  ;
+  int k  ;
   halfword p  ;
   pdfassert ( ( l >= 0 ) && ( r >= 0 ) ) ;
   Result = -268435455L ;
@@ -20736,7 +20736,7 @@ zgetautokern ( internalfontnumber f , halfword l , halfword r )
   return Result ;
 } 
 strnumber 
-zexpandfontname ( internalfontnumber f , integer e ) 
+zexpandfontname ( internalfontnumber f , int e ) 
 {
   register strnumber Result; expandfontname_regmem 
   unsigned char oldsetting  ;
@@ -20751,11 +20751,11 @@ zexpandfontname ( internalfontnumber f , integer e )
   return Result ;
 } 
 internalfontnumber 
-zautoexpandfont ( internalfontnumber f , integer e ) 
+zautoexpandfont ( internalfontnumber f , int e ) 
 {
   register internalfontnumber Result; autoexpandfont_regmem 
   internalfontnumber k  ;
-  integer nw, nk, ni, i  ;
+  int nw, nk, ni, i  ;
   k = fontptr + 1 ;
   incr ( fontptr ) ;
   if ( ( fontptr >= fontmax ) ) 
@@ -20789,15 +20789,15 @@ zautoexpandfont ( internalfontnumber f , integer e )
   italicbase [k ]= widthbase [k ]+ nw ;
   kernbase [k ]= italicbase [k ]+ ni - 256 * ( 128 ) ;
   fmemptr = fmemptr + nw + ni + nk ;
-  {register integer for_end; i = 0 ;for_end = nw - 1 ; if ( i <= for_end) do 
+  {register int for_end; i = 0 ;for_end = nw - 1 ; if ( i <= for_end) do 
     fontinfo [widthbase [k ]+ i ].cint = roundxnoverd ( fontinfo [
     widthbase [f ]+ i ].cint , 1000 + e , 1000 ) ;
   while ( i++ < for_end ) ;} 
-  {register integer for_end; i = 0 ;for_end = ni - 1 ; if ( i <= for_end) do 
+  {register int for_end; i = 0 ;for_end = ni - 1 ; if ( i <= for_end) do 
     fontinfo [italicbase [k ]+ i ].cint = roundxnoverd ( fontinfo [
     italicbase [f ]+ i ].cint , 1000 + e , 1000 ) ;
   while ( i++ < for_end ) ;} 
-  {register integer for_end; i = 0 ;for_end = nk - 1 ; if ( i <= for_end) do 
+  {register int for_end; i = 0 ;for_end = nk - 1 ; if ( i <= for_end) do 
     fontinfo [kernbase [k ]+ 256 * ( 128 ) + i ].cint = roundxnoverd ( 
     fontinfo [kernbase [f ]+ 256 * ( 128 ) + i ].cint , 1000 + e , 1000 ) 
     ;
@@ -20806,7 +20806,7 @@ zautoexpandfont ( internalfontnumber f , integer e )
   return Result ;
 } 
 void 
-zcopyexpandparams ( internalfontnumber k , internalfontnumber f , integer e ) 
+zcopyexpandparams ( internalfontnumber k , internalfontnumber f , int e ) 
 {
   copyexpandparams_regmem 
   if ( pdffontrpbase [f ]== 0 ) 
@@ -20845,7 +20845,7 @@ ztfmlookup ( strnumber s , scaled fs )
   internalfontnumber k  ;
   if ( fs != 0 ) 
   {
-    {register integer for_end; k = 1 ;for_end = fontptr ; if ( k <= for_end) 
+    {register int for_end; k = 1 ;for_end = fontptr ; if ( k <= for_end) 
     do 
       if ( ( fontarea [k ]!= 1084 ) && streqstr ( fontname [k ], s ) && ( 
       fontsize [k ]== fs ) ) 
@@ -20858,7 +20858,7 @@ ztfmlookup ( strnumber s , scaled fs )
   } 
   else {
       
-    {register integer for_end; k = 1 ;for_end = fontptr ; if ( k <= for_end) 
+    {register int for_end; k = 1 ;for_end = fontptr ; if ( k <= for_end) 
     do 
       if ( ( fontarea [k ]!= 1084 ) && streqstr ( fontname [k ], s ) ) 
       {
@@ -20872,7 +20872,7 @@ ztfmlookup ( strnumber s , scaled fs )
   return Result ;
 } 
 internalfontnumber 
-zloadexpandfont ( internalfontnumber f , integer e ) 
+zloadexpandfont ( internalfontnumber f , int e ) 
 {
   /* 40 */ register internalfontnumber Result; loadexpandfont_regmem 
   strnumber s  ;
@@ -20890,21 +20890,21 @@ zloadexpandfont ( internalfontnumber f , integer e )
   Result = k ;
   return Result ;
 } 
-integer 
-zfixexpandvalue ( internalfontnumber f , integer e ) 
+int 
+zfixexpandvalue ( internalfontnumber f , int e ) 
 {
-  register integer Result; fixexpandvalue_regmem 
-  integer step  ;
-  integer maxexpand  ;
+  register int Result; fixexpandvalue_regmem 
+  int step  ;
+  int maxexpand  ;
   boolean neg  ;
   Result = 0 ;
   if ( e == 0 ) 
   return Result ;
   if ( e < 0 ) 
   {
-    e = - (integer) e ;
+    e = - (int) e ;
     neg = true ;
-    maxexpand = - (integer) pdffontexpandratio [pdffontshrink [f ]];
+    maxexpand = - (int) pdffontexpandratio [pdffontshrink [f ]];
   } 
   else {
       
@@ -20920,12 +20920,12 @@ zfixexpandvalue ( internalfontnumber f , integer e )
     e = step * roundxnoverd ( e , 1 , step ) ;
   } 
   if ( neg ) 
-  e = - (integer) e ;
+  e = - (int) e ;
   Result = e ;
   return Result ;
 } 
 internalfontnumber 
-zgetexpandfont ( internalfontnumber f , integer e ) 
+zgetexpandfont ( internalfontnumber f , int e ) 
 {
   register internalfontnumber Result; getexpandfont_regmem 
   internalfontnumber k  ;
@@ -20946,7 +20946,7 @@ zgetexpandfont ( internalfontnumber f , integer e )
   return Result ;
 } 
 internalfontnumber 
-zexpandfont ( internalfontnumber f , integer e ) 
+zexpandfont ( internalfontnumber f , int e ) 
 {
   register internalfontnumber Result; expandfont_regmem 
   Result = f ;
@@ -20961,8 +20961,8 @@ zexpandfont ( internalfontnumber f , integer e )
   return Result ;
 } 
 void 
-zsetexpandparams ( internalfontnumber f , boolean autoexpand , integer 
-stretchlimit , integer shrinklimit , integer fontstep , integer expandratio ) 
+zsetexpandparams ( internalfontnumber f , boolean autoexpand , int 
+stretchlimit , int shrinklimit , int fontstep , int expandratio ) 
 {
   setexpandparams_regmem 
   pdffontstep [f ]= fontstep ;
@@ -20970,7 +20970,7 @@ stretchlimit , integer shrinklimit , integer fontstep , integer expandratio )
   if ( stretchlimit > 0 ) 
   pdffontstretch [f ]= getexpandfont ( f , stretchlimit ) ;
   if ( shrinklimit > 0 ) 
-  pdffontshrink [f ]= getexpandfont ( f , - (integer) shrinklimit ) ;
+  pdffontshrink [f ]= getexpandfont ( f , - (int) shrinklimit ) ;
   if ( expandratio != 0 ) 
   pdffontexpandratio [f ]= expandratio ;
 } 
@@ -20979,14 +20979,14 @@ zvfexpandlocalfonts ( internalfontnumber f )
 {
   vfexpandlocalfonts_regmem 
   internalfontnumber lf  ;
-  integer k  ;
+  int k  ;
   pdfassert ( pdffonttype [f ]== 1 ) ;
-  {register integer for_end; k = 0 ;for_end = vflocalfontnum [f ]- 1 
+  {register int for_end; k = 0 ;for_end = vflocalfontnum [f ]- 1 
   ; if ( k <= for_end) do 
     {
       lf = vfifnts [vfdefaultfont [f ]+ k ];
       setexpandparams ( lf , pdffontautoexpand [f ], pdffontexpandratio [
-      pdffontstretch [f ]], - (integer) pdffontexpandratio [pdffontshrink 
+      pdffontstretch [f ]], - (int) pdffontexpandratio [pdffontshrink 
       [f ]], pdffontstep [f ], pdffontexpandratio [f ]) ;
       if ( pdffonttype [lf ]== 1 ) 
       vfexpandlocalfonts ( lf ) ;
@@ -20997,7 +20997,7 @@ void
 readexpandfont ( void ) 
 {
   readexpandfont_regmem 
-  integer shrinklimit, stretchlimit, fontstep  ;
+  int shrinklimit, stretchlimit, fontstep  ;
   internalfontnumber f  ;
   boolean autoexpand  ;
   scanfontident () ;
@@ -21044,7 +21044,7 @@ readexpandfont ( void )
     ]!= stretchlimit ) ) ) 
     pdferror ( 1041 , 1096 ) ;
     if ( ( ( pdffontshrink [f ]== 0 ) && ( shrinklimit != 0 ) ) || ( ( 
-    pdffontshrink [f ]!= 0 ) && ( - (integer) pdffontexpandratio [
+    pdffontshrink [f ]!= 0 ) && ( - (int) pdffontexpandratio [
     pdffontshrink [f ]]!= shrinklimit ) ) ) 
     pdferror ( 1041 , 1097 ) ;
     if ( pdffontautoexpand [f ]!= autoexpand ) 
@@ -21061,22 +21061,22 @@ readexpandfont ( void )
   } 
 } 
 internalfontnumber 
-zletterspacefont ( halfword u , internalfontnumber f , integer e ) 
+zletterspacefont ( halfword u , internalfontnumber f , int e ) 
 {
   register internalfontnumber Result; letterspacefont_regmem 
   internalfontnumber k  ;
   scaled w, r  ;
   strnumber s  ;
-  integer i, nw  ;
+  int i, nw  ;
   unsigned char oldsetting  ;
-  integer vfz  ;
-  integer vfalpha  ;
+  int vfz  ;
+  int vfalpha  ;
   unsigned char vfbeta  ;
   k = readfontinfo ( u , fontname [f ], 345 , fontsize [f ]) ;
   if ( scankeyword ( 1100 ) ) 
   setnoligatures ( k ) ;
   nw = heightbase [k ]- widthbase [k ];
-  {register integer for_end; i = 0 ;for_end = nw - 1 ; if ( i <= for_end) do 
+  {register int for_end; i = 0 ;for_end = nw - 1 ; if ( i <= for_end) do 
     fontinfo [widthbase [k ]+ i ].cint = fontinfo [widthbase [k ]+ i ]
     .cint + roundxnoverd ( fontinfo [6 + parambase [k ]].cint , e , 1000 ) 
     ;
@@ -21141,7 +21141,7 @@ zletterspacefont ( halfword u , internalfontnumber f , integer e )
     tmpw .qqqq .b3 = r / vfz ;
   } 
   vfpacketbase [k ]= newvfpacket ( k ) ;
-  {register integer for_end; c = fontbc [k ];for_end = fontec [k ]; if ( 
+  {register int for_end; c = fontbc [k ];for_end = fontec [k ]; if ( 
   c <= for_end) do 
     {
       {
@@ -21327,7 +21327,7 @@ zcopyfontinfo ( internalfontnumber f )
   lf = ( parambase [f ]- charbase [f ]) + fontparams [f ]+ 1 ;
   if ( ( fmemptr + lf >= fontmemsize ) ) 
   overflow ( 1088 , fontmemsize ) ;
-  {register integer for_end; i = 0 ;for_end = lf - 1 ; if ( i <= for_end) do 
+  {register int for_end; i = 0 ;for_end = lf - 1 ; if ( i <= for_end) do 
     fontinfo [charbase [k ]+ bc + i ]= fontinfo [charbase [f ]+ bc + i 
     ];
   while ( i++ < for_end ) ;} 
@@ -21400,18 +21400,18 @@ eightbits
 vfbyte ( void ) 
 {
   register eightbits Result; vfbyte_regmem 
-  integer i  ;
+  int i  ;
   i = getc ( vffile ) ;
   if ( i < 0 ) 
   pdferror ( 1107 , 1108 ) ;
   Result = i ;
   return Result ;
 } 
-integer 
-zvfreadsigned ( integer k ) 
+int 
+zvfreadsigned ( int k ) 
 {
-  register integer Result; vfreadsigned_regmem 
-  integer i  ;
+  register int Result; vfreadsigned_regmem 
+  int i  ;
   pdfassert ( ( k > 0 ) && ( k <= 4 ) ) ;
   i = vfbyte () ;
   if ( i >= 128 ) 
@@ -21425,11 +21425,11 @@ zvfreadsigned ( integer k )
   Result = i ;
   return Result ;
 } 
-integer 
-zvfreadunsigned ( integer k ) 
+int 
+zvfreadunsigned ( int k ) 
 {
-  register integer Result; vfreadunsigned_regmem 
-  integer i  ;
+  register int Result; vfreadunsigned_regmem 
+  int i  ;
   pdfassert ( ( k > 0 ) && ( k <= 4 ) ) ;
   i = vfbyte () ;
   if ( ( k == 4 ) && ( i >= 128 ) ) 
@@ -21507,7 +21507,7 @@ zvfdeffont ( internalfontnumber f )
     vflocalfontwarning ( f , k , 1113 ) ;
     if ( ( pdffontstep [f ]!= 0 ) ) 
     setexpandparams ( k , pdffontautoexpand [f ], pdffontexpandratio [
-    pdffontstretch [f ]], - (integer) pdffontexpandratio [pdffontshrink [
+    pdffontstretch [f ]], - (int) pdffontexpandratio [pdffontshrink [
     f ]], pdffontstep [f ], pdffontexpandratio [f ]) ;
   } 
   Result = k ;
@@ -21517,8 +21517,8 @@ void
 zdovf ( internalfontnumber f ) 
 {
   dovf_regmem 
-  integer cmd, k, n  ;
-  integer cc, cmdlength, packetlength  ;
+  int cmd, k, n  ;
+  int cc, cmdlength, packetlength  ;
   scaled tfmwidth  ;
   strnumber s  ;
   vfstackindex stacklevel  ;
@@ -21535,7 +21535,7 @@ zdovf ( internalfontnumber f )
   if ( vfbyte () != 202 ) 
   vferror ( fontname [f ], 1116 ) ;
   cmdlength = vfbyte () ;
-  {register integer for_end; k = 1 ;for_end = cmdlength ; if ( k <= for_end) 
+  {register int for_end; k = 1 ;for_end = cmdlength ; if ( k <= for_end) 
   do 
     {
       if ( vfbyte () != 0 ) 
@@ -21798,7 +21798,7 @@ zautoexpandvf ( internalfontnumber f )
 {
   register boolean Result; autoexpandvf_regmem 
   internalfontnumber bf, lf  ;
-  integer e, k  ;
+  int e, k  ;
   Result = false ;
   if ( ( ! pdffontautoexpand [f ]) || ( pdffontblink [f ]== 0 ) ) 
   return Result ;
@@ -21808,7 +21808,7 @@ zautoexpandvf ( internalfontnumber f )
   if ( pdffonttype [bf ]!= 1 ) 
   return Result ;
   e = pdffontexpandratio [f ];
-  {register integer for_end; k = 0 ;for_end = vflocalfontnum [bf ]- 1 
+  {register int for_end; k = 0 ;for_end = vflocalfontnum [bf ]- 1 
   ; if ( k <= for_end) do 
     {
       lf = vfdefaultfont [bf ]+ k ;
@@ -21826,11 +21826,11 @@ zautoexpandvf ( internalfontnumber f )
   Result = true ;
   return Result ;
 } 
-integer 
-zpacketreadsigned ( integer k ) 
+int 
+zpacketreadsigned ( int k ) 
 {
-  register integer Result; packetreadsigned_regmem 
-  integer i  ;
+  register int Result; packetreadsigned_regmem 
+  int i  ;
   pdfassert ( ( k > 0 ) && ( k <= 4 ) ) ;
   i = packetbyte () ;
   if ( i >= 128 ) 
@@ -21844,11 +21844,11 @@ zpacketreadsigned ( integer k )
   Result = i ;
   return Result ;
 } 
-integer 
-zpacketreadunsigned ( integer k ) 
+int 
+zpacketreadunsigned ( int k ) 
 {
-  register integer Result; packetreadunsigned_regmem 
-  integer i  ;
+  register int Result; packetreadunsigned_regmem 
+  int i  ;
   pdfassert ( ( k > 0 ) && ( k <= 4 ) ) ;
   i = packetbyte () ;
   if ( ( k == 4 ) && ( i >= 128 ) ) 
@@ -21863,7 +21863,7 @@ zpacketreadunsigned ( integer k )
   return Result ;
 } 
 scaled 
-zpacketscaled ( integer k , scaled fs ) 
+zpacketscaled ( int k , scaled fs ) 
 {
   register scaled Result; packetscaled_regmem 
   Result = storescaledf ( packetreadsigned ( k ) , fs ) ;
@@ -21875,7 +21875,7 @@ zdovfpacket ( internalfontnumber vff , eightbits c )
   /* 70 22 */ dovfpacket_regmem 
   internalfontnumber f, k, n  ;
   scaled savecurh, savecurv  ;
-  integer cmd  ;
+  int cmd  ;
   boolean charmove  ;
   scaled w, x, y, z  ;
   strnumber s  ;
@@ -22113,9 +22113,9 @@ zpdfoutcolorstack ( halfword p )
   pdfoutcolorstack_regmem 
   unsigned char oldsetting  ;
   strnumber s  ;
-  integer cmd  ;
-  integer stackno  ;
-  integer literalmode  ;
+  int cmd  ;
+  int stackno  ;
+  int literalmode  ;
   cmd = mem [p + 1 ].hh .v.LH ;
   stackno = mem [p + 1 ].hh .v.RH ;
   if ( stackno >= colorstackused () ) 
@@ -22167,10 +22167,10 @@ void
 pdfoutcolorstackstartpage ( void ) 
 {
   pdfoutcolorstackstartpage_regmem 
-  integer i  ;
-  integer max  ;
-  integer startstatus  ;
-  integer literalmode  ;
+  int i  ;
+  int max  ;
+  int startstatus  ;
+  int literalmode  ;
   strnumber s  ;
   i = 0 ;
   max = colorstackused () ;
@@ -22318,7 +22318,7 @@ zpdfprinttoksln ( halfword p )
   flushstr ( s ) ;
 } 
 void 
-zpdfwriteobj ( integer n ) 
+zpdfwriteobj ( int n ) 
 {
   pdfwriteobj_regmem 
   strnumber s  ;
@@ -22430,7 +22430,7 @@ zflushwhatsitnode ( halfword p , smallnumber s )
   flushnodelist ( p ) ;
 } 
 void 
-zpdfwriteimage ( integer n ) 
+zpdfwriteimage ( int n ) 
 {
   pdfwriteimage_regmem 
   pdfbegindict ( n , 0 ) ;
@@ -22498,7 +22498,7 @@ zpdfprintrectspec ( halfword r )
   pdfprintmagbp ( ( pdforiginv - ( mem [r + 2 ].cint ) ) ) ;
 } 
 void 
-zwarndestdup ( integer id , smallnumber byname , strnumber s1 , strnumber s2 ) 
+zwarndestdup ( int id , smallnumber byname , strnumber s1 , strnumber s2 ) 
 {
   warndestdup_regmem 
   if ( eqtb [29367 ].cint > 0 ) 
@@ -22524,7 +22524,7 @@ zwriteaction ( halfword p )
 {
   writeaction_regmem 
   strnumber s  ;
-  integer d  ;
+  int d  ;
   if ( mem [p ].hh.b0 == 3 ) 
   {
     pdfprinttoksln ( mem [p + 2 ].hh .v.LH ) ;
@@ -22787,7 +22787,7 @@ void
 zappendbead ( halfword p ) 
 {
   appendbead_regmem 
-  integer a, b, c, t  ;
+  int a, b, c, t  ;
   if ( ! isshippingpage ) 
   pdferror ( 1861 , 1946 ) ;
   t = getobj ( 9 , mem [p + 5 ].hh .v.RH , mem [p + 5 ].hh.b1 ) ;
@@ -22877,12 +22877,12 @@ endthread ( void )
   deletetokenref ( pdflastthreadid ) ;
   lastthread = -268435455L ;
 } 
-integer 
+int 
 zopensubentries ( halfword p ) 
 {
-  register integer Result; opensubentries_regmem 
-  integer k, c  ;
-  integer l, r  ;
+  register int Result; opensubentries_regmem 
+  int k, c  ;
+  int l, r  ;
   k = 0 ;
   if ( pdfmem [objtab [p ].int4 + 4 ]!= 0 ) 
   {
@@ -22901,7 +22901,7 @@ zopensubentries ( halfword p )
   } 
   if ( objtab [p ].int0 > 0 ) 
   objtab [p ].int0 = k ;
-  else objtab [p ].int0 = - (integer) k ;
+  else objtab [p ].int0 = - (int) k ;
   Result = k ;
   return Result ;
 } 
@@ -22909,7 +22909,7 @@ void
 zdodest ( halfword p , halfword parentbox , scaled x , scaled y ) 
 {
   dodest_regmem 
-  integer k  ;
+  int k  ;
   if ( ! isshippingpage ) 
   pdferror ( 1861 , 1948 ) ;
   if ( doingleaders ) 
@@ -23068,8 +23068,8 @@ void
 zoutimage ( halfword p ) 
 {
   outimage_regmem 
-  integer image, groupref  ;
-  integer imgw, imgh  ;
+  int image, groupref  ;
+  int imgw, imgh  ;
   image = pdfmem [objtab [mem [p + 4 ].hh .v.LH ].int4 + 4 ];
   if ( ( imagerotate ( image ) == 90 ) || ( imagerotate ( image ) == 270 ) ) 
   {
@@ -23284,7 +23284,7 @@ zgapamount ( halfword p , scaled curpos )
   return Result ;
   if ( g2 <= g ) 
   Result = g2 ;
-  else Result = - (integer) g ;
+  else Result = - (int) g ;
   return Result ;
 } 
 halfword 
@@ -23294,8 +23294,8 @@ zgetvpos ( halfword p , halfword q , halfword b )
   scaled tmpv  ;
   glueord gorder  ;
   unsigned char gsign  ;
-  real gluetemp  ;
-  real curglue  ;
+  double gluetemp  ;
+  double curglue  ;
   scaled curg  ;
   halfword thisbox  ;
   tmpv = curv ;
@@ -23422,8 +23422,8 @@ pdfhlistout ( void )
   boolean outerdoingleaders  ;
   scaled edge  ;
   halfword prevp  ;
-  real gluetemp  ;
-  real curglue  ;
+  double gluetemp  ;
+  double curglue  ;
   scaled curg  ;
   smallnumber i  ;
   curg = 0 ;
@@ -23462,13 +23462,13 @@ pdfhlistout ( void )
       curh = 0 ;
       mem [p ].hh .v.RH = reverse ( thisbox , -268435455L , curg , curglue ) 
       ;
-      mem [p + 1 ].cint = - (integer) curh ;
+      mem [p + 1 ].cint = - (int) curh ;
       curh = saveh ;
       mem [thisbox ].hh.b1 = 1 ;
     } 
   } 
   leftedge = curh ;
-  {register integer for_end; i = 1 ;for_end = pdflinkstackptr ; if ( i <= 
+  {register int for_end; i = 1 ;for_end = pdflinkstackptr ; if ( i <= 
   for_end) do 
     {
       pdfassert ( ( mem [pdflinkstack [i ].linknode + 1 ].cint == 
@@ -23616,7 +23616,7 @@ pdfhlistout ( void )
 	  } 
 	} 
 	curh = curh + accentwidth ;
-	curh = curh + ( - (integer) accentwidth - delta ) ;
+	curh = curh + ( - (int) accentwidth - delta ) ;
 	{
 	  if ( pdffonttype [f ]== 0 ) 
 	  dovf ( f ) ;
@@ -24062,8 +24062,8 @@ pdfvlistout ( void )
   scaled lx  ;
   boolean outerdoingleaders  ;
   scaled edge  ;
-  real gluetemp  ;
-  real curglue  ;
+  double gluetemp  ;
+  double curglue  ;
   scaled curg  ;
   curg = 0 ;
   curglue = 0.0 ;
@@ -24411,16 +24411,16 @@ void
 zpdfshipout ( halfword p , boolean shippingpage ) 
 {
   /* 30 31 */ pdfshipout_regmem 
-  integer i, j, k  ;
+  int i, j, k  ;
   poolpointer s  ;
   boolean mediaboxgiven  ;
   halfword savefontlist  ;
   halfword saveobjlist  ;
   halfword saveximagelist  ;
   halfword savexformlist  ;
-  integer saveimageprocset  ;
-  integer savetextprocset  ;
-  integer pdflastresources  ;
+  int saveimageprocset  ;
+  int savetextprocset  ;
+  int pdflastresources  ;
   if ( eqtb [29311 ].cint > 0 ) 
   {
     printnl ( 345 ) ;
@@ -24466,7 +24466,7 @@ zpdfshipout ( halfword p , boolean shippingpage )
     printchar ( 91 ) ;
     j = 9 ;
     while ( ( eqtb [29384 + j ].cint == 0 ) && ( j > 0 ) ) decr ( j ) ;
-    {register integer for_end; k = 0 ;for_end = j ; if ( k <= for_end) do 
+    {register int for_end; k = 0 ;for_end = j ; if ( k <= for_end) do 
       {
 	printint ( eqtb [29384 + k ].cint ) ;
 	if ( k < j ) 
@@ -25259,7 +25259,7 @@ zpdfshipout ( halfword p , boolean shippingpage )
       pdfprint ( 1043 ) ;
       {
 	if ( pdffontnum [mem [k ].hh .v.LH ]< 0 ) 
-	ff = - (integer) pdffontnum [mem [k ].hh .v.LH ];
+	ff = - (int) pdffontnum [mem [k ].hh .v.LH ];
 	else ff = mem [k ].hh .v.LH ;
       } 
       pdfprintint ( ff ) ;
@@ -25596,10 +25596,10 @@ zstrlessstr ( strnumber s1 , strnumber s2 )
   return Result ;
 } 
 void 
-zsortdestnames ( integer l , integer r ) 
+zsortdestnames ( int l , int r ) 
 {
   sortdestnames_regmem 
-  integer i, j  ;
+  int i, j  ;
   strnumber s  ;
   destnameentry e  ;
   i = l ;
@@ -25623,7 +25623,7 @@ zsortdestnames ( integer l , integer r )
   sortdestnames ( i , r ) ;
 } 
 void 
-zpdffixdest ( integer k ) 
+zpdffixdest ( int k ) 
 {
   pdffixdest_regmem 
   if ( objtab [k ].int4 != -268435455L ) 
@@ -25632,7 +25632,7 @@ zpdffixdest ( integer k )
   if ( objtab [k ].int0 < 0 ) 
   {
     print ( 1200 ) ;
-    print ( - (integer) objtab [k ].int0 ) ;
+    print ( - (int) objtab [k ].int0 ) ;
     print ( 125 ) ;
   } 
   else {
@@ -25823,7 +25823,7 @@ void
 zscanspec ( groupcode c , boolean threecodes ) 
 {
   /* 40 */ scanspec_regmem 
-  integer s  ;
+  int s  ;
   unsigned char speccode  ;
   if ( threecodes ) 
   s = savestack [saveptr + 0 ].cint ;
@@ -25874,8 +25874,8 @@ zcheckexpandpars ( internalfontnumber f )
   if ( k != 0 ) 
   {
     if ( maxshrinkratio < 0 ) 
-    maxshrinkratio = - (integer) pdffontexpandratio [k ];
-    else if ( maxshrinkratio != - (integer) pdffontexpandratio [k ]) 
+    maxshrinkratio = - (int) pdffontexpandratio [k ];
+    else if ( maxshrinkratio != - (int) pdffontexpandratio [k ]) 
     pdferror ( 1041 , 1251 ) ;
   } 
   Result = true ;
@@ -25887,7 +25887,7 @@ zcharstretch ( internalfontnumber f , eightbits c )
   register scaled Result; charstretch_regmem 
   internalfontnumber k  ;
   scaled dw  ;
-  integer ef  ;
+  int ef  ;
   Result = 0 ;
   k = pdffontstretch [f ];
   ef = getefcode ( f , c ) ;
@@ -25908,7 +25908,7 @@ zcharshrink ( internalfontnumber f , eightbits c )
   register scaled Result; charshrink_regmem 
   internalfontnumber k  ;
   scaled dw  ;
-  integer ef  ;
+  int ef  ;
   Result = 0 ;
   k = pdffontshrink [f ];
   ef = getefcode ( f , c ) ;
@@ -26023,12 +26023,12 @@ zkernshrink ( halfword p )
   return Result ;
 } 
 void 
-zdosubstfont ( halfword p , integer exratio ) 
+zdosubstfont ( halfword p , int exratio ) 
 {
   dosubstfont_regmem 
   internalfontnumber f, k  ;
   halfword r  ;
-  integer ef  ;
+  int ef  ;
   if ( ! ( p >= himemmin ) && ( mem [p ].hh.b0 == 7 ) ) 
   {
     r = mem [p + 1 ].hh .v.LH ;
@@ -26063,7 +26063,7 @@ zdosubstfont ( halfword p , integer exratio )
   k = expandfont ( f , extxnoverd ( exratio * ef , pdffontexpandratio [
   pdffontstretch [f ]], 1000000L ) ) ;
   else if ( ( pdffontshrink [f ]!= 0 ) && ( exratio < 0 ) ) 
-  k = expandfont ( f , extxnoverd ( exratio * ef , - (integer) 
+  k = expandfont ( f , extxnoverd ( exratio * ef , - (int) 
   pdffontexpandratio [pdffontshrink [f ]], 1000000L ) ) ;
   else k = f ;
   if ( k != f ) 
@@ -26085,7 +26085,7 @@ zcharpw ( halfword p , smallnumber side )
 {
   register scaled Result; charpw_regmem 
   internalfontnumber f  ;
-  integer c  ;
+  int c  ;
   Result = 0 ;
   if ( side == 0 ) 
   lastleftmostchar = -268435455L ;
@@ -26330,7 +26330,7 @@ zhpack ( halfword p , scaled w , smallnumber m )
 	  else if ( m == 3 ) 
 	  {
 	    dosubstfont ( mem [p + 2 ].hh .v.LH , fontexpandratio ) ;
-	    mem [p + 1 ].cint = - (integer) charpw ( mem [p + 2 ].hh .v.LH 
+	    mem [p + 1 ].cint = - (int) charpw ( mem [p + 2 ].hh .v.LH 
 	    , mem [p ].hh.b1 ) ;
 	  } 
 	  x = x + mem [p + 1 ].cint ;
@@ -26505,21 +26505,21 @@ zhpack ( halfword p , scaled w , smallnumber m )
     mem [r + 5 ].hh.b1 = o ;
     mem [r + 5 ].hh.b0 = 2 ;
     if ( totalshrink [o ]!= 0 ) 
-    mem [r + 6 ].gr = ( - (integer) x ) / ((double) totalshrink [o ]) ;
+    mem [r + 6 ].gr = ( - (int) x ) / ((double) totalshrink [o ]) ;
     else {
 	
       mem [r + 5 ].hh.b0 = 0 ;
       mem [r + 6 ].gr = 0.0 ;
     } 
-    if ( ( totalshrink [o ]< - (integer) x ) && ( o == 0 ) && ( mem [r + 5 
+    if ( ( totalshrink [o ]< - (int) x ) && ( o == 0 ) && ( mem [r + 5 
     ].hh .v.RH != -268435455L ) ) 
     {
       lastbadness = 1000000L ;
       mem [r + 6 ].gr = 1.0 ;
-      if ( ( - (integer) x - totalshrink [0 ]> eqtb [29904 ].cint ) || ( 
+      if ( ( - (int) x - totalshrink [0 ]> eqtb [29904 ].cint ) || ( 
       eqtb [29303 ].cint < 100 ) ) 
       {
-	if ( ( eqtb [29912 ].cint > 0 ) && ( - (integer) x - totalshrink [0 
+	if ( ( eqtb [29912 ].cint > 0 ) && ( - (int) x - totalshrink [0 
 	]> eqtb [29904 ].cint ) ) 
 	{
 	  while ( mem [q ].hh .v.RH != -268435455L ) q = mem [q ].hh .v.RH 
@@ -26529,7 +26529,7 @@ zhpack ( halfword p , scaled w , smallnumber m )
 	} 
 	println () ;
 	printnl ( 1264 ) ;
-	printscaled ( - (integer) x - totalshrink [0 ]) ;
+	printscaled ( - (int) x - totalshrink [0 ]) ;
 	print ( 1265 ) ;
 	goto lab50 ;
       } 
@@ -26538,7 +26538,7 @@ zhpack ( halfword p , scaled w , smallnumber m )
 	
       if ( mem [r + 5 ].hh .v.RH != -268435455L ) 
       {
-	lastbadness = badness ( - (integer) x , totalshrink [0 ]) ;
+	lastbadness = badness ( - (int) x , totalshrink [0 ]) ;
 	if ( lastbadness > eqtb [29303 ].cint ) 
 	{
 	  println () ;
@@ -26786,23 +26786,23 @@ zvpackage ( halfword p , scaled h , smallnumber m , scaled l )
     mem [r + 5 ].hh.b1 = o ;
     mem [r + 5 ].hh.b0 = 2 ;
     if ( totalshrink [o ]!= 0 ) 
-    mem [r + 6 ].gr = ( - (integer) x ) / ((double) totalshrink [o ]) ;
+    mem [r + 6 ].gr = ( - (int) x ) / ((double) totalshrink [o ]) ;
     else {
 	
       mem [r + 5 ].hh.b0 = 0 ;
       mem [r + 6 ].gr = 0.0 ;
     } 
-    if ( ( totalshrink [o ]< - (integer) x ) && ( o == 0 ) && ( mem [r + 5 
+    if ( ( totalshrink [o ]< - (int) x ) && ( o == 0 ) && ( mem [r + 5 
     ].hh .v.RH != -268435455L ) ) 
     {
       lastbadness = 1000000L ;
       mem [r + 6 ].gr = 1.0 ;
-      if ( ( - (integer) x - totalshrink [0 ]> eqtb [29905 ].cint ) || ( 
+      if ( ( - (int) x - totalshrink [0 ]> eqtb [29905 ].cint ) || ( 
       eqtb [29304 ].cint < 100 ) ) 
       {
 	println () ;
 	printnl ( 1269 ) ;
-	printscaled ( - (integer) x - totalshrink [0 ]) ;
+	printscaled ( - (int) x - totalshrink [0 ]) ;
 	print ( 1270 ) ;
 	goto lab50 ;
       } 
@@ -26811,7 +26811,7 @@ zvpackage ( halfword p , scaled h , smallnumber m , scaled l )
 	
       if ( mem [r + 5 ].hh .v.RH != -268435455L ) 
       {
-	lastbadness = badness ( - (integer) x , totalshrink [0 ]) ;
+	lastbadness = badness ( - (int) x , totalshrink [0 ]) ;
 	if ( lastbadness > eqtb [29304 ].cint ) 
 	{
 	  println () ;
@@ -26990,7 +26990,7 @@ zvardelimiter ( halfword d , smallnumber s , scaled v )
   halfword b  ;
   internalfontnumber f, g  ;
   quarterword c, x, y  ;
-  integer m, n  ;
+  int m, n  ;
   scaled u  ;
   scaled w  ;
   fourquarters q  ;
@@ -27087,7 +27087,7 @@ zvardelimiter ( halfword d , smallnumber s , scaled v )
       if ( c != 0 ) 
       stackintobox ( b , f , c ) ;
       c = r .b3 ;
-      {register integer for_end; m = 1 ;for_end = n ; if ( m <= for_end) do 
+      {register int for_end; m = 1 ;for_end = n ; if ( m <= for_end) do 
 	stackintobox ( b , f , c ) ;
       while ( m++ < for_end ) ;} 
       c = r .b1 ;
@@ -27095,7 +27095,7 @@ zvardelimiter ( halfword d , smallnumber s , scaled v )
       {
 	stackintobox ( b , f , c ) ;
 	c = r .b3 ;
-	{register integer for_end; m = 1 ;for_end = n ; if ( m <= for_end) 
+	{register int for_end; m = 1 ;for_end = n ; if ( m <= for_end) 
 	do 
 	  stackintobox ( b , f , c ) ;
 	while ( m++ < for_end ) ;} 
@@ -27157,7 +27157,7 @@ zmathglue ( halfword g , scaled m )
 {
   register halfword Result; mathglue_regmem 
   halfword p  ;
-  integer n  ;
+  int n  ;
   scaled f  ;
   n = xovern ( m , 65536L ) ;
   f = texremainder ;
@@ -27186,7 +27186,7 @@ void
 zmathkern ( halfword p , scaled m ) 
 {
   mathkern_regmem 
-  integer n  ;
+  int n  ;
   scaled f  ;
   if ( mem [p ].hh.b1 == 99 ) 
   {
@@ -27397,7 +27397,7 @@ zmakeradical ( halfword q )
   clr ) ;
   if ( delta > 0 ) 
   clr = clr + half ( delta ) ;
-  mem [y + 4 ].cint = - (integer) ( mem [x + 3 ].cint + clr ) ;
+  mem [y + 4 ].cint = - (int) ( mem [x + 3 ].cint + clr ) ;
   mem [y ].hh .v.RH = overbar ( x , clr , mem [y + 3 ].cint ) ;
   mem [q + 1 ].hh .v.LH = hpack ( y , 0 , 1 ) ;
   mem [q + 1 ].hh .v.RH = 2 ;
@@ -27407,7 +27407,7 @@ zmakemathaccent ( halfword q )
 {
   /* 30 31 */ makemathaccent_regmem 
   halfword p, x, y  ;
-  integer a  ;
+  int a  ;
   quarterword c  ;
   internalfontnumber f  ;
   fourquarters i  ;
@@ -27496,7 +27496,7 @@ zmakemathaccent ( halfword q )
     y = charbox ( f , c ) ;
     mem [y + 4 ].cint = s + half ( w - mem [y + 1 ].cint ) ;
     mem [y + 1 ].cint = 0 ;
-    p = newkern ( - (integer) delta ) ;
+    p = newkern ( - (int) delta ) ;
     mem [p ].hh .v.RH = x ;
     mem [y ].hh .v.RH = p ;
     y = vpackage ( y , 0 , 1 , 1073741823L ) ;
@@ -27659,7 +27659,7 @@ zmakeop ( halfword q )
     y = rebox ( y , mem [v + 1 ].cint ) ;
     z = rebox ( z , mem [v + 1 ].cint ) ;
     mem [x + 4 ].cint = half ( delta ) ;
-    mem [z + 4 ].cint = - (integer) mem [x + 4 ].cint ;
+    mem [z + 4 ].cint = - (int) mem [x + 4 ].cint ;
     mem [v + 3 ].cint = mem [y + 3 ].cint ;
     mem [v + 2 ].cint = mem [y + 2 ].cint ;
     if ( mem [q + 2 ].hh .v.RH == 0 ) 
@@ -27715,7 +27715,7 @@ void
 zmakeord ( halfword q ) 
 {
   /* 20 10 */ makeord_regmem 
-  integer a  ;
+  int a  ;
   halfword p, r  ;
   lab20: if ( mem [q + 3 ].hh .v.RH == 0 ) {
       
@@ -27879,7 +27879,7 @@ zmakescripts ( halfword q , scaled delta )
       shiftup = clr ;
     } 
     if ( mem [q + 3 ].hh .v.RH == 0 ) 
-    mem [x + 4 ].cint = - (integer) shiftup ;
+    mem [x + 4 ].cint = - (int) shiftup ;
     else {
 	
       y = cleanbox ( q + 3 , 2 * ( curstyle / 4 ) + 5 ) ;
@@ -27959,7 +27959,7 @@ mlisttohlist ( void )
   smallnumber rtype  ;
   smallnumber t  ;
   halfword p, x, y, z  ;
-  integer pen  ;
+  int pen  ;
   smallnumber s  ;
   scaled maxh, maxd  ;
   scaled delta  ;
@@ -28524,7 +28524,7 @@ initalign ( void )
     curlist .auxfield .cint = nest [nestptr - 2 ].auxfield .cint ;
   } 
   else if ( curlist .modefield > 0 ) 
-  curlist .modefield = - (integer) curlist .modefield ;
+  curlist .modefield = - (int) curlist .modefield ;
   scanspec ( 6 , false ) ;
   mem [memtop - 8 ].hh .v.RH = -268435455L ;
   curalign = memtop - 8 ;
@@ -28953,7 +28953,7 @@ finalign ( void )
     q = p ;
   } while ( ! ( q == -268435455L ) ) ;
   saveptr = saveptr - 2 ;
-  packbeginline = - (integer) curlist .mlfield ;
+  packbeginline = - (int) curlist .mlfield ;
   if ( curlist .modefield == -1 ) 
   {
     rulesave = eqtb [29912 ].cint ;
@@ -29404,7 +29404,7 @@ ztotalpw ( halfword q , halfword p )
 {
   register scaled Result; totalpw_regmem 
   halfword l, r  ;
-  integer n  ;
+  int n  ;
   if ( mem [q + 1 ].hh .v.RH == -268435455L ) 
   l = firstp ;
   else l = mem [mem [q + 1 ].hh .v.RH + 1 ].hh .v.RH ;
@@ -29440,7 +29440,7 @@ ztotalpw ( halfword q , halfword p )
   return Result ;
 } 
 void 
-ztrybreak ( integer pi , smallnumber breaktype ) 
+ztrybreak ( int pi , smallnumber breaktype ) 
 {
   /* 10 30 31 22 60 40 45 */ trybreak_regmem 
   halfword r  ;
@@ -29454,14 +29454,14 @@ ztrybreak ( integer pi , smallnumber breaktype )
   halfword s  ;
   halfword q  ;
   halfword v  ;
-  integer t  ;
+  int t  ;
   internalfontnumber f  ;
   halfword l  ;
   boolean noderstaysactive  ;
   scaled linewidth  ;
   unsigned char fitclass  ;
   halfword b  ;
-  integer d  ;
+  int d  ;
   boolean artificialdemerits  ;
   halfword savelink  ;
   scaled shortfall  ;
@@ -29761,7 +29761,7 @@ ztrybreak ( integer pi , smallnumber breaktype )
 	  minimumdemerits = 1073741822L ;
 	  else minimumdemerits = minimumdemerits + abs ( eqtb [29293 ].cint 
 	  ) ;
-	  {register integer for_end; fitclass = 0 ;for_end = 3 ; if ( 
+	  {register int for_end; fitclass = 0 ;for_end = 3 ; if ( 
 	  fitclass <= for_end) do 
 	    {
 	      if ( minimaldemerits [fitclass ]<= minimumdemerits ) 
@@ -29941,9 +29941,9 @@ ztrybreak ( integer pi , smallnumber breaktype )
 	else if ( ( shortfall < 0 ) && ( ( curactivewidth [8 ]+ 
 	marginkernshrink ) > 0 ) ) 
 	{
-	  if ( ( curactivewidth [8 ]+ marginkernshrink ) > - (integer) 
+	  if ( ( curactivewidth [8 ]+ marginkernshrink ) > - (int) 
 	  shortfall ) 
-	  shortfall = - (integer) ( ( curactivewidth [8 ]+ marginkernshrink 
+	  shortfall = - (int) ( ( curactivewidth [8 ]+ marginkernshrink 
 	  ) / ( maxshrinkratio / curfontstep ) ) / 2 ;
 	  else shortfall = shortfall + ( curactivewidth [8 ]+ 
 	  marginkernshrink ) ;
@@ -30006,9 +30006,9 @@ ztrybreak ( integer pi , smallnumber breaktype )
 	      } 
 	      else if ( g < 0 ) 
 	      {
-		if ( - (integer) g > curactivewidth [6 ]) 
-		g = - (integer) curactivewidth [6 ];
-		b = badness ( - (integer) g , curactivewidth [6 ]) ;
+		if ( - (int) g > curactivewidth [6 ]) 
+		g = - (int) curactivewidth [6 ];
+		b = badness ( - (int) g , curactivewidth [6 ]) ;
 		if ( b > 12 ) 
 		fitclass = 3 ;
 		else fitclass = 2 ;
@@ -30045,9 +30045,9 @@ ztrybreak ( integer pi , smallnumber breaktype )
       } 
       else {
 	  
-	if ( - (integer) shortfall > curactivewidth [6 ]) 
+	if ( - (int) shortfall > curactivewidth [6 ]) 
 	b = 10001 ;
-	else b = badness ( - (integer) shortfall , curactivewidth [6 ]) ;
+	else b = badness ( - (int) shortfall , curactivewidth [6 ]) ;
 	if ( b > 12 ) 
 	fitclass = 3 ;
 	else fitclass = 2 ;
@@ -30301,7 +30301,7 @@ zpostlinebreak ( boolean d )
   scaled curwidth  ;
   scaled curindent  ;
   quarterword t  ;
-  integer pen  ;
+  int pen  ;
   halfword curline  ;
   halfword LRptr  ;
   LRptr = curlist .eTeXauxfield ;
@@ -30487,7 +30487,7 @@ zpostlinebreak ( boolean d )
       w = charpw ( p , 1 ) ;
       if ( w != 0 ) 
       {
-	k = newmarginkern ( - (integer) w , lastrightmostchar , 1 ) ;
+	k = newmarginkern ( - (int) w , lastrightmostchar , 1 ) ;
 	mem [k ].hh .v.RH = mem [ptmp ].hh .v.RH ;
 	mem [ptmp ].hh .v.RH = k ;
 	if ( ( ptmp == q ) ) 
@@ -30534,7 +30534,7 @@ zpostlinebreak ( boolean d )
       w = charpw ( p , 0 ) ;
       if ( w != 0 ) 
       {
-	k = newmarginkern ( - (integer) w , lastleftmostchar , 0 ) ;
+	k = newmarginkern ( - (int) w , lastleftmostchar , 0 ) ;
 	mem [k ].hh .v.RH = q ;
 	q = k ;
       } 
@@ -31026,20 +31026,20 @@ hyphenate ( void )
   halfword majortail, minortail  ;
   ASCIIcode c  ;
   unsigned char cloc  ;
-  integer rcount  ;
+  int rcount  ;
   halfword hyfnode  ;
   triepointer z  ;
-  integer v  ;
+  int v  ;
   hyphpointer h  ;
   strnumber k  ;
   poolpointer u  ;
-  {register integer for_end; j = 0 ;for_end = hn ; if ( j <= for_end) do 
+  {register int for_end; j = 0 ;for_end = hn ; if ( j <= for_end) do 
     hyf [j ]= 0 ;
   while ( j++ < for_end ) ;} 
   h = hc [1 ];
   incr ( hn ) ;
   hc [hn ]= curlang ;
-  {register integer for_end; j = 2 ;for_end = hn ; if ( j <= for_end) do 
+  {register int for_end; j = 2 ;for_end = hn ; if ( j <= for_end) do 
     h = ( h + h + hc [j ]) % 607 ;
   while ( j++ < for_end ) ;} 
   while ( true ) {
@@ -31078,7 +31078,7 @@ hyphenate ( void )
   hc [0 ]= 0 ;
   hc [hn + 1 ]= 0 ;
   hc [hn + 2 ]= 256 ;
-  {register integer for_end; j = 0 ;for_end = hn - rhyf + 1 ; if ( j <= 
+  {register int for_end; j = 0 ;for_end = hn - rhyf + 1 ; if ( j <= 
   for_end) do 
     {
       z = trietrl [curlang + 1 ]+ hc [j ];
@@ -31102,15 +31102,15 @@ hyphenate ( void )
     } 
   while ( j++ < for_end ) ;} 
   lab40: {
-      register integer for_end; j = 0 ;for_end = lhyf - 1 ; if ( j <= 
+      register int for_end; j = 0 ;for_end = lhyf - 1 ; if ( j <= 
   for_end) do 
     hyf [j ]= 0 ;
   while ( j++ < for_end ) ;} 
-  {register integer for_end; j = 0 ;for_end = rhyf - 1 ; if ( j <= for_end) 
+  {register int for_end; j = 0 ;for_end = rhyf - 1 ; if ( j <= for_end) 
   do 
     hyf [hn - j ]= 0 ;
   while ( j++ < for_end ) ;} 
-  {register integer for_end; j = lhyf ;for_end = hn - rhyf ; if ( j <= 
+  {register int for_end; j = lhyf ;for_end = hn - rhyf ; if ( j <= 
   for_end) do 
     if ( odd ( hyf [j ]) ) 
     goto lab41 ;
@@ -31330,13 +31330,13 @@ void
 showsavegroups ( void ) 
 {
   /* 41 42 40 30 */ showsavegroups_regmem 
-  integer p  ;
+  int p  ;
   short m  ;
   savepointer v  ;
   quarterword l  ;
   groupcode c  ;
   schar a  ;
-  integer i  ;
+  int i  ;
   quarterword j  ;
   strnumber s  ;
   p = nestptr ;
@@ -31422,7 +31422,7 @@ showsavegroups ( void )
 	if ( curgroup == 10 ) 
 	printesc ( 358 ) ;
 	else printesc ( 606 ) ;
-	{register integer for_end; i = 1 ;for_end = 3 ; if ( i <= for_end) 
+	{register int for_end; i = 1 ;for_end = 3 ; if ( i <= for_end) 
 	do 
 	  if ( i <= savestack [saveptr - 2 ].cint ) 
 	  print ( 1272 ) ;
@@ -31592,9 +31592,9 @@ zvertbreak ( halfword p , scaled h , scaled d )
   /* 30 45 90 */ register halfword Result; vertbreak_regmem 
   halfword prevp  ;
   halfword q, r  ;
-  integer pi  ;
-  integer b  ;
-  integer leastcost  ;
+  int pi  ;
+  int b  ;
+  int leastcost  ;
   halfword bestplace  ;
   scaled prevdp  ;
   smallnumber t  ;
@@ -31966,7 +31966,7 @@ zfireup ( halfword c )
   halfword prevp  ;
   unsigned char n  ;
   boolean wait  ;
-  integer savevbadness  ;
+  int savevbadness  ;
   scaled savevfuzz  ;
   halfword savesplittopskip  ;
   if ( mem [bestpagebreak ].hh.b0 == 12 ) 
@@ -32219,7 +32219,7 @@ zfireup ( halfword c )
       pushnest () ;
       curlist .modefield = -1 ;
       curlist .auxfield .cint = eqtb [29928 ].cint ;
-      curlist .mlfield = - (integer) line ;
+      curlist .mlfield = - (int) line ;
       begintokenlist ( eqtb [27159 ].hh .v.RH , 6 ) ;
       newsavelevel ( 8 ) ;
       normalparagraph () ;
@@ -32253,8 +32253,8 @@ buildpage ( void )
   /* 10 30 31 22 80 90 */ buildpage_regmem 
   halfword p  ;
   halfword q, r  ;
-  integer b, c  ;
-  integer pi  ;
+  int b, c  ;
+  int pi  ;
   unsigned char n  ;
   scaled delta, h, w  ;
   if ( ( mem [memtop - 1 ].hh .v.RH == -268435455L ) || outputactive ) 
@@ -32916,7 +32916,7 @@ normalparagraph ( void )
   eqdefine ( 27429 , 120 , -268435455L ) ;
 } 
 void 
-zboxend ( integer boxcontext ) 
+zboxend ( int boxcontext ) 
 {
   boxend_regmem 
   halfword p  ;
@@ -33032,7 +33032,7 @@ zboxend ( integer boxcontext )
   } 
 } 
 void 
-zbeginbox ( integer boxcontext ) 
+zbeginbox ( int boxcontext ) 
 {
   /* 10 30 */ beginbox_regmem 
   halfword p, q  ;
@@ -33136,7 +33136,7 @@ zbeginbox ( integer boxcontext )
 		  
 		if ( mem [q ].hh.b0 == 7 ) 
 		{
-		  {register integer for_end; m = 1 ;for_end = mem [q ]
+		  {register int for_end; m = 1 ;for_end = mem [q ]
 		  .hh.b1 ; if ( m <= for_end) do 
 		    p = mem [p ].hh .v.RH ;
 		  while ( m++ < for_end ) ;} 
@@ -33220,7 +33220,7 @@ zbeginbox ( integer boxcontext )
 	normalparagraph () ;
       } 
       pushnest () ;
-      curlist .modefield = - (integer) k ;
+      curlist .modefield = - (int) k ;
       if ( k == 1 ) 
       {
 	curlist .auxfield .cint = eqtb [29928 ].cint ;
@@ -33240,7 +33240,7 @@ zbeginbox ( integer boxcontext )
   boxend ( boxcontext ) ;
 } 
 void 
-zscanbox ( integer boxcontext ) 
+zscanbox ( int boxcontext ) 
 {
   scanbox_regmem 
   do {
@@ -33308,7 +33308,7 @@ zpackage ( smallnumber c )
   boxend ( savestack [saveptr + 0 ].cint ) ;
 } 
 smallnumber 
-znormmin ( integer h ) 
+znormmin ( int h ) 
 {
   register smallnumber Result; normmin_regmem 
   if ( h <= 0 ) 
@@ -33562,7 +33562,7 @@ deletelast ( void )
 	      
 	    if ( mem [q ].hh.b0 == 7 ) 
 	    {
-	      {register integer for_end; m = 1 ;for_end = mem [q ].hh.b1 
+	      {register int for_end; m = 1 ;for_end = mem [q ].hh.b1 
 	      ; if ( m <= for_end) do 
 		p = mem [p ].hh .v.RH ;
 	      while ( m++ < for_end ) ;} 
@@ -33707,7 +33707,7 @@ void
 appenddiscretionary ( void ) 
 {
   appenddiscretionary_regmem 
-  integer c  ;
+  int c  ;
   {
     mem [curlist .tailfield ].hh .v.RH = newdisc () ;
     curlist .tailfield = mem [curlist .tailfield ].hh .v.RH ;
@@ -33738,7 +33738,7 @@ builddiscretionary ( void )
 {
   /* 30 10 */ builddiscretionary_regmem 
   halfword p, q  ;
-  integer n  ;
+  int n  ;
   unsave () ;
   q = curlist .headfield ;
   p = mem [q ].hh .v.RH ;
@@ -33851,7 +33851,7 @@ void
 makeaccent ( void ) 
 {
   makeaccent_regmem 
-  real s, t  ;
+  double s, t  ;
   halfword p, q, r  ;
   internalfontnumber f  ;
   scaled a, h, x, w, delta  ;
@@ -33893,7 +33893,7 @@ makeaccent ( void )
       mem [r ].hh.b1 = 2 ;
       mem [curlist .tailfield ].hh .v.RH = r ;
       mem [r ].hh .v.RH = p ;
-      curlist .tailfield = newkern ( - (integer) a - delta ) ;
+      curlist .tailfield = newkern ( - (int) a - delta ) ;
       mem [curlist .tailfield ].hh.b1 = 2 ;
       mem [p ].hh .v.RH = curlist .tailfield ;
       p = q ;
@@ -34434,13 +34434,13 @@ initmath ( void )
   /* 21 40 45 30 */ initmath_regmem 
   scaled w  ;
   halfword j  ;
-  integer x  ;
+  int x  ;
   scaled l  ;
   scaled s  ;
   halfword p  ;
   halfword q  ;
   internalfontnumber f  ;
-  integer n  ;
+  int n  ;
   scaled v  ;
   scaled d  ;
   gettoken () ;
@@ -34490,7 +34490,7 @@ initmath ( void )
       } 
       else {
 	  
-	v = - (integer) v - mem [justbox + 1 ].cint ;
+	v = - (int) v - mem [justbox + 1 ].cint ;
 	p = newmath ( 0 , 6 ) ;
 	mem [memtop - 3 ].hh .v.RH = p ;
 	justcopy ( mem [justbox + 5 ].hh .v.RH , p , newmath ( 0 , 7 ) ) ;
@@ -34665,7 +34665,7 @@ initmath ( void )
 	
       if ( ( eqtb [29913 ].cint != 0 ) && ( ( ( eqtb [29318 ].cint >= 0 ) 
       && ( curlist .pgfield + 2 > eqtb [29318 ].cint ) ) || ( curlist 
-      .pgfield + 1 < - (integer) eqtb [29318 ].cint ) ) ) 
+      .pgfield + 1 < - (int) eqtb [29318 ].cint ) ) ) 
       {
 	l = eqtb [29899 ].cint - abs ( eqtb [29913 ].cint ) ;
 	if ( eqtb [29913 ].cint > 0 ) 
@@ -34733,7 +34733,7 @@ void
 zscanmath ( halfword p ) 
 {
   /* 20 21 10 */ scanmath_regmem 
-  integer c  ;
+  int c  ;
   lab20: do {
       getxtoken () ;
   } while ( ! ( ( curcmd != 10 ) && ( curcmd != 0 ) ) ) ;
@@ -34798,7 +34798,7 @@ zscanmath ( halfword p )
   else mem [p ].hh.b0 = ( c / 256 ) % 16 ;
 } 
 void 
-zsetmathchar ( integer c ) 
+zsetmathchar ( int c ) 
 {
   setmathchar_regmem 
   halfword p  ;
@@ -35247,7 +35247,7 @@ zappdisplay ( halfword j , halfword b , scaled d )
   scaled z  ;
   scaled s  ;
   scaled e  ;
-  integer x  ;
+  int x  ;
   halfword p, q, r, t, u  ;
   s = eqtb [29911 ].cint ;
   x = eqtb [29378 ].cint ;
@@ -35321,8 +35321,8 @@ zappdisplay ( halfword j , halfword b , scaled d )
       mem [tempptr ].hh.b0 = mem [j ].hh.b0 ;
       mem [tempptr ].hh.b1 = mem [j ].hh.b1 ;
       mem [tempptr + 1 ].cint = e - mem [j + 1 ].cint ;
-      mem [tempptr + 2 ].cint = - (integer) mem [j + 2 ].cint ;
-      mem [tempptr + 3 ].cint = - (integer) mem [j + 3 ].cint ;
+      mem [tempptr + 2 ].cint = - (int) mem [j + 2 ].cint ;
+      mem [tempptr + 3 ].cint = - (int) mem [j + 3 ].cint ;
       mem [u ].hh .v.RH = t ;
     } 
     else {
@@ -35341,8 +35341,8 @@ zappdisplay ( halfword j , halfword b , scaled d )
       mem [tempptr ].hh.b0 = mem [j ].hh.b0 ;
       mem [tempptr ].hh.b1 = mem [j ].hh.b1 ;
       mem [tempptr + 1 ].cint = d - mem [j + 1 ].cint ;
-      mem [tempptr + 2 ].cint = - (integer) mem [j + 2 ].cint ;
-      mem [tempptr + 3 ].cint = - (integer) mem [j + 3 ].cint ;
+      mem [tempptr + 2 ].cint = - (int) mem [j + 2 ].cint ;
+      mem [tempptr + 3 ].cint = - (int) mem [j + 3 ].cint ;
       mem [r ].hh .v.RH = u ;
     } 
     else {
@@ -35366,7 +35366,7 @@ aftermath ( void )
   aftermath_regmem 
   boolean l  ;
   boolean danger  ;
-  integer m  ;
+  int m  ;
   halfword p  ;
   halfword a  ;
   halfword b  ;
@@ -35431,7 +35431,7 @@ aftermath ( void )
   m = curlist .modefield ;
   l = false ;
   p = finmlist ( -268435455L ) ;
-  if ( curlist .modefield == - (integer) m ) 
+  if ( curlist .modefield == - (int) m ) 
   {
     {
       getxtoken () ;
@@ -35576,7 +35576,7 @@ aftermath ( void )
     z = eqtb [29910 ].cint ;
     s = eqtb [29911 ].cint ;
     if ( eqtb [29378 ].cint < 0 ) 
-    s = - (integer) s - z ;
+    s = - (int) s - z ;
     if ( ( a == -268435455L ) || danger ) 
     {
       e = 0 ;
@@ -35779,7 +35779,7 @@ zdoregistercommand ( smallnumber a )
   halfword l, q, r, s  ;
   unsigned char p  ;
   boolean e  ;
-  integer w  ;
+  int w  ;
   q = curcmd ;
   e = false ;
   {
@@ -36025,7 +36025,7 @@ void
 alterprevgraf ( void ) 
 {
   alterprevgraf_regmem 
-  integer p  ;
+  int p  ;
   nest [nestptr ]= curlist ;
   p = nestptr ;
   while ( abs ( nest [p ].modefield ) != 1 ) decr ( p ) ;
@@ -36191,7 +36191,7 @@ znewfont ( smallnumber a )
   else if ( scankeyword ( 1667 ) ) 
   {
     scanint () ;
-    s = - (integer) curval ;
+    s = - (int) curval ;
     if ( ( curval <= 0 ) || ( curval > 32768L ) ) 
     {
       {
@@ -36212,7 +36212,7 @@ znewfont ( smallnumber a )
   } 
   else s = -1000 ;
   nameinprogress = false ;
-  {register integer for_end; f = 1 ;for_end = fontptr ; if ( f <= for_end) 
+  {register int for_end; f = 1 ;for_end = fontptr ; if ( f <= for_end) 
   do 
     if ( streqstr ( fontname [f ], curname ) && streqstr ( fontarea [f ], 
     curarea ) ) 
@@ -36224,7 +36224,7 @@ znewfont ( smallnumber a )
 	  if ( s == fontsize [f ]) 
 	  goto lab50 ;
 	} 
-	else if ( fontsize [f ]== xnoverd ( fontdsize [f ], - (integer) s 
+	else if ( fontsize [f ]== xnoverd ( fontdsize [f ], - (int) s 
 	, 1000 ) ) 
 	goto lab50 ;
       } 
@@ -36403,8 +36403,8 @@ showwhatever ( void )
   halfword p  ;
   smallnumber t  ;
   unsigned char m  ;
-  integer l  ;
-  integer n  ;
+  int l  ;
+  int n  ;
   switch ( curchr ) 
   {case 3 : 
     {
@@ -36657,13 +36657,13 @@ comparestrings ( void )
   curvallevel = 0 ;
 } 
 void 
-zscaleimage ( integer n ) 
+zscaleimage ( int n ) 
 {
   scaleimage_regmem 
-  integer x, y, xr, yr  ;
+  int x, y, xr, yr  ;
   scaled w, h  ;
-  integer defaultres  ;
-  integer image  ;
+  int defaultres  ;
+  int image  ;
   image = pdfmem [objtab [n ].int4 + 4 ];
   if ( ( imagerotate ( image ) == 90 ) || ( imagerotate ( image ) == 270 ) ) 
   {
@@ -36764,10 +36764,10 @@ zscaleimage ( integer n )
     else ;
   } 
 } 
-integer 
+int 
 scanpdfboxspec ( void ) 
 {
-  register integer Result; scanpdfboxspec_regmem 
+  register int Result; scanpdfboxspec_regmem 
   Result = 0 ;
   if ( scankeyword ( 1815 ) ) 
   Result = pdfboxspecmedia ;
@@ -36813,10 +36813,10 @@ void
 scanimage ( void ) 
 {
   /* 21 */ scanimage_regmem 
-  integer k  ;
+  int k  ;
   strnumber named  ;
   strnumber s  ;
-  integer page, pagebox, colorspace  ;
+  int page, pagebox, colorspace  ;
   incr ( pdfximagecount ) ;
   pdfcreateobj ( 8 , pdfximagecount ) ;
   k = objptr ;
@@ -36896,7 +36896,7 @@ halfword
 scanaction ( void ) 
 {
   register halfword Result; scanaction_regmem 
-  integer p  ;
+  int p  ;
   p = getnode ( 3 ) ;
   Result = p ;
   mem [p + 1 ].hh .v.LH = -268435455L ;
@@ -37002,11 +37002,11 @@ znewannotwhatsit ( smallnumber w , smallnumber s )
     else mem [curlist .tailfield + 6 ].hh .v.LH = -268435455L ;
   } 
 } 
-integer 
+int 
 zoutlinelistcount ( halfword p ) 
 {
-  register integer Result; outlinelistcount_regmem 
-  integer k  ;
+  register int Result; outlinelistcount_regmem 
+  int k  ;
   k = 1 ;
   while ( pdfmem [objtab [p ].int4 + 2 ]!= 0 ) {
       
@@ -37120,12 +37120,12 @@ glyphtounicode ( void )
   flushstr ( s1 ) ;
 } 
 void 
-zthreadtitle ( integer thread ) 
+zthreadtitle ( int thread ) 
 {
   threadtitle_regmem 
   pdfprint ( 1886 ) ;
   if ( objtab [thread ].int0 < 0 ) 
-  pdfprint ( - (integer) objtab [thread ].int0 ) ;
+  pdfprint ( - (int) objtab [thread ].int0 ) ;
   else pdfprintint ( objtab [thread ].int0 ) ;
   {
     pdfprint ( 41 ) ;
@@ -37146,7 +37146,7 @@ zthreadtitle ( integer thread )
   } 
 } 
 void 
-zpdffixthread ( integer thread ) 
+zpdffixthread ( int thread ) 
 {
   pdffixthread_regmem 
   halfword a  ;
@@ -37154,7 +37154,7 @@ zpdffixthread ( integer thread )
   if ( objtab [thread ].int0 < 0 ) 
   {
     print ( 1200 ) ;
-    print ( - (integer) objtab [thread ].int0 ) ;
+    print ( - (int) objtab [thread ].int0 ) ;
     print ( 125 ) ;
   } 
   else {
@@ -37246,11 +37246,11 @@ zpdffixthread ( integer thread )
   pdfenddict () ;
 } 
 void 
-zoutthread ( integer thread ) 
+zoutthread ( int thread ) 
 {
   outthread_regmem 
   halfword a, b  ;
-  integer lastattr  ;
+  int lastattr  ;
   if ( objtab [thread ].int4 == 0 ) 
   {
     pdffixthread ( thread ) ;
@@ -37339,7 +37339,7 @@ void
 doextension ( void ) 
 {
   doextension_regmem 
-  integer i, j, k  ;
+  int i, j, k  ;
   halfword p, q, r  ;
   switch ( curchr ) 
   {case 0 : 
@@ -38124,7 +38124,7 @@ doextension ( void )
     {
       scanint () ;
       if ( curval < 0 ) 
-      curval = - (integer) curval ;
+      curval = - (int) curval ;
       randomseed = curval ;
       initrandoms ( randomseed ) ;
     } 
@@ -38246,7 +38246,7 @@ handlerightbrace ( void )
   handlerightbrace_regmem 
   halfword p, q  ;
   scaled d  ;
-  integer f  ;
+  int f  ;
   switch ( curgroup ) 
   {case 1 : 
     unsave () ;
@@ -38510,7 +38510,7 @@ maincontrol ( void )
 {
   /* 60 21 70 80 90 91 92 95 100 101 110 111 112 120 10 */ 
   maincontrol_regmem 
-  integer t  ;
+  int t  ;
   halfword tmpk1, tmpk2  ;
   if ( eqtb [27165 ].hh .v.RH != -268435455L ) 
   begintokenlist ( eqtb [27165 ].hh .v.RH , 12 ) ;
@@ -38721,7 +38721,7 @@ maincontrol ( void )
       scandimen ( false , false , false ) ;
       if ( t == 0 ) 
       scanbox ( curval ) ;
-      else scanbox ( - (integer) curval ) ;
+      else scanbox ( - (int) curval ) ;
     } 
     break ;
   case 32 : 
@@ -39707,7 +39707,7 @@ boolean
 openfmtfile ( void ) 
 {
   /* 40 10 */ register boolean Result; openfmtfile_regmem 
-  integer j  ;
+  int j  ;
   j = curinput .locfield ;
   if ( buffer [curinput .locfield ]== 38 ) 
   {
@@ -39743,12 +39743,12 @@ void
 closefilesandterminate ( void ) 
 {
   /* 30 31 */ closefilesandterminate_regmem 
-  integer a, b, c, i, j, k, l  ;
+  int a, b, c, i, j, k, l  ;
   boolean isroot  ;
   boolean isnames  ;
-  integer root, outlines, threads, namestree, dests  ;
-  integer xrefoffsetwidth, nameshead, namestail  ;
-  {register integer for_end; k = 0 ;for_end = 15 ; if ( k <= for_end) do 
+  int root, outlines, threads, namestree, dests  ;
+  int xrefoffsetwidth, nameshead, namestail  ;
+  {register int for_end; k = 0 ;for_end = 15 ; if ( k <= for_end) do 
     if ( writeopen [k ]) 
     aclose ( writefile [k ]) ;
   while ( k++ < for_end ) ;} 
@@ -39850,14 +39850,14 @@ closefilesandterminate ( void )
 	    pdffixdest ( k ) ;
 	    k = objtab [k ].int1 ;
 	  } 
-	  {register integer for_end; k = 1 ;for_end = fontptr ; if ( k <= 
+	  {register int for_end; k = 1 ;for_end = fontptr ; if ( k <= 
 	  for_end) do 
 	    if ( fontused [k ]&& hasfmentry ( k ) && ( pdffontnum [k ]< 0 
 	    ) ) 
 	    {
-	      i = - (integer) pdffontnum [k ];
+	      i = - (int) pdffontnum [k ];
 	      pdfassert ( pdffontnum [i ]> 0 ) ;
-	      {register integer for_end; j = 0 ;for_end = 255 ; if ( j <= 
+	      {register int for_end; j = 0 ;for_end = 255 ; if ( j <= 
 	      for_end) do 
 		if ( pdfcharmarked ( k , j ) ) 
 		pdfmarkchar ( i , j ) ;
@@ -40338,7 +40338,7 @@ closefilesandterminate ( void )
 	    else xrefoffsetwidth = 2 ;
 	    l = 0 ;
 	    objtab [l ].int2 = -2 ;
-	    {register integer for_end; k = 1 ;for_end = sysobjptr ; if ( k 
+	    {register int for_end; k = 1 ;for_end = sysobjptr ; if ( k 
 	    <= for_end) do 
 	      if ( ! ( objtab [k ].int2 > -1 ) ) 
 	      {
@@ -40431,7 +40431,7 @@ closefilesandterminate ( void )
 	      } 
 	    } 
 	    pdfbeginstream () ;
-	    {register integer for_end; k = 0 ;for_end = sysobjptr ; if ( k 
+	    {register int for_end; k = 0 ;for_end = sysobjptr ; if ( k 
 	    <= for_end) do 
 	      {
 		if ( ! ( objtab [k ].int2 > -1 ) ) 
@@ -40542,7 +40542,7 @@ closefilesandterminate ( void )
 	      
 	    l = 0 ;
 	    objtab [l ].int2 = -2 ;
-	    {register integer for_end; k = 1 ;for_end = sysobjptr ; if ( k 
+	    {register int for_end; k = 1 ;for_end = sysobjptr ; if ( k 
 	    <= for_end) do 
 	      if ( ! ( objtab [k ].int2 > -1 ) ) 
 	      {
@@ -40605,7 +40605,7 @@ closefilesandterminate ( void )
 		} 
 	      } 
 	    } 
-	    {register integer for_end; k = 1 ;for_end = objptr ; if ( k <= 
+	    {register int for_end; k = 1 ;for_end = objptr ; if ( k <= 
 	    for_end) do 
 	      {
 		if ( ! ( objtab [k ].int2 > -1 ) ) 
@@ -40955,7 +40955,7 @@ void
 debughelp ( void ) 
 {
   /* 888 10 */ debughelp_regmem 
-  integer k, l, m, n  ;
+  int k, l, m, n  ;
   while ( true ) {
       
     ;
@@ -41027,7 +41027,7 @@ debughelp ( void )
 	} 
 	break ;
       case 14 : 
-	{register integer for_end; k = 0 ;for_end = n ; if ( k <= for_end) 
+	{register int for_end; k = 0 ;for_end = n ; if ( k <= for_end) 
 	do 
 	  print ( buffer [k ]) ;
 	while ( k++ < for_end ) ;} 
@@ -41058,7 +41058,7 @@ scanfilenamebraced ( void )
   halfword savecurcs  ;
   strnumber s  ;
   halfword p  ;
-  integer i  ;
+  int i  ;
   boolean savestopatspace  ;
   boolean dummy  ;
   savescannerstatus = scannerstatus ;
@@ -41080,7 +41080,7 @@ scanfilenamebraced ( void )
   savestopatspace = stopatspace ;
   stopatspace = false ;
   beginname () ;
-  {register integer for_end; i = strstart [s ];for_end = strstart [s + 1 
+  {register int for_end; i = strstart [s ];for_end = strstart [s + 1 
   ]- 1 ; if ( i <= for_end) do 
     dummy = morename ( strpool [i ]) ;
   while ( i++ < for_end ) ;} 

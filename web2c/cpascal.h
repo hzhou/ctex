@@ -18,7 +18,7 @@
 #define	Xchr(x) xchr[x]
 /* Pieces of predefined Pascal web2c doesn't convert.  */
 
-/* Absolute value.  Without the casts to integer here, the Ultrix and
+/* Absolute value.  Without the casts to int here, the Ultrix and
    AIX compilers (at least) produce bad code (or maybe it's that I don't
    understand all the casting rules in C) for tests on memory fields. 
    Specifically, a test in diag_round (in Metafont) on a quarterword
@@ -26,7 +26,7 @@
    fail.  (A path at line 86 is constructed slightly differently).  */
 /* If the system had an abs #define already, get rid of it.  */
 #undef abs
-#define abs(x) ((integer)(x) >= 0 ? (integer)(x) : (integer)-(x))
+#define abs(x) ((int)(x) >= 0 ? (int)(x) : (int)-(x))
 
 #define chr(x)		(x)
 #define ord(x)		(x)
@@ -281,6 +281,6 @@ typedef struct option getoptstruct;
 #endif
 #define getline web2c_getline
 
-extern int loadpoolstrings (integer);
+extern int loadpoolstrings (int);
 
 #endif /* not CPASCAL_H */

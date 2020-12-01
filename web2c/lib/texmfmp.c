@@ -692,7 +692,7 @@ string default_translate_filename;
 /* Needed for --src-specials option. */
 static char *last_source_name;
 static int last_lineno;
-static boolean srcspecialsoption = false;
+static bool srcspecialsoption = false;
 static void parse_src_specials_option (const_string);
 #endif
 
@@ -708,7 +708,7 @@ static string get_input_file_name (void);
 /* Get a true/false value for a variable from texmf.cnf and the
    environment.  Not static because we call it from tex.ch.  */
 
-boolean
+bool
 texmf_yesno(const_string var)
 {
   string value = kpse_var_value (var);
@@ -873,7 +873,7 @@ maininit (int ac, string *av)
   if (main_input_file == NULL) {
     string name;
 #ifndef XeTeX
-    boolean quoted;
+    bool quoted;
 #endif
 
     name = argv[argc-1];
@@ -941,7 +941,7 @@ maininit (int ac, string *av)
      original .web sources), at Knuth's request.  */
   if (readyalready != 314159) {
     /* The `ini_version' variable is declared/used in the change files.  */
-    boolean virversion = false;
+    bool virversion = false;
     if (FILESTRCASEEQ (kpse_program_name, INI_PROGRAM)) {
       iniversion = true;
     } else if (FILESTRCASEEQ (kpse_program_name, VIR_PROGRAM)) {
@@ -1391,7 +1391,7 @@ ipc_snd (int n, int is_eof, char *data)
 void
 ipcpage (int is_eof)
 {
-  static boolean begun = false;
+  static bool begun = false;
   unsigned len = 0;
   string p = NULL;
 
@@ -1556,7 +1556,7 @@ static string
 normalize_quotes (const_string name, const_string mesg)
 {
     int quote_char = 0;
-    boolean must_quote = false;
+    bool must_quote = false;
     int len = strlen(name);
     /* Leave room for quotes and NUL. */
     string ret;
@@ -1602,8 +1602,8 @@ normalize_quotes (const_string name, const_string mesg)
 static string
 normalize_quotes (const_string name, const_string mesg)
 {
-    boolean quoted = false;
-    boolean must_quote = (strchr(name, ' ') != NULL);
+    bool quoted = false;
+    bool must_quote = (strchr(name, ' ') != NULL);
     /* Leave room for quotes and NUL. */
     string ret = xmalloc(strlen(name)+3);
     string p;
@@ -1638,7 +1638,7 @@ get_input_file_name (void)
     /* Not &format, not \input, so assume simple filename. */    
     string name;
 #ifndef XeTeX
-    boolean quoted;
+    bool quoted;
 #endif
 
 #ifdef WIN32
@@ -1833,7 +1833,7 @@ parse_first_line (const_string filename)
 
 static FILE *pipes [NUM_PIPES];
 
-boolean
+bool
 open_in_or_pipe (FILE **f_ptr, int filefmt, const_string fopen_mode)
 {
     string fname = NULL;
@@ -1873,8 +1873,8 @@ open_in_or_pipe (FILE **f_ptr, int filefmt, const_string fopen_mode)
 }
 
 #ifdef XeTeX
-boolean
-u_open_in_or_pipe(unicodefile* f, integer filefmt, const_string fopen_mode, integer mode, integer encodingData)
+bool
+u_open_in_or_pipe(unicodefile* f, int filefmt, const_string fopen_mode, int mode, int encodingData)
 {
     string fname = NULL;
     int i; /* iterator */
@@ -1918,7 +1918,7 @@ u_open_in_or_pipe(unicodefile* f, integer filefmt, const_string fopen_mode, inte
 }
 #endif
 
-boolean
+bool
 open_out_or_pipe (FILE **f_ptr, const_string fopen_mode)
 {
     string fname;
@@ -2052,11 +2052,11 @@ catch_interrupt (int arg)
 #define strtoull _strtoui64
 #endif
 
-static boolean start_time_set = false;
+static bool start_time_set = false;
 static time_t start_time = 0;
 
-static boolean SOURCE_DATE_EPOCH_set = false;
-static boolean FORCE_SOURCE_DATE_set = false;
+static bool SOURCE_DATE_EPOCH_set = false;
+static bool FORCE_SOURCE_DATE_set = false;
 
 void init_start_time() {
     char *source_date_epoch;
@@ -2094,8 +2094,8 @@ FATAL1 ("invalid epoch-seconds-timezone value for environment variable $SOURCE_D
    good a place as any.  */
 
 void
-get_date_and_time (integer *minutes,  integer *day,
-                   integer *month,  integer *year)
+get_date_and_time (int *minutes,  int *day,
+                   int *month,  int *year)
 {
   struct tm *tmptr;
 #ifndef onlyTeX
@@ -2163,7 +2163,7 @@ printf ("invalid value (expected 0 or 1) for environment variable $FORCE_SOURCE_
  Getting a high resolution time.
  */
 void
-get_seconds_and_micros (integer *seconds,  integer *micros)
+get_seconds_and_micros (int *seconds,  int *micros)
 {
 #if defined (HAVE_GETTIMEOFDAY)
   struct timeval tv;
@@ -2189,7 +2189,7 @@ get_seconds_and_micros (integer *seconds,  integer *micros)
    length(line except trailing whitespace).  */
 
 #ifndef XeTeX /* for XeTeX, we have a replacement function in XeTeX_ext.c */
-boolean
+bool
 input_line (FILE *f)
 {
   int i = EOF;
@@ -2313,8 +2313,8 @@ static const_string edit_value = EDITOR;
 void
 calledit (packedASCIIcode *filename,
           poolpointer fnstart,
-          integer fnlength,
-          integer linenumber)
+          int fnlength,
+          int linenumber)
 {
   char *temp, *command, *fullcmd;
   char c;
@@ -2407,7 +2407,7 @@ calledit (packedASCIIcode *filename,
     edit_value = temp;
 
   /* Construct the command string.  The `11' is the maximum length an
-     integer might be (64 bits).  */
+     int might be (64 bits).  */
   command = xmalloc (strlen (edit_value) + fnlength + 11);
 
   /* So we can construct it as we go.  */
@@ -2829,7 +2829,7 @@ gettexstring (strnumber s)
 
 #endif /* not XeTeX */
 
-boolean
+bool
 isnewsource (strnumber srcfilename, int lineno)
 {
   char *name = gettexstring(srcfilename);
@@ -2936,7 +2936,7 @@ static char time_str[TIME_STR_SIZE];
     /* minimum size for time_str is 24: "D:YYYYmmddHHMMSS+HH'MM'" */
 
 static void
-makepdftime(time_t t, char *time_str, boolean utc)
+makepdftime(time_t t, char *time_str, bool utc)
 {
     struct tm lt, gmt;
     size_t size;
@@ -3011,7 +3011,7 @@ initstarttime(void)
 /* Search for an input file. If -output-directory is specified look
    there first. If that fails, do the regular kpse search. */
 string
-find_input_file(integer s)
+find_input_file(int s)
 {
     string filename;
 
@@ -3040,7 +3040,7 @@ find_input_file(integer s)
 
 #if !defined(XeTeX)
 char *
-makecstring(integer s)
+makecstring(int s)
 {
     static char *cstrbuf = NULL;
     char *p;
@@ -3075,7 +3075,7 @@ makecstring(integer s)
     cannot any more be used since pdfTeX version 1.30.4.
 */
 char *
-makecfilename(integer s)
+makecfilename(int s)
 {
     char *name = makecstring(s);
     char *p = name;
@@ -3121,7 +3121,7 @@ getcreationdate(void)
 }
 
 void
-getfilemoddate(integer s)
+getfilemoddate(int s)
 {
     struct stat file_data;
 
@@ -3138,7 +3138,7 @@ getfilemoddate(integer s)
     if (stat(file_name, &file_data) == 0) {
 #endif
         size_t len;
-	boolean use_utc = FORCE_SOURCE_DATE_set && SOURCE_DATE_EPOCH_set;
+	bool use_utc = FORCE_SOURCE_DATE_set && SOURCE_DATE_EPOCH_set;
         makepdftime(file_data.st_mtime, time_str, use_utc);
         len = strlen(time_str);
         if ((unsigned) (poolptr + len) >= (unsigned) (poolsize)) {
@@ -3162,7 +3162,7 @@ getfilemoddate(integer s)
 }
 
 void
-getfilesize(integer s)
+getfilesize(int s)
 {
     struct stat file_data;
     int i;
@@ -3206,7 +3206,7 @@ getfilesize(integer s)
 }
 
 void
-getfiledump(integer s, int offset, int length)
+getfiledump(int s, int offset, int length)
 {
     FILE *f;
     int read, i;
@@ -3304,7 +3304,7 @@ convertStringToHexString(const char *in, char *out, int lin)
 #define FILE_BUF_SIZE 1024
 
 void
-getmd5sum(strnumber s, boolean file)
+getmd5sum(strnumber s, bool file)
 {
     md5_state_t state;
     md5_byte_t digest[DIGEST_SIZE];
@@ -3438,11 +3438,11 @@ connection with the use or performance of this software.
    3. Dividing one double by another should always produce a relative error of
       at most one part in 2^46.  (This is why the mantissa requirement is
       46 bits instead of 45 bits.)
-   3. In the absence of overflow, double-to-integer conversion should truncate
+   3. In the absence of overflow, double-to-int conversion should truncate
       toward zero and do this in an exact fashion.
    4. Integer-to-double convesion should produce exact results.
    5. Dividing one power of two by another should yield an exact result.
-   6. ASCII to double conversion should be exact for integer values.
+   6. ASCII to double conversion should be exact for int values.
    7. Integer arithmetic must be done in the two's-complement system.
 */
 #define ELGORDO  0x7fffffff
@@ -3452,10 +3452,10 @@ connection with the use or performance of this software.
 #define TWEXP_16 (1.0/65536.0)
 #define TWEXP_28 (1.0/268435456.0)
 
-integer
-ztakefraction (integer p, integer q)     /* Approximate p*q/2^28 */
+int
+ztakefraction (int p, int q)     /* Approximate p*q/2^28 */
 {	register double d;
-	register integer i;
+	register int i;
 	d = (double)p * (double)q * TWEXP_28;
 	if ((p^q) >= 0) {
 		d += 0.5;
@@ -3464,7 +3464,7 @@ ztakefraction (integer p, integer q)     /* Approximate p*q/2^28 */
 				aritherror = true;
 			return ELGORDO;
 		}
-		i = (integer) d;
+		i = (int) d;
 		if (d==i && (((p&077777)*(q&077777))&040000)!=0) --i;
 	} else {
 		d -= 0.5;
@@ -3473,16 +3473,16 @@ ztakefraction (integer p, integer q)     /* Approximate p*q/2^28 */
 				aritherror = true;
 			return -ELGORDO;
 		}
-		i = (integer) d;
+		i = (int) d;
 		if (d==i && ((-(p&077777)*(q&077777))&040000)!=0) ++i;
 	}
 	return i;
 }
 
-integer
-ztakescaled (integer p, integer q)		/* Approximate p*q/2^16 */
+int
+ztakescaled (int p, int q)		/* Approximate p*q/2^16 */
 {	register double d;
-	register integer i;
+	register int i;
 	d = (double)p * (double)q * TWEXP_16;
 	if ((p^q) >= 0) {
 		d += 0.5;
@@ -3491,7 +3491,7 @@ ztakescaled (integer p, integer q)		/* Approximate p*q/2^16 */
 				aritherror = true;
 			return ELGORDO;
 		}
-		i = (integer) d;
+		i = (int) d;
 		if (d==i && (((p&077777)*(q&077777))&040000)!=0) --i;
 	} else {
 		d -= 0.5;
@@ -3500,7 +3500,7 @@ ztakescaled (integer p, integer q)		/* Approximate p*q/2^16 */
 				aritherror = true;
 			return -ELGORDO;
 		}
-		i = (integer) d;
+		i = (int) d;
 		if (d==i && ((-(p&077777)*(q&077777))&040000)!=0) ++i;
 	}
 	return i;
@@ -3510,10 +3510,10 @@ ztakescaled (integer p, integer q)		/* Approximate p*q/2^16 */
    because the exact value of p/q cannot be strictly between (2^31-1)/2^28
    and 8/1.  No pair of integers less than 2^31 has such a ratio.
 */
-integer
-zmakefraction (integer p, integer q)	/* Approximate 2^28*p/q */
+int
+zmakefraction (int p, int q)	/* Approximate 2^28*p/q */
 {	register double d;
-	register integer i;
+	register int i;
 #ifdef DEBUG
 	if (q==0) confusion(47); 
 #endif /* DEBUG */
@@ -3521,13 +3521,13 @@ zmakefraction (integer p, integer q)	/* Approximate 2^28*p/q */
 	if ((p^q) >= 0) {
 		d += 0.5;
 		if (d>=TWEXP31) {aritherror=true; return ELGORDO;}
-		i = (integer) d;
+		i = (int) d;
 		if (d==i && ( ((q>0 ? -q : q)&077777)
 				* (((i&037777)<<1)-1) & 04000)!=0) --i;
 	} else {
 		d -= 0.5;
 		if (d<= -TWEXP31) {aritherror=true; return -ELGORDO;}
-		i = (integer) d;
+		i = (int) d;
 		if (d==i && ( ((q>0 ? q : -q)&077777)
 				* (((i&037777)<<1)+1) & 04000)!=0) ++i;
 	}
@@ -3538,10 +3538,10 @@ zmakefraction (integer p, integer q)	/* Approximate 2^28*p/q */
    because the exact value of p/q cannot be strictly between (2^31-1)/2^16
    and 2^15/1.  No pair of integers less than 2^31 has such a ratio.
 */
-integer
-zmakescaled (integer p, integer q)		/* Approximate 2^16*p/q */
+int
+zmakescaled (int p, int q)		/* Approximate 2^16*p/q */
 {	register double d;
-	register integer i;
+	register int i;
 #ifdef DEBUG
 	if (q==0) confusion(47); 
 #endif /* DEBUG */
@@ -3549,13 +3549,13 @@ zmakescaled (integer p, integer q)		/* Approximate 2^16*p/q */
 	if ((p^q) >= 0) {
 		d += 0.5;
 		if (d>=TWEXP31) {aritherror=true; return ELGORDO;}
-		i = (integer) d;
+		i = (int) d;
 		if (d==i && ( ((q>0 ? -q : q)&077777)
 				* (((i&037777)<<1)-1) & 04000)!=0) --i;
 	} else {
 		d -= 0.5;
 		if (d<= -TWEXP31) {aritherror=true; return -ELGORDO;}
-		i = (integer) d;
+		i = (int) d;
 		if (d==i && ( ((q>0 ? q : -q)&077777)
 				* (((i&037777)<<1)+1) & 04000)!=0) ++i;
 	}
@@ -3673,7 +3673,7 @@ static struct mfwin_sw *mfwp;
 
 /* This returns true if we can do window operations, else false.  */
 
-boolean
+bool
 initscreen (void)
 {
   int retval;
@@ -3690,7 +3690,7 @@ initscreen (void)
       tty_type = "mftalk";
 #else /* not (OS2 or WIN32 or __DJGPP__ or AMIGA) */
       /* If DISPLAY is set, we are X11; otherwise, who knows.  */
-      boolean have_display = getenv ("DISPLAY") != NULL;
+      bool have_display = getenv ("DISPLAY") != NULL;
       tty_type = have_display ? "xterm" : getenv ("TERM");
 
       /* If we don't know what kind of terminal this is, or if Metafont

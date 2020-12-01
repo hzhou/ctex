@@ -100,7 +100,7 @@ static fd_entry *fd_cur;        /* pointer to the current font descriptor */
 
 static struct avl_table *ttf_cmap_tree = NULL;
 
-integer ttf_length;
+int ttf_length;
 
 #include "macnames.c"
 
@@ -217,7 +217,7 @@ static void ttf_ncopy(int n)
         copy_byte();
 }
 
-static dirtab_entry *ttf_name_lookup(const char *s, boolean required)
+static dirtab_entry *ttf_name_lookup(const char *s, bool required)
 {
     dirtab_entry *tab;
     for (tab = dir_tab; tab - dir_tab < ntabs; tab++)
@@ -556,7 +556,7 @@ static void ttf_read_tabdir(void)
 }
 
 static ttf_cmap_entry *ttf_read_cmap(char *ttf_name, int pid, int eid,
-                                     boolean warn)
+                                     bool warn)
 {
     seg_entry *seg_tab, *s;
     TTF_USHORT *glyphId, format, segCount;
@@ -839,7 +839,7 @@ static void ttf_write_cmap(void)
 
 static int prepend_subset_tags(int index, char *p)
 {
-    boolean is_unicode;
+    bool is_unicode;
     int i;
     assert(index >= 0 && index < name_record_num && fd_cur->subset_tag != NULL);
     is_unicode = (name_tab[index].platform_id == 3);
@@ -1022,7 +1022,7 @@ static void ttf_reindex_glyphs(void)
     int n;
     long *t;
     ttf_cmap_entry *cmap = NULL;
-    boolean cmap_not_found = false;
+    bool cmap_not_found = false;
 
     /*
      * reindexing glyphs: we append index of used glyphs to `glyph_index'
@@ -1236,7 +1236,7 @@ static void ttf_write_OS2(void)
     ttf_set_chksm(tab);
 }
 
-static boolean unsafe_name(const char *s)
+static bool unsafe_name(const char *s)
 {
     const char **p;
     for (p = ambiguous_names; *p != NULL; p++)

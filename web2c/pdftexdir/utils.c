@@ -51,19 +51,19 @@ typedef char char_entry;
 define_array(char);
 
 /* define vf_e_fnts_ptr, vf_e_fnts_array & vf_e_fnts_limit */
-typedef integer vf_e_fnts_entry;
+typedef int vf_e_fnts_entry;
 define_array(vf_e_fnts);
 
 /* define vf_i_fnts_ptr, vf_i_fnts_array & vf_i_fnts_limit */
 typedef internalfontnumber vf_i_fnts_entry;
 define_array(vf_i_fnts);
 
-integer fb_offset(void)
+int fb_offset(void)
 {
     return fb_ptr - fb_array;
 }
 
-void fb_seek(integer offset)
+void fb_seek(int offset)
 {
     fb_ptr = fb_array + offset;
 }
@@ -77,7 +77,7 @@ void fb_putchar(eightbits b)
 void fb_flush(void)
 {
     fb_entry *p;
-    integer n;
+    int n;
     for (p = fb_array; p < fb_ptr;) {
         n = pdfbufsize - pdfptr;
         if (fb_ptr - p < n)
@@ -299,7 +299,7 @@ void setjobid(int year, int month, int day, int time)
 
 void makepdftexbanner(void)
 {
-    static boolean pdftexbanner_init = false;
+    static bool pdftexbanner_init = false;
     char *s;
     size_t slen;
     int i;
@@ -624,7 +624,7 @@ void unescapehex(poolpointer in)
     const poolpointer out = poolptr;
     unsigned char ch;
     unsigned char a = 0;        /* to avoid warning about uninitialized use of a */
-    boolean first = true;
+    bool first = true;
 
     while (in < out) {
         if (poolptr + 1 >= poolsize) {
@@ -712,7 +712,7 @@ void printID(strnumber filename)
     pdf_printf("/ID [<%s> <%s>]", id, id);
 }
 
-void printIDalt(integer toks)
+void printIDalt(int toks)
 {
     md5_state_t state;
     md5_byte_t digest[16];
@@ -800,7 +800,7 @@ static int last_match_succeeded = 0;
 
 /* Implements \pdfmatch */
 void
-matchstrings(strnumber s, strnumber t, int subcount, boolean icase)
+matchstrings(strnumber s, strnumber t, int subcount, bool icase)
 {
     regex_t preg;
     int cflags = REG_EXTENDED;
@@ -853,7 +853,7 @@ getmatch(int i)
     int size;
     int len = 0;                /* avoid spurious uninitialized warning */
 
-    boolean found
+    bool found
       = i >= 0                  /* should always be so due to pdftex.web */
         && i < sub_match_count  /* if >subcount, not found by definition */
         && match_string != NULL /* first call, and just in case */
@@ -864,7 +864,7 @@ getmatch(int i)
     if (found) {
         len = pmatch[i].rm_eo - pmatch[i].rm_so;
         size = 20 + len;
-        /* 20: place for integer number and '->' */
+        /* 20: place for int number and '->' */
     } else {
         size = 4;
     }
@@ -1014,7 +1014,7 @@ void initversionstring(char **versions)
 #define DIRECT_ALWAYS 2
 
 /* remember shipout mode: page/form */
-static boolean page_mode;
+static bool page_mode;
 
 typedef struct {
     char **page_stack;
@@ -1027,7 +1027,7 @@ typedef struct {
     int page_used;
     int form_used;
     int literal_mode;
-    boolean page_start;
+    bool page_start;
 } colstack_type;
 
 static colstack_type *colstacks = NULL;
@@ -1069,7 +1069,7 @@ int colorstackused(void)
     A new color stack is setup with the given parameters.
     The stack number is returned or -1 in case of error (no room).
 */
-int newcolorstack(integer s, integer literal_mode, boolean page_start)
+int newcolorstack(int s, int literal_mode, bool page_start)
 {
     colstack_type *colstack;
     int colstack_num;
@@ -1135,7 +1135,7 @@ static void put_cstring_on_strpool(poolpointer start, char *str)
     memcpy(&strpool[start], str, len);
 }
 
-integer colorstackset(int colstack_no, integer s)
+int colorstackset(int colstack_no, int s)
 {
     colstack_type *colstack = get_colstack(colstack_no);
 
@@ -1149,7 +1149,7 @@ integer colorstackset(int colstack_no, integer s)
     return colstack->literal_mode;
 }
 
-integer colorstackcurrent(int colstack_no)
+int colorstackcurrent(int colstack_no)
 {
     colstack_type *colstack = get_colstack(colstack_no);
 
@@ -1161,7 +1161,7 @@ integer colorstackcurrent(int colstack_no)
     return colstack->literal_mode;
 }
 
-integer colorstackpush(int colstack_no, integer s)
+int colorstackpush(int colstack_no, int s)
 {
     colstack_type *colstack = get_colstack(colstack_no);
     char *str;
@@ -1194,7 +1194,7 @@ integer colorstackpush(int colstack_no, integer s)
     return colstack->literal_mode;
 }
 
-integer colorstackpop(int colstack_no)
+int colorstackpop(int colstack_no)
 {
     colstack_type *colstack = get_colstack(colstack_no);
 
@@ -1245,7 +1245,7 @@ static void colorstackpagestart(void)
     }
 }
 
-integer colorstackskippagestart(int colstack_no)
+int colorstackskippagestart(int colstack_no)
 {
     colstack_type *colstack = get_colstack(colstack_no);
 
@@ -1276,7 +1276,7 @@ static matrix_entry *matrix_stack = 0;
 static int matrix_stack_size = 0;
 static int matrix_stack_used = 0;
 
-boolean matrixused(void)
+bool matrixused(void)
 {
     return matrix_stack_used > 0;
 }
@@ -1343,7 +1343,7 @@ void checkpdfrestore(int cur_h, int cur_v)
     }
 }
 
-void pdfshipoutbegin(boolean shipping_page)
+void pdfshipoutbegin(bool shipping_page)
 {
     pos_stack_used = 0;         /* start with empty stack */
 
@@ -1353,7 +1353,7 @@ void pdfshipoutbegin(boolean shipping_page)
     }
 }
 
-void pdfshipoutend(boolean shipping_page)
+void pdfshipoutend(bool shipping_page)
 {
     if (pos_stack_used > 0) {
         pdftex_fail("%u unmatched \\pdfsave after %s shipout",
@@ -1392,7 +1392,7 @@ void pdfshipoutend(boolean shipping_page)
 
 */
 
-integer pdfsetmatrix(poolpointer in, scaled cur_h, scaled cur_v)
+int pdfsetmatrix(poolpointer in, scaled cur_h, scaled cur_v)
 {
     /* Argument of \pdfsetmatrix starts with strpool[in] and ends
        before strpool[poolptr]. */

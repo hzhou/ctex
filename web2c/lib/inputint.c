@@ -6,10 +6,10 @@
 #include "lib.h"
 
 #define MAX_INT_LENGTH 100
-/* Read an integer from the file F, reading past the subsequent end of
+/* Read an int from the file F, reading past the subsequent end of
    line.  */
 
-integer
+int
 inputint (FILE *f)
 {
   char buffer[MAX_INT_LENGTH]; /* Long enough for anything reasonable.  */

@@ -28,7 +28,7 @@ with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* avoid use of size_t */
 image_entry *image_ptr, *image_array = NULL;
-integer image_limit;
+int image_limit;
 
 float epdf_width;
 float epdf_height;
@@ -41,7 +41,7 @@ int epdf_page_box;
 void *epdf_doc;
 int epdf_has_page_group;
 
-static integer new_image_entry(void)
+static int new_image_entry(void)
 {
     alloc_array(image, 1, SMALL_BUF_SIZE);
     image_ptr->image_type = IMAGE_TYPE_NONE;
@@ -57,82 +57,82 @@ static integer new_image_entry(void)
     return image_ptr++ - image_array;
 }
 
-integer imagecolor(integer img)
+int imagecolor(int img)
 {
     return img_color(img);
 }
 
-integer imagewidth(integer img)
+int imagewidth(int img)
 {
     return img_width(img);
 }
 
-integer imageheight(integer img)
+int imageheight(int img)
 {
     return img_height(img);
 }
 
-integer imagerotate(integer img)
+int imagerotate(int img)
 {
     return img_rotate(img);
 }
 
-integer imagexres(integer img)
+int imagexres(int img)
 {
     return img_xres(img);
 }
 
-integer imageyres(integer img)
+int imageyres(int img)
 {
     return img_yres(img);
 }
 
-boolean ispdfimage(integer img)
+bool ispdfimage(int img)
 {
     return img_type(img) == IMAGE_TYPE_PDF;
 }
 
-boolean ispngimage(integer img)
+bool ispngimage(int img)
 {
     return img_type(img) == IMAGE_TYPE_PNG;
 }
 
-boolean checkimageb(integer procset)
+bool checkimageb(int procset)
 {
     return procset & IMAGE_COLOR_B;
 }
 
-boolean checkimagec(integer procset)
+bool checkimagec(int procset)
 {
     return procset & IMAGE_COLOR_C;
 }
 
-boolean checkimagei(integer procset)
+bool checkimagei(int procset)
 {
     return procset & IMAGE_COLOR_I;
 }
 
-void updateimageprocset(integer img)
+void updateimageprocset(int img)
 {
     pdfimageprocset |= img_color(img);
 }
 
-integer epdforigx(integer img)
+int epdforigx(int img)
 {
     return pdf_ptr(img)->orig_x;
 }
 
-integer epdforigy(integer img)
+int epdforigy(int img)
 {
     return pdf_ptr(img)->orig_y;
 }
 
-integer imagepages(integer img)
+int imagepages(int img)
 {
     return img_pages(img);
 }
 
-integer imagecolordepth(integer img)
+int imagecolordepth(int img)
 {
     switch (img_type(img)) {
     case IMAGE_TYPE_PNG:
@@ -149,12 +149,12 @@ integer imagecolordepth(integer img)
     }
 }
 
-integer getimagegroupref(integer img)
+int getimagegroupref(int img)
 {
     return img_group_ref(img);
 }
 
-void setimagegroupref(integer img, integer value)
+void setimagegroupref(int img, int value)
 {
     img_group_ref(img) = value;
 }
@@ -239,7 +239,7 @@ void setimagegroupref(integer img, integer value)
 #define HEADER_JBIG2 "\x97\x4A\x42\x32\x0D\x0A\x1A\x0A"
 #define HEADER_PDF "%PDF-1."
 #define MAX_HEADER (sizeof(HEADER_PNG)-1)
-static void checktypebyheader(integer img)
+static void checktypebyheader(int img)
 {
     int i;
     FILE *file = NULL;
@@ -268,7 +268,7 @@ static void checktypebyheader(integer img)
         img_type(img) = IMAGE_TYPE_PDF;
 }
 
-static void checktypebyextension(integer img)
+static void checktypebyextension(int img)
 {
     char *image_suffix;
 
@@ -289,12 +289,12 @@ static void checktypebyextension(integer img)
         img_type(img) = IMAGE_TYPE_PDF;
 }
 
-integer readimage(strnumber s, integer page_num, strnumber page_name,
-                  integer colorspace, integer pagebox,
-                  integer pdfmajorversion, integer pdfminorversion, integer pdfinclusionerrorlevel)
+int readimage(strnumber s, int page_num, strnumber page_name,
+                  int colorspace, int pagebox,
+                  int pdfmajorversion, int pdfminorversion, int pdfinclusionerrorlevel)
 {
     char *dest = NULL;
-    integer img = new_image_entry();
+    int img = new_image_entry();
     img_colorspace_ref(img) = colorspace;
 
     /* need to allocate new string as makecstring's buffer is
@@ -358,7 +358,7 @@ integer readimage(strnumber s, integer page_num, strnumber page_name,
     return img;
 }
 
-void writeimage(integer img)
+void writeimage(int img)
 {
     cur_file_name = img_name(img);
     tex_printf(" <%s", img_name(img));
@@ -386,7 +386,7 @@ void writeimage(integer img)
     cur_file_name = NULL;
 }
 
-void deleteimage(integer img)
+void deleteimage(int img)
 {
     if (iniversion)
         return;                 // The image may be \dump{}ed to a format
@@ -431,7 +431,7 @@ void img_free(void)
  * to undumpimagemeta once more.
  */
 
-/* some of the dumped values are really type int, not integer,
+/* some of the dumped values are really type int, not int,
  * but since the macro falls back to generic_dump anyway, that
  * does not matter. 
  */
@@ -449,7 +449,7 @@ void img_free(void)
 
 #define dumpcharptr(a)				\
   do {						\
-    integer x;					\
+    int x;					\
     if (a!=NULL) {				\
       x = strlen(a)+1;				\
       dumpinteger(x);  dumpthings(*a, x);	\
@@ -460,7 +460,7 @@ void img_free(void)
 
 #define undumpcharptr(s)			\
   do {						\
-    integer x;					\
+    int x;					\
     char *a;					\
     undumpinteger (x);				\
     if (x>0) {					\
@@ -506,7 +506,7 @@ void dumpimagemeta(void)
     }
 }
 
-void undumpimagemeta(integer pdfmajorversion, integer pdfminorversion, integer pdfinclusionerrorlevel)
+void undumpimagemeta(int pdfmajorversion, int pdfminorversion, int pdfinclusionerrorlevel)
 {
     int cur_image, img;
 
