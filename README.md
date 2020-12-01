@@ -2,6 +2,20 @@
 
 Adapt pdftex to C, cutting away the cruft of legacy.
 
+## Status
+
+* `make pdftex`
+
+    Compiles to `pdftex` cleanly, but need work to make it usable.
+
+* `make pdftex-web2c`
+
+    Generates original pdftex C code from web files. This is for reference.
+
+* `Makefile`
+
+    Just read the Makefile to understand how it works.
+
 ## Why
 
 Official TeX is maintained by Donald Knuth in WEB -- a literate programming framework invented by Knuth. TeX is effectively declared bug free. While one may like the sound of it, this essentially means TeX is frozen in a decades old legacy state. For a glimpse, this legacy state writes in a pascal language that you can't find a compiler. It assumes no memory facility and no string facility, so TeX implements its own programming environment. You can't take any parts of TeX's code and expect to use it in your own application -- the same way that you shouldn't expect to take a DOS game and expect it to run in your computer today.
