@@ -1,0 +1,9 @@
+page: ctex, -
+    autolist: global
+
+subcode: _autoload    
+    extern unsigned char xchr[];
+
+fncode: init_xchr()
+    $for i=0:256
+        xchr[i] = (unsigned char) i

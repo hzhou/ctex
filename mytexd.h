@@ -87,13 +87,11 @@
 #define FATAL5(fmt,a,b,c,d,e) do { printf(fmt,a,b,c,d,e); exit(1); } while (0)
 #define EDITOR "vim"
 
-typedef unsigned char ASCIIcode  ;
 typedef unsigned char eightbits  ;
 typedef FILE * alphafile  ;
 typedef FILE * bytefile  ;
 typedef int poolpointer  ;
 typedef int strnumber  ;
-typedef unsigned char packedASCIIcode  ;
 typedef int scaled  ;
 typedef int nonnegativeinteger  ;
 typedef unsigned char smallnumber  ;
@@ -159,9 +157,9 @@ typedef int savepointer  ;
 #include "pdftexdir/ptexlib.h"
 
 EXTERN int bad  ;
-EXTERN ASCIIcode xord[256]  ;
-EXTERN ASCIIcode xchr[256]  ;
-EXTERN ASCIIcode xprn[256]  ;
+EXTERN unsigned char xord[256]  ;
+EXTERN unsigned char xchr[256]  ;
+EXTERN unsigned char xprn[256]  ;
 EXTERN halfword mubyteread[256]  ;
 EXTERN strnumber mubytewrite[256]  ;
 EXTERN halfword mubytecswrite[128]  ;
@@ -185,9 +183,9 @@ EXTERN bool writenoexpanding  ;
 EXTERN bool csconverting  ;
 EXTERN bool specialprinting  ;
 EXTERN bool messageprinting  ;
-EXTERN ASCIIcode * nameoffile  ;
+EXTERN unsigned char * nameoffile  ;
 EXTERN int namelength  ;
-EXTERN ASCIIcode * buffer  ;
+EXTERN unsigned char * buffer  ;
 EXTERN int first  ;
 EXTERN int last  ;
 EXTERN int maxbufstack  ;
@@ -241,7 +239,7 @@ EXTERN bool insertsrcspecialeverymath  ;
 EXTERN bool insertsrcspecialeveryhbox  ;
 EXTERN bool insertsrcspecialeveryvbox  ;
 EXTERN bool insertsrcspecialeverydisplay  ;
-EXTERN packedASCIIcode * strpool  ;
+EXTERN unsigned char * strpool  ;
 EXTERN poolpointer * strstart  ;
 EXTERN poolpointer poolptr  ;
 EXTERN strnumber strptr  ;
@@ -256,7 +254,7 @@ EXTERN unsigned char dig[23]  ;
 EXTERN int tally  ;
 EXTERN int termoffset  ;
 EXTERN int fileoffset  ;
-EXTERN ASCIIcode trickbuf[256]  ;
+EXTERN unsigned char trickbuf[256]  ;
 EXTERN int trickcount  ;
 EXTERN int firstcount  ;
 EXTERN unsigned char interaction  ;
@@ -636,7 +634,7 @@ EXTERN halfword ha, hb  ;
 EXTERN internalfontnumber hf  ;
 EXTERN short hu[64]  ;
 EXTERN int hyfchar  ;
-EXTERN ASCIIcode curlang, initcurlang  ;
+EXTERN unsigned char curlang, initcurlang  ;
 EXTERN int lhyf, rhyf, initlhyf, initrhyf  ;
 EXTERN halfword hyfbchar  ;
 EXTERN unsigned char hyf[65]  ;
@@ -666,14 +664,14 @@ EXTERN int
 #define trieophash (zzzab - (int)(negtrieopsize))
   zzzab[trieopsize - negtrieopsize + 1]  ;
 EXTERN trieopcode trieused[256]  ;
-EXTERN ASCIIcode trieoplang[trieopsize + 1]  ;
+EXTERN unsigned char trieoplang[trieopsize + 1]  ;
 EXTERN trieopcode trieopval[trieopsize + 1]  ;
 EXTERN int trieopptr  ;
 #endif /* INITEX */
 EXTERN trieopcode maxopused  ;
 EXTERN bool smallop  ;
 #ifdef INITEX
-EXTERN packedASCIIcode * triec  ;
+EXTERN unsigned char * triec  ;
 EXTERN trieopcode * trieo  ;
 EXTERN triepointer * triel  ;
 EXTERN triepointer * trier  ;
@@ -828,7 +826,7 @@ strnumber makefullnamestring(void);
 bool isnewsource (strnumber srcfilename, int lineno);
 poolpointer makesrcspecial (strnumber srcfilename, int lineno);
 void remembersourceinfo (strnumber srcfilename, int lineno);
-void calledit (packedASCIIcode *filename, poolpointer fnstart, int fnlength, int linenumber);
+void calledit (unsigned char *filename, poolpointer fnstart, int fnlength, int linenumber);
 
 #include "my-pdftexcoerce.h"
 #endif /* MYTEXD_H */

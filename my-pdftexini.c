@@ -1,6 +1,8 @@
 #define EXTERN extern
 #include "mytexd.h"
 
+void init_xchr(void);
+
 void 
 initialize ( void ) 
 {
@@ -8,107 +10,9 @@ initialize ( void )
   int i  ;
   int k  ;
   hyphpointer z  ;
-  xchr [32 ]= ' ' ;
-  xchr [33 ]= '!' ;
-  xchr [34 ]= '"' ;
-  xchr [35 ]= '#' ;
-  xchr [36 ]= '$' ;
-  xchr [37 ]= '%' ;
-  xchr [38 ]= '&' ;
-  xchr [39 ]= '\'' ;
-  xchr [40 ]= '(' ;
-  xchr [41 ]= ')' ;
-  xchr [42 ]= '*' ;
-  xchr [43 ]= '+' ;
-  xchr [44 ]= ',' ;
-  xchr [45 ]= '-' ;
-  xchr [46 ]= '.' ;
-  xchr [47 ]= '/' ;
-  xchr [48 ]= '0' ;
-  xchr [49 ]= '1' ;
-  xchr [50 ]= '2' ;
-  xchr [51 ]= '3' ;
-  xchr [52 ]= '4' ;
-  xchr [53 ]= '5' ;
-  xchr [54 ]= '6' ;
-  xchr [55 ]= '7' ;
-  xchr [56 ]= '8' ;
-  xchr [57 ]= '9' ;
-  xchr [58 ]= ':' ;
-  xchr [59 ]= ';' ;
-  xchr [60 ]= '<' ;
-  xchr [61 ]= '=' ;
-  xchr [62 ]= '>' ;
-  xchr [63 ]= '?' ;
-  xchr [64 ]= '@' ;
-  xchr [65 ]= 'A' ;
-  xchr [66 ]= 'B' ;
-  xchr [67 ]= 'C' ;
-  xchr [68 ]= 'D' ;
-  xchr [69 ]= 'E' ;
-  xchr [70 ]= 'F' ;
-  xchr [71 ]= 'G' ;
-  xchr [72 ]= 'H' ;
-  xchr [73 ]= 'I' ;
-  xchr [74 ]= 'J' ;
-  xchr [75 ]= 'K' ;
-  xchr [76 ]= 'L' ;
-  xchr [77 ]= 'M' ;
-  xchr [78 ]= 'N' ;
-  xchr [79 ]= 'O' ;
-  xchr [80 ]= 'P' ;
-  xchr [81 ]= 'Q' ;
-  xchr [82 ]= 'R' ;
-  xchr [83 ]= 'S' ;
-  xchr [84 ]= 'T' ;
-  xchr [85 ]= 'U' ;
-  xchr [86 ]= 'V' ;
-  xchr [87 ]= 'W' ;
-  xchr [88 ]= 'X' ;
-  xchr [89 ]= 'Y' ;
-  xchr [90 ]= 'Z' ;
-  xchr [91 ]= '[' ;
-  xchr [92 ]= '\\' ;
-  xchr [93 ]= ']' ;
-  xchr [94 ]= '^' ;
-  xchr [95 ]= '_' ;
-  xchr [96 ]= '`' ;
-  xchr [97 ]= 'a' ;
-  xchr [98 ]= 'b' ;
-  xchr [99 ]= 'c' ;
-  xchr [100 ]= 'd' ;
-  xchr [101 ]= 'e' ;
-  xchr [102 ]= 'f' ;
-  xchr [103 ]= 'g' ;
-  xchr [104 ]= 'h' ;
-  xchr [105 ]= 'i' ;
-  xchr [106 ]= 'j' ;
-  xchr [107 ]= 'k' ;
-  xchr [108 ]= 'l' ;
-  xchr [109 ]= 'm' ;
-  xchr [110 ]= 'n' ;
-  xchr [111 ]= 'o' ;
-  xchr [112 ]= 'p' ;
-  xchr [113 ]= 'q' ;
-  xchr [114 ]= 'r' ;
-  xchr [115 ]= 's' ;
-  xchr [116 ]= 't' ;
-  xchr [117 ]= 'u' ;
-  xchr [118 ]= 'v' ;
-  xchr [119 ]= 'w' ;
-  xchr [120 ]= 'x' ;
-  xchr [121 ]= 'y' ;
-  xchr [122 ]= 'z' ;
-  xchr [123 ]= '{' ;
-  xchr [124 ]= '|' ;
-  xchr [125 ]= '}' ;
-  xchr [126 ]= '~' ;
-  {register int for_end; i = 0 ;for_end = 31 ; if ( i <= for_end) do 
-    xchr [i ]= i ;
-  while ( i++ < for_end ) ;} 
-  {register int for_end; i = 127 ;for_end = 255 ; if ( i <= for_end) do 
-    xchr [i ]= i ;
-  while ( i++ < for_end ) ;} 
+
+  init_xchr();
+
   {register int for_end; i = 0 ;for_end = 255 ; if ( i <= for_end) do 
     mubyteread [i ]= -268435455L ;
   while ( i++ < for_end ) ;} 
@@ -829,7 +733,7 @@ zfirstfit ( triepointer p )
   triepointer h  ;
   triepointer z  ;
   triepointer q  ;
-  ASCIIcode c  ;
+  unsigned char c  ;
   triepointer l, r  ;
   short ll  ;
   c = triec [p ];
@@ -903,7 +807,7 @@ ztriefix ( triepointer p )
 {
   triefix_regmem 
   triepointer q  ;
-  ASCIIcode c  ;
+  unsigned char c  ;
   triepointer z  ;
   z = triehash [p ];
   do {
@@ -926,7 +830,7 @@ newpatterns ( void )
   trieopcode v  ;
   triepointer p, q  ;
   bool firstchild  ;
-  ASCIIcode c  ;
+  unsigned char c  ;
   if ( trienotready ) 
   {
     if ( eqtb [29327 ].cint <= 0 ) 
@@ -3220,7 +3124,7 @@ storefmtfile ( void )
   int j, k, l  ;
   halfword p, q  ;
   int x  ;
-  ASCIIcode * formatengine  ;
+  unsigned char * formatengine  ;
   if ( saveptr != 0 ) 
   {
     {
@@ -3279,7 +3183,7 @@ storefmtfile ( void )
   slowprint ( formatident ) ;
   dumpint ( 1462916184L ) ;
   x = strlen ( enginename ) ;
-  formatengine = xmallocarray ( ASCIIcode , x + 4 ) ;
+  formatengine = xmallocarray ( unsigned char , x + 4 ) ;
   strcpy ( stringcast ( formatengine ) , enginename ) ;
   {register int for_end; k = x ;for_end = x + 3 ; if ( k <= for_end) do 
     formatengine [k ]= 0 ;
@@ -3593,10 +3497,10 @@ loadfmtfile ( void )
   int j, k  ;
   halfword p, q  ;
   int x  ;
-  ASCIIcode * formatengine  ;
-  ASCIIcode dummyxord  ;
-  ASCIIcode dummyxchr  ;
-  ASCIIcode dummyxprn  ;
+  unsigned char * formatengine  ;
+  unsigned char dummyxord  ;
+  unsigned char dummyxchr  ;
+  unsigned char dummyxprn  ;
 	;
 #ifdef INITEX
   if ( iniversion ) 
@@ -3625,7 +3529,7 @@ loadfmtfile ( void )
   } 
   if ( ( x < 0 ) || ( x > 256 ) ) 
   goto lab6666 ;
-  formatengine = xmallocarray ( ASCIIcode , x ) ;
+  formatengine = xmallocarray ( unsigned char , x ) ;
   undumpthings ( formatengine [0 ], x ) ;
   formatengine [x - 1 ]= 0 ;
   if ( strcmp ( enginename , stringcast ( formatengine ) ) ) 
@@ -3811,7 +3715,7 @@ loadfmtfile ( void )
   maxstrings = strptr + stringsfree ;
   strstart = xmallocarray ( poolpointer , maxstrings ) ;
   undumpcheckedthings ( 0 , poolptr , strstart [0 ], strptr + 1 ) ;
-  strpool = xmallocarray ( packedASCIIcode , poolsize ) ;
+  strpool = xmallocarray ( unsigned char , poolsize ) ;
   undumpthings ( strpool [0 ], poolptr ) ;
   initstrptr = strptr ;
   initpoolptr = poolptr ;
@@ -5186,7 +5090,7 @@ mainbody ( void )
   } 
   if ( errorline > 255 ) 
   errorline = 255 ;
-  buffer = xmallocarray ( ASCIIcode , bufsize ) ;
+  buffer = xmallocarray ( unsigned char , bufsize ) ;
   nest = xmallocarray ( liststaterecord , nestsize ) ;
   savestack = xmallocarray ( memoryword , savesize ) ;
   inputstack = xmallocarray ( instaterecord , stacksize ) ;
@@ -5230,7 +5134,7 @@ mainbody ( void )
     zeqtb = xmallocarray ( memoryword , eqtbtop ) ;
     eqtb = zeqtb ;
     strstart = xmallocarray ( poolpointer , maxstrings ) ;
-    strpool = xmallocarray ( packedASCIIcode , poolsize ) ;
+    strpool = xmallocarray ( unsigned char , poolsize ) ;
     fontinfo = xmallocarray ( fmemoryword , fontmemsize ) ;
   } 
 #endif /* INITEX */
@@ -5512,7 +5416,7 @@ mainbody ( void )
       trietrl = xmallocarray ( triepointer , triesize ) ;
       trietro = xmallocarray ( triepointer , triesize ) ;
       trietrc = xmallocarray ( quarterword , triesize ) ;
-      triec = xmallocarray ( packedASCIIcode , triesize ) ;
+      triec = xmallocarray ( unsigned char , triesize ) ;
       trieo = xmallocarray ( trieopcode , triesize ) ;
       triel = xmallocarray ( triepointer , triesize ) ;
       trier = xmallocarray ( triepointer , triesize ) ;

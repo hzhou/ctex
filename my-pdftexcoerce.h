@@ -2,8 +2,8 @@ void initialize (void);
 #define initialize_regmem register memoryword *mem=zmem, *eqtb=zeqtb;
 void println (void);
 #define println_regmem
-void zprintchar (ASCIIcode s);
-#define printchar(s) zprintchar((ASCIIcode) (s))
+void zprintchar (unsigned char s);
+#define printchar(s) zprintchar((unsigned char) (s))
 #define printchar_regmem register memoryword *eqtb=zeqtb;
 void zprint (int s);
 #define print(s) zprint((int) (s))
@@ -46,7 +46,7 @@ void zprintcsnames (int hstart,int hfinish);
 #define printcsnames_regmem
 void printfileline (void);
 #define printfileline_regmem
-ASCIIcode zzreadbuffer (int * i);
+unsigned char zzreadbuffer (int * i);
 #define readbuffer(i) zzreadbuffer((int *) &(i))
 #define readbuffer_regmem register memoryword *mem=zmem, *eqtb=zeqtb;
 void zzprintbuffer (int * i);
@@ -325,8 +325,8 @@ void zprintfamandchar (halfword p);
 void zprintdelimiter (halfword p);
 #define printdelimiter(p) zprintdelimiter((halfword) (p))
 #define printdelimiter_regmem register memoryword *mem=zmem;
-void zprintsubsidiarydata (halfword p,ASCIIcode c);
-#define printsubsidiarydata(p, c) zprintsubsidiarydata((halfword) (p), (ASCIIcode) (c))
+void zprintsubsidiarydata (halfword p,unsigned char c);
+#define printsubsidiarydata(p, c) zprintsubsidiarydata((halfword) (p), (unsigned char) (c))
 #define printsubsidiarydata_regmem register memoryword *mem=zmem;
 void zprintstyle (int c);
 #define printstyle(c) zprintstyle((int) (c))
@@ -616,8 +616,8 @@ void conditional (void);
 #define conditional_regmem register memoryword *mem=zmem, *eqtb=zeqtb;
 void beginname (void);
 #define beginname_regmem
-bool zmorename (ASCIIcode c);
-#define morename(c) zmorename((ASCIIcode) (c))
+bool zmorename (unsigned char c);
+#define morename(c) zmorename((unsigned char) (c))
 #define morename_regmem
 void endname (void);
 #define endname_regmem

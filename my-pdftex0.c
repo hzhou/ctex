@@ -37,7 +37,7 @@ println ( void )
   } 
 } 
 void 
-zprintchar ( ASCIIcode s ) 
+zprintchar ( unsigned char s ) 
 {
   /* 10 */ printchar_regmem 
   if ( s == eqtb [29326 ].cint ) {
@@ -479,10 +479,10 @@ printfileline ( void )
     print ( 653 ) ;
   } 
 } 
-ASCIIcode 
+unsigned char 
 zzreadbuffer ( int * i ) 
 {
-  register ASCIIcode Result; readbuffer_regmem 
+  register unsigned char Result; readbuffer_regmem 
   halfword p  ;
   int lastfound  ;
   int lasttype  ;
@@ -589,7 +589,7 @@ void
 zzprintbuffer ( int * i ) 
 {
   printbuffer_regmem 
-  ASCIIcode c  ;
+  unsigned char c  ;
   if ( eqtb [29335 ].cint == 0 ) 
   print ( buffer [*i ]) ;
   else if ( eqtb [29337 ].cint > 0 ) 
@@ -622,7 +622,7 @@ void
 error ( void ) 
 {
   /* 22 10 */ error_regmem 
-  ASCIIcode c  ;
+  unsigned char c  ;
   int s1, s2, s3, s4  ;
   if ( history < 2 ) 
   history = 2 ;
@@ -1797,8 +1797,8 @@ zshowtokenlist ( int p , int q , int l )
 {
   /* 10 */ showtokenlist_regmem 
   int m, c  ;
-  ASCIIcode matchchr  ;
-  ASCIIcode n  ;
+  unsigned char matchchr  ;
+  unsigned char n  ;
   matchchr = 35 ;
   n = 48 ;
   tally = 0 ;
@@ -3672,7 +3672,7 @@ zprintdelimiter ( halfword p )
   else printhex ( a ) ;
 } 
 void 
-zprintsubsidiarydata ( halfword p , ASCIIcode c ) 
+zprintsubsidiarydata ( halfword p , unsigned char c ) 
 {
   printsubsidiarydata_regmem 
   if ( ( poolptr - strstart [strptr ]) >= depththreshold ) 
@@ -9456,7 +9456,7 @@ getnext ( void )
   bool mubyteincs  ;
   halfword p  ;
   unsigned char cat  ;
-  ASCIIcode c, cc  ;
+  unsigned char c, cc  ;
   unsigned char d  ;
   lab20: curcs = 0 ;
   if ( curinput .statefield != 0 ) 
@@ -10087,7 +10087,7 @@ macrocall ( void )
   halfword refcount  ;
   smallnumber savescannerstatus  ;
   halfword savewarningindex  ;
-  ASCIIcode matchchr  ;
+  unsigned char matchchr  ;
   savescannerstatus = scannerstatus ;
   savewarningindex = warningindex ;
   warningindex = curcs ;
@@ -15086,7 +15086,7 @@ beginname ( void )
   quotedfilename = false ;
 } 
 bool 
-zmorename ( ASCIIcode c ) 
+zmorename ( unsigned char c ) 
 {
   register bool Result; morename_regmem 
   if ( ( c == 32 ) && stopatspace && ( ! quotedfilename ) ) 
@@ -15263,12 +15263,12 @@ zpackfilename ( strnumber n , strnumber a , strnumber e )
 {
   packfilename_regmem 
   int k  ;
-  ASCIIcode c  ;
+  unsigned char c  ;
   poolpointer j  ;
   k = 0 ;
   if ( nameoffile ) 
   libcfree ( nameoffile ) ;
-  nameoffile = xmallocarray ( ASCIIcode , ( strstart [a + 1 ]- strstart [a 
+  nameoffile = xmallocarray ( unsigned char , ( strstart [a + 1 ]- strstart [a 
   ]) + ( strstart [n + 1 ]- strstart [n ]) + ( strstart [e + 1 ]- 
   strstart [e ]) + 1 ) ;
   {register int for_end; j = strstart [a ];for_end = strstart [a + 1 
@@ -15317,14 +15317,14 @@ zpackbufferedname ( smallnumber n , int a , int b )
 {
   packbufferedname_regmem 
   int k  ;
-  ASCIIcode c  ;
+  unsigned char c  ;
   int j  ;
   if ( n + b - a + 5 > maxint ) 
   b = a + maxint - n - 5 ;
   k = 0 ;
   if ( nameoffile ) 
   libcfree ( nameoffile ) ;
-  nameoffile = xmallocarray ( ASCIIcode , n + ( b - a + 1 ) + 5 ) ;
+  nameoffile = xmallocarray ( unsigned char , n + ( b - a + 1 ) + 5 ) ;
   {register int for_end; j = 1 ;for_end = n ; if ( j <= for_end) do 
     {
       c = xord [ucharcast ( TEXformatdefault [j ]) ];
@@ -25480,7 +25480,7 @@ zstrlessstr ( strnumber s1 , strnumber s2 )
 {
   register bool Result; strlessstr_regmem 
   poolpointer j1, j2, e1, e2  ;
-  packedASCIIcode c1, c2  ;
+  unsigned char c1, c2  ;
   j1 = strstart [s1 ];
   j2 = strstart [s2 ];
   e1 = j1 + ( strstart [s1 + 1 ]- strstart [s1 ]) ;
@@ -31024,7 +31024,7 @@ hyphenate ( void )
   halfword q, r, s  ;
   halfword bchar  ;
   halfword majortail, minortail  ;
-  ASCIIcode c  ;
+  unsigned char c  ;
   unsigned char cloc  ;
   int rcount  ;
   halfword hyfnode  ;
@@ -38183,7 +38183,7 @@ void
 fixlanguage ( void ) 
 {
   fixlanguage_regmem 
-  ASCIIcode l  ;
+  unsigned char l  ;
   if ( eqtb [29327 ].cint <= 0 ) 
   l = 0 ;
   else if ( eqtb [29327 ].cint > 255 ) 

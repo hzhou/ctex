@@ -10,7 +10,8 @@ pdftex_OBJECTS = \
     synctexdir/synctex.o \
     my-pdftexini.o \
     my-pdftex0.o \
-    my-pdftex-pool.o
+    my-pdftex-pool.o \
+    out/ctex.o
 
 pdftex_DEPS = \
     pdftexdir/libpdftex.a \
@@ -20,6 +21,9 @@ pdftex_DEPS = \
 
 pdftex: $(pdftex_OBJECTS) $(pdftex_DEPS)
 	$(CXX) -o pdftex $(pdftex_OBJECTS) $(pdftex_DEPS) -lz -lpng -lm
+
+ctex.c: ctex.def
+	mydef_page -mc ctex.def
 
 # ----
 texextra.o: lib/texmfmp.c
