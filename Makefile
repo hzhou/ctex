@@ -1,7 +1,7 @@
 CC = gcc -g -I.. -I. -Ilibmd5 -D__SyncTeX__ 
 CXX = g++ -g -I.. -I.
 
-all: pdftex
+all: ctex
 
 # ---- pdftex ----------------------
 pdftex_OBJECTS = \
@@ -19,8 +19,8 @@ pdftex_DEPS = \
     libmd5/libmd5.a \
     libxpdf/libxpdf.a
 
-pdftex: $(pdftex_OBJECTS) $(pdftex_DEPS) ctex.def
-	$(CXX) -o pdftex $(pdftex_OBJECTS) $(pdftex_DEPS) -lz -lpng -lm
+ctex: $(pdftex_OBJECTS) $(pdftex_DEPS) ctex.def
+	$(CXX) -o ctex $(pdftex_OBJECTS) $(pdftex_DEPS) -lz -lpng -lm
 
 ctex.c: ctex.def
 	mydef_page -mc ctex.def
