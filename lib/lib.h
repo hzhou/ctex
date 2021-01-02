@@ -44,9 +44,6 @@ char *concat3(const char *a, const char *b, const char *c);
 /* basechsuffix.c */
 extern char * basenamechangesuffix (const char *, const char *, const char *);
 
-/* chartostring.c */
-extern char * chartostring (char);
-
 /* eofeoln.c */
 extern bool eof (FILE *);
 extern bool eoln (FILE *);

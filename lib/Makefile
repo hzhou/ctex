@@ -5,7 +5,6 @@ all: lib.a
 lib_a_OBJECTS = \
     mykpse.o \
     basechsuffix.o \
-    chartostring.o \
     coredump.o \
     eofeoln.o \
     fprintreal.o \
