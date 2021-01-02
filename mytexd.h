@@ -93,8 +93,6 @@ typedef int nonnegativeinteger  ;
 typedef unsigned char smallnumber  ;
 typedef unsigned char quarterword  ;
 typedef int halfword  ;
-typedef unsigned char twochoices  ;
-typedef unsigned char fourchoices  ;
 
 #include "cpascal.h"
 #include "texmfmp.h"
