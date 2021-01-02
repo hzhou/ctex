@@ -1,9 +1,22 @@
-page: ctex, -
-    autolist: global
+page: ctex
+    $declare void mainbody(void)
+    $print "==== CTeX main ===="
+    mainbody()
 
 subcode: _autoload    
     extern unsigned char xchr[];
 
+    $list cmdline
+    $list init_xchr
+
+fncode: cmdline(n)
+    return ""
+
 fncode: init_xchr()
     $for i=0:256
         xchr[i] = (unsigned char) i
+    $for i=0:256
+        xord[i] = (unsigned char) i
+    $for i=0:256
+        xprn[i] = 1
+

@@ -1,0 +1,242 @@
+page: texextra, -
+    autolist: global
+    has_bool: 1
+
+subcode: _autoload
+    #define EXTERN
+    #include "mytexd.h"
+
+    $include stdio, stdbool
+    $global translate_filename, default_translate_filename: char *
+    $global const char *ptexbanner = "CTeX"
+
+fncode: generic_synctex_get_current_name: char *
+    return strdup("")
+
+fncode: do_dump(s, n_size, n_items, file_out)
+    $if fwrite (s, n_size, n_items, file_out) != n_items
+        $die "! Could not write %d %d-byte item(s) to %s.", n_items, n_size, nameoffile+1
+
+fncode: do_undump(s, n_size, n_items, file_in)
+    $if fread(s, n_size, n_items, file_in) != n_items
+        $die "Could not read %d * %d-byte items from %s", n_items, n_size, nameoffile+1
+
+fncode: readtcxfile
+    return
+
+fncode: topenin
+    return
+
+fncode: calledit(unsigned char *filename, n_start, n_length, n_line)
+    $die Edit not supported
+
+fncode: open_in_or_pipe(FILE** f_ptr, int fmt, const char* mode): bool
+    return open_input(f_ptr, fmt, mode)
+
+fncode: open_out_or_pipe(FILE** f_ptr, const char *mode):bool
+    return open_output(f_ptr, mode)
+
+fncode: close_file_or_pipe(FILE* f)
+    fclose(f)
+
+fncode: getjobname(int str): int
+    $global char *c_job_name
+    $if c_job_name
+        return maketexstring(c_job_name)
+    return str
+
+fncode: makecstring(int str): char *
+    $local int len = strstart[str+1] - strstart[str]
+    $call check_strbuf
+
+    s = strpool + strstart[str]
+    strncpy(s_strbuf, s, len)
+    s[len] = '\0'
+    return s_strbuf
+
+    subcode: check_strbuf
+        $global s_strbuf, n_strbuf
+        $if !s_strbuf
+            n_strbuf = len+1
+            $allocate(n_strbuf) s_strbuf
+        $elif len + 1 > n_strbuf + 10
+            n_strbuf = len+1
+            $realloc(n_strbuf) s_strbuf
+        $elif len + 1 > n_strbuf
+            n_strbuf += 10
+            $realloc(n_strbuf) s_strbuf
+
+fncode: input_line(FILE *f): bool
+    s = fgets(buffer + first, bufsize - first, f)
+    $if !s
+        return false
+    n = strlen(buffer + first)
+    last = first + n;
+
+    return true
+
+fncode: get_date_and_time(pn_min, pn_day, pn_month, pn_year)
+    $include time
+    $local time_t now, struct tm * tm_info
+
+    time(&now)
+    tm_info = localtime(&now)
+    *pn_min = tm_info->tm_hour * 60 + tm_info->tm_min
+    *pn_day = tm_info->tm_mday
+    *pn_month = tm_info->tm_mon + 1
+    *pn_year = tm_info->tm_year + 1900
+
+fncode: get_seconds_and_micros(pn_sec, pn_usec)
+    $include sys/time
+    $local struct timeval tv
+    gettimeofday(&tv, NULL)
+    *pn_sec = tv.tv_sec
+    *pn_usec = tv.tv_usec
+
+fncode: makepdftime(time_t t, s_str)
+    $autolist skip
+    n = strftime(s_str, 30, "D:%Y%m%d%H%M%S", localtime(&t))
+    assert(n>0)
+    s_str[n++] = 'Z'
+    s_str[n] = 0
+
+fncode: initstarttime
+    $global time_t start_time
+    $global char start_time_str[30]
+    $if !start_time == 0
+        start_time = time(NULL)
+        makepdftime(start_time, start_time_str)
+
+# ------------------------
+subcode: strpool_append(s)
+    n = strlen($(s))
+    assert(poolptr+n < poolsize)
+    memcpy(&strpool[poolptr], $(s), n)
+    poolptr += n
+
+fncode: gettexstring(int str)
+    n = strstart[str+1] - strstart[str]
+    $allocate(n+1) s
+    strncpy(s, strpool+strstart[str], n)
+    s[n] = 0
+    return s
+
+# ---------------------------
+subcode: get_file_stat(str)
+    s_filename = find_input_file(str)
+    $if !s_filename
+        return
+
+    $include sys/types, sys/stat, unistd
+    $local struct stat file_data
+    $if stat(s_filename, &file_data) == 0
+        BLOCK
+    free(s_filename)
+
+fncode: getfilemoddate(int str)
+    &call get_file_stat, str
+        $local char time_str[30]
+        makepdftime(file_data.st_mtime, time_str)
+        $call strpool_append, time_str
+
+fncode: getcreationdate
+    initstarttime()
+    $call strpool_append, start_time_str
+
+fncode: getfilesize(int str)
+    &call get_file_stat, str
+        $local char buf[20]
+        snprintf(buf, 20, "%ld", (long) file_data.st_size)
+        $call strpool_append, buf
+
+fncode: makefullnamestring: int
+    return maketexstring(fullnameoffile)
+
+fncode: runsystem(const char *s_cmd): int
+    return system(s_cmd)
+
+fncode: remembersourceinfo(int srcname, int lineno)
+    $global s_last_source_name, n_last_lineno
+    $if s_last_source_name
+        free(s_last_source_name)
+    s_last_source_name = gettexstring(srcname)
+    n_last_lineno = lineno
+
+fncode: isnewsource(int srcname, int lineno): bool
+    s_name = gettexstring(srcname)
+    return strcmp(s_name, s_last_source_name) || lineno != n_last_lineno
+
+fncode: makesrcspecial(int str, int lineno):int
+    s_filename = gettexstring(str)
+    $local char buf[40]
+    sprintf(buf, "src:%d ", lineno)
+
+    $local int oldpoolptr = poolptr
+    $call strpool_append, buf
+    $call strpool_append, s_filename
+    return oldpoolptr
+
+fncode: getfiledump(int str, int offset, int length)
+    $if length == 0
+        return
+    s_filename = find_input_file(str)
+    file_in = fopen(s_filename, "r")
+    fseek(file_in, offset, SEEK_SET)
+
+    $local data_ptr, data_end: int
+    data_ptr = poolptr + length
+    tn_read = fread(&strpool[data_ptr], 1, length, file_in)
+    data_end = data_ptr + tn_read
+
+    fclose(file_in)
+
+    $while data_ptr < data_end
+        tn_len = snprintf((char*)strpool+poolptr, 3, "%.2X", (int) strpool[data_ptr])
+        assert(tn_len == 3)
+        poolptr+=tn_len
+
+    free(s_filename)
+
+fncode: find_input_file(int str): char *
+    s_filename = gettexstring(str)
+    return mykpse_find_file(s_filename, "tex")
+
+fncode: getmd5sum(int str, bool file)
+    $include md5.h
+    $if file
+        s_filename = find_input_file(str)
+        file_in = fopen(s_filename, "r")
+        $local md5_state_t state
+        md5_init(&state)
+        $while 1
+            $local char buf[1024]
+            tn_read = fread(buf, 1, 1024, file_in)
+            $if tn_read <= 0
+                break
+            md5_append(&state, (const md5_byte_t *)buf, tn_read)
+        $local md5_byte_t digest[16]
+        md5_finish(&state, digest)
+        fclose(file_in)
+    $else
+        md5_init(&state)
+        s = strpool + strstart[str]
+        n = strstart[str+1] - strstart[str]
+        md5_append(&state, (md5_byte_t *) s, n)
+        md5_finish(&state, digest)
+
+    $local char outbuf[2*16+1]
+    convertStringToHexString(digest, outbuf, 16)
+    memcpy(strpool+poolptr, outbuf, 32)
+    poolptr+=32
+
+fncode: convertStringToHexString(const char *s_in, s_out, int n)
+    $for i=0:n
+        $local char buf[3]
+        snprintf(buf, 3, "%02X", (int)s_in[i])
+        *s_out++ = buf[0]
+        *s_out++ = buf[1]
+    *s_out = '\0'
+
+fncode: texmf_yesno(const char * var): bool
+    s = kpse_var_value(var)
+    return s && (*s=='t' || *s=='y' || *s=='1')

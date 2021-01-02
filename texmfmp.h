@@ -246,14 +246,6 @@ extern void topenin (void);
 #define aclose(f)     close_file_or_pipe(f)
 #endif
 
-/* define FMT_COMPRESS for engines which compress formats */
-#if defined(pTeX) || defined(epTeX) || defined(upTeX) || defined(eupTeX)
-#define FMT_COMPRESS 1
-#endif
-#if defined(eTeX) || defined(pdfTeX) || defined(XeTeX)
-#define FMT_COMPRESS 1
-#endif
-
 /* `bopenin' (and out) is used only for reading (and writing) .tfm
    files; `wopenin' (and out) only for dump files.  The filenames are
    passed in as a global variable, `nameoffile'.  */

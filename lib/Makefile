@@ -11,7 +11,6 @@ lib_a_OBJECTS = \
     fprintreal.o \
     inputint.o \
     input2int.o \
-    main.o \
     openclose.o \
     printversion.o \
     setupvar.o \

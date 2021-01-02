@@ -30,18 +30,6 @@ initialize ( void )
   messageprinting = false ;
   noconvert = false ;
   activenoconvert = false ;
-  {register int for_end; i = 0 ;for_end = 255 ; if ( i <= for_end) do 
-    xord [chr ( i ) ]= 127 ;
-  while ( i++ < for_end ) ;} 
-  {register int for_end; i = 128 ;for_end = 255 ; if ( i <= for_end) do 
-    xord [xchr [i ]]= i ;
-  while ( i++ < for_end ) ;} 
-  {register int for_end; i = 0 ;for_end = 126 ; if ( i <= for_end) do 
-    xord [xchr [i ]]= i ;
-  while ( i++ < for_end ) ;} 
-  {register int for_end; i = 0 ;for_end = 255 ; if ( i <= for_end) do 
-    xprn [i ]= ( eightbitp || ( ( i >= 32 ) && ( i <= 126 ) ) ) ;
-  while ( i++ < for_end ) ;} 
   if ( translatefilename ) 
   readtcxfile () ;
   if ( interactionoption == 4 ) 

@@ -108,7 +108,7 @@ typedef unsigned char fourchoices  ;
 #include "synctexdir/synctex.h"
 #include "lib/lib.h"
 
-typedef gzFile wordfile  ;
+typedef FILE * wordfile  ;
 typedef unsigned char glueord  ;
 typedef struct {
     short modefield ;

@@ -6,11 +6,11 @@ all: pdftex pdftex-web2c
 # ---- pdftex ----------------------
 pdftex_OBJECTS = \
     mykpse.o \
-    texextra.o \
     synctexdir/synctex.o \
     my-pdftexini.o \
     my-pdftex0.o \
     my-pdftex-pool.o \
+    out/texextra.o \
     out/ctex.o
 
 pdftex_DEPS = \
@@ -19,7 +19,7 @@ pdftex_DEPS = \
     libmd5/libmd5.a \
     libxpdf/libxpdf.a
 
-pdftex: $(pdftex_OBJECTS) $(pdftex_DEPS)
+pdftex: $(pdftex_OBJECTS) $(pdftex_DEPS) ctex.def
 	$(CXX) -o pdftex $(pdftex_OBJECTS) $(pdftex_DEPS) -lz -lpng -lm
 
 ctex.c: ctex.def
