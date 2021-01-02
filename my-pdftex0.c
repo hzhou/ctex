@@ -589,7 +589,6 @@ void jumpout(void)
     jumpout_regmem closefilesandterminate();
     {
         fflush(stdout);
-        readyalready = 0;
         if ((history != 0) && (history != 1))
             uexit(1);
         else

@@ -709,7 +709,6 @@ EXTERN halfword aftertoken  ;
 EXTERN bool longhelpseen  ;
 EXTERN strnumber formatident  ;
 EXTERN wordfile fmtfile  ;
-EXTERN int readyalready  ;
 EXTERN alphafile writefile[16]  ;
 EXTERN bool writeopen[18]  ;
 EXTERN halfword writeloc  ;

@@ -5021,10 +5021,6 @@ void mainbody(void)
         extramembot = 0;
     }
 #endif /* INITEX */
-    if (extramembot > supmainmemory)
-        extramembot = supmainmemory;
-    if (extramemtop > supmainmemory)
-        extramemtop = supmainmemory;
     memtop = membot + mainmemory - 1;
     memmin = membot;
     memmax = memtop;
@@ -5210,8 +5206,6 @@ void mainbody(void)
     }
 #endif /* INITEX */
     history = 3;
-    if (readyalready == 314159L)
-        goto lab1;
     bad = 0;
     if ((halferrorline < 30) || (halferrorline > errorline - 15))
         bad = 1;
@@ -5240,8 +5234,6 @@ void mainbody(void)
         bad = 12;
     if ((0 < -268435455L) || (255 > 268435455L))
         bad = 13;
-    if ((membot - supmainmemory < -268435455L) || (memtop + supmainmemory >= 268435455L))
-        bad = 14;
     if ((9000 < -268435455L) || (9000 > 268435455L))
         bad = 15;
     if (fontmax > 9000)
@@ -5277,8 +5269,7 @@ void mainbody(void)
                     .cint, eqtb[29300].cint);
     }
 #endif /* INITEX */
-    readyalready = 314159L;
-  lab1:selector = 17;
+    selector = 17;
     tally = 0;
     termoffset = 0;
     fileoffset = 0;
@@ -5640,7 +5631,6 @@ void mainbody(void)
   lab9999:{
 
         fflush(stdout);
-        readyalready = 0;
         if ((history != 0) && (history != 1))
             uexit(1);
         else
