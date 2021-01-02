@@ -14,8 +14,6 @@
 
 #define FATAL_PERROR(msg) do { printf("Error: %s\n", msg); exit(1); } while(0)
 
-/* Allow translation files.  */
-#define	Xchr(x) xchr[x]
 /* Pieces of predefined Pascal web2c doesn't convert.  */
 
 /* Absolute value.  Without the casts to int here, the Ultrix and
@@ -28,13 +26,8 @@
 #undef abs
 #define abs(x) ((int)(x) >= 0 ? (int)(x) : (int)-(x))
 
-#define chr(x)		(x)
-#define ord(x)		(x)
 #define odd(x)		((x) & 1)
-#define input stdin
-#define output stdout
 #define maxint INTEGER_MAX
-#define nil NULL
 
 #define floorunscaled(i) ((i)>>16)
 #define floorscaled(i) ((i)&(-65536))

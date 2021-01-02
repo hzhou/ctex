@@ -48,8 +48,8 @@ void zprintchar(unsigned char s)
     switch (selector) {
         case 19:
             {
-                putc(Xchr(s), stdout);
-                putc(Xchr(s), logfile);
+                putc(xchr[s], stdout);
+                putc(xchr[s], logfile);
                 incr(termoffset);
                 incr(fileoffset);
                 if (termoffset == maxprintline) {
@@ -64,7 +64,7 @@ void zprintchar(unsigned char s)
             break;
         case 18:
             {
-                putc(Xchr(s), logfile);
+                putc(xchr[s], logfile);
                 incr(fileoffset);
                 if (fileoffset == maxprintline)
                     println();
@@ -72,7 +72,7 @@ void zprintchar(unsigned char s)
             break;
         case 17:
             {
-                putc(Xchr(s), stdout);
+                putc(xchr[s], stdout);
                 incr(termoffset);
                 if (termoffset == maxprintline)
                     println();
@@ -94,7 +94,7 @@ void zprintchar(unsigned char s)
             }
             break;
         default:
-            putc(Xchr(s), writefile[selector]);
+            putc(xchr[s], writefile[selector]);
             break;
     }
     incr(tally);
@@ -16424,7 +16424,6 @@ void zwriteout(halfword p)
     halfword q, r;
     int d;
     bool clobbered;
-    int runsystemret;
     mubytesout = eqtb[29336].cint;
     eqtb[29336].cint = mem[p + 1].hh.b1 - 64;
     if ((eqtb[29336].cint > 2) || (eqtb[29336].cint == -1) || (eqtb[29336].cint == -2))
@@ -16538,14 +16537,15 @@ void zwriteout(halfword p)
                 print(1919);
             else {
 
-                runsystemret = runsystem(conststringcast(addressof(strpool[strstart[strptr]])));
-                if (runsystemret == -1)
+                char* s_cmd = strpool + strstart[strptr];
+                int ret = runsystem((const char *)s_cmd);
+                if (ret == -1)
                     print(1920);
-                else if (runsystemret == 0)
+                else if (ret == 0)
                     print(1921);
-                else if (runsystemret == 1)
+                else if (ret == 1)
                     print(1922);
-                else if (runsystemret == 2)
+                else if (ret == 2)
                     print(1923);
             }
         } else {
@@ -23479,13 +23479,13 @@ void zpdfshipout(halfword p, bool shippingpage)
         fixedpkresolution = fixint(eqtb[29344].cint, 72, 8000);
         pkscalefactor = dividescaled(72, fixedpkresolution, 5 + fixeddecimaldigits);
         if (eqtb[27171].hh.v.RH != -268435455L) {
-            kpseinitprog("PDFTEX", fixedpkresolution, makecstring(tokenstostring(eqtb[27171].hh.v.RH)), nil);
+            kpseinitprog("PDFTEX", fixedpkresolution, makecstring(tokenstostring(eqtb[27171].hh.v.RH)), NULL);
             {
                 decr(strptr);
                 poolptr = strstart[strptr];
             }
         } else
-            kpseinitprog("PDFTEX", fixedpkresolution, nil, nil);
+            kpseinitprog("PDFTEX", fixedpkresolution, NULL, NULL);
         kpsesetprogramenabled(kpsepkformat, 1, kpsesrccompile);
         setjobid(eqtb[29300].cint, eqtb[29299].cint, eqtb[29298]
                  .cint, eqtb[29297].cint);

@@ -2444,7 +2444,7 @@ calledit (packedASCIIcode *filename,
               if (sdone)
                 FATAL ("call_edit: `%%s' appears twice in editor command");
               for (i =0; i < fnlength; i++)
-		*temp++ = Xchr (filename[i]);
+		*temp++ = xchr[filename[i]];
               sdone = 1;
               break;
 
