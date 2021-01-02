@@ -1,7 +1,7 @@
-CC = gcc -I.. -I. -Ilibmd5 -D__SyncTeX__ 
-CXX = g++ -I.. -I.
+CC = gcc -g -I.. -I. -Ilibmd5 -D__SyncTeX__ 
+CXX = g++ -g -I.. -I.
 
-all: pdftex pdftex-web2c
+all: pdftex
 
 # ---- pdftex ----------------------
 pdftex_OBJECTS = \

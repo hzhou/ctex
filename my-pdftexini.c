@@ -4836,7 +4836,7 @@ initprim ( void )
 void 
 mainbody ( void ) 
 {
-  mainbody_regmem 
+    memoryword *eqtb=zeqtb;
   bounddefault = 0 ;
   boundname = "mem_bot" ;
   setupboundvariable ( addressof ( membot ) , boundname , bounddefault ) ;
@@ -5354,7 +5354,7 @@ mainbody ( void )
     } 
 #endif /* INITEX */
     if ( ! nonewcontrolsequence ) 
-    nonewcontrolsequence = true ;
+        nonewcontrolsequence = true ;
     else if ( ( formatident == 0 ) || ( buffer [curinput .locfield ]== 38 ) 
     || dumpline ) 
     {
