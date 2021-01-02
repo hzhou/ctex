@@ -94,8 +94,8 @@
 /* To work around casting problems.  */
 #define ucharcast(x) ((unsigned char) (x))
 #define int64cast(x) ((integer64) (x))
-#define stringcast(x) ((string) (x))
-#define conststringcast(x) ((const_string) (x))
+#define stringcast(x) ((char *) (x))
+#define conststringcast(x) ((const char *) (x))
 #define ustringcast(x) ((unsigned char *) (x))
 
 /* For throwing away input from the file F.  */
@@ -171,9 +171,9 @@
 
 /* Need this because web2c doesn't translate `var1,var2:^char' correctly
    -- var2 lacks the *.  */
-#define cstring string
+#define cstring char *
 
-#define constcstring const_string
+#define constcstring const char *
 
 /* For strings of unsigned chars, used as array indices.  */
 #define constw2custring const_w2custring
@@ -184,9 +184,9 @@ typedef const unsigned char *const_w2custring;
 #define libcfree free
 
 /* We have a system-dependent prompt in tex.ch.  We don't want it in the
-   string pool, since (now that the pools are compiled into the
+   char * pool, since (now that the pools are compiled into the
    binaries), that would make the .fmt unsharable.  So go through this
-   circumlotion to print a C string.  The lack of the closing ) is
+   circumlotion to print a C char *.  The lack of the closing ) is
    intentional, since the code adds more text sometimes.  Although the
    eof character can be changed with stty or whatever, we're certainly
    not going to try to extract the actual value from a terminal struct.
@@ -197,11 +197,11 @@ typedef const unsigned char *const_w2custring;
 #define promptfilenamehelpmsg "(Press Enter to retry, or Control-D to exit"
 #endif
 
-/* We use this rather than a simple fputs so that the string will end up
+/* We use this rather than a simple fputs so that the char * will end up
    in the .log file, too.  */
 #define printcstring(STR)        \
   do {                           \
-    const_string ch_ptr = (STR); \
+    const char * ch_ptr = (STR); \
     while (*ch_ptr)              \
       printchar(*(ch_ptr++));    \
   } while (0)

@@ -221,11 +221,11 @@ zprintthedigs ( eightbits k )
   } 
 } 
 void 
-zprintint ( longinteger n ) 
+zprintint ( long n ) 
 {
   printint_regmem 
   unsigned char k  ;
-  longinteger m  ;
+  long m  ;
   k = 0 ;
   if ( n < 0 ) 
   {
@@ -2671,11 +2671,11 @@ zstrinstr ( strnumber s , strnumber r , int i )
   return Result ;
 } 
 void 
-zpdfprintint ( longinteger n ) 
+zpdfprintint ( long n ) 
 {
   pdfprintint_regmem 
   int k  ;
-  longinteger m  ;
+  long m  ;
   k = 0 ;
   if ( n < 0 ) 
   {
@@ -19055,7 +19055,7 @@ void
 pdfflush ( void ) 
 {
   pdfflush_regmem 
-  longinteger savedpdfgone  ;
+  long savedpdfgone  ;
   if ( ! pdfosmode ) 
   {
     savedpdfgone = pdfgone ;
@@ -20194,7 +20194,7 @@ zliteral ( strnumber s , int literalmode , bool warn )
   } 
 } 
 void 
-zpdfprintfwint ( longinteger n , int w ) 
+zpdfprintfwint ( long n , int w ) 
 {
   pdfprintfwint_regmem 
   int k  ;
@@ -20222,7 +20222,7 @@ zpdfprintfwint ( longinteger n , int w )
   } 
 } 
 void 
-zpdfoutbytes ( longinteger n , int w ) 
+zpdfoutbytes ( long n , int w ) 
 {
   pdfoutbytes_regmem 
   int k  ;

@@ -10,9 +10,9 @@
    DFLT to *VAR.  */
 
 void
-setupboundvariable (int *var, const_string var_name, int dflt)
+setupboundvariable (int *var, const char * var_name, int dflt)
 {
-  string expansion = kpse_var_value (var_name);
+  char * expansion = kpse_var_value (var_name);
   *var = dflt;
 
   if (expansion) {

@@ -38,7 +38,7 @@ extern int pdfboxspecbleed;
 extern int pdfboxspectrim;
 extern int pdfboxspecart;
 
-extern longinteger pdfstreamlength;
+extern long pdfstreamlength;
 extern int pdfptr;
 extern int poolptr;
 extern eightbits *pdfbuf;

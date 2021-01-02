@@ -81,7 +81,7 @@ typedef struct {
 typedef struct {
     char *name;                 /* glyph name */
     long code;                  /* -1 = undefined; -2 = multiple codes, stored
-                                   as string in unicode_seq; otherwise unicode value */
+                                   as char * in unicode_seq; otherwise unicode value */
     char *unicode_seq;          /* multiple unicode sequence */
 } glyph_unicode_entry;
 
@@ -188,7 +188,7 @@ extern void fm_read_info(void);
 extern ff_entry *check_ff_exist(char *, bool);
 extern void pdfmapfile(int);
 extern void pdfmapline(int);
-extern void pdfinitmapfile(const_string map_name);
+extern void pdfinitmapfile(const char * map_name);
 extern fm_entry *new_fm_entry(void);
 extern void delete_fm_entry(fm_entry *);
 extern int avl_do_entry(fm_entry *, int);
@@ -226,7 +226,7 @@ extern void fb_seek(int);
 extern void libpdffinish(void);
 extern void make_subset_tag(fd_entry *);
 extern void setjobid(int, int, int, int);
-extern void writestreamlength(longinteger, longinteger);
+extern void writestreamlength(long, long);
 extern void printID(strnumber);
 extern void printIDalt(strnumber);
 extern void printcreationdate(void);

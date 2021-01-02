@@ -62,18 +62,18 @@ FILE *f_fsyscp_xfopen(const char *filename, const char *mode)
 #endif /* _WIN32 */
 
 /* The globals we use to communicate.  */
-extern string nameoffile;
+extern char * nameoffile;
 extern unsigned namelength;
 
 /* Define some variables. */
 /* For "file:line:error" style error messages. */
-string fullnameoffile;       /* Defaults to NULL.  */
-static string recorder_name; /* Defaults to NULL.  */
+char * fullnameoffile;       /* Defaults to NULL.  */
+static char * recorder_name; /* Defaults to NULL.  */
 static FILE *recorder_file;  /* Defaults to NULL.  */
 /* For the filename recorder. */
 bool recorder_enabled;    /* Defaults to false. */
 /* For the output-dir option. */
-string output_directory;     /* Defaults to NULL.  */
+char * output_directory;     /* Defaults to NULL.  */
 
 /* For TeX and MetaPost.  See below.  Always defined so we don't have to
    #ifdef, and thus this file can be compiled once and go in lib.a.  */
@@ -91,7 +91,7 @@ recorder_start(void)
        than we want to cope with.  So we have to be content with using a
        default name.  Throw in the pid so at least parallel builds might
        work (Debian bug 575731).  */
-    string cwd;
+    char * cwd;
     char pid_str[20];
 
     /* Windows (MSVC) seems to have no pid_t, so instead of storing the
@@ -101,7 +101,7 @@ recorder_start(void)
     
     /* If an output directory was specified, use it instead of cwd.  */
     if (output_directory) {
-      string temp = concat3(output_directory, DIR_SEP_STRING, recorder_name);
+      char * temp = concat3(output_directory, DIR_SEP_STRING, recorder_name);
       free(recorder_name);
       recorder_name = temp;
     }
@@ -121,9 +121,9 @@ recorder_start(void)
    by .fls.  */
 
 void
-recorder_change_filename (string new_name)
+recorder_change_filename (char * new_name)
 {
-   string temp = NULL;
+   char * temp = NULL;
    
    if (!recorder_file)
      return;
@@ -159,7 +159,7 @@ recorder_change_filename (string new_name)
 
 /* helper for recorder_record_* */
 static void
-recorder_record_name (const_string prefix, const_string name)
+recorder_record_name (const char * prefix, const char * name)
 {
     if (recorder_enabled) {
         if (!recorder_file)
@@ -171,14 +171,14 @@ recorder_record_name (const_string prefix, const_string name)
 
 /* record an input file name */
 void
-recorder_record_input (const_string name)
+recorder_record_input (const char * name)
 {
     recorder_record_name ("INPUT", name);
 }
 
 /* record an output file name */
 void
-recorder_record_output (const_string name)
+recorder_record_output (const char * name)
 {
     recorder_record_name ("OUTPUT", name);
 }
@@ -189,9 +189,9 @@ recorder_record_output (const_string name)
    the full filename opened, and `namelength' to its length.  */
 
 bool
-open_input (FILE **f_ptr, int filefmt, const_string fopen_mode)
+open_input (FILE **f_ptr, int filefmt, const char * fopen_mode)
 {
-    string fname = NULL;
+    char * fname = NULL;
 #ifdef FUNNY_CORE_DUMP
     /* This only applies if a preloaded TeX/Metafont is being made;
        it allows automatic creation of the core dump (typing ^\ loses
@@ -267,7 +267,7 @@ open_input (FILE **f_ptr, int filefmt, const_string fopen_mode)
                 /* This fopen is not allowed to fail. */
                 *f_ptr = xfopen (fname, fopen_mode);
 
-                /* kpse_find_file always returns a new string. */
+                /* kpse_find_file always returns a new char *. */
                 free (nameoffile);
                 namelength = strlen (fname);
                 nameoffile = xmalloc (namelength + 2);
@@ -300,7 +300,7 @@ open_input (FILE **f_ptr, int filefmt, const_string fopen_mode)
 
 
 /* Open input file *F_PTR (of type FILEFMT), prepending the directory
-   part of the string FNAME to `nameoffile'+1, unless that is already
+   part of the char * FNAME to `nameoffile'+1, unless that is already
    kpse_absolute_p. This is called from BibTeX, to open subsidiary .aux
    files, with FNAME set to the top-level aux file. The idea is that if
    we're invoked as bibtex somedir/foo.aux, and foo.aux has an
@@ -337,9 +337,9 @@ open_input_with_dirname (FILE **f_ptr, int filefmt, const char *fname)
    necessary, and `namelength' to its length.  */
 
 bool
-open_output (FILE **f_ptr, const_string fopen_mode)
+open_output (FILE **f_ptr, const char * fopen_mode)
 {
-    string fname;
+    char * fname;
     bool absolute = (nameoffile[1] == '/');
 
     /* If we have an explicit output directory, use it. */

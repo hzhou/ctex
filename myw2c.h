@@ -15,11 +15,7 @@
 
 #include <unistd.h>
 
-typedef char * string;
-typedef const char * const_string;
-
 /* temporary -- we should modify the source */
-#define longinteger long
 
 #ifndef Fputs
 #define Fputs(F, str) fputs(str, F)

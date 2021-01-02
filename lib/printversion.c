@@ -5,7 +5,7 @@
 #include "../myw2c.h"
 #include "lib.h"
 
-/* We're passed in the original WEB banner string, which has the form
+/* We're passed in the original WEB banner char *, which has the form
 This is PROGRAM, Version VERSION-NUMBER
    We parse the PROGRAM and VERSION-NUMBER out of this.
    
@@ -14,19 +14,19 @@ This is PROGRAM, Version VERSION-NUMBER
    isn't, it means the original program is public domain.
    
    Maybe I should have just done it all inline in each individual
-   program, but tangle doesn't allow multiline string constants ...  */
+   program, but tangle doesn't allow multiline char * constants ...  */
 
 void
-printversionandexit (const_string banner,
-                     const_string copyright_holder,  
-                     const_string author,
-                     const_string extra_info)
+printversionandexit (const char * banner,
+                     const char * copyright_holder,  
+                     const char * author,
+                     const char * extra_info)
 {
-  string prog_name;
+  char * prog_name;
   unsigned len;
-  const_string prog_name_start;
-  const_string prog_name_end = strchr (banner, ',');
-  const_string prog_version = strrchr (banner, ' ');
+  const char * prog_name_start;
+  const char * prog_name_end = strchr (banner, ',');
+  const char * prog_version = strrchr (banner, ' ');
   assert (prog_name_end && prog_version);
   prog_version++;
   
@@ -39,7 +39,7 @@ printversionandexit (const_string banner,
   assert (prog_name_start);
   prog_name_start++;
 
-  /* The Web2c version string starts with a space.  */
+  /* The Web2c version char * starts with a space.  */
 #ifdef PTEX
   printf ("%s %s (%s)%s\n", prog_name_start, prog_version, get_enc_string(),
           versionstring);

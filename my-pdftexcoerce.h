@@ -20,8 +20,8 @@ void zprintesc (strnumber s);
 void zprintthedigs (eightbits k);
 #define printthedigs(k) zprintthedigs((eightbits) (k))
 #define printthedigs_regmem
-void zprintint (longinteger n);
-#define printint(n) zprintint((longinteger) (n))
+void zprintint (long n);
+#define printint(n) zprintint((long) (n))
 #define printint_regmem
 void zprintcs (int p);
 #define printcs(p) zprintcs((int) (p))
@@ -228,8 +228,8 @@ void zpdfprint (strnumber s);
 bool zstrinstr (strnumber s,strnumber r,int i);
 #define strinstr(s, r, i) zstrinstr((strnumber) (s), (strnumber) (r), (int) (i))
 #define strinstr_regmem
-void zpdfprintint (longinteger n);
-#define pdfprintint(n) zpdfprintint((longinteger) (n))
+void zpdfprintint (long n);
+#define pdfprintint(n) zpdfprintint((long) (n))
 #define pdfprintint_regmem
 void zpdfprinttwo (int n);
 #define pdfprinttwo(n) zpdfprinttwo((int) (n))
@@ -828,11 +828,11 @@ void zslowprintsubstr (int s,int maxlen);
 void zliteral (strnumber s,int literalmode,bool warn);
 #define literal(s, literalmode, warn) zliteral((strnumber) (s), (int) (literalmode), (bool) (warn))
 #define literal_regmem
-void zpdfprintfwint (longinteger n,int w);
-#define pdfprintfwint(n, w) zpdfprintfwint((longinteger) (n), (int) (w))
+void zpdfprintfwint (long n,int w);
+#define pdfprintfwint(n, w) zpdfprintfwint((long) (n), (int) (w))
 #define pdfprintfwint_regmem
-void zpdfoutbytes (longinteger n,int w);
-#define pdfoutbytes(n, w) zpdfoutbytes((longinteger) (n), (int) (w))
+void zpdfoutbytes (long n,int w);
+#define pdfoutbytes(n, w) zpdfoutbytes((long) (n), (int) (w))
 #define pdfoutbytes_regmem
 void zpdfintentry (strnumber s,int v);
 #define pdfintentry(s, v) zpdfintentry((strnumber) (s), (int) (v))

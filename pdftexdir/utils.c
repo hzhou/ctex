@@ -284,7 +284,7 @@ void setjobid(int year, int month, int day, int time)
         strlen(ptexbanner) +
         strlen(versionstring) + strlen(kpathsea_version_string);
     s = xtalloc(slen, char);
-    /* The Web2c version string starts with a space.  */
+    /* The Web2c version char * starts with a space.  */
     i = snprintf(s, slen,
                  "%.4d/%.2d/%.2d %.2d:%.2d %s %s %s%s %s",
                  year, month, day, time / 60, time % 60,
@@ -311,7 +311,7 @@ void makepdftexbanner(void)
         strlen(ptexbanner) +
         strlen(versionstring) + strlen(kpathsea_version_string);
     s = xtalloc(slen, char);
-    /* The Web2c version string starts with a space.  */
+    /* The Web2c version char * starts with a space.  */
     i = snprintf(s, slen,
                  "%s%s %s", ptexbanner, versionstring, kpathsea_version_string);
     check_nprintf(i, slen);
@@ -371,7 +371,7 @@ int xputc(int c, FILE * stream)
     return i;
 }
 
-void writestreamlength(longinteger length, longinteger offset)
+void writestreamlength(long length, long offset)
 {
     if (jobname_cstr == NULL)
         jobname_cstr = xstrdup(makecstring(jobname));
@@ -411,10 +411,10 @@ void libpdffinish(void)
     zip_free();
 }
 
-/* Converts any string given in in in an allowed PDF string which can be
+/* Converts any char * given in in in an allowed PDF char * which can be
  * handled by printf et.al.: \ is escaped to \\, parenthesis are escaped and
  * control characters are octal encoded.
- * This assumes that the string does not contain any already escaped
+ * This assumes that the char * does not contain any already escaped
  * characters!
  */
 char *convertStringToPDFString(const char *in, int len)
@@ -452,10 +452,10 @@ char *convertStringToPDFString(const char *in, int len)
 }
 
 
-/* Converts any string given in in in an allowed PDF string which can be
+/* Converts any char * given in in in an allowed PDF char * which can be
  * handled by printf et.al.: \ is escaped to \\, parenthesis are escaped and
  * control characters are octal encoded.
- * This assumes that the string does not contain any already escaped
+ * This assumes that the char * does not contain any already escaped
  * characters!
  *
  * See escapename for parameter description.
@@ -490,7 +490,7 @@ void escapestring(poolpointer in)
     }
 }
 
-/* Convert any given string in a PDF name using escaping mechanism
+/* Convert any given char * in a PDF name using escaping mechanism
    of PDF 1.2. The result does not include the leading slash.
 
    PDF specification 1.6, section 3.2.6 "Name Objects" explains:
@@ -524,11 +524,11 @@ void escapestring(poolpointer in)
      127..255  escaped  recommended
      else      copy     regular characters
 
-   Parameter "in" is a pointer into the string pool where
-   the input string is located. The output string is written
-   as temporary string right after the input string.
+   Parameter "in" is a pointer into the char * pool where
+   the input char * is located. The output char * is written
+   as temporary char * right after the input char *.
    Thus at the begin of the procedure the global variable
-   "poolptr" points to the start of the output string and
+   "poolptr" points to the start of the output char * and
    after the end when the procedure returns.
 */
 void escapename(poolpointer in)
@@ -582,7 +582,7 @@ void escapename(poolpointer in)
     }
 }
 
-/* Convert any given string in a PDF hexadecimal string. The
+/* Convert any given char * in a PDF hexadecimal char *. The
    result does not include the angle brackets.
 
    This procedure uses uppercase hexadecimal letters.
@@ -610,7 +610,7 @@ void escapehex(poolpointer in)
     }
 }
 
-/* Unescape any given hexadecimal string.
+/* Unescape any given hexadecimal char *.
 
    Last hex digit can be omitted, it is replaced by zero, see
    PDF specification.
@@ -659,15 +659,15 @@ void unescapehex(poolpointer in)
     }
 }
 
-/* Compute the ID string as per PDF1.4 9.3:
+/* Compute the ID char * as per PDF1.4 9.3:
   <blockquote>
     File identifers are defined by the optional ID entry in a PDF file's
     trailer dictionary (see Section 3.4.4, "File Trailer"; see also
     implementation note 105 in Appendix H). The value of this entry is an
-    array of two strings. The first string is a permanent identifier based
+    array of two strings. The first char * is a permanent identifier based
     on the contents of the file at the time it was originally created, and
     does not change when the file is incrementally updated. The second
-    string is a changing identifier based on the file's contents at the
+    char * is a changing identifier based on the file's contents at the
     time it was last updated. When a file is first written, both
     identifiers are set to the same value. If both identifiers match when a
     file reference is resolved, it is very likely that the correct file has
@@ -679,7 +679,7 @@ void unescapehex(poolpointer in)
     the Bibliography), using the following information (see implementation
     note 106 in Appendix H):
     - The current time
-    - A string representation of the file's location, usually a pathname
+    - A char * representation of the file's location, usually a pathname
     - The size of the file in bytes
     - The values of all entries in the file's document information
       dictionary (see Section 9.2.1,  Document Information Dictionary )
@@ -737,7 +737,7 @@ void printIDalt(int toks)
 
       PDF defines a standard date format, which closely follows that of
       the international standard ASN.1 (Abstract Syntax Notation One),
-      defined in ISO/IEC 8824 (see the Bibliography). A date is a string
+      defined in ISO/IEC 8824 (see the Bibliography). A date is a char *
       of the form
 
         (D:YYYYMMDDHHmmSSOHH'mm')
@@ -769,7 +769,7 @@ void printIDalt(int toks)
       rest of the date should be specified in local time.
 
       For example, December 23, 1998, at 7:52 PM, U.S. Pacific Standard
-      Time, is represented by the string
+      Time, is represented by the char *
 
         D:199812231952-08'00'
   </blockquote>
@@ -837,9 +837,9 @@ matchstrings(strnumber s, strnumber t, int subcount, bool icase)
         ret = regexec(&preg, str, sub_match_count, pmatch, eflags);
         
         xfree(match_string);
-        match_string = xstrdup(str);  /* save searched-in string, used below */
+        match_string = xstrdup(str);  /* save searched-in char *, used below */
         last_match_succeeded = ret == 0;     /* save whether match succeeded */
-        strpool[poolptr++] = ((ret == 0) ? '1' : '0'); /* in string pool too */
+        strpool[poolptr++] = ((ret == 0) ? '1' : '0'); /* in char * pool too */
     }
 
     regfree(&preg);
@@ -893,7 +893,7 @@ getmatch(int i)
 }
 
 
-/* function strips trailing zeros in string with numbers; */
+/* function strips trailing zeros in char * with numbers; */
 /* leading zeros are not stripped (as in real life) */
 char *stripzeros(char *a)
 {
@@ -964,7 +964,7 @@ char *stripzeros(char *a)
 
 void initversionstring(char **versions)
 {
-    const_string fmt =
+    const char * fmt =
                     "Compiled with libpng %s; using libpng %s\n"
                     "Compiled with zlib %s; using zlib %s\n"
                     "Compiled with %s version %s\n";
@@ -1115,7 +1115,7 @@ int newcolorstack(int s, int literal_mode, bool page_start)
 #define get_colstack(n) (&colstacks[n])
 
 /*
-    Puts a string on top of the string pool and updates poolptr.
+    Puts a char * on top of the char * pool and updates poolptr.
 */
 static void put_cstring_on_strpool(poolpointer start, char *str)
 {

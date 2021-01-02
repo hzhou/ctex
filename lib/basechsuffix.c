@@ -13,13 +13,13 @@
    
    In other words, we're implementing `basename NAME OLD`NEW.  */
 
-string
-basenamechangesuffix (const_string name,  const_string old_suffix,
-                      const_string new_suffix)
+char *
+basenamechangesuffix (const char * name,  const char * old_suffix,
+                      const char * new_suffix)
 {
-  string answer;
+  char * answer;
   unsigned c;
-  const_string base = basename ((char *)name);
+  const char * base = basename ((char *)name);
   unsigned base_len = strlen (base);
   unsigned copy_limit = base_len;
   unsigned old_suffix_len = strlen (old_suffix);

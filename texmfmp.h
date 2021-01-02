@@ -124,7 +124,7 @@ extern void pdftex_fail(const char *fmt, ...);
 #endif
 extern char start_time_str[];
 extern void initstarttime(void);
-extern string find_input_file(int s);
+extern char * find_input_file(int s);
 #if !defined(XeTeX)
 extern char *makecstring(int s);
 extern char *makecfilename(int s);
@@ -139,8 +139,8 @@ extern void getmd5sum(int s, bool file);
 
 /* pdftex etc. except for tex use these for pipe support */
 #if defined(TeX) && !defined(onlyTeX)
-extern bool open_in_or_pipe (FILE **, int, const_string fopen_mode);
-extern bool open_out_or_pipe (FILE **, const_string fopen_mode);
+extern bool open_in_or_pipe (FILE **, int, const char * fopen_mode);
+extern bool open_out_or_pipe (FILE **, const char * fopen_mode);
 extern void close_file_or_pipe (FILE *);
 #define ENABLE_PIPES 1
 #else
@@ -151,9 +151,9 @@ extern void close_file_or_pipe (FILE *);
 extern int runsystem (const char *cmd);
 
 /* The entry point.  */
-extern void maininit (int ac, string *av);
+extern void maininit (int ac, char * *av);
 #if defined(WIN32) && !defined(__MINGW32__) && defined(DLLPROC)
-extern __declspec(dllexport) int DLLPROC (int ac, string *av);
+extern __declspec(dllexport) int DLLPROC (int ac, char * *av);
 #else
 #undef DLLPROC
 #endif
@@ -161,7 +161,7 @@ extern __declspec(dllexport) int DLLPROC (int ac, string *av);
 /* All but the Omega family use this. */
 #if !defined(Aleph)
 extern void readtcxfile (void);
-extern string translate_filename;
+extern char * translate_filename;
 #define translatefilename translate_filename
 #endif
 
@@ -272,7 +272,7 @@ extern void topenin (void);
 
 #ifdef XeTeX
 #if ENABLE_PIPES
-extern bool u_open_in_or_pipe(unicodefile* f, int filefmt, const_string fopen_mode, int mode, int encodingData);
+extern bool u_open_in_or_pipe(unicodefile* f, int filefmt, const char * fopen_mode, int mode, int encodingData);
 extern void u_close_file_or_pipe(unicodefile* f);
 #define uopenin(f,p,m,d) u_open_in_or_pipe(&(f), p, FOPEN_RBIN_MODE, m, d)
 #define uclose(f) u_close_file_or_pipe(&(f))

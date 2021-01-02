@@ -442,7 +442,7 @@ static void fm_scan_line(void)
         r = fm_line;
         break;
     case MAPLINE:
-        r = mitem->line;        /* work on string from makecstring() */
+        r = mitem->line;        /* work on char * from makecstring() */
         break;
     default:
         assert(0);
@@ -492,7 +492,7 @@ static void fm_scan_line(void)
                         r = s + strlen("ExtendFont");
                     } else {    /* unknown name */
                         for (r = s; *r != ' ' && *r != '"' && *r != '\0'; r++); /* jump over name */
-                        c = *r; /* remember char for temporary end of string */
+                        c = *r; /* remember char for temporary end of char * */
                         *r = '\0';
                         pdftex_warn
                             ("invalid entry for `%s': unknown name `%s' ignored",
@@ -716,7 +716,7 @@ fm_entry *lookup_fontmap(char *ps_name)
         sl = (int) strtol(b, &e, 10);
         if ((e != b) && (e == strend(b))) {
             tmp.slant = sl;
-            *a = '\0';          /* ps_name string ends before "-Slant_" */
+            *a = '\0';          /* ps_name char * ends before "-Slant_" */
         } else {
             if (e != b) {       /* only if <slant> is valid number */
                 if ((c = strstr(e, "-Extend_")) != NULL) {
@@ -725,7 +725,7 @@ fm_entry *lookup_fontmap(char *ps_name)
                     if ((e != d) && (e == strend(d))) {
                         tmp.slant = sl;
                         tmp.extend = ex;
-                        *a = '\0';      /* ps_name string ends before "-Slant_" */
+                        *a = '\0';      /* ps_name char * ends before "-Slant_" */
                     }
                 }
             }
@@ -736,7 +736,7 @@ fm_entry *lookup_fontmap(char *ps_name)
             ex = (int) strtol(b, &e, 10);
             if ((e != b) && (e == strend(b))) {
                 tmp.extend = ex;
-                *a = '\0';      /* ps_name string ends before "-Extend_" */
+                *a = '\0';      /* ps_name char * ends before "-Extend_" */
             }
         }
     }
@@ -837,7 +837,7 @@ void pdfmapline(int t)
     flushstr(lasttokensstring);
 }
 
-void pdfinitmapfile(const_string map_name)
+void pdfinitmapfile(const char * map_name)
 {
     assert(mitem == NULL);
     mitem = xtalloc(1, mapitem);

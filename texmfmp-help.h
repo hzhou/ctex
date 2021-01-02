@@ -21,7 +21,7 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.  */
 #define TEXMFMP_HELP
 
 #ifdef Aleph
-const_string ALEPHHELP[] = {
+const char * ALEPHHELP[] = {
     "Usage: aleph [OPTION]... [TEXNAME[.tex]] [COMMANDS]",
     "   or: aleph [OPTION]... \\FIRST-LINE",
     "   or: aleph [OPTION]... &FMT ARGS",
@@ -76,8 +76,8 @@ const_string ALEPHHELP[] = {
 #endif /* Aleph */
 
 #ifdef epTeX
-const_string based_prog_name = "e-TeX";
-const_string EPTEXHELP[] = {
+const char * based_prog_name = "e-TeX";
+const char * EPTEXHELP[] = {
     "Usage: eptex [OPTION]... [TEXNAME[.tex]] [COMMANDS]",
     "   or: eptex [OPTION]... \\FIRST-LINE",
     "   or: eptex [OPTION]... &FMT ARGS",
@@ -142,7 +142,7 @@ const_string EPTEXHELP[] = {
 #endif /* epTeX */
 
 #ifdef eTeX
-const_string ETEXHELP[] = {
+const char * ETEXHELP[] = {
     "Usage: etex [OPTION]... [TEXNAME[.tex]] [COMMANDS]",
     "   or: etex [OPTION]... \\FIRST-LINE",
     "   or: etex [OPTION]... &FMT ARGS",
@@ -205,8 +205,8 @@ const_string ETEXHELP[] = {
 #endif /* eTeX */
 
 #ifdef eupTeX
-const_string based_prog_name = "e-TeX";
-const_string EUPTEXHELP[] = {
+const char * based_prog_name = "e-TeX";
+const char * EUPTEXHELP[] = {
     "Usage: euptex [OPTION]... [TEXNAME[.tex]] [COMMANDS]",
     "   or: euptex [OPTION]... \\FIRST-LINE",
     "   or: euptex [OPTION]... &FMT ARGS",
@@ -271,7 +271,7 @@ const_string EUPTEXHELP[] = {
 #endif /* eupTeX */
 
 #ifdef onlyMF
-const_string MFHELP[] = {
+const char * MFHELP[] = {
     "Usage: mf [OPTION]... [MFNAME[.mf]] [COMMANDS]",
     "   or: mf [OPTION]... \\FIRST-LINE",
     "   or: mf [OPTION]... &BASE ARGS",
@@ -317,7 +317,7 @@ const_string MFHELP[] = {
 #endif /* onlyMF */
 
 #ifdef MFLua
-const_string MFLUAHELP[] = {
+const char * MFLUAHELP[] = {
     "Usage: mflua [OPTION]... [MFNAME[.mf]] [COMMANDS]",
     "   or: mflua [OPTION]... \\FIRST-LINE",
     "   or: mflua [OPTION]... &BASE ARGS",
@@ -362,7 +362,7 @@ const_string MFLUAHELP[] = {
 #endif /* MFLua */
 
 #ifdef MFLuaJIT
-const_string MFLUAJITHELP[] = {
+const char * MFLUAJITHELP[] = {
     "Usage: mfluajit [OPTION]... [MFNAME[.mf]] [COMMANDS]",
     "   or: mfluajit [OPTION]... \\FIRST-LINE",
     "   or: mfluajit [OPTION]... &BASE ARGS",
@@ -407,7 +407,7 @@ const_string MFLUAJITHELP[] = {
 #endif /* MFLuaJIT */
 
 #ifdef pdfTeX
-const_string PDFTEXHELP[] = {
+const char * PDFTEXHELP[] = {
     "Usage: pdftex [OPTION]... [TEXNAME[.tex]] [COMMANDS]",
     "   or: pdftex [OPTION]... \\FIRST-LINE",
     "   or: pdftex [OPTION]... &FMT ARGS",
@@ -475,8 +475,8 @@ const_string PDFTEXHELP[] = {
 #endif /* pdfTeX */
 
 #ifdef pTeX
-const_string based_prog_name = "TeX";
-const_string PTEXHELP[] = {
+const char * based_prog_name = "TeX";
+const char * PTEXHELP[] = {
     "Usage: ptex [OPTION]... [TEXNAME[.tex]] [COMMANDS]",
     "   or: ptex [OPTION]... \\FIRST-LINE",
     "   or: ptex [OPTION]... &FMT ARGS",
@@ -540,7 +540,7 @@ const_string PTEXHELP[] = {
 #endif /* pTeX */
 
 #ifdef onlyTeX
-const_string TEXHELP[] = {
+const char * TEXHELP[] = {
     "Usage: tex [OPTION]... [TEXNAME[.tex]] [COMMANDS]",
     "   or: tex [OPTION]... \\FIRST-LINE",
     "   or: tex [OPTION]... &FMT ARGS",
@@ -602,8 +602,8 @@ const_string TEXHELP[] = {
 #endif /* onlyTeX */
 
 #ifdef upTeX
-const_string based_prog_name = "TeX";
-const_string UPTEXHELP[] = {
+const char * based_prog_name = "TeX";
+const char * UPTEXHELP[] = {
     "Usage: uptex [OPTION]... [TEXNAME[.tex]] [COMMANDS]",
     "   or: uptex [OPTION]... \\FIRST-LINE",
     "   or: uptex [OPTION]... &FMT ARGS",
@@ -667,7 +667,7 @@ const_string UPTEXHELP[] = {
 #endif /* upTeX */
 
 #ifdef XeTeX
-const_string XETEXHELP[] = {
+const char * XETEXHELP[] = {
     "Usage: xetex [OPTION]... [TEXNAME[.tex]] [COMMANDS]",
     "   or: xetex [OPTION]... \\FIRST-LINE",
     "   or: xetex [OPTION]... &FMT ARGS",

@@ -9,7 +9,7 @@
    to be the program name. */
 
 void
-usage (const_string str)
+usage (const char * str)
 {
   fprintf (stderr, "Try `%s --help' for more information.\n", str);
   uexit (1);
@@ -17,12 +17,12 @@ usage (const_string str)
 
 /* Call usage if the program exits by printing the help message.
    MESSAGE is a NULL-terminated array of strings which make up the
-   help message.  Each string is printed on a separate line.
-   We use arrays instead of a single string to work around compiler
+   help message.  Each char * is printed on a separate line.
+   We use arrays instead of a single char * to work around compiler
    limitations (sigh).
 */
 void
-usagehelp (const_string *message, const_string bug_email)
+usagehelp (const char * *message, const char * bug_email)
 {
     if (!bug_email)
         bug_email = "tex-k@tug.org";
