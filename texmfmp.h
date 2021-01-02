@@ -25,26 +25,6 @@ typedef UFILE* unicodefile;
 typedef void* voidpointer;
 #endif
 
-/* If we have these macros, use them, as they provide a better guide to
-   the endianess when cross-compiling. */
-#if defined (BYTE_ORDER) && defined (BIG_ENDIAN) && defined (LITTLE_ENDIAN)
-#ifdef WORDS_BIGENDIAN
-#undef WORDS_BIGENDIAN
-#endif
-#if BYTE_ORDER == BIG_ENDIAN
-#define WORDS_BIGENDIAN
-#endif
-#endif
-/* More of the same, but now NeXT-specific. */
-#ifdef NeXT
-#ifdef WORDS_BIGENDIAN
-#undef WORDS_BIGENDIAN
-#endif
-#ifdef __BIG_ENDIAN__
-#define WORDS_BIGENDIAN
-#endif
-#endif
-
 /* Some things are the same except for the name.  */
 #ifdef TeX
 #if defined (pdfTeX)

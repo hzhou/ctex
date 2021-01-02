@@ -68,21 +68,12 @@ typedef union
 {
   struct
   {
-#ifdef WORDS_BIGENDIAN
-    halfword RH, LH;
-#else
     halfword LH, RH;
-#endif
   } v;
 
   struct
   { /* Make B0,B1 overlap the most significant bytes of LH.  */
-#ifdef WORDS_BIGENDIAN
-    halfword junk;
-    short B0, B1;
-#else /* not WORDS_BIGENDIAN */
     short B1, B0;
-#endif /* LittleEndian */
   } u;
 } twohalves;
 
@@ -90,47 +81,25 @@ typedef struct
 {
   struct
   {
-#ifdef WORDS_BIGENDIAN
-    quarterword B0, B1, B2, B3;
-#else
     quarterword B3, B2, B1, B0;
-#endif
   } u;
 } fourquarters;
 
 typedef union
 {
-#ifdef TeX
   glueratio gr;
   twohalves hh;
-#else
-  twohalves hhfield;
-#endif
-#ifdef XeTeX
-  voidpointer ptr;
-#endif
-#ifdef WORDS_BIGENDIAN
-  int cint;
-  fourquarters qqqq;
-#else /* not WORDS_BIGENDIAN */
   struct
   {
-#if defined (TeX) || defined (MF) || defined (MP)
     halfword junk;
-#endif /* big {TeX,MF,MP} */
     int CINT;
   } u;
 
   struct
   {
-#ifndef XeTeX
-#if defined (TeX) || defined (MF) || defined (MP)
     halfword junk;
-#endif /* big {TeX,MF,MP} */
-#endif
     fourquarters QQQQ;
   } v;
-#endif /* not WORDS_BIGENDIAN */
 } memoryword;
 
 
@@ -138,15 +107,8 @@ typedef union
    significant space in the .fmt files. (Not true in XeTeX, actually!) */
 typedef union
 {
-#ifdef WORDS_BIGENDIAN
-  int cint;
-  fourquarters qqqq;
-#else /* not WORDS_BIGENDIAN */
   struct
   {
-#ifdef XeTeX
-    halfword junk; /* quarterword is really 16 bits in XeTeX, so int does not fill the union */
-#endif
     int CINT;
   } u;
 
@@ -154,7 +116,6 @@ typedef union
   {
     fourquarters QQQQ;
   } v;
-#endif /* not WORDS_BIGENDIAN */
 } fmemoryword;
 
 /* To keep the original structure accesses working, we must go through
@@ -167,12 +128,8 @@ typedef union
 #define rh v.RH
 #define lhfield	v.LH
 
-#ifndef WORDS_BIGENDIAN
 #define cint u.CINT
-#endif
 
-#ifndef WORDS_BIGENDIAN
 #define qqqq v.QQQQ
-#endif
 
 #endif /* TEXMFMEM_H */
