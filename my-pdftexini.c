@@ -17,7 +17,7 @@ void initialize(void)
         for_end = 255;
         if (i <= for_end)
             do
-                mubyteread[i] = -268435455L;
+                mubyteread[i] = MIN_HALFWORD;
             while (i++ < for_end);
     }
     {
@@ -35,7 +35,7 @@ void initialize(void)
         for_end = 127;
         if (i <= for_end)
             do
-                mubytecswrite[i] = -268435455L;
+                mubytecswrite[i] = MIN_HALFWORD;
             while (i++ < for_end);
     }
     mubytekeep = 0;
@@ -104,15 +104,15 @@ void initialize(void)
     curlist.modefield = 1;
     curlist.headfield = memtop - 1;
     curlist.tailfield = memtop - 1;
-    curlist.eTeXauxfield = -268435455L;
-    savetail = -268435455L;
+    curlist.eTeXauxfield = MIN_HALFWORD;
+    savetail = MIN_HALFWORD;
     curlist.auxfield.cint = -65536000L;
     curlist.mlfield = 0;
     curlist.pgfield = 0;
     shownmode = 0;
     pagecontents = 0;
     pagetail = memtop - 2;
-    lastglue = 268435455L;
+    lastglue = MAX_HALFWORD;
     lastpenalty = 0;
     lastkern = 0;
     lastnodetype = -1;
@@ -146,11 +146,11 @@ void initialize(void)
     maxsavestack = 0;
     magset = 0;
     isincsname = false;
-    curmark[0] = -268435455L;
-    curmark[1] = -268435455L;
-    curmark[2] = -268435455L;
-    curmark[3] = -268435455L;
-    curmark[4] = -268435455L;
+    curmark[0] = MIN_HALFWORD;
+    curmark[1] = MIN_HALFWORD;
+    curmark[2] = MIN_HALFWORD;
+    curmark[3] = MIN_HALFWORD;
+    curmark[4] = MIN_HALFWORD;
     curval = 0;
     curvallevel = 0;
     radix = 0;
@@ -164,7 +164,7 @@ void initialize(void)
                 readopen[k] = 2;
             while (k++ < for_end);
     }
-    condptr = -268435455L;
+    condptr = MIN_HALFWORD;
     iflimit = 0;
     curif = 0;
     ifline = 0;
@@ -185,8 +185,8 @@ void initialize(void)
     dviptr = 0;
     dvioffset = 0;
     dvigone = 0;
-    downptr = -268435455L;
-    rightptr = -268435455L;
+    downptr = MIN_HALFWORD;
+    rightptr = MIN_HALFWORD;
     pdfmemptr = 1;
     pdfmemsize = infpdfmemsize;
     pdfgone = 0;
@@ -242,24 +242,24 @@ void initialize(void)
     vfnf = 0;
     vfcurs = 0;
     vfstackptr = 0;
-    adjusttail = -268435455L;
+    adjusttail = MIN_HALFWORD;
     lastbadness = 0;
-    preadjusttail = -268435455L;
+    preadjusttail = MIN_HALFWORD;
     packbeginline = 0;
     emptyfield.v.RH = 0;
-    emptyfield.v.LH = -268435455L;
+    emptyfield.v.LH = MIN_HALFWORD;
     nulldelimiter.b0 = 0;
     nulldelimiter.b1 = 0;
     nulldelimiter.b2 = 0;
     nulldelimiter.b3 = 0;
-    alignptr = -268435455L;
-    curalign = -268435455L;
-    curspan = -268435455L;
-    curloop = -268435455L;
-    curhead = -268435455L;
-    curtail = -268435455L;
-    curprehead = -268435455L;
-    curpretail = -268435455L;
+    alignptr = MIN_HALFWORD;
+    curalign = MIN_HALFWORD;
+    curspan = MIN_HALFWORD;
+    curloop = MIN_HALFWORD;
+    curhead = MIN_HALFWORD;
+    curtail = MIN_HALFWORD;
+    curprehead = MIN_HALFWORD;
+    curpretail = MIN_HALFWORD;
     {
         register int for_end;
         z = 0;
@@ -267,7 +267,7 @@ void initialize(void)
         if (z <= for_end)
             do {
                 hyphword[z] = 0;
-                hyphlist[z] = -268435455L;
+                hyphlist[z] = MIN_HALFWORD;
                 hyphlink[z] = 0;
             }
             while (z++ < for_end);
@@ -295,7 +295,7 @@ void initialize(void)
                 writeopen[k] = false;
             while (k++ < for_end);
     }
-    altrule = -268435455L;
+    altrule = MIN_HALFWORD;
     warnpdfpagebox = true;
     countdosnapy = 0;
     secondsandmicros(epochseconds, microseconds);
@@ -307,26 +307,26 @@ void initialize(void)
     pdfxformcount = 0;
     pdfximagecount = 0;
     pdfdestnamesptr = 0;
-    pdfinfotoks = -268435455L;
-    pdfcatalogtoks = -268435455L;
-    pdfnamestoks = -268435455L;
+    pdfinfotoks = MIN_HALFWORD;
+    pdfcatalogtoks = MIN_HALFWORD;
+    pdfnamestoks = MIN_HALFWORD;
     pdfcatalogopenaction = 0;
-    pdftrailertoks = -268435455L;
-    pdftraileridtoks = -268435455L;
+    pdftrailertoks = MIN_HALFWORD;
+    pdftraileridtoks = MIN_HALFWORD;
     genfakedinterwordspace = false;
     genrunninglink = true;
     pdflinkstackptr = 0;
-    LRptr = -268435455L;
+    LRptr = MIN_HALFWORD;
     LRproblems = 0;
     curdir = 0;
-    pseudofiles = -268435455L;
-    saroot[6] = -268435455L;
-    sanull.hh.v.LH = -268435455L;
-    sanull.hh.v.RH = -268435455L;
-    sachain = -268435455L;
+    pseudofiles = MIN_HALFWORD;
+    saroot[6] = MIN_HALFWORD;
+    sanull.hh.v.LH = MIN_HALFWORD;
+    sanull.hh.v.RH = MIN_HALFWORD;
+    sachain = MIN_HALFWORD;
     salevel = 0;
-    discptr[2] = -268435455L;
-    discptr[3] = -268435455L;
+    discptr[2] = MIN_HALFWORD;
+    discptr[3] = MIN_HALFWORD;
     editnamestart = 0;
     stopatspace = true;
     expanddepthcount = 0;
@@ -363,13 +363,13 @@ void initialize(void)
         mem[membot + 18].cint = -65536L;
         mem[membot + 16].hh.b0 = 1;
         rover = membot + 20;
-        mem[rover].hh.v.RH = 268435455L;
+        mem[rover].hh.v.RH = MAX_HALFWORD;
         mem[rover].hh.v.LH = 1000;
         mem[rover + 1].hh.v.LH = rover;
         mem[rover + 1].hh.v.RH = rover;
         lomemmax = rover + 1000;
-        mem[lomemmax].hh.v.RH = -268435455L;
-        mem[lomemmax].hh.v.LH = -268435455L;
+        mem[lomemmax].hh.v.RH = MIN_HALFWORD;
+        mem[lomemmax].hh.v.LH = MIN_HALFWORD;
         {
             register int for_end;
             k = memtop - 14;
@@ -381,22 +381,22 @@ void initialize(void)
         }
         mem[memtop - 10].hh.v.LH = 19614;
         mem[memtop - 9].hh.v.RH = 256;
-        mem[memtop - 9].hh.v.LH = -268435455L;
+        mem[memtop - 9].hh.v.LH = MIN_HALFWORD;
         mem[memtop - 7].hh.b0 = 1;
-        mem[memtop - 6].hh.v.LH = 268435455L;
+        mem[memtop - 6].hh.v.LH = MAX_HALFWORD;
         mem[memtop - 7].hh.b1 = 0;
         mem[memtop].hh.b1 = 255;
         mem[memtop].hh.b0 = 1;
         mem[memtop].hh.v.RH = memtop;
         mem[memtop - 2].hh.b0 = 10;
         mem[memtop - 2].hh.b1 = 0;
-        avail = -268435455L;
+        avail = MIN_HALFWORD;
         memend = memtop;
         himemmin = memtop - 14;
         varused = membot + 20 - membot;
         dynused = 15;
         eqtb[26627].hh.b0 = 103;
-        eqtb[26627].hh.v.RH = -268435455L;
+        eqtb[26627].hh.v.RH = MIN_HALFWORD;
         eqtb[26627].hh.b1 = 0;
         {
             register int for_end;
@@ -420,7 +420,7 @@ void initialize(void)
                 while (k++ < for_end);
         }
         mem[membot].hh.v.RH = mem[membot].hh.v.RH + 530;
-        eqtb[27158].hh.v.RH = -268435455L;
+        eqtb[27158].hh.v.RH = MIN_HALFWORD;
         eqtb[27158].hh.b0 = 120;
         eqtb[27158].hh.b1 = 1;
         {
@@ -441,7 +441,7 @@ void initialize(void)
                     eqtb[k] = eqtb[26627];
                 while (k++ < for_end);
         }
-        eqtb[27433].hh.v.RH = -268435455L;
+        eqtb[27433].hh.v.RH = MIN_HALFWORD;
         eqtb[27433].hh.b0 = 121;
         eqtb[27433].hh.b1 = 1;
         {
@@ -614,7 +614,7 @@ void initialize(void)
         hash[15522].v.RH = 1916;
         eqtb[15522].hh.b1 = 1;
         eqtb[15522].hh.b0 = 115;
-        eqtb[15522].hh.v.RH = -268435455L;
+        eqtb[15522].hh.v.RH = MIN_HALFWORD;
         eTeXmode = 0;
         maxregnum = 255;
         maxreghelpline = 791;
@@ -624,7 +624,7 @@ void initialize(void)
             for_end = 5;
             if (i <= for_end)
                 do
-                    saroot[i] = -268435455L;
+                    saroot[i] = MIN_HALFWORD;
                 while (i++ < for_end);
         }
     }
@@ -710,7 +710,7 @@ void sortavail(void)
     halfword oldrover;
     p = getnode(1073741824L);
     p = mem[rover + 1].hh.v.RH;
-    mem[rover + 1].hh.v.RH = 268435455L;
+    mem[rover + 1].hh.v.RH = MAX_HALFWORD;
     oldrover = rover;
     while (p != oldrover)
         if (p < rover) {
@@ -729,7 +729,7 @@ void sortavail(void)
             p = r;
         }
     p = rover;
-    while (mem[p + 1].hh.v.RH != 268435455L) {
+    while (mem[p + 1].hh.v.RH != MAX_HALFWORD) {
 
         mem[mem[p + 1].hh.v.RH + 1].hh.v.LH = p;
         p = mem[p + 1].hh.v.RH;
@@ -1369,7 +1369,7 @@ void zlinebreak(bool d)
         maxstretchratio = -1;
         maxshrinkratio = -1;
         curfontstep = -1;
-        prevcharp = -268435455L;
+        prevcharp = MIN_HALFWORD;
     }
     dolastlinefit = false;
     activenodesize = 3;
@@ -1392,7 +1392,7 @@ void zlinebreak(bool d)
     minimaldemerits[2] = 1073741823L;
     minimaldemerits[1] = 1073741823L;
     minimaldemerits[0] = 1073741823L;
-    if (eqtb[27158].hh.v.RH == -268435455L) {
+    if (eqtb[27158].hh.v.RH == MIN_HALFWORD) {
 
         if (eqtb[29913].cint == 0) {
             lastspecialline = 0;
@@ -1431,7 +1431,7 @@ void zlinebreak(bool d)
     if (eqtb[29296].cint == 0)
         easyline = lastspecialline;
     else
-        easyline = 268435455L;
+        easyline = MAX_HALFWORD;
     threshold = eqtb[29277].cint;
     if (threshold >= 0) {
         ;
@@ -1476,7 +1476,7 @@ void zlinebreak(bool d)
         mem[q].hh.b0 = 0;
         mem[q].hh.b1 = 2;
         mem[q].hh.v.RH = memtop - 7;
-        mem[q + 1].hh.v.RH = -268435455L;
+        mem[q + 1].hh.v.RH = MIN_HALFWORD;
         mem[q + 1].hh.v.LH = curlist.pgfield + 1;
         mem[q + 2].cint = 0;
         mem[memtop - 7].hh.v.RH = q;
@@ -1494,20 +1494,20 @@ void zlinebreak(bool d)
             activewidth[7] = background[7];
             activewidth[8] = background[8];
         }
-        passive = -268435455L;
+        passive = MIN_HALFWORD;
         printednode = memtop - 3;
         passnumber = 0;
         fontinshortdisplay = 0;
         curp = mem[memtop - 3].hh.v.RH;
         autobreaking = true;
         prevp = curp;
-        prevcharp = -268435455L;
-        prevlegal = -268435455L;
-        rejectedcurp = -268435455L;
+        prevcharp = MIN_HALFWORD;
+        prevlegal = MIN_HALFWORD;
+        rejectedcurp = MIN_HALFWORD;
         tryprevbreak = false;
         beforerejectedcurp = false;
         firstp = curp;
-        while ((curp != -268435455L) && (mem[memtop - 7].hh.v.RH != memtop - 7)) {
+        while ((curp != MIN_HALFWORD) && (mem[memtop - 7].hh.v.RH != memtop - 7)) {
 
             if ((curp >= himemmin)) {
                 prevp = curp;
@@ -1562,7 +1562,7 @@ void zlinebreak(bool d)
                         if (secondpass && autobreaking) {
                             prevs = curp;
                             s = mem[prevs].hh.v.RH;
-                            if (s != -268435455L) {
+                            if (s != MIN_HALFWORD) {
                                 while (true) {
 
                                     if ((s >= himemmin)) {
@@ -1570,7 +1570,7 @@ void zlinebreak(bool d)
                                         hf = mem[s].hh.b0;
                                     } else if (mem[s].hh.b0 == 6) {
 
-                                        if (mem[s + 1].hh.v.RH == -268435455L)
+                                        if (mem[s + 1].hh.v.RH == MIN_HALFWORD)
                                             goto lab22;
                                         else {
 
@@ -1647,9 +1647,9 @@ void zlinebreak(bool d)
                                             goto lab33;
                                         j = hn;
                                         q = mem[s + 1].hh.v.RH;
-                                        if (q > -268435455L)
+                                        if (q > MIN_HALFWORD)
                                             hyfbchar = mem[q].hh.b1;
-                                        while (q > -268435455L) {
+                                        while (q > MIN_HALFWORD) {
 
                                             c = mem[q].hh.b1;
                                             if (hyphindex == 0)
@@ -1757,7 +1757,7 @@ void zlinebreak(bool d)
                             discwidth[7] = 0;
                             discwidth[8] = 0;
                         }
-                        if (s == -268435455L)
+                        if (s == MIN_HALFWORD)
                             trybreak(eqtb[29281].cint, 1);
                         else {
 
@@ -1801,7 +1801,7 @@ void zlinebreak(bool d)
                                             break;
                                     }
                                 s = mem[s].hh.v.RH;
-                            } while (!(s == -268435455L));
+                            } while (!(s == MIN_HALFWORD));
                             activewidth[1] = activewidth[1] + discwidth[1];
                             if (eqtb[29357].cint > 1) {
                                 activewidth[7] = activewidth[7] + discwidth[7];
@@ -1893,7 +1893,7 @@ void zlinebreak(bool d)
             curp = mem[curp].hh.v.RH;
           lab35:;
         }
-        if (curp == -268435455L) {
+        if (curp == MIN_HALFWORD) {
             trybreak(-10000, 1);
             if (mem[memtop - 7].hh.v.RH != memtop - 7) {
                 r = mem[memtop - 7].hh.v.RH;
@@ -1945,7 +1945,7 @@ void zlinebreak(bool d)
             q = curp;
         }
         q = passive;
-        while (q != -268435455L) {
+        while (q != MIN_HALFWORD) {
 
             curp = mem[q].hh.v.RH;
             freenode(q, 2);
@@ -2004,7 +2004,7 @@ void zlinebreak(bool d)
         q = curp;
     }
     q = passive;
-    while (q != -268435455L) {
+    while (q != MIN_HALFWORD) {
 
         curp = mem[q].hh.v.RH;
         freenode(q, 2);
@@ -2043,7 +2043,7 @@ void newhyphexceptions(void)
     else
         hyphindex = trietrl[hyphstart + curlang];
   lab46:n = 0;
-    p = -268435455L;
+    p = MIN_HALFWORD;
     while (true) {
 
         getxtoken();
@@ -2163,7 +2163,7 @@ void newhyphexceptions(void)
                     if (curcmd == 2)
                         return;
                     n = 0;
-                    p = -268435455L;
+                    p = MIN_HALFWORD;
                 }
                 break;
             default:
@@ -2205,13 +2205,13 @@ bool zdomarks(smallnumber a, smallnumber l, halfword q)
                         curptr = mem[q + (i / 2) + 1].hh.v.RH;
                     else
                         curptr = mem[q + (i / 2) + 1].hh.v.LH;
-                    if (curptr != -268435455L) {
+                    if (curptr != MIN_HALFWORD) {
 
                         if (domarks(a, l + 1, curptr)) {
                             if (odd(i))
-                                mem[q + (i / 2) + 1].hh.v.RH = -268435455L;
+                                mem[q + (i / 2) + 1].hh.v.RH = MIN_HALFWORD;
                             else
-                                mem[q + (i / 2) + 1].hh.v.LH = -268435455L;
+                                mem[q + (i / 2) + 1].hh.v.LH = MIN_HALFWORD;
                             decr(mem[q].hh.b1);
                         }
                     }
@@ -2220,35 +2220,35 @@ bool zdomarks(smallnumber a, smallnumber l, halfword q)
         }
         if (mem[q].hh.b1 == 0) {
             freenode(q, 9);
-            q = -268435455L;
+            q = MIN_HALFWORD;
         }
     } else {
 
         switch (a) {
             case 0:
-                if (mem[q + 2].hh.v.RH != -268435455L) {
+                if (mem[q + 2].hh.v.RH != MIN_HALFWORD) {
                     deletetokenref(mem[q + 2].hh.v.RH);
-                    mem[q + 2].hh.v.RH = -268435455L;
+                    mem[q + 2].hh.v.RH = MIN_HALFWORD;
                     deletetokenref(mem[q + 3].hh.v.LH);
-                    mem[q + 3].hh.v.LH = -268435455L;
+                    mem[q + 3].hh.v.LH = MIN_HALFWORD;
                 }
                 break;
             case 1:
-                if (mem[q + 2].hh.v.LH != -268435455L) {
-                    if (mem[q + 1].hh.v.LH != -268435455L)
+                if (mem[q + 2].hh.v.LH != MIN_HALFWORD) {
+                    if (mem[q + 1].hh.v.LH != MIN_HALFWORD)
                         deletetokenref(mem[q + 1].hh.v.LH);
                     deletetokenref(mem[q + 1].hh.v.RH);
-                    mem[q + 1].hh.v.RH = -268435455L;
-                    if (mem[mem[q + 2].hh.v.LH].hh.v.RH == -268435455L) {
+                    mem[q + 1].hh.v.RH = MIN_HALFWORD;
+                    if (mem[mem[q + 2].hh.v.LH].hh.v.RH == MIN_HALFWORD) {
                         deletetokenref(mem[q + 2].hh.v.LH);
-                        mem[q + 2].hh.v.LH = -268435455L;
+                        mem[q + 2].hh.v.LH = MIN_HALFWORD;
                     } else
                         incr(mem[mem[q + 2].hh.v.LH].hh.v.LH);
                     mem[q + 1].hh.v.LH = mem[q + 2].hh.v.LH;
                 }
                 break;
             case 2:
-                if ((mem[q + 1].hh.v.LH != -268435455L) && (mem[q + 1].hh.v.RH == -268435455L)) {
+                if ((mem[q + 1].hh.v.LH != MIN_HALFWORD) && (mem[q + 1].hh.v.RH == MIN_HALFWORD)) {
                     mem[q + 1].hh.v.RH = mem[q + 1].hh.v.LH;
                     incr(mem[mem[q + 1].hh.v.LH].hh.v.LH);
                 }
@@ -2266,12 +2266,12 @@ bool zdomarks(smallnumber a, smallnumber l, halfword q)
                                 curptr = mem[q + (i / 2) + 1].hh.v.RH;
                             else
                                 curptr = mem[q + (i / 2) + 1].hh.v.LH;
-                            if (curptr != -268435455L) {
+                            if (curptr != MIN_HALFWORD) {
                                 deletetokenref(curptr);
                                 if (odd(i))
-                                    mem[q + (i / 2) + 1].hh.v.RH = -268435455L;
+                                    mem[q + (i / 2) + 1].hh.v.RH = MIN_HALFWORD;
                                 else
-                                    mem[q + (i / 2) + 1].hh.v.LH = -268435455L;
+                                    mem[q + (i / 2) + 1].hh.v.LH = MIN_HALFWORD;
                             }
                         }
                         while (i++ < for_end);
@@ -2279,15 +2279,15 @@ bool zdomarks(smallnumber a, smallnumber l, halfword q)
                 break;
 #endif /* INITEX */
         }
-        if (mem[q + 2].hh.v.LH == -268435455L) {
+        if (mem[q + 2].hh.v.LH == MIN_HALFWORD) {
 
-            if (mem[q + 3].hh.v.LH == -268435455L) {
+            if (mem[q + 3].hh.v.LH == MIN_HALFWORD) {
                 freenode(q, 4);
-                q = -268435455L;
+                q = MIN_HALFWORD;
             }
         }
     }
-    Result = (q == -268435455L);
+    Result = (q == MIN_HALFWORD);
     return Result;
 }
 
@@ -2473,7 +2473,7 @@ void prefixedcommand(void)
                     backerror();
                 }
                 p = mem[r].hh.v.RH;
-                if ((p == -268435455L) && mubytetablein) {
+                if ((p == MIN_HALFWORD) && mubytetablein) {
                     {
                         if (interaction == 3);
                         if (filelineerrorstylep)
@@ -2492,7 +2492,7 @@ void prefixedcommand(void)
                     error();
                 } else {
 
-                    while (p != -268435455L) {
+                    while (p != MIN_HALFWORD) {
 
                         {
                             strpool[poolptr] = mem[p].hh.v.LH % 256;
@@ -2502,10 +2502,10 @@ void prefixedcommand(void)
                     }
                     flushlist(r);
                     if ((strstart[strptr] + 1 == poolptr) && (strpool[poolptr - 1] == mubytestoken)) {
-                        if (mubyteread[mubytestoken] != -268435455L && mubytetablein)
+                        if (mubyteread[mubytestoken] != MIN_HALFWORD && mubytetablein)
                             disposemunode(mubyteread[mubytestoken]);
                         if (mubytetablein)
-                            mubyteread[mubytestoken] = -268435455L;
+                            mubyteread[mubytestoken] = MIN_HALFWORD;
                         if (mubytetableout)
                             mubytewrite[mubytestoken] = 0;
                         poolptr = strstart[strptr];
@@ -2763,8 +2763,8 @@ void prefixedcommand(void)
                                 else {
 
                                     findsaelement(5, curval, false);
-                                    if (curptr == -268435455L)
-                                        q = -268435455L;
+                                    if (curptr == MIN_HALFWORD)
+                                        q = MIN_HALFWORD;
                                     else
                                         q = mem[curptr + 1].hh.v.RH;
                                 }
@@ -2772,18 +2772,18 @@ void prefixedcommand(void)
                                 q = mem[curchr + 1].hh.v.RH;
                         } else
                             q = eqtb[curchr].hh.v.RH;
-                        if (q == -268435455L) {
+                        if (q == MIN_HALFWORD) {
 
                             if (e) {
 
                                 if ((a >= 4))
-                                    gsadef(p, -268435455L);
+                                    gsadef(p, MIN_HALFWORD);
                                 else
-                                    sadef(p, -268435455L);
+                                    sadef(p, MIN_HALFWORD);
                             } else if ((a >= 4))
-                                geqdefine(p, 103, -268435455L);
+                                geqdefine(p, 103, MIN_HALFWORD);
                             else
-                                eqdefine(p, 103, -268435455L);
+                                eqdefine(p, 103, MIN_HALFWORD);
                         } else {
 
                             incr(mem[q].hh.v.LH);
@@ -2804,17 +2804,17 @@ void prefixedcommand(void)
                 backinput();
                 curcs = q;
                 q = scantoks(false, false);
-                if (mem[defref].hh.v.RH == -268435455L) {
+                if (mem[defref].hh.v.RH == MIN_HALFWORD) {
                     if (e) {
 
                         if ((a >= 4))
-                            gsadef(p, -268435455L);
+                            gsadef(p, MIN_HALFWORD);
                         else
-                            sadef(p, -268435455L);
+                            sadef(p, MIN_HALFWORD);
                     } else if ((a >= 4))
-                        geqdefine(p, 103, -268435455L);
+                        geqdefine(p, 103, MIN_HALFWORD);
                     else
-                        eqdefine(p, 103, -268435455L);
+                        eqdefine(p, 103, MIN_HALFWORD);
                     {
                         mem[defref].hh.v.RH = avail;
                         avail = defref;
@@ -3027,7 +3027,7 @@ void prefixedcommand(void)
                 scanint();
                 n = curval;
                 if (n <= 0)
-                    p = -268435455L;
+                    p = MIN_HALFWORD;
                 else if (q > 27158) {
                     n = (curval / 2) + 1;
                     p = getnode(2 * n + 1);
@@ -3270,7 +3270,7 @@ void storefmtfile(void)
     dumpthings(xord[0], 256);
     dumpthings(xchr[0], 256);
     dumpthings(xprn[0], 256);
-    dumpint(268435455L);
+    dumpint(MAX_HALFWORD);
     dumpint(hashhigh);
     dumpint(eTeXmode);
     {
@@ -3282,7 +3282,7 @@ void storefmtfile(void)
                 eqtb[29382 + j].cint = 0;
             while (j++ < for_end);
     }
-    while (pseudofiles != -268435455L)
+    while (pseudofiles != MIN_HALFWORD)
         pseudoclose();
     dumpint(membot);
     dumpint(memtop);
@@ -3344,7 +3344,7 @@ void storefmtfile(void)
     dumpthings(mem[himemmin], memend + 1 - himemmin);
     x = x + memend + 1 - himemmin;
     p = avail;
-    while (p != -268435455L) {
+    while (p != MIN_HALFWORD) {
 
         decr(dynused);
         p = mem[p].hh.v.RH;
@@ -3705,7 +3705,7 @@ bool loadfmtfile(void)
         }
     }
     undumpint(x);
-    if (x != 268435455L)
+    if (x != MAX_HALFWORD)
         goto lab6666;
     undumpint(hashhigh);
     if ((hashhigh < 0) || (hashhigh > suphashextra))
@@ -3733,7 +3733,7 @@ bool loadfmtfile(void)
     zeqtb = xmallocarray(memoryword, eqtbtop + 1);
     eqtb = zeqtb;
     eqtb[26627].hh.b0 = 103;
-    eqtb[26627].hh.v.RH = -268435455L;
+    eqtb[26627].hh.v.RH = MIN_HALFWORD;
     eqtb[26627].hh.b1 = 0;
     {
         register int for_end;
@@ -3872,7 +3872,7 @@ bool loadfmtfile(void)
         if (k <= for_end)
             do {
                 undumpint(x);
-                if ((x < -268435455L) || (x > lomemmax))
+                if ((x < MIN_HALFWORD) || (x > lomemmax))
                     goto lab6666;
                 else
                     saroot[k] = x;
@@ -3892,13 +3892,13 @@ bool loadfmtfile(void)
     if (memmin < membot - 2) {
         p = mem[rover + 1].hh.v.LH;
         q = memmin + 1;
-        mem[memmin].hh.v.RH = -268435455L;
-        mem[memmin].hh.v.LH = -268435455L;
+        mem[memmin].hh.v.RH = MIN_HALFWORD;
+        mem[memmin].hh.v.LH = MIN_HALFWORD;
         mem[p + 1].hh.v.RH = q;
         mem[rover + 1].hh.v.LH = q;
         mem[q + 1].hh.v.RH = rover;
         mem[q + 1].hh.v.LH = p;
-        mem[q].hh.v.RH = 268435455L;
+        mem[q].hh.v.RH = MAX_HALFWORD;
         mem[q].hh.v.LH = membot - q;
     }
     {
@@ -3910,7 +3910,7 @@ bool loadfmtfile(void)
     }
     {
         undumpint(x);
-        if ((x < -268435455L) || (x > memtop))
+        if ((x < MIN_HALFWORD) || (x > memtop))
             goto lab6666;
         else
             avail = x;
@@ -4121,7 +4121,7 @@ bool loadfmtfile(void)
         undumpthings(fontcheck[0], fontptr + 1);
         undumpthings(fontsize[0], fontptr + 1);
         undumpthings(fontdsize[0], fontptr + 1);
-        undumpcheckedthings(-268435455L, 268435455L, fontparams[0], fontptr + 1);
+        undumpcheckedthings(MIN_HALFWORD, MAX_HALFWORD, fontparams[0], fontptr + 1);
         undumpthings(hyphenchar[0], fontptr + 1);
         undumpthings(skewchar[0], fontptr + 1);
         undumpuppercheckthings(strptr, fontname[0], fontptr + 1);
@@ -4137,7 +4137,7 @@ bool loadfmtfile(void)
         undumpthings(kernbase[0], fontptr + 1);
         undumpthings(extenbase[0], fontptr + 1);
         undumpthings(parambase[0], fontptr + 1);
-        undumpcheckedthings(-268435455L, lomemmax, fontglue[0], fontptr + 1);
+        undumpcheckedthings(MIN_HALFWORD, lomemmax, fontglue[0], fontptr + 1);
         undumpcheckedthings(0, fmemptr - 1, bcharlabel[0], fontptr + 1);
         undumpcheckedthings(0, 256, fontbchar[0], fontptr + 1);
         undumpcheckedthings(0, 256, fontfalsebchar[0], fontptr + 1);
@@ -4197,7 +4197,7 @@ bool loadfmtfile(void)
                 }
                 {
                     undumpint(x);
-                    if ((x < -268435455L) || (x > 268435455L))
+                    if ((x < MIN_HALFWORD) || (x > MAX_HALFWORD))
                         goto lab6666;
                     else
                         hyphlist[j] = x;
@@ -4405,7 +4405,7 @@ void finalcleanup(void)
         if ((eTeXmode == 1))
             showsavegroups();
     }
-    while (condptr != -268435455L) {
+    while (condptr != MIN_HALFWORD) {
 
         printnl(40);
         printesc(1727);
@@ -4443,14 +4443,14 @@ void finalcleanup(void)
                 for_end = 4;
                 if (c <= for_end)
                     do
-                        if (curmark[c] != -268435455L)
+                        if (curmark[c] != MIN_HALFWORD)
                             deletetokenref(curmark[c]);
                     while (c++ < for_end);
             }
-            if (saroot[6] != -268435455L) {
+            if (saroot[6] != MIN_HALFWORD) {
 
                 if (domarks(3, 0, saroot[6]))
-                    saroot[6] = -268435455L;
+                    saroot[6] = MIN_HALFWORD;
             }
             {
                 register int for_end;
@@ -4461,7 +4461,7 @@ void finalcleanup(void)
                         flushnodelist(discptr[c]);
                     while (c++ < for_end);
             }
-            if (lastglue != 268435455L)
+            if (lastglue != MAX_HALFWORD)
                 deleteglueref(lastglue);
             storefmtfile();
             return;
@@ -5230,27 +5230,27 @@ void mainbody(void)
         bad = 10;
     if ((0 > 0) || (255 < 127))
         bad = 11;
-    if ((-268435455L > 0) || (268435455L < 32767))
+    if ((MIN_HALFWORD > 0) || (MAX_HALFWORD < 32767))
         bad = 12;
-    if ((0 < -268435455L) || (255 > 268435455L))
+    if ((0 < MIN_HALFWORD) || (255 > MAX_HALFWORD))
         bad = 13;
-    if ((9000 < -268435455L) || (9000 > 268435455L))
+    if ((9000 < MIN_HALFWORD) || (9000 > MAX_HALFWORD))
         bad = 15;
     if (fontmax > 9000)
         bad = 16;
-    if ((savesize > 268435455L) || (maxstrings > 268435455L))
+    if ((savesize > MAX_HALFWORD) || (maxstrings > MAX_HALFWORD))
         bad = 17;
-    if (bufsize > 268435455L)
+    if (bufsize > MAX_HALFWORD)
         bad = 18;
     if (255 < 255)
         bad = 19;
-    if (34280L + hashextra > 268435455L)
+    if (34280L + hashextra > MAX_HALFWORD)
         bad = 21;
     if ((hashoffset < 0) || (hashoffset > 514))
         bad = 42;
     if (formatdefaultlength > maxint)
         bad = 31;
-    if (2 * 268435455L < memtop - memmin)
+    if (2 * MAX_HALFWORD < memtop - memmin)
         bad = 41;
     if (bad > 0) {
         fprintf(stdout, "%s%s%ld\n", "Ouch---my internal constants have been clobbered!", "---case ", (long) bad);
@@ -5318,7 +5318,7 @@ void mainbody(void)
             openparens = 0;
             maxbufstack = 0;
             grpstack[0] = 0;
-            ifstack[0] = -268435455L;
+            ifstack[0] = MIN_HALFWORD;
             paramptr = 0;
             maxparamstack = 0;
             first = bufsize;
@@ -5327,7 +5327,7 @@ void mainbody(void)
                 decr(first);
             } while (!(first == 0));
             scannerstatus = 0;
-            warningindex = -268435455L;
+            warningindex = MIN_HALFWORD;
             first = 1;
             curinput.statefield = 33;
             curinput.startfield = 1;
@@ -5589,7 +5589,7 @@ void mainbody(void)
             ligkernbase[0] = 0;
             kernbase[0] = 0;
             extenbase[0] = 0;
-            fontglue[0] = -268435455L;
+            fontglue[0] = MIN_HALFWORD;
             fontparams[0] = 7;
             parambase[0] = -1;
             {

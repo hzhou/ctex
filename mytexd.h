@@ -104,6 +104,9 @@ typedef unsigned char fourchoices  ;
 #include "synctexdir/synctex.h"
 #include "lib/lib.h"
 
+#define MAX_HALFWORD 0xfffffff
+#define MIN_HALFWORD -0xfffffff
+
 typedef FILE * wordfile  ;
 typedef unsigned char glueord  ;
 typedef struct {
