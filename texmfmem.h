@@ -64,9 +64,6 @@
    include it from the change file instead.
 */
 
-/* Aleph is sufficiently different to separate the definition. */
-#if !defined(Aleph) && !defined(epTeX) && !defined(eupTeX) && !defined(upTeX)
-
 typedef union
 {
   struct
@@ -84,12 +81,7 @@ typedef union
     halfword junk;
     short B0, B1;
 #else /* not WORDS_BIGENDIAN */
-  /* If 32-bit memory words, have to do something.  */
-#if defined (SMALLTeX) || defined (SMALLMF) || defined (SMALLMP)
-    fixme
-#else
     short B1, B0;
-#endif /* big memory words */
 #endif /* LittleEndian */
   } u;
 } twohalves;
@@ -123,7 +115,7 @@ typedef union
 #else /* not WORDS_BIGENDIAN */
   struct
   {
-#if defined (TeX) && !defined (SMALLTeX) || defined (MF) && !defined (SMALLMF) || defined (MP) && !defined (SMALLMP)
+#if defined (TeX) || defined (MF) || defined (MP)
     halfword junk;
 #endif /* big {TeX,MF,MP} */
     int CINT;
@@ -132,7 +124,7 @@ typedef union
   struct
   {
 #ifndef XeTeX
-#if defined (TeX) && !defined (SMALLTeX) || defined (MF) && !defined (SMALLMF) || defined (MP) && !defined (SMALLMP)
+#if defined (TeX) || defined (MF) || defined (MP)
     halfword junk;
 #endif /* big {TeX,MF,MP} */
 #endif
@@ -182,83 +174,5 @@ typedef union
 #ifndef WORDS_BIGENDIAN
 #define qqqq v.QQQQ
 #endif
-
-#else /* Aleph || epTeX || eupTeX || upTeX */
-
-typedef union
-{
-  struct
-  {
-#ifdef WORDS_BIGENDIAN
-    halfword RH, LH;
-#else
-    halfword LH, RH;
-#endif
-  } v;
-
-  struct
-  { /* Make B0,B1 overlap the most significant bytes of LH.  */
-#ifdef WORDS_BIGENDIAN
-    halfword junk;
-    quarterword B0, B1;
-#else /* not WORDS_BIGENDIAN */
-  /* If 32-bit memory words, have to do something.  */
-#if defined (SMALLTeX) || defined (SMALLMF) || defined (SMALLMP)
-    fixme
-#else
-    quarterword B1, B0;
-#endif /* big memory words */
-#endif /* LittleEndian */
-  } u;
-} twohalves;
-
-typedef struct
-{
-  struct
-  {
-#ifdef WORDS_BIGENDIAN
-    quarterword B0, B1, B2, B3;
-#else
-    quarterword B3, B2, B1, B0;
-#endif
-  } u;
-} fourquarters;
-
-typedef struct
-{
-#ifdef WORDS_BIGENDIAN
-  int CINT0, CINT1;
-#else
-  int CINT1, CINT0;
-#endif
-} twoints;
-  
-typedef struct
-{
-  glueratio GLUE;
-} glues;
-
-typedef union
-{
-  twohalves hh;
-  fourquarters qqqq;
-  twoints ii;
-  glues gg;
-} memoryword;
-
-#define b0 u.B0
-#define b1 u.B1
-#define b2 u.B2
-#define b3 u.B3
-
-#define rh v.RH
-#define lhfield v.LH
-
-#define cint ii.CINT0
-#define cint1 ii.CINT1
-
-#define gr gg.GLUE
-
-#endif /* Aleph || epTeX || eupTeX || upTeX */
 
 #endif /* TEXMFMEM_H */
