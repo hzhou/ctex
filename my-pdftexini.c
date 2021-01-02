@@ -5206,7 +5206,7 @@ mainbody ( void )
   fprintf ( stdout , "%s%s%s",  "This is pdfTeX, Version 3.14159265" , "-2.6" , "-1.40.21"   ) ;
   else
   fprintf ( stdout , "%s%s%s",  "This is pdfTeX, Version 3.14159265" , "-2.6" ,   "-1.40.21" ) ;
-  Fputs ( stdout ,  versionstring ) ;
+  fputs (  versionstring,  stdout) ;
   if ( formatident == 0 ) 
   fprintf ( stdout , "%s%s%c\n",  " (preloaded format=" , dumpname , ')' ) ;
   else {
@@ -5219,7 +5219,7 @@ mainbody ( void )
     putc ( ' ' ,  stdout );
     if ( restrictedshell ) 
     {
-      Fputs ( stdout ,  "restricted " ) ;
+      fputs (  "restricted ",  stdout) ;
     } 
     fprintf ( stdout , "%s\n",  "\\write18 enabled." ) ;
   } 
@@ -5229,7 +5229,7 @@ mainbody ( void )
   } 
   if ( translatefilename ) 
   {
-    Fputs ( stdout ,  " (" ) ;
+    fputs (  " (",  stdout) ;
     fputs ( translatefilename , stdout ) ;
     { putc ( ')' ,  stdout );  putc ( '\n',  stdout ); }
   } 
@@ -5388,7 +5388,7 @@ mainbody ( void )
     } 
     if ( enctexenabledp ) 
     {
-      Fputs ( stdout ,  " encTeX v. Jun. 2004" ) ;
+      fputs (  " encTeX v. Jun. 2004",  stdout) ;
       fprintf ( stdout , "%s\n",  ", reencoding enabled." ) ;
       if ( translatefilename ) 
       {

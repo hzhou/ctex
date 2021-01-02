@@ -98,17 +98,6 @@
 #define conststringcast(x) ((const char *) (x))
 #define ustringcast(x) ((unsigned char *) (x))
 
-/* For throwing away input from the file F.  */
-#ifndef vgetc
-#define vgetc(f) (void) getc (f)
-#endif
-
-/* The fixwrites program outputs this, for diagnostics and such, that
-   aren't worth checking the return value on.  */
-#ifndef Fputs
-#define Fputs(f,s) (void) fputs (s, f)
-#endif
-
 /* `aopenin' is used for all kinds of input text files, so it
    needs to know what path to use.  Used by BibTeX, MF, TeX.  */
 #define aopenin(f,p) open_input (&(f), p, FOPEN_RBIN_MODE)

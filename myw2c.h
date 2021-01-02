@@ -15,15 +15,6 @@
 
 #include <unistd.h>
 
-/* temporary -- we should modify the source */
-
-#ifndef Fputs
-#define Fputs(F, str) fputs(str, F)
-#endif
-#ifndef vgetc
-#define vgetc(f)      (void)getc(f)
-#endif
-
 #define WEB2C_NORETURN  /* indicates the function exits */
 #define STREQ(a, b) (strcmp(a, b) == 0)
 #define STRNEQ(a, b, n) (strncmp(a, b, n) == 0)

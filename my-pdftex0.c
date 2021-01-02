@@ -973,7 +973,7 @@ initterminal ( void )
   while ( true ) {
       
     ;
-    Fputs ( stdout ,  "**" ) ;
+    fputs (  "**",  stdout) ;
     fflush ( stdout ) ;
     if ( ! inputln ( stdin , true ) ) 
     {
@@ -15577,7 +15577,7 @@ openlogfile ( void )
     fprintf ( logfile , "%s%s%s",  "This is pdfTeX, Version 3.14159265" , "-2.6" ,     "-1.40.21" ) ;
     else
     fprintf ( logfile , "%s%s%s",  "This is pdfTeX, Version 3.14159265" , "-2.6" ,     "-1.40.21" ) ;
-    Fputs ( logfile ,  versionstring ) ;
+    fputs (  versionstring,  logfile) ;
     slowprint ( formatident ) ;
     print ( 957 ) ;
     printint ( eqtb [29298 ].cint ) ;
@@ -15597,7 +15597,7 @@ openlogfile ( void )
     {
       ;
       putc ('\n',  logfile );
-      Fputs ( logfile ,  "entering extended mode" ) ;
+      fputs (  "entering extended mode",  logfile) ;
     } 
     if ( shellenabledp ) 
     {
@@ -15605,29 +15605,29 @@ openlogfile ( void )
       putc ( ' ' ,  logfile );
       if ( restrictedshell ) 
       {
-	Fputs ( logfile ,  "restricted " ) ;
+	fputs (  "restricted ",  logfile) ;
       } 
-      Fputs ( logfile ,  "\\write18 enabled." ) ;
+      fputs (  "\\write18 enabled.",  logfile) ;
     } 
     if ( srcspecialsp ) 
     {
       putc ('\n',  logfile );
-      Fputs ( logfile ,  " Source specials enabled." ) ;
+      fputs (  " Source specials enabled.",  logfile) ;
     } 
     if ( filelineerrorstylep ) 
     {
       putc ('\n',  logfile );
-      Fputs ( logfile ,  " file:line:error style messages enabled." ) ;
+      fputs (  " file:line:error style messages enabled.",  logfile) ;
     } 
     if ( parsefirstlinep ) 
     {
       putc ('\n',  logfile );
-      Fputs ( logfile ,  " %&-line parsing enabled." ) ;
+      fputs (  " %&-line parsing enabled.",  logfile) ;
     } 
     if ( translatefilename ) 
     {
       putc ('\n',  logfile );
-      Fputs ( logfile ,  " (" ) ;
+      fputs (  " (",  logfile) ;
       fputs ( translatefilename , logfile ) ;
       putc ( ')' ,  logfile );
     } 
@@ -15635,17 +15635,17 @@ openlogfile ( void )
   if ( mltexenabledp ) 
   {
     putc ('\n',  logfile );
-    Fputs ( logfile ,  "MLTeX v2.2 enabled" ) ;
+    fputs (  "MLTeX v2.2 enabled",  logfile) ;
   } 
   if ( enctexenabledp ) 
   {
     putc ('\n',  logfile );
-    Fputs ( logfile ,  " encTeX v. Jun. 2004" ) ;
-    Fputs ( logfile ,  ", reencoding enabled" ) ;
+    fputs (  " encTeX v. Jun. 2004",  logfile) ;
+    fputs (  ", reencoding enabled",  logfile) ;
     if ( translatefilename ) 
     {
       putc ('\n',  logfile );
-      Fputs ( logfile ,        " (\\xordcode, \\xchrcode, \\xprncode overridden by TCX)" ) ;
+      fputs (" (\\xordcode, \\xchrcode, \\xprncode overridden by TC)", logfile) ;
     } 
   } 
   inputstack [inputptr ]= curinput ;
@@ -39718,9 +39718,9 @@ openfmtfile ( void )
     packbufferedname ( 0 , curinput .locfield , j - 1 ) ;
     if ( wopenin ( fmtfile ) ) 
     goto lab40 ;
-    Fputs ( stdout ,  "Sorry, I can't find the format `" ) ;
+    fputs (  "Sorry, I can't find the format `",  stdout) ;
     fputs ( stringcast ( nameoffile + 1 ) , stdout ) ;
-    Fputs ( stdout ,  "'; will try `" ) ;
+    fputs (  "'; will try `",  stdout) ;
     fputs ( TEXformatdefault + 1 , stdout ) ;
     fprintf ( stdout , "%s\n",  "'." ) ;
     fflush ( stdout ) ;
@@ -39729,7 +39729,7 @@ openfmtfile ( void )
   if ( ! wopenin ( fmtfile ) ) 
   {
     ;
-    Fputs ( stdout ,  "I can't find the format file `" ) ;
+    fputs (  "I can't find the format file `",  stdout) ;
     fputs ( TEXformatdefault + 1 , stdout ) ;
     fprintf ( stdout , "%s\n",  "'!" ) ;
     Result = false ;
