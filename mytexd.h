@@ -19,10 +19,6 @@
 #define maxtrieop ( 65535L ) 
 #define poolname ( TEXMFPOOLNAME ) 
 #define enginename ( TEXMFENGINENAME ) 
-#define infmembot ( 0 ) 
-#define supmembot ( 1 ) 
-#define infmainmemory ( 3000 ) 
-#define supmainmemory ( 256000000L ) 
 #define inftriesize ( 8000 ) 
 #define suptriesize ( 4194303L ) 
 #define infmaxstrings ( 3000 ) 
@@ -197,7 +193,7 @@ EXTERN bool dumpline  ;
 EXTERN constcstring dumpname  ;
 EXTERN int bounddefault  ;
 EXTERN constcstring boundname  ;
-EXTERN int membot  ;
+#define membot 0
 EXTERN int mainmemory  ;
 EXTERN int extramembot  ;
 EXTERN int memmin  ;

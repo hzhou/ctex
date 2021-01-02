@@ -1,18 +1,18 @@
 page: ctex
+    autolist: global
     $declare void mainbody(void)
     $print "==== CTeX main ===="
     mainbody()
 
 subcode: _autoload    
+    #define EXTERN extern
+    #include "mytexd.h"
     extern unsigned char xchr[];
-
-    $list cmdline
-    $list init_xchr
 
 fncode: cmdline(n)
     return ""
 
-fncode: init_xchr()
+fncode: init_xchr
     $for i=0:256
         xchr[i] = (unsigned char) i
     $for i=0:256
@@ -20,3 +20,32 @@ fncode: init_xchr()
     $for i=0:256
         xprn[i] = 1
 
+fncode: init_bound_variables
+    subcode: set(name, default_val)
+        setupboundvariable(&$(subst:name:_:), "$(name)", $(default_val));
+    /* TODO: fix the globals */
+    $call set, main_memory, 250000L
+    $call set, extra_mem_top, 0
+    $call set, extra_mem_bot, 0
+    $call set, pool_size, 200000L
+    $call set, string_vacancies, 75000L
+    $call set, pool_free, 5000
+    $call set, max_strings, 15000
+    $call set, strings_free, 100
+    $call set, font_mem_size, 100000L
+    $call set, font_max, 500
+    $call set, trie_size, 20000
+    $call set, hyph_size, 659
+    $call set, buf_size, 3000
+    $call set, nest_size, 50
+    $call set, max_in_open, 15
+    $call set, param_size, 60
+    $call set, save_size, 4000
+    $call set, stack_size, 300
+    $call set, dvi_buf_size, 16384
+    $call set, error_line, 79
+    $call set, half_error_line, 50
+    $call set, max_print_line, 79
+    $call set, hash_extra, 0
+    $call set, expand_depth, 10000
+    $call set, pk_dpi, 72

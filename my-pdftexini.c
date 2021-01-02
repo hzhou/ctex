@@ -5009,100 +5009,12 @@ void initprim(void)
     nonewcontrolsequence = true;
 }
 #endif /* INITEX */
+
+void init_bound_variables();
 void mainbody(void)
 {
     memoryword *eqtb = zeqtb;
-    bounddefault = 0;
-    boundname = "mem_bot";
-    setupboundvariable(&membot, boundname, bounddefault);
-    bounddefault = 250000L;
-    boundname = "main_memory";
-    setupboundvariable(&mainmemory, boundname, bounddefault);
-    bounddefault = 0;
-    boundname = "extra_mem_top";
-    setupboundvariable(&extramemtop, boundname, bounddefault);
-    bounddefault = 0;
-    boundname = "extra_mem_bot";
-    setupboundvariable(&extramembot, boundname, bounddefault);
-    bounddefault = 200000L;
-    boundname = "pool_size";
-    setupboundvariable(&poolsize, boundname, bounddefault);
-    bounddefault = 75000L;
-    boundname = "string_vacancies";
-    setupboundvariable(&stringvacancies, boundname, bounddefault);
-    bounddefault = 5000;
-    boundname = "pool_free";
-    setupboundvariable(&poolfree, boundname, bounddefault);
-    bounddefault = 15000;
-    boundname = "max_strings";
-    setupboundvariable(&maxstrings, boundname, bounddefault);
-    bounddefault = 100;
-    boundname = "strings_free";
-    setupboundvariable(&stringsfree, boundname, bounddefault);
-    bounddefault = 100000L;
-    boundname = "font_mem_size";
-    setupboundvariable(&fontmemsize, boundname, bounddefault);
-    bounddefault = 500;
-    boundname = "font_max";
-    setupboundvariable(&fontmax, boundname, bounddefault);
-    bounddefault = 20000;
-    boundname = "trie_size";
-    setupboundvariable(&triesize, boundname, bounddefault);
-    bounddefault = 659;
-    boundname = "hyph_size";
-    setupboundvariable(&hyphsize, boundname, bounddefault);
-    bounddefault = 3000;
-    boundname = "buf_size";
-    setupboundvariable(&bufsize, boundname, bounddefault);
-    bounddefault = 50;
-    boundname = "nest_size";
-    setupboundvariable(&nestsize, boundname, bounddefault);
-    bounddefault = 15;
-    boundname = "max_in_open";
-    setupboundvariable(&maxinopen, boundname, bounddefault);
-    bounddefault = 60;
-    boundname = "param_size";
-    setupboundvariable(&paramsize, boundname, bounddefault);
-    bounddefault = 4000;
-    boundname = "save_size";
-    setupboundvariable(&savesize, boundname, bounddefault);
-    bounddefault = 300;
-    boundname = "stack_size";
-    setupboundvariable(&stacksize, boundname, bounddefault);
-    bounddefault = 16384;
-    boundname = "dvi_buf_size";
-    setupboundvariable(&dvibufsize, boundname, bounddefault);
-    bounddefault = 79;
-    boundname = "error_line";
-    setupboundvariable(&errorline, boundname, bounddefault);
-    bounddefault = 50;
-    boundname = "half_error_line";
-    setupboundvariable(&halferrorline, boundname, bounddefault);
-    bounddefault = 79;
-    boundname = "max_print_line";
-    setupboundvariable(&maxprintline, boundname, bounddefault);
-    bounddefault = 0;
-    boundname = "hash_extra";
-    setupboundvariable(&hashextra, boundname, bounddefault);
-    bounddefault = 10000;
-    boundname = "expand_depth";
-    setupboundvariable(&expanddepth, boundname, bounddefault);
-    bounddefault = 72;
-    boundname = "pk_dpi";
-    setupboundvariable(&pkdpi, boundname, bounddefault);
-    {
-        if (membot < infmembot)
-            membot = infmembot;
-        else if (membot > supmembot)
-            membot = supmembot;
-    }
-    {
-        if (mainmemory < infmainmemory)
-            mainmemory = infmainmemory;
-        else if (mainmemory > supmainmemory)
-            mainmemory = supmainmemory;
-    }
-    ;
+    init_bound_variables();
 #ifdef INITEX
     if (iniversion) {
         extramemtop = 0;
