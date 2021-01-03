@@ -5332,7 +5332,7 @@ void mainbody(void)
         }
         ;
 #ifdef INITEX
-        if ((etexp || (buffer[curinput.locfield] == 42)) && (formatident == 1701)) {
+        if (1) {
             nonewcontrolsequence = false;
             primitive(1974, 70, 3);
             primitive(1975, 70, 20);
@@ -5410,23 +5410,8 @@ void mainbody(void)
             maxreghelpline = 2072;
         }
 #endif /* INITEX */
-        if (!nonewcontrolsequence)
-            nonewcontrolsequence = true;
-        else if ((formatident == 0) || (buffer[curinput.locfield] == 38)
-                 || dumpline) {
-            if (formatident != 0)
-                initialize();
-            if (!openfmtfile())
-                goto lab9999;
-            if (!loadfmtfile()) {
-                wclose(fmtfile);
-                goto lab9999;
-            }
-            wclose(fmtfile);
-            eqtb = zeqtb;
-            while ((curinput.locfield < curinput.limitfield) && (buffer[curinput.locfield] == 32))
-                incr(curinput.locfield);
-        }
+        nonewcontrolsequence = true;
+
         if ((pdfoutputoption != 0))
             eqtb[29339].cint = pdfoutputvalue;
         if ((pdfdraftmodeoption != 0))
@@ -5609,6 +5594,7 @@ void mainbody(void)
             selector = 16;
         else
             selector = 17;
+        printf(" nearly done: locfield=%d, limitfield=%d\n", curinput.locfield, curinput.limitfield);
         if ((curinput.locfield < curinput.limitfield) && (eqtb[27741 + buffer[curinput.locfield]].hh.v.RH != 0))
             startinput();
     }

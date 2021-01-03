@@ -1,6 +1,8 @@
 page: ctex
     autolist: global
     $declare void mainbody(void)
+
+    iniversion = true;
     $print "==== CTeX main ===="
     mainbody()
 
@@ -49,3 +51,4 @@ fncode: init_bound_variables
     $call set, hash_extra, 0
     $call set, expand_depth, 10000
     $call set, pk_dpi, 72
+

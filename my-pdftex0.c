@@ -1,6 +1,18 @@
 #define EXTERN extern
 #include "mytexd.h"
 
+static void push_input(void)
+{
+    if (inputptr > maxinstack) {
+        maxinstack = inputptr;
+        if (inputptr == stacksize)
+            overflow(679, stacksize);
+    }
+    inputstack[inputptr] = curinput;
+    incr(inputptr);
+}
+/* -------------------------------------- */
+
 void println(void)
 {
     switch (selector) {
@@ -916,6 +928,7 @@ bool initterminal(void)
 {
     /* 10 */ register bool Result;
     topenin();
+    printf("after topenin: first = %d, last = %d\n", first, last);
     if (last > first) {
         curinput.locfield = first;
         while ((curinput.locfield < last) && (buffer[curinput.locfield]
@@ -927,8 +940,6 @@ bool initterminal(void)
         }
     }
     while (true) {
-
-        ;
         fputs("**", stdout);
         fflush(stdout);
         if (!inputln(stdin, true)) {
@@ -937,9 +948,10 @@ bool initterminal(void)
             Result = false;
             return Result;
         }
+
+        printf("after inputln: first = %d, last = %d\n", first, last);
         curinput.locfield = first;
-        while ((curinput.locfield < last) && (buffer[curinput.locfield]
-                                              == 32))
+        while ((curinput.locfield < last) && (buffer[curinput.locfield] == ' '))
             incr(curinput.locfield);
         if (curinput.locfield < last) {
             Result = true;
@@ -8667,15 +8679,7 @@ void showcontext(void)
 
 void zbegintokenlist(halfword p, quarterword t)
 {
-    {
-        if (inputptr > maxinstack) {
-            maxinstack = inputptr;
-            if (inputptr == stacksize)
-                overflow(679, stacksize);
-        }
-        inputstack[inputptr] = curinput;
-        incr(inputptr);
-    }
+    push_input();
     curinput.statefield = 0;
     curinput.startfield = p;
     curinput.indexfield = t;
@@ -8755,15 +8759,7 @@ void backinput(void)
         else
             incr(alignstate);
     }
-    {
-        if (inputptr > maxinstack) {
-            maxinstack = inputptr;
-            if (inputptr == stacksize)
-                overflow(679, stacksize);
-        }
-        inputstack[inputptr] = curinput;
-        incr(inputptr);
-    }
+    push_input();
     curinput.statefield = 0;
     curinput.startfield = p;
     curinput.indexfield = 3;
@@ -8794,15 +8790,7 @@ void beginfilereading(void)
     if (first == bufsize)
         overflow(258, bufsize);
     incr(inopen);
-    {
-        if (inputptr > maxinstack) {
-            maxinstack = inputptr;
-            if (inputptr == stacksize)
-                overflow(679, stacksize);
-        }
-        inputstack[inputptr] = curinput;
-        incr(inputptr);
-    }
+    push_input();
     curinput.indexfield = inopen;
     sourcefilenamestack[curinput.indexfield] = 0;
     fullsourcefilenamestack[curinput.indexfield] = 0;
@@ -14999,7 +14987,6 @@ void openlogfile(void)
         else
             fprintf(logfile, "%s%s%s", "This is pdfTeX, Version 3.14159265", "-2.6", "-1.40.21");
         fputs(versionstring, logfile);
-        slowprint(formatident);
         print(957);
         printint(eqtb[29298].cint);
         printchar(32);

@@ -24,9 +24,6 @@ fncode: do_undump(s, n_size, n_items, file_in)
 fncode: readtcxfile
     return
 
-fncode: topenin
-    return
-
 fncode: calledit(unsigned char *filename, n_start, n_length, n_line)
     $die Edit not supported
 
@@ -66,11 +63,33 @@ fncode: makecstring(int str): char *
             n_strbuf += 10
             $realloc(n_strbuf) s_strbuf
 
+# ---------------------------
+subcode: _autoload
+    $global char * inject_lines[1024]
+    $global int inject_line_idx
+
+fncode: topenin
+    $call inject, share/plain.tex
+    return
+
+    subcode: inject(str)
+        inject_lines[inject_line_idx++] = "$(str)"
+
 fncode: input_line(FILE *f): bool
-    s = fgets(buffer + first, bufsize - first, f)
-    $if !s
-        return false
-    n = strlen(buffer + first)
+    $if f==stdin
+        $print "input_line from STDIN (idx=%d) ...", inject_line_idx
+    $if f==stdin && inject_line_idx > 0
+        inject_line_idx--
+        s = inject_lines[inject_line_idx]
+        strcpy(buffer + first, s)
+    $else
+        s = fgets(buffer + first, bufsize - first, f)
+        $if !s
+            return false
+    s = buffer + first
+    n = strlen(s)
+    $while n>0 && s[n-1]=='\n'
+        n--
     last = first + n;
 
     return true
