@@ -165,16 +165,11 @@
 #   endif
 /*  if synctex_options is set to SYNCTEX_NO_OPTION, no command line option was provided.  */
 
-/*  glue code: really define the main memory,
- *  this is exactly the same "mem" as in *tex.web.  */
-#   if !defined(mem)
-#       define mem zmem
-#   endif
 /*  glue code: synctexoffset is a global int variable defined in *tex.web
  *  it is set to the offset where the primitive \synctex reads and writes its
  *  value.  */
 #   if !defined(SYNCTEX_VALUE)
-#       define SYNCTEX_VALUE zeqtb[synctexoffset].cint
+#       define SYNCTEX_VALUE eqtb[synctexoffset].cint
 #   endif
 /*  if there were a mean to share the value of synctex_code between *tex.web
  *  and this file, it would be great.  */

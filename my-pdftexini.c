@@ -5,7 +5,7 @@ void init_xchr(void);
 
 void initialize(void)
 {
-    initialize_regmem int i;
+    int i;
     int k;
     hyphpointer z;
 
@@ -636,7 +636,7 @@ void initialize(void)
 bool getstringsstarted(void)
 {
     /* 30 10 */ register bool Result;
-    getstringsstarted_regmem unsigned char k, l;
+    unsigned char k, l;
     strnumber g;
     poolptr = 0;
     strptr = 0;
@@ -706,7 +706,7 @@ bool getstringsstarted(void)
 #ifdef INITEX
 void sortavail(void)
 {
-    sortavail_regmem halfword p, q, r;
+    halfword p, q, r;
     halfword oldrover;
     p = getnode(1073741824L);
     p = mem[rover + 1].hh.v.RH;
@@ -741,7 +741,7 @@ void sortavail(void)
 #ifdef INITEX
 void zprimitive(strnumber s, quarterword c, halfword o)
 {
-    primitive_regmem poolpointer k;
+    poolpointer k;
     int j;
     smallnumber l;
     int primval;
@@ -783,7 +783,7 @@ void zprimitive(strnumber s, quarterword c, halfword o)
 trieopcode znewtrieop(smallnumber d, smallnumber n, trieopcode v)
 {
     /* 10 */ register trieopcode Result;
-    newtrieop_regmem int h;
+    int h;
     trieopcode u;
     int l;
     h = abs(n + 313 * d + 361 * v + 1009 * curlang) % (trieopsize - negtrieopsize) + negtrieopsize;
@@ -825,7 +825,7 @@ trieopcode znewtrieop(smallnumber d, smallnumber n, trieopcode v)
 triepointer ztrienode(triepointer p)
 {
     /* 10 */ register triepointer Result;
-    trienode_regmem triepointer h;
+    triepointer h;
     triepointer q;
     h = abs(triec[p] + 1009 * trieo[p] + 2718 * triel[p] + 3142 * trier[p]) % triesize;
     while (true) {
@@ -851,7 +851,7 @@ triepointer ztrienode(triepointer p)
 triepointer zcompresstrie(triepointer p)
 {
     register triepointer Result;
-    compresstrie_regmem if (p == 0)
+    if (p == 0)
         Result = 0;
     else {
 
@@ -864,7 +864,6 @@ triepointer zcompresstrie(triepointer p)
 
 void zfirstfit(triepointer p)
 {
-    /* 45 40 */ firstfit_regmem
         triepointer h;
     triepointer z;
     triepointer q;
@@ -924,7 +923,7 @@ void zfirstfit(triepointer p)
 
 void ztriepack(triepointer p)
 {
-    triepack_regmem triepointer q;
+    triepointer q;
     do {
         q = triel[p];
         if ((q > 0) && (triehash[q] == 0)) {
@@ -937,7 +936,7 @@ void ztriepack(triepointer p)
 
 void ztriefix(triepointer p)
 {
-    triefix_regmem triepointer q;
+    triepointer q;
     unsigned char c;
     triepointer z;
     z = triehash[p];
@@ -955,7 +954,6 @@ void ztriefix(triepointer p)
 
 void newpatterns(void)
 {
-    /* 30 31 */ newpatterns_regmem
     unsigned char k, l;
     bool digitsensed;
     trieopcode v;
@@ -1189,7 +1187,7 @@ void newpatterns(void)
 
 void inittrie(void)
 {
-    inittrie_regmem triepointer p;
+    triepointer p;
     int j, k, t;
     triepointer r, s;
     opstart[0] = -(int) mintrieop;
@@ -1320,7 +1318,6 @@ void inittrie(void)
 #endif /* INITEX */
 void zlinebreak(bool d)
 {
-    /* 30 31 32 33 34 35 22 */ linebreak_regmem
         halfword q, r, s, prevs;
     internalfontnumber f;
     smallnumber j;
@@ -2015,7 +2012,6 @@ void zlinebreak(bool d)
 
 void newhyphexceptions(void)
 {
-    /* 21 10 40 45 46 */ newhyphexceptions_regmem
     unsigned char n;
     unsigned char j;
     hyphpointer h;
@@ -2193,7 +2189,7 @@ void newhyphexceptions(void)
 bool zdomarks(smallnumber a, smallnumber l, halfword q)
 {
     register bool Result;
-    domarks_regmem smallnumber i;
+    smallnumber i;
     if (l < 4) {
         {
             register int for_end;
@@ -2293,7 +2289,6 @@ bool zdomarks(smallnumber a, smallnumber l, halfword q)
 
 void prefixedcommand(void)
 {
-    /* 30 10 */ prefixedcommand_regmem
         smallnumber a;
     internalfontnumber f;
     halfword j;
@@ -3187,7 +3182,6 @@ void prefixedcommand(void)
 #ifdef INITEX
 void storefmtfile(void)
 {
-    /* 41 42 31 32 */ storefmtfile_regmem
     int j, k, l;
     halfword p, q;
     int x;
@@ -3609,7 +3603,7 @@ void storefmtfile(void)
 bool loadfmtfile(void)
 {
     /* 6666 10 */ register bool Result;
-    loadfmtfile_regmem int j, k;
+    int j, k;
     halfword p, q;
     int x;
     unsigned char *formatengine;
@@ -3623,7 +3617,7 @@ bool loadfmtfile(void)
         libcfree(strpool);
         libcfree(strstart);
         libcfree(yhash);
-        libcfree(zeqtb);
+        libcfree(eqtb);
         libcfree(yzmem);
     }
 #endif /* INITEX */
@@ -3730,8 +3724,7 @@ bool loadfmtfile(void)
                 hash[x] = hash[514];
             while (x++ < for_end);
     }
-    zeqtb = xmallocarray(memoryword, eqtbtop + 1);
-    eqtb = zeqtb;
+    eqtb = xmallocarray(memoryword, eqtbtop + 1);
     eqtb[26627].hh.b0 = 103;
     eqtb[26627].hh.v.RH = MIN_HALFWORD;
     eqtb[26627].hh.b1 = 0;
@@ -3779,8 +3772,7 @@ bool loadfmtfile(void)
     memmin = membot - extramembot;
     memmax = memtop + extramemtop;
     yzmem = xmallocarray(memoryword, memmax - memmin + 1);
-    zmem = yzmem - memmin;
-    mem = zmem;
+    mem = yzmem - memmin;
     undumpint(x);
     if (x != 30185)
         goto lab6666;
@@ -4381,7 +4373,6 @@ bool loadfmtfile(void)
 
 void finalcleanup(void)
 {
-    /* 10 */ finalcleanup_regmem
         smallnumber c;
     c = curchr;
     if (jobname == 0)
@@ -4475,7 +4466,7 @@ void finalcleanup(void)
 #ifdef INITEX
 void initprim(void)
 {
-    initprim_regmem nonewcontrolsequence = false;
+    nonewcontrolsequence = false;
     first = 0;
     primitive(394, 75, 26628);
     primitive(395, 75, 26629);
@@ -5013,7 +5004,6 @@ void initprim(void)
 void init_bound_variables();
 void mainbody(void)
 {
-    memoryword *eqtb = zeqtb;
     init_bound_variables();
 #ifdef INITEX
     if (iniversion) {
@@ -5179,7 +5169,7 @@ void mainbody(void)
 #ifdef INITEX
     if (iniversion) {
         yzmem = xmallocarray(memoryword, memtop - membot + 1);
-        zmem = yzmem - membot;
+        mem = yzmem - membot;
         eqtbtop = 30185 + hashextra;
         if (hashextra == 0)
             hashtop = 26627;
@@ -5198,8 +5188,7 @@ void mainbody(void)
                     hash[hashused] = hash[514];
                 while (hashused++ < for_end);
         }
-        zeqtb = xmallocarray(memoryword, eqtbtop);
-        eqtb = zeqtb;
+        eqtb = xmallocarray(memoryword, eqtbtop);
         strstart = xmallocarray(poolpointer, maxstrings);
         strpool = xmallocarray(unsigned char, poolsize);
         fontinfo = xmallocarray(fmemoryword, fontmemsize);

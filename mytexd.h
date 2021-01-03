@@ -274,7 +274,7 @@ EXTERN int twotothe[31]  ;
 EXTERN int speclog[29]  ;
 EXTERN halfword tempptr  ;
 EXTERN memoryword * yzmem  ;
-EXTERN memoryword * zmem  ;
+EXTERN memoryword * mem  ;
 EXTERN halfword lomemmax  ;
 EXTERN halfword himemmin  ;
 EXTERN int varused, dynused  ;
@@ -297,7 +297,7 @@ EXTERN liststaterecord curlist  ;
 EXTERN short shownmode  ;
 EXTERN halfword savetail  ;
 EXTERN unsigned char oldsetting  ;
-EXTERN memoryword * zeqtb  ;
+EXTERN memoryword * eqtb  ;
 EXTERN quarterword 
 #define xeqlevel (zzzaa -29277)
   zzzaa[909]  ;
