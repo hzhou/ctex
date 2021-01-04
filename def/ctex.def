@@ -1,14 +1,56 @@
 page: ctex
     autolist: global
+    has_bool: 1
     $declare void mainbody(void)
 
     iniversion = true;
     $print "==== CTeX main ===="
+
+    &call inject_input
+        $call parse_args
+
     mainbody()
 
+    subcode: parse_args
+        $for i=1:argc
+            $if argv[i][0] == '-'
+                continue
+            $call inject_f, "\\input %s", argv[i]
+            
+    subcode: inject_input
+        $global char inject_lines[1024][100]
+        $global int inject_line_idx
+        $call inject, "plain"
+        BLOCK
+        $call inject, "\\end"
+
+        subcode: inject(str)
+            strcpy(inject_lines[inject_line_idx++], $(str))
+        subcode: inject_f(@s)
+            sprintf(inject_lines[inject_line_idx++], $(s))
+
+fncode: input_line(FILE *f): bool
+    $if f==stdin && inject_line_idx > 0
+        inject_line_idx--
+        s = &inject_lines[inject_line_idx][0]
+        strcpy(buffer + first, s)
+    $else
+        s = fgets(buffer + first, bufsize - first, f)
+        $if !s
+            return false
+    s = buffer + first
+    n = strlen(s)
+    $while n>0 && s[n-1]=='\n'
+        n--
+    last = first + n;
+
+    return true
+
+#---------------------------------------- 
 subcode: _autoload    
     #define EXTERN extern
     #include "mytexd.h"
+    $include stdio, stdbool
     extern unsigned char xchr[];
 
 fncode: cmdline(n)

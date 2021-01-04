@@ -636,42 +636,40 @@ void initialize(void)
 bool getstringsstarted(void)
 {
     /* 30 10 */ register bool Result;
-    unsigned char k, l;
     strnumber g;
     poolptr = 0;
     strptr = 0;
     strstart[0] = 0;
-    {
-        for (k = 0; k < 256; k++) {
-            if (((k < 32) || (k > 126))) {
-                strpool[poolptr++] = '^';
-                strpool[poolptr++] = '^';
-                if (k < 32) {
-                    /* ^^A - ^^_ */
-                    strpool[poolptr++] = k + 64;
-                } else if (k == 127) {
-                    /* ^^? */
-                    strpool[poolptr++] = k - 64;
-                } else {
-                    /* ^^xx */
-                    l = k / 16;
-                    if (l < 10) {
-                        strpool[poolptr++] = l + 48;
-                    } else {
-                        strpool[poolptr++] = l + 87;
-                    }
-                    l = k % 16;
-                    if (l < 10) {
-                        strpool[poolptr++] = l + 48;
-                    } else {
-                        strpool[poolptr++] = l + 87;
-                    }
-                }
+    for (int k = 0; k < 256; k++) {
+        if (((k < 32) || (k > 126))) {
+            strpool[poolptr++] = '^';
+            strpool[poolptr++] = '^';
+            if (k < 32) {
+                /* ^^A - ^^_ */
+                strpool[poolptr++] = k + 64;
+            } else if (k == 127) {
+                /* ^^? */
+                strpool[poolptr++] = k - 64;
             } else {
-                strpool[poolptr++] = k;
+                unsigned char l;
+                /* ^^xx */
+                l = k / 16;
+                if (l < 10) {
+                    strpool[poolptr++] = l + 48;
+                } else {
+                    strpool[poolptr++] = l + 87;
+                }
+                l = k % 16;
+                if (l < 10) {
+                    strpool[poolptr++] = l + 48;
+                } else {
+                    strpool[poolptr++] = l + 87;
+                }
             }
-            g = makestring();
+        } else {
+            strpool[poolptr++] = k;
         }
+        g = makestring();
     }
     g = loadpoolstrings((poolsize - stringvacancies));
     if (g == 0) {
@@ -5398,8 +5396,10 @@ void mainbody(void)
         if ((pdfdraftmodeoption != 0))
             eqtb[29365].cint = pdfdraftmodevalue;
         pdfinitmapfile("pdftex.map");
+        /*
         if ((eTeXmode == 1))
             fprintf(stdout, "%s\n", "entering extended mode");
+        */
         if ((eqtb[29325].cint < 0) || (eqtb[29325].cint > 255))
             decr(curinput.limitfield);
         else
@@ -5575,7 +5575,6 @@ void mainbody(void)
             selector = 16;
         else
             selector = 17;
-        printf(" nearly done: locfield=%d, limitfield=%d\n", curinput.locfield, curinput.limitfield);
         if ((curinput.locfield < curinput.limitfield) && (eqtb[27741 + buffer[curinput.locfield]].hh.v.RH != 0))
             startinput();
     }
@@ -5584,12 +5583,7 @@ void mainbody(void)
     maincontrol();
     finalcleanup();
     closefilesandterminate();
-  lab9999:{
-
-        fflush(stdout);
-        if ((history != 0) && (history != 1))
-            uexit(1);
-        else
-            uexit(0);
-    }
+  lab9999:
+    printf("Exit.\n");
+    return;
 }

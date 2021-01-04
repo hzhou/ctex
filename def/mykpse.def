@@ -30,11 +30,17 @@ fncode: mykpse_add_path(const char *dir)
             n_Paths++
 
 fncode: mykpse_find_file(const char *fname, const char *ext): char *
-    $print "mykpse_open_file: %s, ext=%s", fname, ext
+    # $print "mykpse_open_file: %s, ext=%s", fname, ext
     $include <unistd.h>
     # always search current dir
     $if n_Paths == 0
         mykpse_add_path(".")
+        mykpse_add_path("share")
+        mykpse_add_path("share/fonts")
+
+    # default ext to tex
+    $if ext == NULL
+        ext = "tex"
 
     # skip ext if fname has the ext already
     s = strrchr(fname, '.')
@@ -48,7 +54,7 @@ fncode: mykpse_find_file(const char *fname, const char *ext): char *
     return NULL
 
 fncode: internal_find_file(const char *fname, const char *ext, const char *path)
-    # $print "internal_find_file: [%s] [%s]\n", fname, path
+    # $print "internal_find_file: [%s] path=%s ext=%s\n", fname, path, ext
     n = strlen(fname) + strlen(path) + 2 # path/fname + NUL
     $if ext
         n+= strlen(ext) + 1 # .ext
@@ -62,7 +68,7 @@ fncode: internal_find_file(const char *fname, const char *ext, const char *path)
             strcat(mykpse_buf, ext)
 
         $if access(mykpse_buf, F_OK) != -1
-            return mykpse_buf
+            return strdup(mykpse_buf)
     return NULL
 
 #------------------------------------------------------

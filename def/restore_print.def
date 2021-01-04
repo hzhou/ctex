@@ -5,7 +5,11 @@ page: t
     my $pool_file="my-pdftex-pool.c"
 
     $call load_pool
-    $call filter_pdftex0
+    $(if:0)
+        $call filter_pdftex0
+    $(else)
+        $for $c in 942, 345
+            $print $c: $str_list[$c]
 
 subcode: load_pool
     my $stage

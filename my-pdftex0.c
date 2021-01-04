@@ -812,123 +812,26 @@ void error(void)
 
 void zfatalerror(strnumber s)
 {
-    normalizeselector();
-    {
-        if (interaction == 3);
-        if (filelineerrorstylep)
-            printfileline();
-        else
-            printnl(264);
-        print(287);
-    }
-    {
-        helpptr = 1;
-        helpline[0] = s;
-    }
-    {
-        if (interaction == 3)
-            interaction = 2;
-        if (logopened)
-            error();
-        ;
-#ifdef TEXMF_DEBUG
-        if (interaction > 0)
-            debughelp();
-#endif /* TEXMF_DEBUG */
-        history = 3;
-        jumpout();
-    }
+    fprintf(stderr, "Fatal error: %s\n", gettexstring(s));
+    exit(1);
 }
 
 void zoverflow(strnumber s, int n)
 {
-    normalizeselector();
-    {
-        if (interaction == 3);
-        if (filelineerrorstylep)
-            printfileline();
-        else
-            printnl(264);
-        print(288);
-    }
-    print(s);
-    printchar(61);
-    printint(n);
-    printchar(93);
-    {
-        helpptr = 2;
-        helpline[1] = 289;
-        helpline[0] = 290;
-    }
-    {
-        if (interaction == 3)
-            interaction = 2;
-        if (logopened)
-            error();
-        ;
-#ifdef TEXMF_DEBUG
-        if (interaction > 0)
-            debughelp();
-#endif /* TEXMF_DEBUG */
-        history = 3;
-        jumpout();
-    }
+    fprintf(stderr, "Overflow: %s (n = %d)\n", gettexstring(s), n);
+    exit(1);
 }
 
 void zconfusion(strnumber s)
 {
-    normalizeselector();
-    if (history < 2) {
-        {
-            if (interaction == 3);
-            if (filelineerrorstylep)
-                printfileline();
-            else
-                printnl(264);
-            print(291);
-        }
-        print(s);
-        printchar(41);
-        {
-            helpptr = 1;
-            helpline[0] = 292;
-        }
-    } else {
-
-        {
-            if (interaction == 3);
-            if (filelineerrorstylep)
-                printfileline();
-            else
-                printnl(264);
-            print(293);
-        }
-        {
-            helpptr = 2;
-            helpline[1] = 294;
-            helpline[0] = 295;
-        }
-    }
-    {
-        if (interaction == 3)
-            interaction = 2;
-        if (logopened)
-            error();
-        ;
-#ifdef TEXMF_DEBUG
-        if (interaction > 0)
-            debughelp();
-#endif /* TEXMF_DEBUG */
-        history = 3;
-        jumpout();
-    }
+    fprintf(stderr, "Confused: %s\n", gettexstring(s));
+    exit(1);
 }
 
 bool initterminal(void)
 {
     /* 10 */ register bool Result;
     topenin();
-    printf("after topenin: first = %d, last = %d\n", first, last);
     if (last > first) {
         curinput.locfield = first;
         while ((curinput.locfield < last) && (buffer[curinput.locfield]
@@ -940,7 +843,7 @@ bool initterminal(void)
         }
     }
     while (true) {
-        fputs("**", stdout);
+        /* fputs("**", stdout); */
         fflush(stdout);
         if (!inputln(stdin, true)) {
             putc('\n', stdout);
@@ -949,7 +852,6 @@ bool initterminal(void)
             return Result;
         }
 
-        printf("after inputln: first = %d, last = %d\n", first, last);
         curinput.locfield = first;
         while ((curinput.locfield < last) && (buffer[curinput.locfield] == ' '))
             incr(curinput.locfield);
@@ -15071,17 +14973,18 @@ void openlogfile(void)
 
 void startinput(void)
 {
-        strnumber tempstr;
+    strnumber tempstr;
     scanfilename();
     packfilename(curname, curarea, curext);
     while (true) {
-
         beginfilereading();
         texinputtype = 1;
         if (kpseinnameok(stringcast(nameoffile + 1)) && aopenin(inputfile[curinput.indexfield], kpsetexformat))
             goto lab30;
         endfilereading();
-        promptfilename(942, 345);
+        fprintf(stderr, "Error opening file [%s], ext:%s\n", nameoffile+1, gettexstring(curext));
+        exit(1);
+        // promptfilename(942, 345);
     }
   lab30:curinput.namefield = amakenamestring(inputfile[curinput.indexfield]);
     sourcefilenamestack[inopen] = curinput.namefield;

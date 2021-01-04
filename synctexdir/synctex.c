@@ -298,10 +298,10 @@ static int fsyscp_remove(char *name);
 
 /*  This macro layer was added to take luatex into account as suggested by T. Hoekwater. */
 #   if !defined(SYNCTEX_GET_JOB_NAME)
-#       define SYNCTEX_GET_JOB_NAME() "tex-jobname"
+#       define SYNCTEX_GET_JOB_NAME() strdup("tex-jobname")
 #   endif
 #   if !defined(SYNCTEX_GET_LOG_NAME)
-#       define SYNCTEX_GET_LOG_NAME() "tex-logname"
+#       define SYNCTEX_GET_LOG_NAME() strdup("tex-logname")
 #   endif
 #   if !defined(SYNCTEX_CURRENT_TAG)
 #       define SYNCTEX_CURRENT_TAG (curinput.synctextagfield)

@@ -824,5 +824,7 @@ poolpointer makesrcspecial (strnumber srcfilename, int lineno);
 void remembersourceinfo (strnumber srcfilename, int lineno);
 void calledit (unsigned char *filename, poolpointer fnstart, int fnlength, int linenumber);
 
+char *gettexstring(int str);
+
 #include "my-pdftexcoerce.h"
 #endif /* MYTEXD_H */

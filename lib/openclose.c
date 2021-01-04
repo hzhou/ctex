@@ -191,6 +191,7 @@ recorder_record_output (const char * name)
 bool
 open_input (FILE **f_ptr, int filefmt, const char * fopen_mode)
 {
+    printf("open_input: [%s]...", nameoffile+1);
     char * fname = NULL;
 #ifdef FUNNY_CORE_DUMP
     /* This only applies if a preloaded TeX/Metafont is being made;
@@ -295,6 +296,11 @@ open_input (FILE **f_ptr, int filefmt, const char * fopen_mode)
         }
     }            
 
+    if (*f_ptr) {
+        printf(" ok\n");
+    } else {
+        printf(" not found\n");
+    }
     return *f_ptr != NULL;
 }
 
