@@ -1,5 +1,6 @@
 page: mykpse, -
     module: c
+    skiprun: 1
 
     $include stdio
 
@@ -29,6 +30,7 @@ fncode: mykpse_add_path(const char *dir)
             n_Paths++
 
 fncode: mykpse_find_file(const char *fname, const char *ext): char *
+    $print "mykpse_open_file: %s, ext=%s", fname, ext
     $include <unistd.h>
     # always search current dir
     $if n_Paths == 0

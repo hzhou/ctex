@@ -5,11 +5,11 @@ all: ctex
 
 # ---- pdftex ----------------------
 pdftex_OBJECTS = \
-    mykpse.o \
     synctexdir/synctex.o \
     my-pdftexini.o \
     my-pdftex0.o \
     my-pdftex-pool.o \
+    out/mykpse.o \
     out/texextra.o \
     out/ctex.o
 
@@ -19,11 +19,8 @@ pdftex_DEPS = \
     libmd5/libmd5.a \
     libxpdf/libxpdf.a
 
-ctex: $(pdftex_OBJECTS) $(pdftex_DEPS) ctex.def
+ctex: $(pdftex_OBJECTS) $(pdftex_DEPS)
 	$(CXX) -o ctex $(pdftex_OBJECTS) $(pdftex_DEPS) -lz -lpng -lm
-
-ctex.c: ctex.def
-	mydef_page -mc ctex.def
 
 # ----
 texextra.o: lib/texmfmp.c
@@ -48,6 +45,9 @@ clean:
 	find . -name '*.[oa]' |xargs rm -fv
 	rm -fv tangle tie web2c fixwrites splitup makecpool
 	rm -fv pdftex-final.ch output/*
+
+out/%.c: def/%.def
+	mydef_page -mc $<
 
 %.o: %.c
 	$(CC) -c -o $@ $<

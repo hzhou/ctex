@@ -1,4 +1,4 @@
-CC = gcc
+CC = gcc -g
 
 all: lib.a
 
