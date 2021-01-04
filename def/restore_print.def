@@ -1,0 +1,56 @@
+page: t
+    module: perl
+
+    my $c_file="my-pdftex0.c"
+    my $pool_file="my-pdftex-pool.c"
+
+    $call load_pool
+    $call filter_pdftex0
+
+subcode: load_pool
+    my $stage
+    my @str_list
+    $for $i=0:256
+        push @str_list, chr($i)
+    &call open_r, $pool_file
+        $if /^static .*\*\s*poolfilearr\b.*=\s*\{/
+            $stage = 1
+        $elif $stage and /^\s*(".*")/ -> $s
+            push @str_list, $s
+        $else
+            undef $stage
+
+    my $n = @str_list
+    $print Loaded $n strings
+
+subcode: filter_pdftex0
+    my @lines
+    my $count
+    &call open_r, $c_file
+        $if /^(\s+)printchar\((\d+)\);\s*$/ -> $sp, $c
+            $count++
+            $if $c<32 or $c > 127
+                $warn "printchar - $c?\n"
+            $else
+                $if $c == 39
+                    $warn "single quote!"
+                    $_ = $sp."printchar('\\'');\n"
+                $else
+                    $_ = $sp."printchar('".chr($c)."');\n"
+        $elif /^(\s+)(print|printnl|printesc)\((\d+)\);\s*$/ -> $sp, $fn, $c
+            $count++
+            my $s
+            $if $c >= 32 and $c <127
+                $s = "\"".chr($c)."\""
+            $elif $c <256 or $c >= $n
+                $warn "Wrong string number $c!\n"
+            $else
+                $s = $str_list[$c]
+            $_ = "$sp$fn($c); /* $s */\n"
+        push @lines, $_
+    $if $count
+        $print Filtered $count lines
+
+    &call open_w, $c_file
+        $foreach @lines
+            print Out $_
