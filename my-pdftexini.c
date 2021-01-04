@@ -642,55 +642,36 @@ bool getstringsstarted(void)
     strptr = 0;
     strstart[0] = 0;
     {
-        register int for_end;
-        k = 0;
-        for_end = 255;
-        if (k <= for_end)
-            do {
-                if (((k < 32) || (k > 126))) {
-                    {
-                        strpool[poolptr] = 94;
-                        incr(poolptr);
-                    }
-                    {
-                        strpool[poolptr] = 94;
-                        incr(poolptr);
-                    }
-                    if (k < 64) {
-                        strpool[poolptr] = k + 64;
-                        incr(poolptr);
-                    } else if (k < 128) {
-                        strpool[poolptr] = k - 64;
-                        incr(poolptr);
-                    } else {
-
-                        l = k / 16;
-                        if (l < 10) {
-                            strpool[poolptr] = l + 48;
-                            incr(poolptr);
-                        } else {
-
-                            strpool[poolptr] = l + 87;
-                            incr(poolptr);
-                        }
-                        l = k % 16;
-                        if (l < 10) {
-                            strpool[poolptr] = l + 48;
-                            incr(poolptr);
-                        } else {
-
-                            strpool[poolptr] = l + 87;
-                            incr(poolptr);
-                        }
-                    }
+        for (k = 0; k < 256; k++) {
+            if (((k < 32) || (k > 126))) {
+                strpool[poolptr++] = '^';
+                strpool[poolptr++] = '^';
+                if (k < 32) {
+                    /* ^^A - ^^_ */
+                    strpool[poolptr++] = k + 64;
+                } else if (k == 127) {
+                    /* ^^? */
+                    strpool[poolptr++] = k - 64;
                 } else {
-
-                    strpool[poolptr] = k;
-                    incr(poolptr);
+                    /* ^^xx */
+                    l = k / 16;
+                    if (l < 10) {
+                        strpool[poolptr++] = l + 48;
+                    } else {
+                        strpool[poolptr++] = l + 87;
+                    }
+                    l = k % 16;
+                    if (l < 10) {
+                        strpool[poolptr++] = l + 48;
+                    } else {
+                        strpool[poolptr++] = l + 87;
+                    }
                 }
-                g = makestring();
+            } else {
+                strpool[poolptr++] = k;
             }
-            while (k++ < for_end);
+            g = makestring();
+        }
     }
     g = loadpoolstrings((poolsize - stringvacancies));
     if (g == 0) {
